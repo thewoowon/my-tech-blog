@@ -5,3 +5,14 @@ export type PostType = {
   slug: string;
   title: string;
 };
+
+
+export interface IPost {
+  slug:string;
+  date:string;
+  thumbnail:string;
+  title:string;
+  description:string;
+  prerequisites:string[];
+  stacks:string[];
+}
