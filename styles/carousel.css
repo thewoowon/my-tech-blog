@@ -1,0 +1,22 @@
+.my-swiper{
+    width: 100%;
+    height:480px;
+}
+
+.swiper-slide{
+    width: auto !important;
+
+}
+:root{
+    --swiper-theme-color:white !important;
+    --swiper-pagination-bullet-inactive-color:#ffffff !important;
+    --swiper-pagination-bullet-width:10px !important;
+    --swiper-pagination-bullet-size:10px !important;
+}
+
+.swiper-button-prev{
+    color: white;
+}
+.swiper-button-next{
+    color: white;
+}
