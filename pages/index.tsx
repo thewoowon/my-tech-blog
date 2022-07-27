@@ -24,16 +24,20 @@ const Home: NextPage<Props> = ({posts}:Props) => {
               posts.map((post,i) => (
               <div key={post.slug}>
                 <div className="flex">
-                  <div className="w-9/12">
-                    <h2 className="text-2xl font-bold mb-4">
-                      <Link href={`/posts/${post.slug}`}>
-                        <a>{post.title}</a>
-                      </Link>
-                    </h2>
-                    <p>{post.description}</p>
-                    <div className="flex">
-                      <div>{post.date}</div>
-                      <div>{post.writer}</div>
+                  <div className="w-9/12 pr-4">
+                    <div className="flex h-10">
+                      <h2 className="text-2xl font-bold mb-4" style={{color:"rgba(234,88,12,1)"}}>
+                        <Link href={`/posts/${post.slug}`}>
+                          <a>{post.title}</a>
+                        </Link>
+                      </h2>
+                    </div>
+                    <div className="flex h-16">
+                      <p>{post.description}</p>
+                    </div>
+                    <div className="flex h-8">
+                      <div className="text-sm mr-2">{post.date}</div>
+                      <div className="text-sm">{post.writer}</div>
                     </div>
                   </div>
                   <div className="w-3/12">
@@ -70,7 +74,8 @@ export const getStaticProps: GetStaticProps = async () => {
     'slug',
     'date',
     'description',
-    'thumbnail'
+    'thumbnail',
+    'writer'
   ]);
 
   // retunr the posts props
