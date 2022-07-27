@@ -1,11 +1,11 @@
 import type { NextPage,GetStaticProps } from 'next'
-import styles from '../styles/Home.module.css'
 import Layout from '../components/Layout';
 import Slider from '../components/Slider';
 import Thumbnail from '../components/Thumbnail';
 import { IPost } from '../types/post';
 import { getAllPosts } from '../utils/mdxUtils';
 import Link from 'next/link';
+import { workerData } from 'worker_threads';
 
 
 type Props = {
@@ -18,35 +18,34 @@ const Home: NextPage<Props> = ({posts}:Props) => {
         <div>
           <Slider></Slider>
         </div>
-        <div>
-      <h1 className="text-4xl font-bold mb-4">Technical articles</h1>
-
-      <div className="space-y-12">
-        {posts.map((post) => (
-          <div key={post.slug}>
-            <div className="mb-4">
-              <Thumbnail
-                slug={post.slug}
-                title={post.title}
-                src={post.thumbnail}
-              />
-            </div>
-
-            <h2 className="text-2xl font-bold mb-4">
-              <Link href={`/posts/${post.slug}`}>
-                <a>{post.title}</a>
-              </Link>
-            </h2>
-
-            <p>{post.description}</p>
+        <div className="m-auto" style={{width:"800px"}}>
+          <div className="space-y-12 mt-12 mb-12">
+            {
+              posts.map((post,i) => (
+              <div key={post.slug} className="flex">
+                <div className="w-9/12">
+                  <h2 className="text-2xl font-bold mb-4">
+                    <Link href={`/posts/${post.slug}`}>
+                      <a>{post.title}</a>
+                    </Link>
+                  </h2>
+                  <p>{post.description}</p>
+                </div>
+                <div className="w-3/12">
+                  <Thumbnail
+                    slug={post.slug}
+                    title={post.title}
+                    src={post.thumbnail}
+                  />
+                </div>
+                <div>
+                  <hr></hr>
+                </div>
+              </div>
+              ))
+            }
           </div>
-        ))}
-      </div>
-    </div>
-
-        <footer className={styles.footer}>
-
-        </footer>
+        </div>
     </Layout>
   )
 }
