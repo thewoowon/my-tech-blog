@@ -26,7 +26,7 @@ const Home: NextPage<Props> = ({posts}:Props) => {
                 <div className="flex">
                   <div className="w-9/12 pr-4">
                     <div className="flex h-10">
-                      <h2 className="text-2xl font-bold mb-4" style={{color:"rgba(234,88,12,1)"}}>
+                      <h2 className="text-2xl font-bold mb-4" style={{color:"rgba(0,141,178,1)"}}>
                         <Link href={`/posts/${post.slug}`}>
                           <a>{post.title}</a>
                         </Link>
