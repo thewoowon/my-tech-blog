@@ -29,7 +29,7 @@ const Layout = ({ children, customMeta }: LayoutProps): JSX.Element => {
       <main>
         <div className="max-w-full">{children}</div>
       </main>
-      <footer className="py-8 bg-black h-100">
+      <footer className="py-8 bg-orange-600 h-96">
           
       </footer>
     </>
