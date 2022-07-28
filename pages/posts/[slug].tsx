@@ -13,12 +13,14 @@ import Layout from '../../components/Layout';
 import React from 'react';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import rehypeSlug from 'rehype-slug';
+
 import { format, parseISO } from 'date-fns';
+import Image from 'next/image';
 
 // props type
 type Props = {
     source: MDXRemoteSerializeResult,
-    frontMatter: Omit<IPost, 'slug'>;
+    frontMatter: IPost;
 }
 
 // components to render
@@ -45,22 +47,24 @@ const PostPage = ({ source, frontMatter }: Props):JSX.Element => {
     ]);
 
     return (
-        <Layout>
-            <article className="max-w-5xl px-8 py-4 mx-auto">
-                <h1 className="mb-3 text-gray-900 dark:text-white">
-                    {frontMatter.title}
-                </h1>
-                <p className="mb-10 text-sm text-gray-500 dark:text-gray-400">
-                    {format(parseISO(frontMatter.date), 'MMMM dd, yyyy')}
-                </p>
-                <p className="mb-10 text-sm text-gray-500 dark:text-gray-400">
-                    {frontMatter.description}
-                </p>
-                <div className="prose prose-green">
-                    <MDXRemote components={components} {...source} />
-                </div>            
-            </article>
-        </Layout>
+        <React.Fragment>
+            <Layout>
+                <article className="max-w-5xl px-8 py-4 mx-auto">
+                    <h1 className="mb-3 text-gray-900 dark:text-white">
+                        {frontMatter.title}
+                    </h1>
+                    <p className="mb-10 text-sm text-gray-500 dark:text-gray-400">
+                        {format(parseISO(frontMatter.date), 'MMMM dd, yyyy')}
+                    </p>
+                    <p className="mb-10 text-sm text-gray-500 dark:text-gray-400">
+                        {frontMatter.description}
+                    </p>
+                    <div className="prose prose-green">
+                        <MDXRemote components={components} {...source} />
+                    </div>            
+                </article>
+            </Layout>
+        </React.Fragment>
     )
 }
 
@@ -83,15 +87,6 @@ export const getStaticProps: GetStaticProps = async (context) => {
         },
         scope: data 
     });
-    // console.log("content 시작");
-    // console.log(content);
-    // console.log("content 끝");
-    // console.log("data 시작");
-    // console.log(data);
-    // console.log("data 끝");
-    // console.log("mdxSource 시작");
-    // console.log(mdxSource);
-    // console.log("mdxSource 끝");
     return {
         props: {
             source: mdxSource,

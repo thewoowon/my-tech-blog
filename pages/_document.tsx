@@ -4,7 +4,12 @@ class MyDocument extends Document {
   render(): JSX.Element {
     return (
       <Html lang="en">
-        <Head />
+        <Head>
+          <link
+              rel="stylesheet"
+              href="https://unpkg.com/dracula-prism/dist/css/dracula-prism.css"
+            ></link>
+        </Head>
         <body className="bg-white dark:bg-black text-gray-900 dark:text-white">
           <Main />
           <NextScript />
