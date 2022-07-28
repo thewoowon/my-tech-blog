@@ -21,7 +21,7 @@ type Props = {
 
 const MdxComponentsContext = createContext({} as ContextProps);
 
-export function MdxComponentsProvider({ children }: Props): ReactElement {
+export function MdxComponentsProvider({ children }: Props): JSX.Element {
     const [prerequisites, setPrerequisites] = useState < string[] > ([]);
     const [stacks, setStacks] = useState < string[] > ([]);
 

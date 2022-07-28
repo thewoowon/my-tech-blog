@@ -7,9 +7,9 @@ import 'swiper/css/scrollbar';
 import 'swiper/css/autoplay';
 import React from 'react';
 import Image from 'next/image';
-import Preview1 from '../images/carousel/ubcare_preview1.png';
-import Preview2 from '../images/carousel/ubcare_preview2.png';
-import Preview3 from '../images/carousel/ubcare_preview3.png';
+import Preview1 from '../images/carousel/ubtech_preview1_new.png';
+import Preview2 from '../images/carousel/ubtech_preview2_new.png';
+import Preview3 from '../images/carousel/ubtech_preview3_new.png';
 
 
 const Slider = (): JSX.Element => {

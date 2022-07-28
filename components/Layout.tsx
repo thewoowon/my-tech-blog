@@ -18,17 +18,19 @@ const Layout = ({ children, customMeta }: LayoutProps): JSX.Element => {
     <>
       <Head customMeta={customMeta} />
       <header>
-        <div className="max-w-5xl px-8 mx-auto relative">
-          <div className="absolute" style={{top:"5px"}}>
-            <Image src={Logo} width={200} height={100} alt={"logo"}></Image>
+        <div className="max-w-5xl px-8 mx-auto flex">
+          <div className="w-3/12 flex" style={{alignItems:"center"}}>
+            <Link href={"/"}>
+              <a style={{fontSize:"30px",fontWeight:"bold",color:"orange"}}>UBCARE TECH BLOG</a>
+            </Link>
           </div>
-          <div className="flex items-center justify-end py-6">
+          <div className="w-9/12 flex items-center justify-end py-6">
             <Navigation />
           </div>
         </div>
       </header>
       <main>
-        <div className="max-w-full">{children}</div>
+        <div>{children}</div>
       </main>
       <footer className="py-8 h-96" style={{backgroundColor:"rgba(255,137,25,1)"}}>
         <div className="m-auto w-2/5 h-full">
