@@ -16,6 +16,9 @@ const Home: NextPage<Props> = ({posts}:Props) => {
         <div>
           <Slider></Slider>
         </div>
+        <div>
+          
+        </div>
         <div className="m-auto" style={{width:"800px"}}>
           <div className="space-y-12 mt-12 mb-12">
             {
