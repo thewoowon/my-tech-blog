@@ -2,9 +2,8 @@ import React from 'react';
 import { MetaProps } from '../types/layout';
 import Head from './Head';
 import Navigation from './Navigation';
-import Image from 'next/image';
-import Logo from '../images/logo/ubcare_tech_logo.png';
 import Link from 'next/link';
+import Image from 'next/image';
 
 type LayoutProps = {
   children: React.ReactNode;
@@ -17,7 +16,7 @@ const Layout = ({ children, customMeta }: LayoutProps): JSX.Element => {
   return (
     <>
       <Head customMeta={customMeta} />
-      <header>
+      <header className="fixed top-0 z-50 w-full bg-white border-b-2 border-b-gray-300">
         <div className="max-w-5xl px-8 mx-auto flex">
           <div className="w-3/12 flex" style={{alignItems:"center"}}>
             <Link href={"/"}>
@@ -29,54 +28,21 @@ const Layout = ({ children, customMeta }: LayoutProps): JSX.Element => {
           </div>
         </div>
       </header>
-      <main>
+      <main style={{paddingTop:"110px"}}>
         <div>{children}</div>
       </main>
-      <footer className="py-8 h-96" style={{backgroundColor:"rgba(255,137,25,1)"}}>
+      <footer className="py-8 h-72" style={{backgroundColor:"rgba(247,247,247,1)"}}>
         <div className="m-auto w-2/5 h-full">
-        <div className="h-1/4">
-            <p className="text-white text-2xl text-center">UBCARE TECH</p>
-          </div>
-          <div className="h-2/4 flex">
-            <div className="w-3/6">
-              <div>
-                <p className="text-white text-center">SITE MAP</p>
-              </div>
-              <div>
-                <div className="text-center">
-                  <Link href={"https://www.ubcare.co.kr/"}>
-                    <a className="text-white">
-                      공식 홈페이지
-                    </a>
-                  </Link>
-                </div>
-                <div className="text-center">
-                  <Link href={"https://www.misomall.com/"}>
-                    <a className="text-white">
-                      미소몰 닷컴
-                    </a>
-                  </Link>
-                </div>
-                <div className="text-center">
-                  <Link href={"https://www.ubcare.co.kr/BBS/41/Recruit"}>
-                    <a className="text-white">
-                      채용
-                    </a>
-                  </Link>
-                </div>
-              </div>
-            </div>
-            <div  className="w-3/6">
-              <div>
-                <p className="text-white text-center">CONTACT</p>
-              </div>
-              <div>
-                <p className="text-white text-center">thewoowon@ubcare.co.kr</p>
-              </div>
-            </div>
-          </div>
           <div className="h-1/4">
-            <p className="text-white text-center">UBCARE. ALL RIGHTS RESERVED. POWERED BY VERCEL</p>
+            <p className="text-2xl text-center font-bold" style={{color:"rgba(234,88,12,1)"}}>UBCARE TECH</p>
+          </div>
+          <div className="h-2/4 flex items-center justify-center">
+            <Image src={"/assets/gc_care.png"} width={100} height={50}></Image>
+            <Image src={"/assets/bbros.png"} width={200} height={100}></Image>
+            <Image src={"/assets/hecton.png"} width={100} height={50}></Image>
+          </div>
+          <div className="h-1/4 border-t-2 flex justify-center items-center">
+            <p className="text-black text-center text-xs" style={{color:"rgba(200,200,200,1)"}}>UBCARE. ALL RIGHTS RESERVED. POWERED BY VERCEL</p>
           </div>
         </div>
       </footer>

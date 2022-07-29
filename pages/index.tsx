@@ -5,8 +5,6 @@ import Thumbnail from '../components/Thumbnail';
 import { IPost } from '../types/post';
 import { getAllPosts } from '../utils/mdxUtils';
 import Link from 'next/link';
-import { workerData } from 'worker_threads';
-
 
 type Props = {
   posts:[IPost]

@@ -1,5 +1,4 @@
 import Highlight, { defaultProps } from "prism-react-renderer";
-import { ReactNode } from "react";
 
 type HighLightProps = {
     children: React.ReactNode;

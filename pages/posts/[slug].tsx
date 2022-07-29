@@ -3,7 +3,6 @@ import { GetStaticProps, GetStaticPaths } from 'next';
 import { useEffect } from 'react';
 import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote';
 import { useMdxComponentsContext } from '../../context/mdxContext';
-import Thumbnail from '../../components/Thumbnail';
 import { IPost } from '../../types/post';
 import { getPost, getAllPosts } from '../../utils/mdxUtils';
 import Prerequisites from '../../components/Prerequisites';
@@ -13,9 +12,13 @@ import Layout from '../../components/Layout';
 import React from 'react';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import rehypeSlug from 'rehype-slug';
-
+//import mdxPrism from 'mdx-prism';
 import { format, parseISO } from 'date-fns';
-import Image from 'next/image';
+import Prism from 'prismjs';
+import 'prismjs/components/prism-typescript.min';
+import 'prismjs/components/prism-jsx.min';
+import 'prismjs/components/prism-tsx.min';
+
 
 // props type
 type Props = {
@@ -30,7 +33,9 @@ const components = {
 }
 
 const PostPage = ({ source, frontMatter }: Props):JSX.Element => {
-
+    useEffect(() => {
+        Prism.highlightAll();
+    }, []);
     // get setters
     const { setPrerequisites, setStacks } = useMdxComponentsContext();
 
