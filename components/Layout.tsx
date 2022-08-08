@@ -20,10 +20,10 @@ const Layout = ({ children, customMeta }: LayoutProps): JSX.Element => {
         <div className="max-w-5xl px-8 mx-auto flex">
           <div className="w-3/12 flex" style={{alignItems:"center"}}>
             <Link href={"/"}>
-              <a style={{fontSize:"30px",fontWeight:"bold",color:"#ff7f00",lineHeight:"32px"}}>UBCARE<br></br> TECH<br></br>BLOG</a>
+              <a style={{fontSize:"30px",fontWeight:"bold",color:"#ff7f00",lineHeight:"32px"}}>UBCARE<br></br>TECH</a>
             </Link>
           </div>
-          <div className="w-9/12 flex items-center justify-end py-6">
+          <div className="w-9/12 flex items-center justify-end py-3">
             <Navigation />
           </div>
         </div>

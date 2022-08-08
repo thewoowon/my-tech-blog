@@ -5,6 +5,7 @@ import Thumbnail from '../components/Thumbnail';
 import { IPost } from '../types/post';
 import { getAllPosts } from '../utils/mdxUtils';
 import Link from 'next/link';
+import { MDXProvider } from '@mdx-js/react'
 
 type Props = {
   posts:[IPost]
