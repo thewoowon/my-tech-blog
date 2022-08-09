@@ -54,11 +54,12 @@ const PostPage = ({ source, frontMatter }: Props):JSX.Element => {
     return (
         <React.Fragment>
             <Layout>
-                <div className="bg-gray-100">
+                <div style={{"borderBottom":"2px solid rgba(180,180,180,1)"}}>
                     <div className="max-w-5xl px-8 py-4 mx-auto">
-                        <div>
-                            {/* tag map() 반복문 부분 */}
-                            
+                        <div className="flex justify-start items-center mb-2">
+                            <button className="tag-button">RN</button>
+                            <button className="tag-button">React</button>
+                            <button className="tag-button">IOS</button>
                         </div>
                         <h1 className="mb-3 text-gray-600 dark:text-white">
                             {frontMatter.title}
@@ -68,7 +69,7 @@ const PostPage = ({ source, frontMatter }: Props):JSX.Element => {
                         </p>
                     </div>
                 </div>
-                <article className="max-w-5xl px-8 py-4 mx-auto">
+                <article className="max-w-4xl px-8 py-4 mx-auto">
                     <div className="prose prose-green">
                         <MDXRemote components={components} {...source} />
                     </div>            
