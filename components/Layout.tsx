@@ -37,7 +37,7 @@ const Layout = ({ children, customMeta }: LayoutProps): JSX.Element => {
       <footer className="py-8 h-72" style={{backgroundColor:"rgba(247,247,247,1)"}}>
         <div className="m-auto w-2/5 h-full">
           <div className="h-1/4">
-            <p className="text-2xl text-center font-bold" style={{color:"rgba(234,88,12,1)"}}>UBcare 기술블로그</p>
+            <p className="text-2xl text-center font-bold" style={{color:"#ff7f00"}}>UBcare 기술 블로그</p>
           </div>
           <div className="h-2/4 flex items-center justify-center">
             <Image src={"/assets/gc_care.png"} width={100} height={50}></Image>
