@@ -21,7 +21,8 @@ const Slider = (): JSX.Element => {
           slidesPerView={"auto"}
           centeredSlides={true}
           navigation
-          
+          autoplay={{delay:4000,
+            disableOnInteraction:false}}
           pagination={{ clickable: true }}
           onSlideChange={() => console.log('slide change')}
           onSwiper={(swiper) => console.log(swiper)}

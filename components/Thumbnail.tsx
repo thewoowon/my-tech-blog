@@ -17,7 +17,7 @@ const Thumbnail = ({ title, src, slug}: Props):JSX.Element => {
   // Add the Thumbnail cover image
     const image = (
         <Image
-        height={225}
+        height={300}
         width={400}
         src={src}
         alt={`Thumbnail cover image ${title}`}

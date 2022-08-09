@@ -17,26 +17,29 @@ const Home: NextPage<Props> = ({posts}:Props) => {
         <div>
           <Slider></Slider>
         </div>
-        <div className="m-auto" style={{width:"800px"}}>
-          <div className="space-y-12 mt-12 mb-12">
+        <div className="m-auto flex" style={{width:"1024px"}}>
+          <div className="space-y-12 mt-12 mb-12 w-8/12">
             {
               posts.map((post,i) => (
               <div key={post.slug}>
                 <div className="flex">
                   <div className="w-9/12 pr-4">
-                    <div className="flex h-16">
-                      <h2 className="text-3xl font-bold mb-4 text-gray-800">
-                        <Link href={`/posts/${post.slug}`}>
-                          <a>{post.title}</a>
-                        </Link>
+                    <div className="flex justify-start items-center mb-2">
+                      <button className="tag-button">RN</button>
+                      <button className="tag-button">React</button>
+                      <button className="tag-button">IOS</button>
+                    </div>
+                    <div className="flex">
+                      <h2 className="text-4xl font-bold m-0 text-gray-800">
+                        <Link href={`/posts/${post.slug}`}><a>{post.title}</a></Link>
                       </h2>
                     </div>
-                    <div className="flex h-16">
+                    <div className="flex">
                       <p>{post.description}</p>
                     </div>
-                    <div className="flex h-8">
-                      <div className="text-sm mr-2">{post.date}</div>
-                      <div className="text-sm">{post.writer}</div>
+                    <div className="flex items-center">
+                      <div className="text-sm mr-2" style={{"fontWeight":"bold"}}>{post.date}</div>
+                      <div className="text-sm">- {post.writer}</div>
                     </div>
                   </div>
                   <div className="w-3/12">
@@ -59,6 +62,24 @@ const Home: NextPage<Props> = ({posts}:Props) => {
               
               ))
             }
+          </div>
+          <div className="mt-12 mb-12 w-4/12 latest-wrap">
+            {/* 최근 글 10가지 */}
+            <div className="flex justify-center items-center">
+              <h3>최근 인기 글</h3>
+            </div>
+            <ul className="latest-list m-auto">
+              <li><Link href={`posts/${1}`}><a>1. React Native 사용기 #1</a></Link></li>
+              <li><Link href={`posts/${2}`}><a>2. SQL - Four Part Naming의 함정</a></Link></li>
+              <li><Link href={`posts/${3}`}><a>3. 실시간 데이터베이스 사용기 (Firebase) 1탄</a></Link></li>
+              <li><Link href={`posts/${4}`}><a>4. 실시간 데이터베이스 사용기 (Firebase) 2탄</a></Link></li>
+              <li><Link href={`posts/${5}`}><a>5. Dev Trend 2019 by StackOverflow</a></Link></li>
+              <li><Link href={`posts/${6}`}><a>6. Hello Anko!! - 1탄</a></Link></li>
+              <li><Link href={`posts/${7}`}><a>7. [SQL SERVER] Lock - 01.DeadLock</a></Link></li> 
+              <li><Link href={`posts/${8}`}><a>8. Hello Anko!! - 2탄</a></Link></li>
+              <li><Link href={`posts/${9}`}><a>9. CSS Transform 3D - Part1</a></Link></li>
+              <li><Link href={`posts/${10}`}><a>10. SSMS 소소한 팁!!</a></Link></li>
+            </ul>
           </div>
         </div>
     </Layout>
