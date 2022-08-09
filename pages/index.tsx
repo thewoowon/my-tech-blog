@@ -17,9 +17,6 @@ const Home: NextPage<Props> = ({posts}:Props) => {
         <div>
           <Slider></Slider>
         </div>
-        <div>
-          
-        </div>
         <div className="m-auto" style={{width:"800px"}}>
           <div className="space-y-12 mt-12 mb-12">
             {
@@ -27,8 +24,8 @@ const Home: NextPage<Props> = ({posts}:Props) => {
               <div key={post.slug}>
                 <div className="flex">
                   <div className="w-9/12 pr-4">
-                    <div className="flex h-10">
-                      <h2 className="text-2xl font-bold mb-4" style={{color:"rgba(0,141,178,1)"}}>
+                    <div className="flex h-16">
+                      <h2 className="text-3xl font-bold mb-4 text-gray-800">
                         <Link href={`/posts/${post.slug}`}>
                           <a>{post.title}</a>
                         </Link>

@@ -54,16 +54,21 @@ const PostPage = ({ source, frontMatter }: Props):JSX.Element => {
     return (
         <React.Fragment>
             <Layout>
+                <div className="bg-gray-100">
+                    <div className="max-w-5xl px-8 py-4 mx-auto">
+                        <div>
+                            {/* tag map() 반복문 부분 */}
+                            
+                        </div>
+                        <h1 className="mb-3 text-gray-600 dark:text-white">
+                            {frontMatter.title}
+                        </h1>
+                        <p className="mb-10 text-sm text-gray-800 dark:text-gray-400">
+                            {format(parseISO(frontMatter.date), 'MMMM dd, yyyy')} - {frontMatter.writer}
+                        </p>
+                    </div>
+                </div>
                 <article className="max-w-5xl px-8 py-4 mx-auto">
-                    <h1 className="mb-3 text-gray-900 dark:text-white">
-                        {frontMatter.title}
-                    </h1>
-                    <p className="mb-10 text-sm text-gray-500 dark:text-gray-400">
-                        {format(parseISO(frontMatter.date), 'MMMM dd, yyyy')}
-                    </p>
-                    <p className="mb-10 text-sm text-gray-500 dark:text-gray-400">
-                        {frontMatter.description}
-                    </p>
                     <div className="prose prose-green">
                         <MDXRemote components={components} {...source} />
                     </div>            
