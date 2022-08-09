@@ -42,7 +42,7 @@ const Home: NextPage<Props> = ({posts}:Props) => {
                       <div className="text-sm">- {post.writer}</div>
                     </div>
                   </div>
-                  <div className="w-3/12">
+                  <div className="w-3/12 pt-6">
                     <Thumbnail
                       slug={post.slug}
                       title={post.title}

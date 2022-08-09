@@ -33,12 +33,12 @@ const Thumbnail = ({ title, src, slug}: Props):JSX.Element => {
                 slug ? 
                 (
                     <Link href={`/posts/${slug}`}>
-                    <a aria-label={title}>{image}</a>
+                        <a aria-label={title}>{image}</a>
                     </Link>
                 ) 
                 :
                 (
-                    <div style={{width:"400px", height:"225px"}}>
+                    <div style={{width:"400px", height:"300px"}}>
                         {image}
                     </div>
                 )
