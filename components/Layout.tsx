@@ -16,7 +16,7 @@ const Layout = ({ children, customMeta }: LayoutProps): JSX.Element => {
   return (
     <>
       <Head customMeta={customMeta} />
-      <header className="fixed top-0 z-50 w-full bg-white border-b-1 border-b-gray-200">
+      <header className="fixed top-0 z-50 w-full bg-white" style={{"borderBottom":"1px solid rgba(200,200,200,0.5)"}}>
         <div className="max-w-5xl px-8 mx-auto flex">
           <div className="w-6/12 flex" style={{alignItems:"center"}}>
             <Link href={"/"}>
@@ -37,7 +37,10 @@ const Layout = ({ children, customMeta }: LayoutProps): JSX.Element => {
       <footer className="py-8 h-72" style={{backgroundColor:"rgba(247,247,247,1)"}}>
         <div className="m-auto w-2/5 h-full">
           <div className="h-1/4">
-            <p className="text-2xl text-center font-bold" style={{color:"rgba(234,88,12,1)"}}>UBcare 기술블로그</p>
+            <p style={{fontSize:"28px",fontWeight:"bold",color:"#ff7f00",lineHeight:"28px",textAlign:"center"}}>
+              UBcare
+              <span style={{fontSize:"18px",fontWeight:"bold",lineHeight:"18px"}} className="text-gray-800"> 기술 블로그</span>
+            </p>
           </div>
           <div className="h-2/4 flex items-center justify-center">
             <Image src={"/assets/gc_care.png"} width={100} height={50}></Image>
