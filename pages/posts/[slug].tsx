@@ -22,6 +22,10 @@ import Prism from 'prismjs';
 import 'prismjs/components/prism-typescript.min';
 import 'prismjs/components/prism-jsx.min';
 import 'prismjs/components/prism-tsx.min';
+import { YouTube } from 'mdx-embed';
+
+import Image from 'next/image';
+import techLogo from '../../images/logo/face.png';
 
 
 // props type
@@ -76,7 +80,20 @@ const PostPage = ({ source, frontMatter }: Props):JSX.Element => {
                 <article className="max-w-4xl px-8 py-4 mx-auto">
                     <div className="prose prose-green">
                         <MDXRemote components={components} {...source} />
-                    </div>            
+                        <div className="user-wrap flex items-center">
+                            <div className="w-4/12 h-full flex justify-center items-center">
+                                <Image src={techLogo} alt="logo" width={150} height={150} style={{borderRadius:"50%",objectFit:"fill"}}></Image>
+                            </div>
+                            <div className="w-8/12 h-full"> 
+                                <div className="h-3/6 flex items-center pl-5 pr-12" style={{"fontFamily":"Noto_Sans"}}>
+                                    <h4>홍길동 / 매니저 </h4>
+                                </div>
+                                <div className="h-3/6 flex items-start pl-5 pr-12" style={{"fontFamily":"Noto_Sans"}}>
+                                    안녕하세요. 저는 유비케어에서 OOOO 부서에서 근무하고 있습니다. 함께 성장하는 문화를 가꾸어 가고 싶습니다!
+                                </div>
+                            </div>
+                        </div>
+                    </div>        
                 </article>
             </Layout>
         </React.Fragment>

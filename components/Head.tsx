@@ -8,7 +8,7 @@ export const WEBSITE_HOST_URL = 'https://ubtech.vercel.app';
 const Head = ({ customMeta }: { customMeta?: MetaProps }): JSX.Element => {
   const router = useRouter();
   const meta: MetaProps = {
-    title: 'UBCARE TECH BLOG',
+    title: '유비케어 기술 블로그, 유비테크',
     description:
       'Value creation for sustainable life',
     image: `${WEBSITE_HOST_URL}/images/ubTech_Blog_Preview.png`,

@@ -5,13 +5,16 @@ import '../styles/util.css';
 import { MdxComponentsProvider } from '../context/mdxContext';
 import 'prismjs/themes/prism-tomorrow.css';
 import '../public/static/fonts/style.css';
-
+import { MDXProvider } from '@mdx-js/react'
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <MdxComponentsProvider>
-      <Component {...pageProps} />
-    </MdxComponentsProvider>
+    
+      <MdxComponentsProvider>
+        <MDXProvider>
+           <Component {...pageProps} />
+        </MDXProvider>
+      </MdxComponentsProvider>
   )
 }
 

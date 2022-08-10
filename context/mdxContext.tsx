@@ -8,6 +8,9 @@ import {
     SetStateAction,
 } from 'react';
 
+import { YouTube } from 'mdx-embed';
+
+
 type ContextProps = {
     prerequisites: string[];
     setPrerequisites: Dispatch<SetStateAction<string[]>>;

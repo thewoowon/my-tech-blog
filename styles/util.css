@@ -12,6 +12,17 @@
     margin-left: 20px;
 }
 
+.user-wrap{
+    background-color: white;
+    border-radius: 20px;
+    box-shadow: 3px 3px 3px 0 rgb(0 0 0 / 10%);
+    height: 250px;
+    width: 80%;
+    margin: auto;
+    margin-top: 100px;
+    margin-bottom: 100px;
+}
+
 .latest-list li:last-child{
     border-bottom: 0px;
 }

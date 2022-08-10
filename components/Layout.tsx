@@ -34,7 +34,7 @@ const Layout = ({ children, customMeta }: LayoutProps): JSX.Element => {
       <main style={{paddingTop:"60px"}}>
         <div>{children}</div>
       </main>
-      <footer className="py-8 h-72" style={{borderTop:"1px solid rgba(200,200,200,0.5)"}}>
+      <footer className="py-8 h-96" style={{borderTop:"1px solid rgba(200,200,200,0.5)",backgroundColor:"#f9fafb"}}>
         <div className="m-auto w-2/5 h-full">
           <div className="h-1/4">
             <p style={{fontSize:"28px",fontWeight:"bold",color:"#ff7f00",lineHeight:"28px",textAlign:"center",fontFamily:"Noto_Sans"}}>
