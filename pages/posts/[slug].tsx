@@ -12,6 +12,10 @@ import Layout from '../../components/Layout';
 import React from 'react';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import rehypeSlug from 'rehype-slug';
+import remarkPrism from 'remark-prism';
+import remarkGfm from 'remark-gfm';
+import remarkFrontmatter from 'remark-frontmatter';
+import remarkMath from 'remark-math';
 //import mdxPrism from 'mdx-prism';
 import { format, parseISO } from 'date-fns';
 import Prism from 'prismjs';
@@ -61,10 +65,10 @@ const PostPage = ({ source, frontMatter }: Props):JSX.Element => {
                             <button className="tag-button">React</button>
                             <button className="tag-button">IOS</button>
                         </div>
-                        <h1 className="mb-3 text-gray-600 dark:text-white">
+                        <h1 className="mb-3 text-gray-600 dark:text-white" style={{fontFamily:"Noto_Sans"}}>
                             {frontMatter.title}
                         </h1>
-                        <p className="mb-10 text-sm text-gray-800 dark:text-gray-400">
+                        <p className="mb-10 text-sm text-gray-800 dark:text-gray-400" style={{fontFamily:"Noto_Sans"}}>
                             {format(parseISO(frontMatter.date), 'MMMM dd, yyyy')} - {frontMatter.writer}
                         </p>
                     </div>
@@ -93,7 +97,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
     // serialize the data on the server side
     const mdxSource = await serialize(content, { 
         mdxOptions:{
-            remarkPlugins:[require('remark-code-titles')],
+            remarkPlugins:[require('remark-code-titles'),remarkPrism,remarkGfm,remarkMath,remarkFrontmatter],
             rehypePlugins:[rehypeSlug, rehypeAutolinkHeadings]
         },
         scope: data 

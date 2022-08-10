@@ -7,7 +7,7 @@
 .latest-wrap{
     background-color: #fafafa;
     border-radius: 20px;
-    box-shadow: 10px 10px 15px 0 rgb(0 0 0 / 10%);
+    box-shadow: 3px 3px 3px 0 rgb(0 0 0 / 10%);
     /* padding-left: 10px; */
     margin-left: 20px;
 }
@@ -28,6 +28,7 @@
     margin-bottom: 5px;
     border-bottom: 1px solid #efefef;
     font-size: 15px;
+    font-family: 'Noto_Sans';
 }
 
 
@@ -60,3 +61,8 @@
     color: #fff;
     transform: translateY(-7px);
   }
+
+
+.prose *{
+    font-family: "Noto_Sans";
+}

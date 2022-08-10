@@ -4,6 +4,7 @@ import '../styles/carousel.css';
 import '../styles/util.css';
 import { MdxComponentsProvider } from '../context/mdxContext';
 import 'prismjs/themes/prism-tomorrow.css';
+import '../public/static/fonts/style.css';
 
 
 function MyApp({ Component, pageProps }: AppProps) {

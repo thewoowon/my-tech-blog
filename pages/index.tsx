@@ -30,16 +30,16 @@ const Home: NextPage<Props> = ({posts}:Props) => {
                       <button className="tag-button">IOS</button>
                     </div>
                     <div className="flex">
-                      <h2 className="text-4xl font-bold m-0 text-gray-800">
+                      <h2 className="text-4xl font-bold m-0 text-gray-800" style={{"fontFamily":"Noto_Sans"}}>
                         <Link href={`/posts/${post.slug}`}><a>{post.title}</a></Link>
                       </h2>
                     </div>
-                    <div className="flex">
+                    <div className="flex" style={{"fontFamily":"Noto_Sans"}}>
                       <p>{post.description}</p>
                     </div>
                     <div className="flex items-center">
-                      <div className="text-sm mr-2" style={{"fontWeight":"bold"}}>{post.date}</div>
-                      <div className="text-sm">- {post.writer}</div>
+                      <div className="text-sm mr-2" style={{"fontWeight":"bold","fontFamily":"Noto_Sans"}}>{post.date}</div>
+                      <div className="text-sm" style={{"fontFamily":"Noto_Sans"}}>- {post.writer}</div>
                     </div>
                   </div>
                   <div className="w-3/12 pt-6">
