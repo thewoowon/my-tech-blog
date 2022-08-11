@@ -25,9 +25,13 @@ const Home: NextPage<Props> = ({posts}:Props) => {
                 <div className="flex">
                   <div className="w-9/12 pr-4">
                     <div className="flex justify-start items-center mb-2">
-                      <button className="tag-button">RN</button>
-                      <button className="tag-button">React</button>
-                      <button className="tag-button">IOS</button>
+                      {
+                          post.tagging.map((value,iter) =>{
+                              return(
+                                  <button className="tag-button" key={iter}>{value}</button>
+                              )
+                          })
+                      }
                     </div>
                     <div className="flex">
                       <h2 className="text-4xl font-bold m-0 text-gray-800" style={{"fontFamily":"Noto_Sans"}}>
@@ -69,16 +73,16 @@ const Home: NextPage<Props> = ({posts}:Props) => {
               <h3>최근 인기 글</h3>
             </div>
             <ul className="latest-list m-auto">
-              <li><Link href={`posts/${1}`}><a>1. React Native 사용기 #1</a></Link></li>
-              <li><Link href={`posts/${2}`}><a>2. SQL - Four Part Naming의 함정</a></Link></li>
-              <li><Link href={`posts/${3}`}><a>3. 실시간 데이터베이스 사용기 (Firebase) 1탄</a></Link></li>
-              <li><Link href={`posts/${4}`}><a>4. 실시간 데이터베이스 사용기 (Firebase) 2탄</a></Link></li>
-              <li><Link href={`posts/${5}`}><a>5. Dev Trend 2019 by StackOverflow</a></Link></li>
-              <li><Link href={`posts/${6}`}><a>6. Hello Anko!! - 1탄</a></Link></li>
-              <li><Link href={`posts/${7}`}><a>7. [SQL SERVER] Lock - 01.DeadLock</a></Link></li> 
-              <li><Link href={`posts/${8}`}><a>8. Hello Anko!! - 2탄</a></Link></li>
-              <li><Link href={`posts/${9}`}><a>9. CSS Transform 3D - Part1</a></Link></li>
-              <li><Link href={`posts/${10}`}><a>10. SSMS 소소한 팁!!</a></Link></li>
+              <li><Link href={`posts/${1}`}><a>React Native 사용기 #1</a></Link></li>
+              <li><Link href={`posts/${2}`}><a>SQL - Four Part Naming의 함정</a></Link></li>
+              <li><Link href={`posts/${3}`}><a>실시간 데이터베이스 사용기 (Firebase) 1탄</a></Link></li>
+              <li><Link href={`posts/${4}`}><a>실시간 데이터베이스 사용기 (Firebase) 2탄</a></Link></li>
+              <li><Link href={`posts/${5}`}><a>Dev Trend 2019 by StackOverflow</a></Link></li>
+              <li><Link href={`posts/${6}`}><a>Hello Anko!! - 1탄</a></Link></li>
+              <li><Link href={`posts/${7}`}><a>[SQL SERVER] Lock - 01.DeadLock</a></Link></li> 
+              <li><Link href={`posts/${8}`}><a>Hello Anko!! - 2탄</a></Link></li>
+              <li><Link href={`posts/${9}`}><a>CSS Transform 3D - Part1</a></Link></li>
+              <li><Link href={`posts/${10}`}><a>SSMS 소소한 팁!!</a></Link></li>
             </ul>
           </div>
         </div>
@@ -95,7 +99,8 @@ export const getStaticProps: GetStaticProps = async () => {
     'date',
     'description',
     'thumbnail',
-    'writer'
+    'writer',
+    'tagging'
   ]);
 
   // retunr the posts props

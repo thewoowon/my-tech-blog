@@ -4,6 +4,7 @@ export type PostType = {
   image?: string;
   slug: string;
   title: string;
+  
 };
 
 
@@ -16,4 +17,5 @@ export interface IPost {
   prerequisites:string[];
   stacks:string[];
   writer:string;
+  tagging:string[];
 }

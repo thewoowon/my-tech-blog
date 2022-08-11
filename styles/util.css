@@ -7,7 +7,7 @@
 .latest-wrap{
     background-color: #fafafa;
     border-radius: 20px;
-    box-shadow: 3px 3px 3px 0 rgb(0 0 0 / 10%);
+    /* box-shadow: 3px 3px 3px 0 rgb(0 0 0 / 10%); */
     /* padding-left: 10px; */
     margin-left: 20px;
 }
@@ -45,7 +45,6 @@
 
 .latest-list li a{
     cursor: pointer;
-    text-decoration: underline;
 }
 .tag-button{
     width: 80px;

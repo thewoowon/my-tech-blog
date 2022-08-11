@@ -8,7 +8,7 @@ import {
     SetStateAction,
 } from 'react';
 
-import { YouTube } from 'mdx-embed';
+
 
 
 type ContextProps = {
@@ -16,6 +16,8 @@ type ContextProps = {
     setPrerequisites: Dispatch<SetStateAction<string[]>>;
     stacks: string[];
     setStacks: Dispatch<SetStateAction<string[]>>;
+    taggings: string[];
+    setTaggings: Dispatch<SetStateAction<string[]>>;
 };
 
 type Props = {
@@ -27,6 +29,7 @@ const MdxComponentsContext = createContext({} as ContextProps);
 export function MdxComponentsProvider({ children }: Props): JSX.Element {
     const [prerequisites, setPrerequisites] = useState < string[] > ([]);
     const [stacks, setStacks] = useState < string[] > ([]);
+    const [taggings, setTaggings] = useState < string[] > ([]);
 
     return (
         <MdxComponentsContext.Provider
@@ -35,6 +38,8 @@ export function MdxComponentsProvider({ children }: Props): JSX.Element {
                 setPrerequisites,
                 stacks,
                 setStacks,
+                taggings,
+                setTaggings
             }}
         >
             {children}

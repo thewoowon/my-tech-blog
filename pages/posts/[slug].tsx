@@ -22,10 +22,11 @@ import Prism from 'prismjs';
 import 'prismjs/components/prism-typescript.min';
 import 'prismjs/components/prism-jsx.min';
 import 'prismjs/components/prism-tsx.min';
-import { YouTube } from 'mdx-embed';
+
 
 import Image from 'next/image';
 import techLogo from '../../images/logo/face.png';
+import Taggings from '../../components/Taggings';
 
 
 // props type
@@ -38,6 +39,7 @@ type Props = {
 const components = {
     Prerequisites,
     Stacks,
+    Taggings
 }
 
 const PostPage = ({ source, frontMatter }: Props):JSX.Element => {
@@ -45,18 +47,22 @@ const PostPage = ({ source, frontMatter }: Props):JSX.Element => {
         Prism.highlightAll();
     }, []);
     // get setters
-    const { setPrerequisites, setStacks } = useMdxComponentsContext();
+    const { setPrerequisites, setStacks,setTaggings } = useMdxComponentsContext();
 
     useEffect(() => {
         // set prerequisites
         setPrerequisites(frontMatter.prerequisites);
         // set stacks
         setStacks(frontMatter.stacks);
+        // set taggings
+        setTaggings(frontMatter.tagging);
     }, [
         setPrerequisites,
         setStacks,
+        setTaggings,
         frontMatter.prerequisites,
-        frontMatter.stacks
+        frontMatter.stacks,
+        frontMatter.tagging
     ]);
 
     return (
@@ -65,9 +71,13 @@ const PostPage = ({ source, frontMatter }: Props):JSX.Element => {
                 <div style={{"borderBottom":"2px solid rgba(180,180,180,1)"}}>
                     <div className="max-w-5xl px-8 py-4 mx-auto">
                         <div className="flex justify-start items-center mb-2">
-                            <button className="tag-button">RN</button>
-                            <button className="tag-button">React</button>
-                            <button className="tag-button">IOS</button>
+                            {
+                                frontMatter.tagging.map((value,iter) =>{
+                                    return(
+                                        <button className="tag-button" key={iter}>{value}</button>
+                                    )
+                                })
+                            }
                         </div>
                         <h1 className="mb-3 text-gray-600 dark:text-white" style={{fontFamily:"Noto_Sans"}}>
                             {frontMatter.title}
