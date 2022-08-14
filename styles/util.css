@@ -5,7 +5,6 @@
     padding: 0px;
 }
 .latest-wrap{
-    background-color: #fafafa;
     border-radius: 20px;
     /* box-shadow: 3px 3px 3px 0 rgb(0 0 0 / 10%); */
     /* padding-left: 10px; */
@@ -67,9 +66,9 @@
 
 .tag-button:hover {
     background-color: #ff7f00;
-    box-shadow: 0px 15px 20px rgba(255, 127, 0, 0.4);
+    box-shadow: 0px 3px 5px rgba(255, 127, 0, 0.4);
     color: #fff;
-    transform: translateY(-7px);
+    transform: translateY(-3px);
   }
 
 

@@ -17,5 +17,4 @@ export interface IPost {
   prerequisites:string[];
   stacks:string[];
   writer:string;
-  tagging:string[];
 }

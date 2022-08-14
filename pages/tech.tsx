@@ -16,7 +16,7 @@ const Tech: NextPage<Props> = ({posts}:Props) => {
   return (
     <Layout
       customMeta={{
-        title: 'About UBcare 기술 블로그',
+        title: '유비케어 기술 블로그 | TECH',
       }}
     >
       <div className="m-auto flex" style={{width:"1024px"}}>
@@ -28,7 +28,7 @@ const Tech: NextPage<Props> = ({posts}:Props) => {
                   <div className="w-9/12 pr-4">
                     <div className="flex justify-start items-center mb-2">
                       {
-                          post.tagging.map((value,iter) =>{
+                          post.stacks.map((value,iter) =>{
                               return(
                                   <button className="tag-button" key={iter}>{value}</button>
                               )
@@ -100,10 +100,9 @@ export const getStaticProps: GetStaticProps = async () => {
     'slug',
     'date',
     'description',
+    'stacks',
     'thumbnail',
     'writer',
-    'tagging'
-    
   ]);
 
   // retunr the posts props

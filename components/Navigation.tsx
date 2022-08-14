@@ -8,7 +8,7 @@ const Navigation = (): JSX.Element => {
       <Link href="/">
         <a className="text-gray-900 dark:text-white pr-6 py-4 hover:text-gray-500 font" style={{fontSize:"18px",fontFamily:"Noto_Sans"}}>HOME</a>
       </Link>
-      <Link href="/about">
+      <Link href="/tech">
         <a className="text-gray-900 dark:text-white pr-6 py-4 hover:text-gray-500" style={{fontSize:"18px",fontFamily:"Noto_Sans"}}>TECH</a>
       </Link>
       <Link href="/culture">

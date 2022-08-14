@@ -26,7 +26,7 @@ const Home: NextPage<Props> = ({posts}:Props) => {
                   <div className="w-9/12 pr-4">
                     <div className="flex justify-start items-center mb-2">
                       {
-                          post.tagging.map((value,iter) =>{
+                          post.stacks.map((value,iter) =>{
                               return(
                                   <button className="tag-button" key={iter}>{value}</button>
                               )
@@ -98,9 +98,9 @@ export const getStaticProps: GetStaticProps = async () => {
     'slug',
     'date',
     'description',
+    'stacks',
     'thumbnail',
     'writer',
-    'tagging'
   ]);
 
   // retunr the posts props

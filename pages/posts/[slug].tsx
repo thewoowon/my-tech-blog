@@ -26,7 +26,6 @@ import 'prismjs/components/prism-tsx.min';
 
 import Image from 'next/image';
 import techLogo from '../../images/logo/face.png';
-import Taggings from '../../components/Taggings';
 
 
 // props type
@@ -39,7 +38,6 @@ type Props = {
 const components = {
     Prerequisites,
     Stacks,
-    Taggings
 }
 
 const PostPage = ({ source, frontMatter }: Props):JSX.Element => {
@@ -47,22 +45,18 @@ const PostPage = ({ source, frontMatter }: Props):JSX.Element => {
         Prism.highlightAll();
     }, []);
     // get setters
-    const { setPrerequisites, setStacks,setTaggings } = useMdxComponentsContext();
+    const { setPrerequisites, setStacks } = useMdxComponentsContext();
 
     useEffect(() => {
         // set prerequisites
         setPrerequisites(frontMatter.prerequisites);
         // set stacks
         setStacks(frontMatter.stacks);
-        // set taggings
-        setTaggings(frontMatter.tagging);
     }, [
         setPrerequisites,
         setStacks,
-        setTaggings,
         frontMatter.prerequisites,
         frontMatter.stacks,
-        frontMatter.tagging
     ]);
 
     return (
@@ -72,7 +66,7 @@ const PostPage = ({ source, frontMatter }: Props):JSX.Element => {
                     <div className="max-w-5xl px-8 py-4 mx-auto">
                         <div className="flex justify-start items-center mb-2">
                             {
-                                frontMatter.tagging.map((value,iter) =>{
+                                frontMatter.stacks.map((value,iter) =>{
                                     return(
                                         <button className="tag-button" key={iter}>{value}</button>
                                     )
