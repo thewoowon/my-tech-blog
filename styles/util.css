@@ -75,3 +75,25 @@
 .prose *{
     font-family: "Noto_Sans";
 }
+
+.culture{
+    height: 600px;
+    width: 100%;
+    position: relative;
+}
+.section-1{
+    background-color: white;
+}
+.section-2{
+    background-color: rgba(255, 217, 4, 0.991);
+}
+.section-3{
+    background-color: gray;
+}
+.section-4{
+    background-color: beige;
+}
+
+.trio-box-1{
+    position: absolute;
+}

@@ -14,9 +14,9 @@ const Navigation = (): JSX.Element => {
       <Link href="/culture">
         <a className="text-gray-900 dark:text-white pr-6 py-4 hover:text-gray-500" style={{fontSize:"18px",fontFamily:"Noto_Sans"}}>CULTURE</a>
       </Link>
-      <Link href="/news">
+      {/* <Link href="/news">
         <a className="text-gray-900 dark:text-white pr-6 py-4 hover:text-gray-500" style={{fontSize:"18px",fontFamily:"Noto_Sans"}}>NEWS</a>
-      </Link>
+      </Link> */}
     </nav>
   );
 };
