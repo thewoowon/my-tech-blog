@@ -5,6 +5,7 @@ import ub from '../images/character/ub.svg';
 import ujune from '../images/character/ujune.svg';
 import uki from '../images/character/uki.svg';
 import ubfriends from '../images/character/ubfriends.svg';
+import ubfriendsNone from '../images/character/ubfriends_none.svg';
 import Image from 'next/image';
 
 
@@ -21,7 +22,7 @@ export const Culture = (): JSX.Element => {
           <p className="ubf">유비 프렌즈와 함께 하세요!</p>
       </section>
       <section className="culture section-2">
-        <Image src={ub} alt="ub" width={250} height={350} className="ub-box"></Image>
+      <Image src={ubfriendsNone} alt="ubfriends" width={550} height={500} className="friends-box"></Image>
       </section>
       <section className="culture section-3">
         <Image src={ujune} alt="ujune" width={250} height={350} className="ujune-box"></Image>
