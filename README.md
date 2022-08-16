@@ -1,8 +1,6 @@
-# Hello UberEats!
+# Hello UBTECH!
 
-### UberEats Clone Coding
-
-### Currently, it is 80% complete.
+### Currently
 
 - NEXT.js
 - Tailwind
