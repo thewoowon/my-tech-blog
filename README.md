@@ -4,5 +4,7 @@
 
 ### Currently, it is 80% complete.
 
-- React
+- NEXT.js
 - Tailwind
+- MDX
+- Typescript
