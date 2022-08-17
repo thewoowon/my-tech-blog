@@ -1,13 +1,6 @@
 import React from 'react';
 import Layout from '../components/Layout';
-import trio from '../images/character/ubtrio.svg';
-import ub from '../images/character/ub.svg';
-import ujune from '../images/character/ujune.svg';
-import uki from '../images/character/uki.svg';
-import ubfriends from '../images/character/ubfriends.svg';
-import ubfriendsNone from '../images/character/ubfriends_none.svg';
-import Image from 'next/image';
-import backGround_1 from '../images/background/ubtech_background_1.svg'
+
 
 export const Culture = (): JSX.Element => {
   return (

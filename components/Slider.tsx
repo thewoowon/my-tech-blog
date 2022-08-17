@@ -8,8 +8,6 @@ import 'swiper/css/autoplay';
 import React from 'react';
 import Image from 'next/image';
 import Preview1 from '../images/carousel/ubtech_preview1_new.svg';
-import Preview2 from '../images/carousel/ubtech_preview2_new.svg';
-import Preview3 from '../images/carousel/ubtech_preview3_new.svg';
 import Preview4 from '../images/carousel/ubtech_preview4_new.svg';
 
 

@@ -36,11 +36,13 @@ const Layout = ({ children, customMeta }: LayoutProps): JSX.Element => {
       </main>
       <footer className="py-8 h-96" style={{borderTop:"1px solid rgba(230,230,230,0.5)",backgroundColor:"#f9fafb"}}>
         <div className="m-auto w-2/5 h-full">
-          <div className="h-1/4">
-            <p style={{fontSize:"28px",fontWeight:"bold",color:"#ff7f00",lineHeight:"28px",textAlign:"center",fontFamily:"Noto_Sans"}}>
+          <div className="h-1/4 flex items-center justify-center">
+          <Link href={"https://www.ubcare.co.kr/"}>
+            <a style={{fontSize:"28px",fontWeight:"bold",color:"#ff7f00",lineHeight:"28px",textAlign:"center",fontFamily:"Noto_Sans"}}>
                 <span className="ubcare-blog-title">유비케어</span> 
                 <span style={{fontSize:"20px",fontWeight:"bold",lineHeight:"18px",fontFamily:"Noto_Sans"}} className="text-gray-800"> 기술 블로그</span>
-            </p>
+            </a>
+          </Link>
           </div>
           <div className="h-2/4 flex items-center justify-center">
             <Image src={"/assets/gc_care.png"} width={100} height={50}></Image>
