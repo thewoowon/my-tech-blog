@@ -147,3 +147,9 @@ section p{
 .text-position-3{
     
 }
+
+.ubcare-blog-title{
+    background: linear-gradient(to right, #ff9200, #fc466b);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}

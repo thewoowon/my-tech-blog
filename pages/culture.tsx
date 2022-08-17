@@ -18,8 +18,8 @@ export const Culture = (): JSX.Element => {
     >
       <section className="culture section-1">
        
-          <p className="slogan"><span>세상이 꿈꾸던</span></p>
-          <p className="ubf"><span>헬스케어를 만들어갑니다.</span></p>
+          <p className="slogan"><span>세상이 꿈꾸던 헬스케어</span></p>
+          <p className="ubf"><span>유비케어가 만들어갑니다.</span></p>
         
       </section>
       <section className="culture section-2">
