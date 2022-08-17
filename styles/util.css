@@ -85,15 +85,65 @@
     background-color: white;
 }
 .section-2{
-    background-color: rgba(255, 217, 4, 0.991);
+    background-color: white;
 }
 .section-3{
-    background-color: gray;
+    background-color: white;
 }
 .section-4{
-    background-color: beige;
+    background-color: white;
 }
 
 .trio-box-1{
     position: absolute;
+}
+
+section p{
+    font-family: "Noto_Sans";
+}
+
+.slogan{
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 60px;
+    font-weight: bold;
+    margin: 0;
+}
+.slogan span{
+    background: linear-gradient(to right, #ff9200, #fc466b);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.ubf{
+    position: absolute;
+    top: 43%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 60px;
+    font-weight: bold;
+    margin: 0;
+}
+.ubf span{
+    background: linear-gradient(to right, #ff9200, #fc466b);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.center-title{
+    font-size: 50px;
+    font-weight: bold;
+    margin: 0;
+    position: absolute;
+    top: 5%;
+    left: 20%;
+}
+.text-position-1{
+
+}
+.text-position-2{
+    
+}
+.text-position-3{
+    
 }
