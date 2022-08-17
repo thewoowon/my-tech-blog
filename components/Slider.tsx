@@ -39,12 +39,6 @@ const Slider = (): JSX.Element => {
           <SwiperSlide className="my-swiper-slide">
             <Image src={Preview1} alt="Sample1" width={"100%"} height={450} className="carousel-fit" ></Image>
           </SwiperSlide>
-          <SwiperSlide className="my-swiper-slide">
-            <Image src={Preview2} alt="Sample1" width={"100%"} height={450} className="carousel-fit" ></Image>
-          </SwiperSlide>
-          <SwiperSlide className="my-swiper-slide">
-            <Image src={Preview3} alt="Sample1" width={"100%"} height={450}  className="carousel-fit"></Image>
-          </SwiperSlide>
         </Swiper>
   );
 };

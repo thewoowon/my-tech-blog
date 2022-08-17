@@ -38,8 +38,8 @@ const Layout = ({ children, customMeta }: LayoutProps): JSX.Element => {
         <div className="m-auto w-2/5 h-full">
           <div className="h-1/4">
             <p style={{fontSize:"28px",fontWeight:"bold",color:"#ff7f00",lineHeight:"28px",textAlign:"center",fontFamily:"Noto_Sans"}}>
-              UBcare
-              <span style={{fontSize:"18px",fontWeight:"bold",lineHeight:"18px",fontFamily:"Noto_Sans"}} className="text-gray-800"> 기술 블로그</span>
+                <span className="ubcare-blog-title">유비케어</span> 
+                <span style={{fontSize:"20px",fontWeight:"bold",lineHeight:"18px",fontFamily:"Noto_Sans"}} className="text-gray-800"> 기술 블로그</span>
             </p>
           </div>
           <div className="h-2/4 flex items-center justify-center">
