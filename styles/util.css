@@ -94,6 +94,9 @@
 .section-4{
     background-color: white;
 }
+.section-5{
+    background-color: white;
+}
 
 .trio-box-1{
     position: absolute;
@@ -105,10 +108,10 @@ section p{
 
 .slogan{
     position: absolute;
-    top: 30%;
+    top: 35%;
     left: 50%;
     transform: translate(-50%, -50%);
-    font-size: 60px;
+    font-size: 2rem;
     font-weight: bold;
     margin: 0;
 }
@@ -122,7 +125,7 @@ section p{
     top: 43%;
     left: 50%;
     transform: translate(-50%, -50%);
-    font-size: 60px;
+    font-size: 2rem;
     font-weight: bold;
     margin: 0;
 }
@@ -132,7 +135,7 @@ section p{
     -webkit-text-fill-color: transparent;
 }
 .center-title{
-    font-size: 50px;
+    font-size: 2rem;
     font-weight: bold;
     margin: 0;
     position: absolute;
@@ -153,4 +156,51 @@ section p{
     background: linear-gradient(to right, #ff9200, #fc466b);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+}
+
+.orange-box-1{
+    background: linear-gradient(90deg,#ff9200,#fc466b);
+    width: 10rem;
+    height: 600px;
+    border-radius: 5px;
+    margin: 20px;
+    position: absolute;
+    left: 30%;
+    top: 35%;
+    z-index: 1;
+}
+.orange-box-2{
+    background: linear-gradient(90deg,#ff9200,#fc466b);
+    width: 10rem;
+    height: 600px;
+    border-radius: 5px;
+    margin: 20px;
+    position: absolute;
+    left: 40%;
+    top: 30%;
+    z-index: 1;
+}
+
+.orange-box-3{
+    background: linear-gradient(90deg,#ff9200,#fc466b);
+    width: 10rem;
+    height: 600px;
+    border-radius: 5px;
+    margin: 20px;
+    position: absolute;
+    left: 50%;
+    top: 25%;
+    z-index: 1;
+}
+
+.orange-box-4{
+    background: linear-gradient(90deg,#ff9200,#fc466b);
+    width: 10rem;
+    height: 600px;
+    border-radius: 5px;
+    margin: 20px;
+    position: absolute;
+    left: 60%;
+    top: 20%;
+    z-index: 1;
 }

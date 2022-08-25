@@ -32,7 +32,7 @@ const Layout = ({ children, customMeta }: LayoutProps): JSX.Element => {
         </div>
       </header>
       <main style={{paddingTop:"60px"}}>
-        <div>{children}</div>
+        <div className="relative">{children}</div>
       </main>
       <footer className="py-8 h-96" style={{borderTop:"1px solid rgba(230,230,230,0.5)",backgroundColor:"#f9fafb"}}>
         <div className="m-auto w-2/5 h-full">

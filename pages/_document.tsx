@@ -10,6 +10,7 @@ class MyDocument extends Document {
               href="https://unpkg.com/dracula-prism/dist/css/dracula-prism.css"
             ></link>
             <link rel='icon' href='/assets/ubcare_tech_logo.png'></link>
+            <script src="https://d3js.org/d3.v7.min.js"></script>
         </Head>
         <body className="bg-white dark:bg-black text-gray-900 dark:text-white">
           <Main />
