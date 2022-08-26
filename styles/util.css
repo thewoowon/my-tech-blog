@@ -82,6 +82,46 @@
     width: 100%;
     position: relative;
 }
+.video-section{
+    height: 900px !important;
+}
+.video-div{
+    position: absolute;
+    top: 22%;
+    left: 50%;
+    /* background-color: aliceblue; */
+    height: 10rem;
+    text-align: center;
+    border-radius: 1rem;
+    /* box-shadow: 1px 1px 10px 10px powderblue; */
+    transform: translate(-50%, -50%);
+}
+.video-p-1{
+    animation-name: 'cultureFadeIn';
+    animation-duration: 2s;
+    animation-delay: 1s;
+    animation-direction: alternate;
+    animation-timing-function: ease-in-out;
+    font-size: 3rem;
+    font-weight: bold;
+    color: white;
+    margin: 0;
+}
+.video-p-2{
+    animation-name: 'cultureFadeIn';
+    animation-duration: 2s;
+    animation-delay: 2s;
+    animation-direction: alternate;
+    animation-timing-function: ease-in-out;
+    font-size: 3rem;
+    font-weight: bold;
+    color: white;
+    margin: 0;
+}
+video{
+    height: 100%;
+    object-fit: cover;
+}
 .section-1{
     background-color: white;
 }
@@ -201,4 +241,15 @@ section p{
     left: 60%;
     top: 20%;
     z-index: 1;
+}
+
+@keyframes cultureFadeIn{
+    from{
+        opacity: 0;
+        transform: scale(1.0);
+    }
+    to{
+        opacity: 1;
+        transform: scale(1.5);
+    }
 }

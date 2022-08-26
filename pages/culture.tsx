@@ -1,6 +1,8 @@
 import React from 'react';
 import Layout from '../components/Layout';
 import CultureComponent from '../components/Culture';
+import Video from '../components/Video';
+//import main from '../public/videos/main_video.mov'
 
 export const Culture = (): JSX.Element => {
   return (
@@ -13,6 +15,15 @@ export const Culture = (): JSX.Element => {
       <div className="orange-box-2"></div>
       <div className="orange-box-3"></div>
       <div className="orange-box-4"></div> */}
+      <section className="culture video-section">
+        <video autoPlay muted loop style={{ "width": '100%',"height":"100%" }}>
+          <source src="/videos/main_video.mp4"/>
+        </video>
+        <div className="video-div">
+          <p className="video-p-1">함께 만드는 유비케어</p>
+          <p className="video-p-2">직원들이 행복한 유비케어</p>
+        </div>
+      </section>
       <div className="m-auto" style={{width:"1024px"}}>
         <section className="culture section-1">
           <p className="slogan"><span>세상이 꿈꾸던 헬스케어</span></p>
