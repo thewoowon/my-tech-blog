@@ -87,6 +87,7 @@
 }
 .section-2{
     background-color: white;
+    height: 800px !important;
 }
 .section-3{
     background-color: white;
@@ -138,18 +139,15 @@ section p{
     font-size: 2rem;
     font-weight: bold;
     margin: 0;
-    position: absolute;
-    top: 5%;
-    left: 20%;
 }
 .text-position-1{
-
+    text-align: start;
 }
 .text-position-2{
-    
+    text-align: end;
 }
 .text-position-3{
-    
+    text-align: start;
 }
 
 .ubcare-blog-title{

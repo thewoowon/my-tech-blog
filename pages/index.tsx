@@ -5,6 +5,8 @@ import Thumbnail from '../components/Thumbnail';
 import { IPost } from '../types/post';
 import { getAllPosts } from '../utils/mdxUtils';
 import Link from 'next/link';
+import React from 'react' 
+import IndexPage from '../components/Culture';
 
 
 type Props = {
