@@ -83,11 +83,11 @@
     position: relative;
 }
 .video-section{
-    height: 55rem !important;
+    height: 600px !important;
 }
 .video-div{
     position: absolute;
-    top: 30%;
+    top: 50%;
     left: 50%;
     /* background-color: aliceblue; */
     height: 10rem;
@@ -97,13 +97,13 @@
     transform: translate(-50%, -50%);
 }
 .video-p-1{
-    font-size: 3rem;
+    font-size: 2rem;
     font-weight: bold;
     color: white;
     margin: 0;
 }
 .video-p-2{
-    font-size: 3rem;
+    font-size: 2rem;
     font-weight: bold;
     color: white;
     margin: 0;
@@ -117,7 +117,8 @@ video{
 }
 .section-2{
     background-color: white;
-    height: 800px !important;
+    width: 100%;
+    position: relative;
 }
 .section-3{
     background-color: white;
@@ -139,7 +140,7 @@ section p{
 
 .slogan{
     position: absolute;
-    top: 35%;
+    top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     font-size: 2rem;
