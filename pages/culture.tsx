@@ -2,6 +2,7 @@ import React from 'react';
 import Layout from '../components/Layout';
 import CultureComponent from '../components/Culture';
 import Video from '../components/Video';
+import Card from '../components/Card';
 //import main from '../public/videos/main_video.mov'
 
 export const Culture = (): JSX.Element => {
@@ -30,7 +31,7 @@ export const Culture = (): JSX.Element => {
           <p className="ubf"><span>유비케어가 만들어갑니다.</span></p>
         </section>
         <section className="culture section-2">
-            <p>Image Section</p>
+            <Card></Card>
         </section>
         <section className="culture section-3">
             <p className="center-title text-position-1">CHALLENGE</p>
