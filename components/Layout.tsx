@@ -20,9 +20,9 @@ const Layout = ({ children, customMeta }: LayoutProps): JSX.Element => {
         <div className="max-w-5xl px-8 mx-auto flex">
           <div className="w-6/12 flex" style={{alignItems:"center"}}>
             <Link href={"/"}>
-              <a style={{fontSize:"28px",fontWeight:"bold",color:"#ff7f00",lineHeight:"28px",fontFamily:"Noto_Sans"}}>
+              <a style={{fontSize:"24px",fontWeight:"bold",color:"#ff7f00",lineHeight:"28px",fontFamily:"Noto_Sans"}}>
                 <span className="ubcare-blog-title">유비케어</span> 
-                <span style={{fontSize:"20px",fontWeight:"bold",lineHeight:"18px",fontFamily:"Noto_Sans"}} className="text-gray-800"> 기술 블로그</span>
+                <span style={{fontSize:"18px",fontWeight:"bold",lineHeight:"18px",fontFamily:"Noto_Sans"}} className="text-gray-800"> 기술 블로그</span>
               </a>
             </Link>
           </div>

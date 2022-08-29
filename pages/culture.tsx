@@ -3,6 +3,8 @@ import Layout from '../components/Layout';
 import CultureComponent from '../components/Culture';
 import Video from '../components/Video';
 import Card from '../components/Card';
+import Image from 'next/image';
+import astronat from '../public/images/astronat_part1.jpeg'
 //import main from '../public/videos/main_video.mov'
 
 export const Culture = (): JSX.Element => {
@@ -21,8 +23,8 @@ export const Culture = (): JSX.Element => {
           <source src="/videos/main_video.mp4"/>
         </video>
         <div className="video-div">
-          <p className="video-p-1">함께 만드는 유비케어</p>
-          <p className="video-p-2">직원들이 행복한 유비케어</p>
+          <p className="video-p-1">함께 만들어 가는 유비케어</p>
+          <p className="video-p-2">임직원이 행복한 유비케어</p>
         </div>
       </section>
       <div className="m-auto" style={{width:"1024px"}}>
@@ -33,27 +35,24 @@ export const Culture = (): JSX.Element => {
           </div>
         </section>
         <section className="culture section-2">
-          <div style={{"display":"flex","justifyContent":"center","alignItems":"center"}}>
-            <div className=' rounded' style={{"width":"200px","height":"250px","backgroundColor":"rgb(60,205,81)"}}></div>
-            <div className=' rounded' style={{"width":"200px","height":"250px","backgroundColor":"rgb(254,187,54)"}}></div>
-            <div className=' rounded' style={{"width":"200px","height":"250px","backgroundColor":"rgb(252,132,76)"}}></div>
-            <div className=' rounded' style={{"width":"200px","height":"250px","backgroundColor":"rgb(78,159,255)"}}></div>
-          </div>
-          <div style={{"display":"flex","justifyContent":"center","alignItems":"center"}}>
-            <div className=' rounded' style={{"width":"200px","height":"250px","backgroundColor":"rgb(179,117,255)"}}> </div>
-            <div className=' rounded' style={{"width":"200px","height":"250px","backgroundColor":"rgb(252,108,222)"}}></div>
-            <div className=' rounded' style={{"width":"200px","height":"250px","backgroundColor":"rgb(60,205,81)"}}></div>
-            <div className=' rounded' style={{"width":"200px","height":"250px","backgroundColor":"rgb(60,60,60)"}}></div>
+          <div style={{"width":"60%"}}>
+            <Image src={astronat}></Image>
           </div>
         </section>
         <section className="culture section-3">
-            <p className="center-title text-position-1">CHALLENGE</p>
+            <p className="center-title text-position-1">도전</p>
+            <p className='size-p'><span>도전을 장려하는 문화</span></p>
+            <p className='size-p'><span>함께하는 동료들이 있어 할 수 있습니다.</span></p>
         </section>
         <section className="culture  section-4">
-            <p className="center-title text-position-2">CHANGE</p>
+            <p className="center-title text-position-2">변화</p>
+            <p className='size-p'><span>변화,</span></p>
+            <p className='size-p'><span>보다 나은 미래를 위해</span></p>
         </section>
         <section className="culture section-5">
-            <p className="center-title text-position-3">RESPECT</p>
+            <p className="center-title text-position-3">상호존중</p>
+            <p className='size-p'><span>함께함의 의미</span></p>
+            <p className='size-p'><span>그 이상의 가치</span></p>
         </section>
       </div>
     </Layout>
