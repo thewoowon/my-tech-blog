@@ -42,7 +42,7 @@ export const Culture = (): JSX.Element => {
         <section className="culture section-3">
             <p className="center-title text-position-1">도전</p>
             <p className='size-p'><span>도전을 장려하는 문화</span></p>
-            <p className='size-p'><span>함께하는 동료들이 있어 할 수 있습니다.</span></p>
+            <p className='size-p'><span>함께하는 동료들</span></p>
         </section>
         <section className="culture  section-4">
             <p className="center-title text-position-2">변화</p>
