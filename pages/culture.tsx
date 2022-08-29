@@ -26,12 +26,25 @@ export const Culture = (): JSX.Element => {
         </div>
       </section>
       <div className="m-auto" style={{width:"1024px"}}>
-        <section className="culture section-1">
-          <p className="slogan"><span>세상이 꿈꾸던 헬스케어</span></p>
-          <p className="ubf"><span>유비케어가 만들어갑니다.</span></p>
+        <section className="culture section-1 flex justify-center items-center">
+          <div className=''>
+            <p className="slogan"><span>세상이 꿈꾸던 헬스케어</span></p>
+            <p className="ubf"><span>유비케어가 만들어갑니다.</span></p>
+          </div>
         </section>
         <section className="culture section-2">
-            <Card></Card>
+          <div style={{"display":"flex","justifyContent":"center","alignItems":"center"}}>
+            <div className=' rounded' style={{"width":"200px","height":"250px","backgroundColor":"rgb(60,205,81)"}}></div>
+            <div className=' rounded' style={{"width":"200px","height":"250px","backgroundColor":"rgb(254,187,54)"}}></div>
+            <div className=' rounded' style={{"width":"200px","height":"250px","backgroundColor":"rgb(252,132,76)"}}></div>
+            <div className=' rounded' style={{"width":"200px","height":"250px","backgroundColor":"rgb(78,159,255)"}}></div>
+          </div>
+          <div style={{"display":"flex","justifyContent":"center","alignItems":"center"}}>
+            <div className=' rounded' style={{"width":"200px","height":"250px","backgroundColor":"rgb(179,117,255)"}}> </div>
+            <div className=' rounded' style={{"width":"200px","height":"250px","backgroundColor":"rgb(252,108,222)"}}></div>
+            <div className=' rounded' style={{"width":"200px","height":"250px","backgroundColor":"rgb(60,205,81)"}}></div>
+            <div className=' rounded' style={{"width":"200px","height":"250px","backgroundColor":"rgb(60,60,60)"}}></div>
+          </div>
         </section>
         <section className="culture section-3">
             <p className="center-title text-position-1">CHALLENGE</p>

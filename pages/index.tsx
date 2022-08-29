@@ -72,7 +72,7 @@ const Home: NextPage<Props> = ({posts}:Props) => {
           <div className="mt-12 mb-12 w-4/12 latest-wrap">
             {/* 최근 글 10가지 */}
             <div className="flex justify-center items-center">
-              <h3>최근 인기 글</h3>
+              <h3>최근 올라온 글</h3>
             </div>
             <ul className="latest-list m-auto">
               <li><Link href={`posts/${1}`}><a>React Native 사용기 #1</a></Link></li>
