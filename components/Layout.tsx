@@ -22,7 +22,7 @@ const Layout = ({ children, customMeta }: LayoutProps): JSX.Element => {
             <Link href={"/"}>
               <a style={{fontSize:"24px",fontWeight:"bold",color:"#ff7f00",lineHeight:"28px",fontFamily:"Noto_Sans"}}>
                 <span className="ubcare-blog-title">유비케어</span> 
-                <span style={{fontSize:"18px",fontWeight:"bold",lineHeight:"18px",fontFamily:"Noto_Sans"}} className="text-gray-800"> 기술 블로그</span>
+                <span style={{fontSize:"18px",fontWeight:"bold",lineHeight:"18px",fontFamily:"Noto_Sans", color:"#3B3838"}}> 기술 블로그</span>
               </a>
             </Link>
           </div>
@@ -40,7 +40,7 @@ const Layout = ({ children, customMeta }: LayoutProps): JSX.Element => {
           <Link href={"https://www.ubcare.co.kr/"}>
             <a style={{fontSize:"28px",fontWeight:"bold",color:"#ff7f00",lineHeight:"28px",textAlign:"center",fontFamily:"Noto_Sans"}}>
                 <span className="ubcare-blog-title">유비케어</span> 
-                <span style={{fontSize:"20px",fontWeight:"bold",lineHeight:"18px",fontFamily:"Noto_Sans"}} className="text-gray-800"> 기술 블로그</span>
+                <span style={{fontSize:"20px",fontWeight:"bold",lineHeight:"18px",fontFamily:"Noto_Sans",color:"#3B3838"}}> 기술 블로그</span>
             </a>
           </Link>
           </div>

@@ -6,6 +6,9 @@ import Card from '../components/Card';
 import Image from 'next/image';
 import astronat from '../public/images/astronat_part1.jpeg'
 //import main from '../public/videos/main_video.mov'
+import culture_part_1 from '../public/images/culture_part_1.jpeg'
+import culture_part_2 from '../public/images/culture_part_2.jpeg'
+import culture_part_3 from '../public/images/culture_part_3.jpeg'
 
 export const Culture = (): JSX.Element => {
   return (
@@ -43,16 +46,19 @@ export const Culture = (): JSX.Element => {
             <p className="center-title text-position-1">도전</p>
             <p className='size-p'><span>도전을 장려하는 문화</span></p>
             <p className='size-p'><span>함께하는 동료들</span></p>
+            <Image src={culture_part_1}></Image>
         </section>
         <section className="culture  section-4">
             <p className="center-title text-position-2">변화</p>
             <p className='size-p'><span>변화,</span></p>
             <p className='size-p'><span>보다 나은 미래를 위해</span></p>
+            <Image src={culture_part_2}></Image>
         </section>
         <section className="culture section-5">
             <p className="center-title text-position-3">상호존중</p>
             <p className='size-p'><span>함께함의 의미</span></p>
             <p className='size-p'><span>그 이상의 가치</span></p>
+            <Image src={culture_part_3}></Image>
         </section>
       </div>
     </Layout>
