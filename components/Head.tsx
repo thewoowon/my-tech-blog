@@ -8,7 +8,7 @@ export const WEBSITE_HOST_URL = 'https://www.yoramco.com';
 const Head = ({ customMeta }: { customMeta?: MetaProps }): JSX.Element => {
   const router = useRouter();
   const meta: MetaProps = {
-    title: '요람에서 코드까지 기술 블로그, 요람코',
+    title: '요람에서 코드까지 기술 블로그',
     description:
       'From Cradle, To Code',
     image: `${WEBSITE_HOST_URL}/images/yoramco.png`,

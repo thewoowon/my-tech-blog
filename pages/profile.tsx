@@ -3,7 +3,12 @@ import Layout from '../components/Layout';
 import Video from '../components/Video';
 import Card from '../components/Card';
 import Image from 'next/image';
+import Link from 'next/link';
 //import main from '../public/videos/main_video.mov'
+import github from '../public/images/github.png';
+import instagram from '../public/images/instagram.svg';
+import velog from '../public/images/velog.png';
+import notion from '../public/images/notion.png';
 
 export const Culture = (): JSX.Element => {
   return (
@@ -12,55 +17,126 @@ export const Culture = (): JSX.Element => {
         title: '요람코 기술 블로그 | PROFILE',
       }}
     >
-      {/* <div className="orange-box-1"></div>
-      <div className="orange-box-2"></div>
-      <div className="orange-box-3"></div>
-      <div className="orange-box-4"></div> */}
-      {/* <section className="culture video-section">
-        <video autoPlay muted loop style={{ "width": '100%',"height":"100%" }}>
-          <source src="/videos/main_video.mp4"/>
-        </video>
-        <div className="video-div">
-          <p className="video-p-1">함께 만들어 가는 유비케어</p>
-          <p className="video-p-2">임직원이 행복한 유비케어</p>
+      <section className="culture video-section">
+        <div className='m-auto flex' style={{"width":"1024px"}}>
+          <div className="video-div" style={{"width":"50%"}}>
+            <div style={{"paddingTop":"120px"}}>
+              <p className="video-p-1"><span>요람에서 코드까지</span></p>
+              <p className="video-p-2"><span>아직 갈 길이 멀다!</span></p>
+              <p style={{"fontFamily":"Noto Sans KR Light", "fontSize":"20px"}}>안녕하세요. 2년차 개발자 우원입니다.</p>
+              <p style={{"fontFamily":"Noto Sans KR Light", "fontSize":"20px"}}>처음 1년은 방황했지만, <br></br> 깨달음 이후 코드에 인생을 걸었습니다.</p>
+              <p style={{"fontFamily":"Noto Sans KR Light", "fontSize":"20px"}}>꾸준함의 힘을 알고 있습니다. <br></br>그렇기에 1일 1커밋과 기술 블로그 운영을 하고 있습니다.</p>
+              <p style={{"fontFamily":"Noto Sans KR Light", "fontSize":"20px"}}>KISS, YAGNI, DRY 등 좋은 코드에 대해 고민합니다. </p>
+              <p style={{"fontFamily":"Noto Sans KR Light", "fontSize":"20px"}}>음악, 미술, 운동하는 것을 좋아하고,<br></br>도전에 대한 열망이 있습니다.</p>
+              <p style={{"fontFamily":"Noto Sans KR Light", "fontSize":"20px"}}>여의도에서 근무하고 있습니다.</p>
+            </div>
+          </div>
+          <video autoPlay muted loop style={{ "width": '50%',"height":"auto" }}>
+            <source src="/videos/dance.mp4"/>
+          </video>
         </div>
-      </section> */}
+      </section>
       <div className="m-auto" style={{width:"1024px"}}>
         <section className="culture section-1 flex justify-center items-center">
-          <div className='' style={{"paddingBottom":"10rem"}}>
-            <p className="slogan"><span>세상이 꿈꾸던 헬스케어</span></p>
-            <p className="ubf"><span>유비케어가 만들어갑니다.</span></p>
+          <div>
+            <p className="slogan"><span>개발자 우원을 소개합니다.</span></p>
           </div>
         </section>
         <section className="culture section-2">
-          <div style={{"position":"relative"}}>
-            <div style={{"position":"absolute","right":"0","width":"65%"}}>
-              {/* <Image src={} ></Image> */}
+        <div className='m-auto flex' style={{"width":"1024px"}}>
+          <div className="video-div" style={{"width":"50%"}}>
+            <div>
+              <p className="video-p-1"><span>우원의</span></p>
+              <p className="video-p-2"><span>인적사항</span></p>
             </div>
-            <p style={{"width":"33%"}}>유비케어 개발자는 어떻게 일할까요?</p>
-            <p style={{"width":"33%"}}>유비케어의 개발자는 고객에게 항상 더 나은 서비스를 제공하기 위해 고민합니다.</p>
-            <p style={{"width":"33%"}}>지속적인 소통과 화합의 장, 유비케어를 이끌어 온 원동력이라고 생각합니다. </p>
           </div>
+          <div style={{"width":"50%","display":"flex","justifyContent":"center",
+        "alignItems":"center","boxShadow":"1px 1px 10px 1px rgb(220 230 230)","borderRadius":"10px","height":"600px"}}>
+            <div>
+              <p style={{"fontFamily":"Noto Sans KR Light", "fontSize":"25px"}}>이름 : 우원</p>
+              <p style={{"fontFamily":"Noto Sans KR Light", "fontSize":"25px"}}>생년월일 : 1994년 7월 6일</p>
+              <p style={{"fontFamily":"Noto Sans KR Light", "fontSize":"25px"}}>주소지 : 서울시 영등포구</p>
+              <p style={{"fontFamily":"Noto Sans KR Light", "fontSize":"25px"}}>연락처 : 010-6566-3684</p>
+              <p style={{"fontFamily":"Noto Sans KR Light", "fontSize":"25px"}}>학력 : 부경대학교 산업대학원 중퇴</p>
+              <Link href={"https://github.com/thewoowon"}>
+                <Image src={github} width={"50px"} height={"50px"}></Image>
+              </Link>
+              <Link href={"https://velog.io/@thewoowon"}>
+                <Image src={velog} width={"50px"} height={"50px"}></Image>
+              </Link>
+              <Link href={"https://www.notion.so/Woo-Won-9462c6bfa8ac4cb996bff6841c4d5796"}>
+                <Image src={notion} width={"50px"} height={"50px"}></Image>
+              </Link>
+              <Link href={"https://www.instagram.com/thejobyouhate/"}>
+                <Image src={instagram} width={"50px"} height={"50px"}></Image>
+              </Link>
+            </div>
+          </div>
+        </div>
         </section>
         <section className="culture section-3">
-          <div style={{"position":"relative"}}>
-            <div style={{"position":"absolute","left":"0","width":"55%"}}>
-              {/* <Image src={culture_part_1} ></Image> */}
+        <div className='m-auto flex' style={{"width":"1024px"}}>
+          <div className="video-div" style={{"width":"50%"}}>
+            <div>
+              <p className="video-p-1"><span>우원의</span></p>
+              <p className="video-p-2"><span>인적사항</span></p>
             </div>
-            <p style={{"width":"43%"}}>유비케어 개발자는 어떻게 일할까요?</p>
-            <p style={{"width":"43%"}}>유비케어의 개발자는 고객에게 항상 더 나은 서비스를 제공하기 위해 고민합니다.</p>
-            <p style={{"width":"43%"}}>지속적인 소통과 화합의 장, 유비케어를 이끌어 온 원동력이라고 생각합니다. </p>
           </div>
+          <div style={{"width":"50%","display":"flex","justifyContent":"center",
+        "alignItems":"center","boxShadow":"1px 1px 10px 1px rgb(220 230 230)","borderRadius":"10px","height":"600px"}}>
+            <div>
+              <p style={{"fontFamily":"Noto Sans KR Light", "fontSize":"25px"}}>이름 : 우원</p>
+              <p style={{"fontFamily":"Noto Sans KR Light", "fontSize":"25px"}}>생년월일 : 1994년 7월 6일</p>
+              <p style={{"fontFamily":"Noto Sans KR Light", "fontSize":"25px"}}>주소지 : 서울시 영등포구</p>
+              <p style={{"fontFamily":"Noto Sans KR Light", "fontSize":"25px"}}>연락처 : 010-6566-3684</p>
+              <p style={{"fontFamily":"Noto Sans KR Light", "fontSize":"25px"}}>학력 : 부경대학교 산업대학원 중퇴</p>
+              <Link href={"https://github.com/thewoowon"}>
+                <Image src={github} width={"50px"} height={"50px"}></Image>
+              </Link>
+              <Link href={"https://velog.io/@thewoowon"}>
+                <Image src={velog} width={"50px"} height={"50px"}></Image>
+              </Link>
+              <Link href={"https://www.notion.so/Woo-Won-9462c6bfa8ac4cb996bff6841c4d5796"}>
+                <Image src={notion} width={"50px"} height={"50px"}></Image>
+              </Link>
+              <Link href={"https://www.instagram.com/thejobyouhate/"}>
+                <Image src={instagram} width={"50px"} height={"50px"}></Image>
+              </Link>
+            </div>
+          </div>
+        </div>
         </section>
         <section className="culture section-4">
-          <div style={{"position":"relative"}}>
-            <div style={{"position":"absolute","right":"0","width":"65%"}}>
-              {/* <Image src={culture_part_2} ></Image> */}
+        <div className='m-auto flex' style={{"width":"1024px"}}>
+          <div className="video-div" style={{"width":"50%"}}>
+            <div>
+              <p className="video-p-1"><span>우원의</span></p>
+              <p className="video-p-2"><span>인적사항</span></p>
             </div>
-            <p style={{"width":"33%"}}>유비케어 개발자는 어떻게 일할까요?</p>
-            <p style={{"width":"33%"}}>유비케어의 개발자는 고객에게 항상 더 나은 서비스를 제공하기 위해 고민합니다.</p>
-            <p style={{"width":"33%"}}>지속적인 소통과 화합의 장, 유비케어를 이끌어 온 원동력이라고 생각합니다. </p>
           </div>
+          <div style={{"width":"50%","display":"flex","justifyContent":"center",
+        "alignItems":"center","boxShadow":"1px 1px 10px 1px rgb(220 230 230)","borderRadius":"10px","height":"600px"}}>
+            <div>
+              <p style={{"fontFamily":"Noto Sans KR Light", "fontSize":"25px"}}>이름 : 우원</p>
+              <p style={{"fontFamily":"Noto Sans KR Light", "fontSize":"25px"}}>생년월일 : 1994년 7월 6일</p>
+              <p style={{"fontFamily":"Noto Sans KR Light", "fontSize":"25px"}}>주소지 : 서울시 영등포구</p>
+              <p style={{"fontFamily":"Noto Sans KR Light", "fontSize":"25px"}}>연락처 : 010-6566-3684</p>
+              <p style={{"fontFamily":"Noto Sans KR Light", "fontSize":"25px"}}>학력 : 부경대학교 산업대학원 중퇴</p>
+              <Link href={"https://github.com/thewoowon"}>
+                <Image src={github} width={"50px"} height={"50px"}></Image>
+              </Link>
+              <Link href={"https://velog.io/@thewoowon"}>
+                <Image src={velog} width={"50px"} height={"50px"}></Image>
+              </Link>
+              <Link href={"https://www.notion.so/Woo-Won-9462c6bfa8ac4cb996bff6841c4d5796"}>
+                <Image src={notion} width={"50px"} height={"50px"}></Image>
+              </Link>
+              <Link href={"https://www.instagram.com/thejobyouhate/"}>
+                <Image src={instagram} width={"50px"} height={"50px"}></Image>
+              </Link>
+            </div>
+          </div>
+        </div>
         </section>
         <section className="culture section-5">
             <p className="center-title text-position-1">도전</p>

@@ -34,7 +34,7 @@ const Layout = ({ children, customMeta }: LayoutProps): JSX.Element => {
       <main style={{paddingTop:"60px"}}>
         <div style={{"overflow":"hidden"}} className="relative">{children}</div>
       </main>
-      <footer className="py-8 h-96" style={{borderTop:"1px solid rgba(230,230,230,0.5)",backgroundColor:"#f9fafb"}}>
+      <footer className="py-8 h-96" style={{borderTop:"1px solid rgba(230,230,230,0.5)",backgroundColor:"rgba(250,250,250,0.5)"}}>
         <div className="m-auto w-2/5 h-full">
           <div className="h-1/4 flex items-center justify-center">
           <Link href={"https://www.yoramco.com/"}>

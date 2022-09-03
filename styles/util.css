@@ -79,32 +79,28 @@
 
 .culture{
     height: 600px;
-    width: 100%;
+    max-width: 100%;
     position: relative;
 }
 .video-section{
     height: 800px !important;
 }
 .video-div{
-    position: absolute;
-    top: 30%;
-    left: 50%;
+    display: flex;
+    justify-content: flex-start;
     /* background-color: aliceblue; */
-    height: 10rem;
+    /* height: 10rem;
     text-align: center;
-    border-radius: 1rem;
+    border-radius: 1rem; */
     /* box-shadow: 1px 1px 10px 10px powderblue; */
-    transform: translate(-50%, -50%);
 }
 .video-p-1{
-    font-size: 4rem;
-    font-weight: bold;
+    font-size: 3rem;
     color: white;
     margin: 0;
 }
 .video-p-2{
-    font-size: 4rem;
-    font-weight: bold;
+    font-size: 3rem;
     color: white;
     margin: 0;
 }
@@ -118,14 +114,14 @@ video{
 .section-1{
     background-color: white;
     width: 100%;
-    height: 800px !important;
+    height: 1000px !important;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 .section-2{
     background-color: white;
-    height: 600px !important;
+    height: 1000px !important;
 }
 .section-3{
     background-color: white;
@@ -133,7 +129,7 @@ video{
 }
 .section-4{
     background-color: white;
-    height: 600px !important;
+    height: 1000px !important;
 }
 .section-5{
     background-color: white;
@@ -161,9 +157,8 @@ section p{
     top: 43%;
     left: 50%;
     transform: translate(-50%, -50%); */
-    font-size: 2rem;
-    font-weight: bold;
-    margin: 10px;
+    font-size: 3rem;
+    margin: 1px;
     width: 100%;
     text-align: center;
 }
@@ -177,9 +172,8 @@ p span{
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%); */
-    font-size: 2rem;
-    font-weight: bold;
-    margin: 10px;
+    font-size: 3rem;
+    margin: 1px;
     width: 100%;
     text-align: center;
 }
