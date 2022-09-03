@@ -73,6 +73,7 @@ export function getPostItems(filePath:string,fields:string[] = []): Items{
     return items;
 }
 
+// NextJs 
 // getting all posts
 export function getAllPosts(fields: string[]): Items []{
     // add paths for getting all posts 

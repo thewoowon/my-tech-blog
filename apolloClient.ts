@@ -13,6 +13,7 @@ import {
   import type { AppProps } from 'next/app'
   import { useMemo } from 'react'
   //import { paginationField } from './paginationField'
+  // 추후 데이터 베이스로 가져올 계획입니다.
   
   const APOLLO_STATE_PROP_NAME = '__APOLLO_STATE__'
   

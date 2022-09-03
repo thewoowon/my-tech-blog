@@ -8,9 +8,6 @@ import {
     SetStateAction,
 } from 'react';
 
-
-
-
 type ContextProps = {
     prerequisites: string[];
     setPrerequisites: Dispatch<SetStateAction<string[]>>;

@@ -1,8 +1,3 @@
-# Hello UBTECH!
+# Hello YORAMCO!
 
-### Currently
-
-- NEXT.js
-- Tailwind
-- MDX
-- Typescript
+### 요람코 기술 블로그

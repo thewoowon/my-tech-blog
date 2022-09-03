@@ -7,6 +7,7 @@ module.exports = {
       node: true,
     },
     extends: [
+      // 플러그인은 자유롭게 선택합니다.
       "eslint:recommended",
       "plugin:react/recommended",
       "plugin:@typescript-eslint/recommended", // 해당 플러그인의 권장 규칙을 사용합니다.

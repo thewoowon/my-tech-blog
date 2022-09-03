@@ -18,3 +18,5 @@ export interface IPost {
   stacks:string[];
   writer:string;
 }
+
+// 추가적으로 기능을 더할 얘정임
