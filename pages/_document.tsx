@@ -9,7 +9,7 @@ class MyDocument extends Document {
               rel="stylesheet"
               href="https://unpkg.com/dracula-prism/dist/css/dracula-prism.css"
             ></link>
-            <link rel='icon' href='/assets/ubcare_tech_logo.png'></link>
+            <link rel='icon' href='/images/yoramco.svg'></link>
             <script src="https://d3js.org/d3.v7.min.js"></script>
             <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.0/gsap.min.js"></script>
             <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.0/ScrollTrigger.min.js"></script>

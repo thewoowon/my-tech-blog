@@ -10,7 +10,7 @@ type LayoutProps = {
   customMeta?: MetaProps;
 };
 
-export const WEBSITE_HOST_URL = 'https://ubcare.vercel.app';
+export const WEBSITE_HOST_URL = 'https://www.yoramco.com';
 
 const Layout = ({ children, customMeta }: LayoutProps): JSX.Element => {
   return (
@@ -21,7 +21,7 @@ const Layout = ({ children, customMeta }: LayoutProps): JSX.Element => {
           <div className="w-6/12 flex" style={{alignItems:"center"}}>
             <Link href={"/"}>
               <a style={{fontSize:"24px",fontWeight:"bold",color:"#ff7f00",lineHeight:"28px",fontFamily:"Noto_Sans"}}>
-                <span className="ubcare-blog-title">유비케어</span> 
+                <span className="yoramco-blog-title">요람코</span> 
                 <span style={{fontSize:"18px",fontWeight:"bold",lineHeight:"18px",fontFamily:"Noto_Sans", color:"#3B3838"}}> 기술 블로그</span>
               </a>
             </Link>
@@ -37,20 +37,18 @@ const Layout = ({ children, customMeta }: LayoutProps): JSX.Element => {
       <footer className="py-8 h-96" style={{borderTop:"1px solid rgba(230,230,230,0.5)",backgroundColor:"#f9fafb"}}>
         <div className="m-auto w-2/5 h-full">
           <div className="h-1/4 flex items-center justify-center">
-          <Link href={"https://www.ubcare.co.kr/"}>
+          <Link href={"https://www.yoramco.com/"}>
             <a style={{fontSize:"28px",fontWeight:"bold",color:"#ff7f00",lineHeight:"28px",textAlign:"center",fontFamily:"Noto_Sans"}}>
-                <span className="ubcare-blog-title">유비케어</span> 
+                <span className="yoramco-blog-title">요람코</span> 
                 <span style={{fontSize:"20px",fontWeight:"bold",lineHeight:"18px",fontFamily:"Noto_Sans",color:"#3B3838"}}> 기술 블로그</span>
             </a>
           </Link>
           </div>
           <div className="h-2/4 flex items-center justify-center">
-            <Image src={"/assets/gc_care.png"} width={100} height={50}></Image>
-            <Image src={"/assets/bbros.png"} width={200} height={100}></Image>
-            <Image src={"/assets/hecton.png"} width={100} height={50}></Image>
+            <Image src={"/images/yoramco.svg"} width={100} height={90}></Image>
           </div>
           <div className="h-1/4 border-t-2 flex justify-center items-center">
-            <p className="text-black text-center text-xs" style={{color:"rgba(200,200,200,1)",fontFamily:"Noto_Sans"}}>UBcare. ALL RIGHTS RESERVED. POWERED BY VERCEL</p>
+            <p className="text-black text-center text-xs" style={{color:"rgba(200,200,200,1)",fontFamily:"Noto_Sans"}}>YoramCo. ALL RIGHTS RESERVED. POWERED BY VERCEL</p>
           </div>
         </div>
       </footer>

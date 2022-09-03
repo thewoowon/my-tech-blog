@@ -7,8 +7,8 @@ import 'swiper/css/scrollbar';
 import 'swiper/css/autoplay';
 import React from 'react';
 import Image from 'next/image';
-import Preview1 from '../images/carousel/ubcare_intro.svg';
-//import Preview4 from '../images/carousel/ubtech_preview4_new.svg';
+import Preview1 from '../images/carousel/yoramco_main_1.svg';
+import Preview2 from '../images/carousel/yoramco_main_2.svg';
 
 
 
@@ -31,11 +31,11 @@ const Slider = (): JSX.Element => {
           loop={true}
           height={450}
           >
-          {/* <SwiperSlide className="my-swiper-slide">
-            <Image src={Preview4} alt="Sample1" width={"100%"} height={450} className="carousel-fit" ></Image>
-          </SwiperSlide> */}
           <SwiperSlide className="my-swiper-slide">
             <Image src={Preview1} alt="Sample1" width={"100%"} height={450} className="carousel-fit" ></Image>
+          </SwiperSlide>
+          <SwiperSlide className="my-swiper-slide">
+            <Image src={Preview2} alt="Sample1" width={"100%"} height={450} className="carousel-fit" ></Image>
           </SwiperSlide>
         </Swiper>
   );

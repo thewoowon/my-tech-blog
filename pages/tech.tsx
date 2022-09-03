@@ -16,7 +16,7 @@ const Tech: NextPage<Props> = ({posts}:Props) => {
   return (
     <Layout
       customMeta={{
-        title: '유비케어 기술 블로그 | TECH',
+        title: '요람코 기술 블로그 | TECH',
       }}
     >
       <div className="m-auto flex" style={{width:"1024px"}}>

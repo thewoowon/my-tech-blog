@@ -22,10 +22,8 @@ import Prism from 'prismjs';
 import 'prismjs/components/prism-typescript.min';
 import 'prismjs/components/prism-jsx.min';
 import 'prismjs/components/prism-tsx.min';
-
-
 import Image from 'next/image';
-import techLogo from '../../images/logo/face.png';
+import techLogo from '../../images/logo/woowon_removebg.png';
 
 
 // props type
@@ -90,10 +88,10 @@ const PostPage = ({ source, frontMatter }: Props):JSX.Element => {
                             </div>
                             <div className="w-8/12 h-full"> 
                                 <div className="h-3/6 flex items-center pl-5 pr-12" style={{"fontFamily":"Noto_Sans"}}>
-                                    <h4>{frontMatter.writer} / 매니저 </h4>
+                                    <h4>{frontMatter.writer} / 요람코 </h4>
                                 </div>
                                 <div className="h-3/6 flex items-start pl-5 pr-12" style={{"fontFamily":"Noto_Sans"}}>
-                                    안녕하세요. {frontMatter.writer} 매니저입니다.
+                                    안녕하세요. {frontMatter.writer}입니다.
                                 </div>
                             </div>
                         </div>

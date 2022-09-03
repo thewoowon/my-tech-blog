@@ -66,7 +66,7 @@
 }
 
 .tag-button:hover {
-    background-color: #ff7f00;
+    background-color: #00DC6C;
     box-shadow: 0px 3px 5px rgba(255, 127, 0, 0.4);
     color: #fff;
     transform: translateY(-3px);
@@ -168,7 +168,7 @@ section p{
     text-align: center;
 }
 p span{
-    background: linear-gradient(to right, #ff9200, #fc466b);
+    background: linear-gradient(to right, #00DC6C, #1EE3DE);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
@@ -184,7 +184,7 @@ p span{
     text-align: center;
 }
 p span{
-    background: linear-gradient(to right, #ff9200, #fc466b);
+    background: linear-gradient(to right, #00DC6C, #1EE3DE);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
@@ -203,14 +203,14 @@ p span{
     text-align: start;
 }
 
-.ubcare-blog-title{
-    background: linear-gradient(to right, #ff9200, #fc466b);
+.yoramco-blog-title{
+    background: linear-gradient(to right, #00DC6C, #1EE3DE);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
 .orange-box-1{
-    background: linear-gradient(90deg,#ff9200,#fc466b);
+    background: linear-gradient(90deg,#00DC6C,#1EE3DE);
     width: 10rem;
     height: 600px;
     border-radius: 5px;
@@ -221,7 +221,7 @@ p span{
     z-index: 1;
 }
 .orange-box-2{
-    background: linear-gradient(90deg,#ff9200,#fc466b);
+    background: linear-gradient(90deg,#00DC6C,#1EE3DE);
     width: 10rem;
     height: 600px;
     border-radius: 5px;
@@ -233,7 +233,7 @@ p span{
 }
 
 .orange-box-3{
-    background: linear-gradient(90deg,#ff9200,#fc466b);
+    background: linear-gradient(90deg,#00DC6C,#1EE3DE);
     width: 10rem;
     height: 600px;
     border-radius: 5px;
@@ -245,7 +245,7 @@ p span{
 }
 
 .orange-box-4{
-    background: linear-gradient(90deg,#ff9200,#fc466b);
+    background: linear-gradient(90deg,#00DC6C,#1EE3DE);
     width: 10rem;
     height: 600px;
     border-radius: 5px;
