@@ -1,8 +1,3 @@
-# Hello UBTECH!
+# 요람에서 코드까지!
 
-### Currently
-
-- NEXT.js
-- Tailwind
-- MDX
-- Typescript
+### 요람코 기술 블로그입니다.
