@@ -23,7 +23,7 @@ import 'prismjs/components/prism-typescript.min';
 import 'prismjs/components/prism-jsx.min';
 import 'prismjs/components/prism-tsx.min';
 import Image from 'next/image';
-import techLogo from '../../images/logo/woowon_removebg.png';
+import techLogo from '../../images/logo/woowon_bg.png';
 
 
 // props type

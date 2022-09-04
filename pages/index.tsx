@@ -74,16 +74,7 @@ const Home: NextPage<Props> = ({posts}:Props) => {
               <h3>최근 올라온 글</h3>
             </div>
             <ul className="latest-list m-auto">
-              <li><Link href={`posts/20190227_JHS_REACTNATIVE`}><a>React Native 사용기 #1</a></Link></li>
-              <li><Link href={`posts/20190228_JSC_SQL`}><a>SQL - Four Part Naming의 함정</a></Link></li>
-              <li><Link href={`posts/20190304_HJL_FIREBASE_1`}><a>실시간 데이터베이스 사용기 (Firebase) 1탄</a></Link></li>
-              <li><Link href={`posts/20190311_HJL_FIREBASE_2`}><a>실시간 데이터베이스 사용기 (Firebase) 2탄</a></Link></li>
-              <li><Link href={`posts/20190415_HYL_DEVTREND`}><a>Dev Trend 2019 by StackOverflow</a></Link></li>
-              <li><Link href={`posts/20190425_KTJ_HELLOANKO_1`}><a>Hello Anko!! - 1탄</a></Link></li>
-              <li><Link href={`posts/20190430_JSC_DEADLOCK`}><a>[SQL SERVER] Lock - 01.DeadLock</a></Link></li> 
-              <li><Link href={`posts/20190503_KTJ_HELLOANKO_2`}><a>Hello Anko!! - 2탄</a></Link></li>
-              <li><Link href={`posts/20190604_HYL_CSSTRANSFORM_1`}><a>CSS Transform 3D - Part1</a></Link></li>
-              <li><Link href={`posts/20190607_YSY_SSMS`}><a>SSMS 소소한 팁!!</a></Link></li>
+              <li><Link href={`posts/20220904_YORAMCO_1`}><a>요람코 기술블로그, 그 시작의 글</a></Link></li>
             </ul>
           </div>
         </div>
