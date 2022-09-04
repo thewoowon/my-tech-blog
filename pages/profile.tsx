@@ -63,20 +63,29 @@ export const Culture = (): JSX.Element => {
               <p style={{"fontFamily":"Noto Sans KR Light", "fontSize":"25px"}}>이름 : 우원</p>
               <p style={{"fontFamily":"Noto Sans KR Light", "fontSize":"25px"}}>생년월일 : 1994년 7월 6일</p>
               <p style={{"fontFamily":"Noto Sans KR Light", "fontSize":"25px"}}>주소지 : 서울시 영등포구</p>
-              <p style={{"fontFamily":"Noto Sans KR Light", "fontSize":"25px"}}>연락처 : 010-6566-3684</p>
-              <p style={{"fontFamily":"Noto Sans KR Light", "fontSize":"25px"}}>학력 : 부경대학교 산업대학원 중퇴</p>
-              <Link href={"https://github.com/thewoowon"}>
-                <Image src={github} width={"50px"} height={"50px"}></Image>
-              </Link>
-              <Link href={"https://velog.io/@thewoowon"}>
-                <Image src={velog} width={"50px"} height={"50px"}></Image>
-              </Link>
-              <Link href={"https://www.notion.so/Woo-Won-9462c6bfa8ac4cb996bff6841c4d5796"}>
-                <Image src={notion} width={"50px"} height={"50px"}></Image>
-              </Link>
-              <Link href={"https://www.instagram.com/thejobyouhate/"}>
+              <p style={{"fontFamily":"Noto Sans KR Light", "fontSize":"25px","margin":"0"}}>학력</p>
+              <p style={{"fontFamily":"Noto Sans KR Light", "fontSize":"25px","margin":"0"}}> - 부경대학교 융합디스플레이공학 </p>
+              <p style={{"fontFamily":"Noto Sans KR Light", "fontSize":"25px","margin":"0","marginBottom":"20px"}}> - 부경대학교 산업대학원 컴퓨터공학 중퇴</p>
+              <div style={{"display":"flex"}}>
+                <div style={{"marginRight":"10px","cursor":"grab"}}>
+                  <Link href={"https://github.com/thewoowon"}>
+                    <Image src={github} width={"50px"} height={"50px"}></Image>
+                  </Link>
+                </div>
+                <div style={{"marginRight":"10px","cursor":"grab"}}>
+                  <Link href={"https://velog.io/@thewoowon"}  style={{"marginRight":"10px","cursor":"grab"}}>
+                    <Image src={velog} width={"50px"} height={"50px"}></Image>
+                  </Link>
+                </div>
+                <div style={{"marginRight":"10px","cursor":"grab"}}>
+                  <Link href={"https://www.notion.so/Woo-Won-9462c6bfa8ac4cb996bff6841c4d5796"}  style={{"marginRight":"10px","cursor":"grab"}}>
+                    <Image src={notion} width={"50px"} height={"50px"}></Image>
+                  </Link>
+                </div>
+              </div>
+              {/* <Link href={"https://www.instagram.com/thejobyouhate/"}>
                 <Image src={instagram} width={"50px"} height={"50px"}></Image>
-              </Link>
+              </Link> */}
             </div>
           </div>
         </div>
