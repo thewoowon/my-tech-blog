@@ -1,7 +1,5 @@
 import React from 'react';
 import Layout from '../components/Layout';
-import Video from '../components/Video';
-import Card from '../components/Card';
 import Image from 'next/image';
 import Link from 'next/link';
 //import main from '../public/videos/main_video.mov'

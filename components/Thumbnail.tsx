@@ -2,7 +2,6 @@
 import Link from 'next/link';
 // import image artifacts
 import Image from 'next/image';
-import Video from 'next'
 
 // Thumbnail properties
 type Props = {
