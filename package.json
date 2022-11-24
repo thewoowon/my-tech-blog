@@ -114,7 +114,7 @@
   },
   "description": "My Tech Blog",
   "main": "index.js",
-  "repository": "https://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@github.com/thewoowon/yoramco.git",
+  "repository": "https://github.com/thewoowon/my-tech-blog.git",
   "author": "thewoowon <thewoowon@naver.com>",
   "license": "MIT"
 }

@@ -3,14 +3,14 @@ import { useRouter } from 'next/router';
 import React from 'react';
 import { MetaProps } from '../types/layout';
 
-export const WEBSITE_HOST_URL = 'https://yoramco.vercel.app/';
+export const WEBSITE_HOST_URL = 'https://my-tech-blog-beta.vercel.app';
 
 const Head = ({ customMeta }: { customMeta?: MetaProps }): JSX.Element => {
   const router = useRouter();
   const meta: MetaProps = {
     title: '우원 기술 블로그',
     description: '새로운 영감, 꾸준한 성장',
-    image: `${WEBSITE_HOST_URL}/images/tb_logo_rounded.svg`,
+    image: `${WEBSITE_HOST_URL}/images/tb_logo_rounded.png`,
     type: 'Blog',
     ...customMeta,
   };

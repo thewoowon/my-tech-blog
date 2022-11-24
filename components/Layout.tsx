@@ -10,7 +10,7 @@ type LayoutProps = {
   customMeta?: MetaProps;
 };
 
-export const WEBSITE_HOST_URL = 'https://yoramco.vercel.app/';
+export const WEBSITE_HOST_URL = 'https://my-tech-blog-beta.vercel.app/';
 
 const Layout = ({ children, customMeta }: LayoutProps): JSX.Element => {
   return (
@@ -67,7 +67,7 @@ const Layout = ({ children, customMeta }: LayoutProps): JSX.Element => {
       >
         <div className="m-auto w-2/5 h-full">
           <div className="h-1/4 flex items-center justify-center">
-            <Link href={'https://www.yoramco.com/'}>
+            <Link href={'https://my-tech-blog-beta.vercel.app/'}>
               <a
                 style={{
                   fontSize: '28px',
