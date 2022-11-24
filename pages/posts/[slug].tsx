@@ -142,7 +142,7 @@ const PostPage = ({ source, frontMatter }: Props): JSX.Element => {
                   src={techLogo}
                   alt="logo"
                   width={150}
-                  height={150}
+                  height={180}
                   style={{ borderRadius: '10%', objectFit: 'fill' }}
                 ></Image>
               </div>
@@ -163,7 +163,11 @@ const PostPage = ({ source, frontMatter }: Props): JSX.Element => {
                   className="flex items-start pl-5 pr-12"
                   style={{ fontFamily: 'Noto Sans KR', height: '50%' }}
                 >
-                  {comment}
+                  {'안녕하세요👏'}
+                  <br />
+                  {'새로운 영감을 주는 일과 꾸준한 성장을 즐기는'}
+                  <br />
+                  {'주니어 개발자 우원입니다.'}
                 </div>
               </div>
             </div>
