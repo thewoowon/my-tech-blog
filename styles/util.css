@@ -38,12 +38,21 @@
     margin-bottom: 5px;
     border-bottom: 1px solid #efefef;
     font-size: 15px;
-    font-family: 'Noto_Sans';
+    font-family: 'Noto Sans KR Light';
 }
-
-
 .latest-list li a{
     cursor: pointer;
+}
+.latest-list li a:hover{
+    cursor: pointer;
+    color: #00DC6C;
+}
+.tags-list{
+    font-family: 'Noto Sans KR Light';
+}
+.tags-list:hover{
+    cursor: pointer;
+    color: #00DC6C;
 }
 .tag-button{
     height: 35px;
@@ -274,12 +283,12 @@ p span{
 }
 
 .a-custom{
-    color: #ff7f00;
+    color: #00DC6C;
 }
 
 .a-custom:hover{
-    border-bottom:1px solid #ff9200;
-    color: #ffb469;
+    border-bottom:1px solid #00AA6C;
+    color: #00AA6C;
 }
 
 .ex-box{
