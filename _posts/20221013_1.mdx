@@ -1,0 +1,318 @@
+---
+title: 십요일, Nest.js 전파하기 (2)
+description: 십요일 주제를 Nest.js로 선정하고 전파했습니다.
+thumbnail: /assets/nestjs-image.png
+prerequisites: ['우원', '주니어 개발자','성장 중','안녕하세요👏 새로운 영감을 주는 일과 꾸준한 성장을 즐기는 우원입니다.']
+stacks: ['NEST']
+writer: 우원
+date: '2022-10-13'
+name: '20221013_1' 
+---
+
+## Nest.js + PostgreSQL + TypeORM
+
+Nest.js에 PostgreSQL을 연동해 보도록하겠다.
+먼저 많은 DBMS가 있지만 굳이 PostgreSQL을 선정한 이유는
+개인적으로 많이 사용해왔고 MySQL의 workbench뿐만 아니라
+postico의 사용법도 홍보하고 싶어서 선택하게 되었다.
+(MySQL 버전도 따로 준비해보도록 하겠다.)
+
+TypeORM은 조금 생소할 수도 있다.
+하지만 O(Object:객체)-R(Relation:테이블)-Mapping(대응)을 
+알고 있는 우리는 쉽게 이해할 수 있다.
+
+비슷한 것으로는 Java 진영의 JPA, .NET의 EF(Entity Framework)가 있다.
+
+<div className="flex justify-center items-center py-5">
+  <img src="https://velog.velcdn.com/images/thewoowon/post/12430150-7e62-4251-9901-4894508a6ee9/image.png" alt="spring"/>
+</div>
+
+<p className="text-center py-3">
+    사진 출처 -
+    <span><a target="_blank" href="https://medium.com/@gausmann.simon/nestjs-typeorm-and-postgresql-full-example-development-and-project-setup-working-with-database-c1a2b1b11b8f" className="a-custom">Median Blog</a></span>
+</p>
+
+Nest.js + PostgreSQL + TypeORM의 세가지 조합으로
+database 관리의 효율성을 제고해 보자!
+
+### PostgreSQL 설치하기
+먼저 운영체제가 Windows일 경우에는 
+[여기](https://www.postgresql.org/download/)에 방문해서 Windows 전용 실행 파일을 다운로드하면 된다.
+전용 IDE 외에는 [PgAdmin4](https://www.pgadmin.org/)를 사용하는 것이 최고의 사용자 경험을 선사한다.
+
+그렇지만 MacOS의 경우에는 
+[여기](https://eggerapps.at/postico/)에 방문해서 Postico를 다운받아 주면된다!
+(DBeaver, Data Grip 등 Java 전용 gui도 있다)
+
+PostgreSQL의 자체적인 GUI도 있지만 
+그 외에도 유명한 툴이 두 가지가 있다.
+Postico와 PgAdmin4가 대표적인 툴 중의 하나이다.
+
+윈도우 진영에서는 PgAdmin4가 가장 최고의 툴이라고 정평이 나있다.
+(실제 Slant 커뮤니티에서 조사한 바에 의하면 PgAdmin은 1위, Postico는 10위...)
+
+MacOS에서도 PgAdmin4과 Postico를 함께 사용해 보았지만
+내가 추구하는 깔끔한 인터페이스는 Postico가 더 적합하다고 생각한다.
+
+<div className="flex justify-center items-center py-5">
+  <img src="https://velog.velcdn.com/images/thewoowon/post/237261e3-7ac9-40eb-ac25-bdb5922366a9/image.png" alt="spring"/>
+</div>
+
+### 데이터베이스 추가하기
+
+가장 먼저 postico로 들어가서 하단의 +Database 버튼을 클릭하고
+"challenge" 데이터 베이스를 추가한다.
+
+### postgresql cli 설치하기 
+
+그리고 계정 설정을 위해 터미널을 열어 postgresql brew를 통해 설치한다.
+
+<div className="bg-gray-50 my-4 px-4 py-2 border-l-4 border-green-400 hover:bg-gray-100 hover:border-indigo-400 transition duration-300 ease-in-out">
+    brew install postgresql
+</div>
+
+### postgresql cli로 비밀번호 변경하기
+
+브루를 통해 설치가 완료되면 psql를 입력한다.
+
+<div className="flex justify-center items-center py-5">
+  <img src="https://velog.velcdn.com/images/thewoowon/post/974e4089-67b0-4730-a187-a20661b3b5cd/image.png" alt="spring"/>
+</div>
+
+psql을 입력하면 아래의 psql cli가 출력된다.
+
+<div className="flex justify-center items-center py-5">
+  <img src="https://velog.velcdn.com/images/thewoowon/post/311df1b7-49fa-4b1a-9d3d-470596561495/image.png" alt="spring"/>
+</div>
+
+이제 "\du"를 입력해서 모든 사용자를 조회한다.
+
+<div className="flex justify-center items-center py-5">
+  <img src="https://velog.velcdn.com/images/thewoowon/post/bdb357a4-bfe2-4926-8c53-93bafa4a5096/image.png" alt="spring"/>
+</div>
+
+이제 아래의 쿼리를 입력해서 유저 비밀번호를 개인적으로 변경한다.
+
+<div className="bg-gray-50 my-4 px-4 py-2 border-l-4 border-green-400 hover:bg-gray-100 hover:border-indigo-400 transition duration-300 ease-in-out">
+    ALTER USER 유저명 WITH PASSWORD "변경할 비밀번호" 
+    
+    ex) ALTER USER woowon WITH PASSWORD "1234"
+    
+    (유저명은 따옴표가 없어야하고 비밀번호는 따옴표가 있어야한다.)
+</div>
+
+이제 유저명과 비밀번호는 연동 과정에 사용할 것이므로
+잘 기억해 두길 바란다!
+
+### TypeOrm vs Sequelize
+
+둘의 차이점은 TypeOrm이 타입스크립트에 기반해 제작된 것이므로
+자바스크립트 기반인 Sequelize에 비해 Nest.js와 연동 했을 때
+타입스크립트의 장점을 온전히 발휘할 수 있다고 생각한다!
+
+### TypeORM 설정
+
+TypeORM을 설치한다.
+공식문서에는 mysql2이 끝에 위치해 있지만 postgresql을 위해 변경한다. 
+
+<div className="bg-gray-50 my-4 px-4 py-2 border-l-4 border-green-400 hover:bg-gray-100 hover:border-indigo-400 transition duration-300 ease-in-out">
+    npm install --save @nestjs/typeorm typeorm pg
+</div>
+
+app.module.ts로 이동해서 import에
+아래의 설정을 추가하도록 한다.
+
+```typescript
+  TypeOrmModule.forRoot({
+        type: 'postgres',
+        host: 'localhost',
+        port: 5432,
+        username: '유저이름',
+        password: '비밀번호',
+        database: 'challenge',
+        entities: [],
+    	loggin: false,
+        synchronize: true,
+      }),
+```
+전체 소스코드는 아래와 같다.
+
+```typescript
+// src/app.module.ts
+import { Module } from '@nestjs/common';
+import { GraphQLModule } from '@nestjs/graphql';
+import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
+import { ChallengeModule } from './challenge/challenge.module';
+import { TypeOrmModule } from '@nestjs/typeorm';
+
+@Module({
+  imports: [
+    GraphQLModule.forRoot<ApolloDriverConfig>({
+      driver: ApolloDriver,
+      autoSchemaFile: true,
+    }),
+    TypeOrmModule.forRoot({
+      type: 'postgres',
+      host: 'localhost',
+      port: 5432,
+      username: '유저이름',
+      password: '비밀번호',
+      database: 'challenge',
+      entities: [],
+      logging: false,
+      synchronize: true,
+    }),
+    ChallengeModule,
+  ],
+  controllers: [],
+  providers: [],
+})
+export class AppModule {}
+
+```
+
+###  환경 변수 선언하기
+
+하지만 위와 같이 코드 파일에 직접 데이터베이스의 정보를 
+입력하는 것은 안전하지 못한 방법이다.
+
+일단 설정을 위한 모듈의 설치하도록한다.
+
+<div className="bg-gray-50 my-4 px-4 py-2 border-l-4 border-green-400 hover:bg-gray-100 hover:border-indigo-400 transition duration-300 ease-in-out">
+    npm i --save @nestjs/config
+</div>
+
+Config Module은 .env 파일 위에서 동작하기 때문에
+.env파일을 제어하는데 매우 유용하다
+
+아래의 모듈을 추가하도록 하자.
+```typescript
+ConfigModule.forRoot({
+      isGlobal: true,
+      envFilePath: '.env',
+      ignoreEnvFile: process.env.NODE_ENV === 'production',
+    }),
+```
+
+추가한 전체 소스코드는 아래와 같다.
+
+```typescript
+// src/app.module.ts
+import { Module } from '@nestjs/common';
+import { GraphQLModule } from '@nestjs/graphql';
+import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
+import { ChallengeModule } from './challenge/challenge.module';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { ConfigModule } from '@nestjs/config';
+
+@Module({
+  imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,
+      envFilePath: '.env',
+      ignoreEnvFile: process.env.NODE_ENV === 'production',
+    }),
+    GraphQLModule.forRoot<ApolloDriverConfig>({
+      driver: ApolloDriver,
+      autoSchemaFile: true,
+    }),
+    TypeOrmModule.forRoot({
+      type: 'postgres',
+      host: 'localhost',
+      port: 5432,
+      username: '유저이름',
+      password: '비밀번호',
+      database: 'challenge',
+      entities: [],
+      logging: false,
+      synchronize: true,
+    }),
+    ChallengeModule,
+  ],
+  controllers: [],
+  providers: [],
+})
+export class AppModule {}
+
+```
+
+### 실행 명령어에 따른 환경 변수 설정하기
+
+하지만 아직 우리는 명령어별 환경 변수를 설정하지 않았다.
+
+내가하는 말의 의미는 이렇다.
+
+<div className="bg-gray-50 my-4 px-4 py-2 border-l-4 border-green-400 hover:bg-gray-100 hover:border-indigo-400 transition duration-300 ease-in-out">
+    npm run start:dev의 경우는 development 환경
+
+npm run start의 경우는 production 환경
+
+npm run test의 경우는 test 환경
+</div>
+
+위와 같이 명령어에 따라 구분하는 것이다.
+
+그럼 세가지 .env 파일을 생성해야한다.
+
+<div className="bg-gray-50 my-4 px-4 py-2 border-l-4 border-green-400 hover:bg-gray-100 hover:border-indigo-400 transition duration-300 ease-in-out">
+.enc.development
+
+.env.production
+
+.env.text
+</div>
+
+빠르게 추가해주도록 한다.
+그리고 다음 라이브러리를 설치한다.
+
+<div className="bg-gray-50 my-4 px-4 py-2 border-l-4 border-green-400 hover:bg-gray-100 hover:border-indigo-400 transition duration-300 ease-in-out">
+npm install cross-env
+</div>
+
+모든 운영체제에서 환경변수 설정을 할 수 있게 해주는 라이브러리이다.
+
+설치가 완료되었다면 package.json으로 이동해
+script를 수정하도록 한다
+
+```json
+"start": "cross-env NODE_ENV=production nest start",
+"start:dev": "cross-env NODE_ENV=development nest start --watch",
+```
+이어서 ConfigModule도 아래와 변경하도록한다.
+```typescript
+    ConfigModule.forRoot({
+      isGlobal: true,
+      envFilePath: process.env.NODE_ENV === 'development' ? '.env.development' : '.env.test',
+      ignoreEnvFile: process.env.NODE_ENV === 'production',
+    }),
+```
+> 추가 : .gitignore에 반드시 추가해서 커밋을 방지하자.
+
+### 환경변수 안전하게 작성하기
+
+.env.development 파일을 아래와 같이 작성한다.
+```typescript
+DATABASE_HOST=localhost
+DATABASE_PORT=5432
+DATABASE_USERNAME=유저명
+DATABASE_PASSWORD=비밀번호
+DATABASE_NAME=challenge
+```
+
+TypeORMModule도 아래와 같이 작성한다.
+
+```typescript
+TypeOrmModule.forRoot({
+      type: 'postgres',
+      host: process.env.DATABASE_HOST,
+      port: +process.env.DATABASE_PORT,
+      username: process.env.DATABASE_USER,
+      password: process.env.DATABASE_PASSWORD,
+      database: process.env.DATABASE_NAME,
+      entities: [],
+      logging: false,
+      synchronize: true,
+    }),
+```
+
+이제 프로젝트를 실행해서 확인해보자!
