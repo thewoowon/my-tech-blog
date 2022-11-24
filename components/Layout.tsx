@@ -10,7 +10,7 @@ type LayoutProps = {
   customMeta?: MetaProps;
 };
 
-export const WEBSITE_HOST_URL = 'https://my-tech-blog-beta.vercel.app/';
+export const WEBSITE_HOST_URL = 'https://my-tech-blog-beta.vercel.app';
 
 const Layout = ({ children, customMeta }: LayoutProps): JSX.Element => {
   return (
