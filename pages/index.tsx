@@ -1,6 +1,5 @@
 import type { NextPage, GetStaticProps } from 'next';
 import Layout from '../components/Layout';
-import Slider from '../components/Slider';
 import Thumbnail from '../components/Thumbnail';
 import { IPost } from '../types/post';
 import { getAllPosts } from '../utils/mdxUtils';

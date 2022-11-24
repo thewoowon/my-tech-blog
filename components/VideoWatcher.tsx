@@ -6,7 +6,6 @@ import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 import 'swiper/css/autoplay';
 import React from 'react';
-import Image from 'next/image';
 
 const VideoWatcher = (): JSX.Element => {
   return (

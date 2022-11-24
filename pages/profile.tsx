@@ -4,7 +4,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 //import main from '../public/videos/main_video.mov'
 import github from '../public/images/github.png';
-import velog from '../public/images/velog.png';
 import notion from '../public/images/notion.png';
 
 import frontEndAll from '../public/images/frontend/all.svg';
