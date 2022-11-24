@@ -95,10 +95,6 @@
       "eslint --fix",
       "prettier --write",
       "git add"
-    ],
-    "*.{md,mdx}": [
-      "remark . --output",
-      "git add"
     ]
   },
   "remarkConfig": {
