@@ -13,9 +13,6 @@ import backEndAll from '../public/images/backend/all.svg';
 
 import othersAll from '../public/images/others/all.svg';
 
-
-
-
 export const Culture = (): JSX.Element => {
   return (
     <Layout
@@ -23,7 +20,7 @@ export const Culture = (): JSX.Element => {
         title: '요람코 기술 블로그 | PROFILE',
       }}
     >
-      <section className="culture video-section">
+      {/* <section className="culture video-section">
         <div className='m-auto flex' style={{"width":"1024px"}}>
           <div className="video-div" style={{"width":"50%"}}>
             <div style={{"paddingTop":"120px"}}>
@@ -41,104 +38,214 @@ export const Culture = (): JSX.Element => {
             <source src="/videos/dance.mp4"/>
           </video>
         </div>
-      </section>
-      <div className="m-auto" style={{width:"1024px"}}>
+      </section> */}
+      <div className="m-auto" style={{ width: '1024px' }}>
         <section className="culture section-1 flex justify-center items-center">
           <div>
-            <p className="slogan"><span>개발자 우원을 소개합니다.</span></p>
+            <p className="slogan">
+              <span>개발자 우원을 소개합니다.</span>
+            </p>
           </div>
         </section>
         <section className="culture section-2">
-        <div className='m-auto flex' style={{"width":"1024px"}}>
-          <div className="video-div" style={{"width":"50%"}}>
-            <div>
-              <p className="video-p-1"><span>우원의</span></p>
-              <p className="video-p-2"><span>인적사항</span></p>
+          <div className="m-auto flex" style={{ width: '1024px' }}>
+            <div className="video-div" style={{ width: '50%' }}>
+              <div>
+                <p className="video-p-1">
+                  <span>우원의</span>
+                </p>
+                <p className="video-p-2">
+                  <span>인적사항</span>
+                </p>
+              </div>
             </div>
-          </div>
-          <div style={{"width":"50%","display":"flex","justifyContent":"center",
-        "alignItems":"center","boxShadow":"1px 1px 10px 1px rgb(220 230 230)","borderRadius":"10px","height":"600px"}}>
-            <div>
-              <p style={{"fontFamily":"Noto Sans KR Light", "fontSize":"25px"}}>이름 : 우원</p>
-              <p style={{"fontFamily":"Noto Sans KR Light", "fontSize":"25px"}}>생년월일 : 1994년 7월 6일</p>
-              <p style={{"fontFamily":"Noto Sans KR Light", "fontSize":"25px"}}>주소지 : 서울시 영등포구</p>
-              <p style={{"fontFamily":"Noto Sans KR Light", "fontSize":"25px","margin":"0"}}>학력</p>
-              <p style={{"fontFamily":"Noto Sans KR Light", "fontSize":"25px","margin":"0"}}> - 부경대학교 융합디스플레이공학 </p>
-              <p style={{"fontFamily":"Noto Sans KR Light", "fontSize":"25px","margin":"0","marginBottom":"20px"}}> - 부경대학교 산업대학원 컴퓨터공학 중퇴</p>
-              <div style={{"display":"flex"}}>
-                <div style={{"marginRight":"10px","cursor":"grab"}}>
-                  <Link href={"https://github.com/thewoowon"}>
-                    <Image src={github} width={"50px"} height={"50px"}></Image>
-                  </Link>
-                </div>
-                <div style={{"marginRight":"10px","cursor":"grab"}}>
+            <div
+              style={{
+                width: '50%',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                boxShadow: '1px 1px 10px 1px rgb(220 230 230)',
+                borderRadius: '10px',
+                height: '600px',
+              }}
+            >
+              <div>
+                <p
+                  style={{ fontFamily: 'Noto Sans KR Light', fontSize: '25px' }}
+                >
+                  이름 : 우원
+                </p>
+                <p
+                  style={{ fontFamily: 'Noto Sans KR Light', fontSize: '25px' }}
+                >
+                  생년월일 : 1994년 7월 6일
+                </p>
+                <p
+                  style={{ fontFamily: 'Noto Sans KR Light', fontSize: '25px' }}
+                >
+                  주소지 : 서울시 영등포구
+                </p>
+                <p
+                  style={{
+                    fontFamily: 'Noto Sans KR Light',
+                    fontSize: '25px',
+                    margin: '0',
+                  }}
+                >
+                  학력
+                </p>
+                <p
+                  style={{
+                    fontFamily: 'Noto Sans KR Light',
+                    fontSize: '25px',
+                    margin: '0',
+                  }}
+                >
+                  {' '}
+                  - 부경대학교 융합디스플레이공학{' '}
+                </p>
+                <p
+                  style={{
+                    fontFamily: 'Noto Sans KR Light',
+                    fontSize: '25px',
+                    margin: '0',
+                    marginBottom: '20px',
+                  }}
+                >
+                  {' '}
+                  - 부경대학교 산업대학원 컴퓨터공학 중퇴
+                </p>
+                <div style={{ display: 'flex' }}>
+                  <div style={{ marginRight: '10px', cursor: 'grab' }}>
+                    <Link href={'https://github.com/thewoowon'}>
+                      <Image
+                        src={github}
+                        width={'50px'}
+                        height={'50px'}
+                      ></Image>
+                    </Link>
+                  </div>
+                  {/* <div style={{"marginRight":"10px","cursor":"grab"}}>
                   <Link href={"https://velog.io/@thewoowon"}  style={{"marginRight":"10px","cursor":"grab"}}>
                     <Image src={velog} width={"50px"} height={"50px"}></Image>
                   </Link>
+                </div> */}
+                  <div style={{ marginRight: '10px', cursor: 'grab' }}>
+                    <Link
+                      href={'https://woowon.oopy.io/'}
+                      style={{ marginRight: '10px', cursor: 'grab' }}
+                    >
+                      <Image
+                        src={notion}
+                        width={'50px'}
+                        height={'50px'}
+                      ></Image>
+                    </Link>
+                  </div>
                 </div>
-                <div style={{"marginRight":"10px","cursor":"grab"}}>
-                  <Link href={"https://www.notion.so/Woo-Won-9462c6bfa8ac4cb996bff6841c4d5796"}  style={{"marginRight":"10px","cursor":"grab"}}>
-                    <Image src={notion} width={"50px"} height={"50px"}></Image>
-                  </Link>
-                </div>
-              </div>
-              {/* <Link href={"https://www.instagram.com/thejobyouhate/"}>
+                {/* <Link href={"https://www.instagram.com/thejobyouhate/"}>
                 <Image src={instagram} width={"50px"} height={"50px"}></Image>
               </Link> */}
+              </div>
             </div>
           </div>
-        </div>
         </section>
         <section className="culture section-3">
-        <div className='m-auto flex' style={{"width":"1024px"}}>
-          <div className="video-div" style={{"width":"50%"}}>
-            <div>
-              <p className="video-p-1"><span>우원의</span></p>
-              <p className="video-p-2"><span>프론트엔드</span></p>
-              <p className="video-p-2"><span>스킬 셋</span></p>
+          <div className="m-auto flex" style={{ width: '1024px' }}>
+            <div className="video-div" style={{ width: '50%' }}>
+              <div>
+                <p className="video-p-1">
+                  <span>우원의</span>
+                </p>
+                <p className="video-p-2">
+                  <span>프론트엔드</span>
+                </p>
+                <p className="video-p-2">
+                  <span>스킬 셋</span>
+                </p>
+              </div>
+            </div>
+            <div
+              style={{
+                width: '50%',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                boxShadow: '1px 1px 10px 1px rgb(220 230 230)',
+                borderRadius: '10px',
+                height: '600px',
+              }}
+            >
+              <div style={{ width: '80%' }}>
+                <Image src={frontEndAll}></Image>
+              </div>
             </div>
           </div>
-          <div style={{"width":"50%","display":"flex","justifyContent":"center",
-        "alignItems":"center","boxShadow":"1px 1px 10px 1px rgb(220 230 230)","borderRadius":"10px","height":"600px"}}>
-            <div style={{"width":"80%"}}>
-              <Image src={frontEndAll}></Image>
-            </div>
-          </div>
-        </div>
         </section>
         <section className="culture section-4">
-        <div className='m-auto flex' style={{"width":"1024px"}}>
-          <div className="video-div" style={{"width":"50%"}}>
-            <div>
-              <p className="video-p-1"><span>우원의</span></p>
-              <p className="video-p-2"><span>백엔드</span></p>
-              <p className="video-p-2"><span>스킬 셋</span></p>
+          <div className="m-auto flex" style={{ width: '1024px' }}>
+            <div className="video-div" style={{ width: '50%' }}>
+              <div>
+                <p className="video-p-1">
+                  <span>우원의</span>
+                </p>
+                <p className="video-p-2">
+                  <span>백엔드</span>
+                </p>
+                <p className="video-p-2">
+                  <span>스킬 셋</span>
+                </p>
+              </div>
+            </div>
+            <div
+              style={{
+                width: '50%',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                boxShadow: '1px 1px 10px 1px rgb(220 230 230)',
+                borderRadius: '10px',
+                height: '600px',
+              }}
+            >
+              <div style={{ width: '80%' }}>
+                <Image src={backEndAll}></Image>
+              </div>
             </div>
           </div>
-          <div style={{"width":"50%","display":"flex","justifyContent":"center",
-        "alignItems":"center","boxShadow":"1px 1px 10px 1px rgb(220 230 230)","borderRadius":"10px","height":"600px"}}>
-            <div style={{"width":"80%"}}>
-              <Image src={backEndAll} ></Image>
-            </div>
-          </div>
-        </div>
         </section>
         <section className="culture section-5">
-        <div className='m-auto flex' style={{"width":"1024px"}}>
-          <div className="video-div" style={{"width":"50%"}}>
-            <div>
-              <p className="video-p-1"><span>우원의</span></p>
-              <p className="video-p-2"><span>추가</span></p>
-              <p className="video-p-2"><span>스킬 셋</span></p>
+          <div className="m-auto flex" style={{ width: '1024px' }}>
+            <div className="video-div" style={{ width: '50%' }}>
+              <div>
+                <p className="video-p-1">
+                  <span>우원의</span>
+                </p>
+                <p className="video-p-2">
+                  <span>추가</span>
+                </p>
+                <p className="video-p-2">
+                  <span>스킬 셋</span>
+                </p>
+              </div>
+            </div>
+            <div
+              style={{
+                width: '50%',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                boxShadow: '1px 1px 10px 1px rgb(220 230 230)',
+                borderRadius: '10px',
+                height: '600px',
+              }}
+            >
+              <div style={{ width: '80%' }}>
+                <Image src={othersAll}></Image>
+              </div>
             </div>
           </div>
-          <div style={{"width":"50%","display":"flex","justifyContent":"center",
-        "alignItems":"center","boxShadow":"1px 1px 10px 1px rgb(220 230 230)","borderRadius":"10px","height":"600px"}}>
-            <div style={{"width":"80%"}}>
-              <Image src={othersAll}></Image>
-            </div>
-          </div>
-        </div>
         </section>
         {/* <section className="culture section-6">
             <p className="center-title text-position-1">도전</p>

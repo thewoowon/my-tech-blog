@@ -114,7 +114,7 @@ video{
 .section-1{
     background-color: white;
     width: 100%;
-    height: 1000px !important;
+    height: 600px !important;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -201,8 +201,8 @@ p span{
     text-align: start;
 }
 
-.yoramco-blog-title{
-    background: linear-gradient(to right, #00DC6C, #1EE3DE);
+.tech-blog-title{
+    background: linear-gradient(90deg,#00DC6C,#1EE3DE);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
@@ -272,3 +272,171 @@ p span{
     font-size: 50px;
     margin: 0;
 }
+
+.a-custom{
+    color: #ff7f00;
+}
+
+.a-custom:hover{
+    border-bottom:1px solid #ff9200;
+    color: #ffb469;
+}
+
+.ex-box{
+    display: block;
+    border: 1px solid #ccc;
+    padding: 10px 20px;
+}
+
+.ex-txt1{
+    font-size: 60px;
+    font-weight: 500;
+}
+.ex-txt1.shadow{
+    text-shadow: 0 3px 6px rgb(0 0 0 / 70%);
+}
+.ex-box2{
+    display: block;
+}
+.ex-box1{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 300px;
+    height: 100px;
+    font-size: 30px;
+    font-weight: 400;
+    color: #666;
+    border: 1px solid #ccc;
+}
+
+.ex-box1.shadow {
+    border: 0;
+    box-shadow: 2px 4px 6px rgb(0 0 0 / 30%);
+}
+
+
+iframe{
+    width: 100%;
+    height: 350px;
+    border: 0;
+}
+
+.red-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Noto Sans KR', sans-serif;
+    height: 26px;
+    border-radius: 4px;
+    padding: 0 10px;
+    background: #ff5252;
+    color: #fff;
+    border: 0;
+    outline: 0;
+    font-size: 12px;
+    font-weight: 400;
+    margin-right: 4px;
+    vertical-align: 2px;
+}
+
+
+@supports (position: sticky) or (position: -webkit-sticky) {
+    ._sticky {
+        position: sticky;
+        top: 100px;
+    }
+}
+
+.prose-green p, li{
+    font-family: 'Noto Sans KR Light';
+}
+
+.like-content{
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.like-content span {
+    color: #9d9da4;
+    font-family: monospace;
+  }
+  .like-content .btn-good {
+      display: block;
+      text-align: center;
+      background: #ed2553;
+      border-radius: 20px;
+      box-shadow: 0 10px 20px -8px rgb(240, 75, 113);
+      padding: 10px 17px;
+      font-size: 15px;
+      cursor: pointer;
+      border: none;
+      outline: none;
+      color: #ffffff;
+      text-decoration: none;
+      -webkit-transition: 0.3s ease;
+      transition: 0.3s ease;
+      margin-right: 10px;
+  }
+  .like-content .btn-good:hover {
+      transform: translateY(-3px);
+  }
+  .like-content .btn-good .fa {
+      margin-right: 5px;
+  }
+  .like-content .btn-gentle {
+    display: block;
+    text-align: center;
+    background: rgb(104, 206, 160);
+    border-radius: 20px;
+    box-shadow: 0 10px 20px -8px rgb(104, 206, 160);
+    padding: 10px 17px;
+    font-size: 15px;
+    cursor: pointer;
+    border: none;
+    outline: none;
+    color: #ffffff;
+    text-decoration: none;
+    -webkit-transition: 0.3s ease;
+    transition: 0.3s ease;
+    margin-right: 10px;
+}
+.like-content .btn-gentle:hover {
+    transform: translateY(-3px);
+}
+.like-content .btn-gentle .fa {
+    margin-right: 5px;
+}
+.like-content .btn-learn {
+    display: block;
+    text-align: center;
+    background: rgb(119, 53, 226);
+    border-radius: 20px;
+    box-shadow: 0 10px 20px -8px rgb(119, 53, 226);
+    padding: 10px 17px;
+    font-size: 15px;
+    cursor: pointer;
+    border: none;
+    outline: none;
+    color: #ffffff;
+    text-decoration: none;
+    -webkit-transition: 0.3s ease;
+    transition: 0.3s ease;
+    margin-right: 10px;
+}
+.like-content .btn-learn:hover {
+    transform: translateY(-3px);
+}
+.like-content .btn-learn .fa {
+    margin-right: 5px;
+}
+  .animate-like {
+    animation-name: likeAnimation;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+    animation-duration: 0.65s;
+  }
+  @keyframes likeAnimation {
+    0%   { transform: scale(30); }
+    100% { transform: scale(1); }
+  }
