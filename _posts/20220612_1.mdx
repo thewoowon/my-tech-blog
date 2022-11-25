@@ -1,0 +1,338 @@
+---
+title: 그런 REST API로 괜찮은가? (1)
+description: NAVER D2 강연, 그런 REST API로 괜찮은가? - 이용준
+thumbnail: /assets/rest-api.jpeg
+prerequisites: ['우원', '주니어 개발자','성장 중','안녕하세요👏 새로운 영감을 주는 일과 꾸준한 성장을 즐기는 우원입니다.']
+stacks: ['RESTAPI']
+writer: 우원
+date: '2022-06-12'
+name: '20220612_1' 
+---
+
+우연히 유튜브에서 테크강의를 찾아보다가 이 강의를 만난 기억이 난다.
+그게 작년 여름이었으니 시간이 많이 흘렀다.
+
+그 때는 한참 구미에서 프로젝트에 참여하고 있을 때라 자세히는 기억이 나지 않지만
+강연자의 목소리 그리고 강연의 내용이 기억에 남았던 것 같다.
+
+최근에 REST API에 대한 의문이 생겼다.
+GraphQL로 서버를 구성하면서 REST API와 어떻게 차별성을 두고 있는지
+그리고 어떻게 고질적인 문제를 해결했는지에 대한 의문이다.
+
+그래서 가장 먼저 우리가 흔히 알고 있는 POST, GET, DELETE ,PUT의 CRUD 메소드로
+정의된 내용보다는 근본적으로 다시 알고 싶었다.
+
+가장 먼저 떠오른 것이 이 강의였고, 솔직히 말하면 5번은 넘게 반복해서 시청했다.
+하지만 여전히 생각에 잠기게 되는 내용도 있고, 찾아보게 되는 내용도 있었다
+
+이제 강의를 시청하면서 이해한 내용과 들었던 생각들을 남겨보려고 한다.
+시작하겠다.
+
+<div className="flex justify-center items-center py-5">
+  <img src="https://velog.velcdn.com/images/thewoowon/post/639f5a58-8735-4b1f-9f1d-0b818fd7c87b/image.png" alt="spring"/>
+</div>
+
+해당 강의를 시청하려면 유튜브에서 "그런 REST API로 괜찮은가" 검색하거나 [강의보기](https://www.youtube.com/watch?v=RP_f5dMoHFc&t=1235s)를 클릭해주길 바란다.
+
+# WEB
+
+1991년 WEB의 개념이 나오게 되면서, 해결하려고 했던 문제가 있다.
+
+<div className="bg-gray-50 my-4 px-4 py-2 border-l-4 border-green-400 hover:bg-gray-100 hover:border-indigo-400 transition duration-300 ease-in-out">
+    어떻게 하면 웹상에서 정보를 공유할 수 있을까?
+</div>
+
+위의 해답은 아래와 같다.
+
+<div className="bg-gray-50 my-4 px-4 py-2 border-l-4 border-green-400 hover:bg-gray-100 hover:border-indigo-400 transition duration-300 ease-in-out">
+ 정보들을 하이퍼 텍스트로 연결한다.
+
+ - 표현 방식 : HTML
+ - 식별자 : URI
+ - 전송 방법 : HTTP
+
+</div>
+
+# REST의 시작
+
+REST API의 창시자는 당시 대학원생이었던 Roy.T.Fielding이다.
+
+<div className="flex justify-center items-center py-5">
+  <img className="w-36" src="https://velog.velcdn.com/images/thewoowon/post/92ab798e-423d-48b0-9bbc-e804ef916953/image.png" alt="spring"/>
+</div>
+
+이미 1994~1996년에 HTTP/1.0 개발에 참여 하고 있었던 로이필딩은 "어떻게 현재의 웹을 망가뜨리지 않고 HTTP를 개선할 수 있을까"라는 물음을 시작으로 연구를 시작해 1998년 Microsoft Research에서 REST를 발표하게 된다. 그리고 2000년 REST아키텍쳐에 대한 논문을 박사 논문으로 제출하면서 창시자가 되었다.
+
+여기까지가 REST의 탄생에 관한 이야기이고 후에 최초의 API가 나오고 API에 REST 아키텍쳐를 적용함에 따라 REST API로 구분되어 오늘날 우리가 알고 있는 명칭이 되었다.
+
+## API 
+2000년대에 들어서면서 API가 생겨났다.
+
+이미 Microsoft에서는 1998년 XML-RPC라는 API를 만들었고, 2000년에는 SOAP라는 API가 나왔다.
+
+SOAP는 XML 기반의 API이다. 그리고 XML-RPC는 HTTP 기반의 API이다.   
+
+2000년 Salesforce는 SOAP을 활용해 API를 만들었다.
+
+하지만 기존의 SOAP를 사용하는 API는 매우 복잡했다.
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" 
+    xmlns:urn="urn:enterprise.soap.sforce.com">
+    <soapenv:Header>
+        <urn:SessionHeader>
+        <urn:sessionId><b>{Code}</b></urn:sessionId>
+        </urn:SessionHeader>
+    </soapenv:Header>
+    <soapenv:Body>
+        <urn:fieldList><b>Id, Name,WebSite</b></urn:fieldList>
+        <urn:sObjectType><b>Account</b></urn:>
+        <urn:><b>{Code1}</b></urn:>
+        <urn:><b>{Code2}</b></urn:>
+    </soapenv:Body>
+</soapenv:Envelope>
+```
+
+그 후에 쭉 SOAP이 활용되다가 2004년에 REST가 등장하면서 REST API가 등장하게 되었다.
+
+Fliker에서 API를 발표했는데, 기존의 SOAP을 활용한 형태와 REST를 준수하는 API 두 가지를 만들었다.
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<rsp stat="fail">
+    <err code="[errorCode]" msg="[errorMessage]"/>
+</rsp>
+```
+
+위의 SOAP에 비해서 확연히 줄어든 코드와 간결한 구조를 볼 수 있다.
+
+## SOAP VS REST
+
+간단한 비교를 통해 SOAP과 REST의 차이를 알아보자.
+
+### SOAP
+<div className="bg-gray-50 my-4 px-4 py-2 border-l-4 border-green-400 hover:bg-gray-100 hover:border-indigo-400 transition duration-300 ease-in-out">
+
+- 복잡하다.
+- 규칙이 많다.
+- 어렵다.
+
+</div>
+
+### REST
+<div className="bg-gray-50 my-4 px-4 py-2 border-l-4 border-green-400 hover:bg-gray-100 hover:border-indigo-400 transition duration-300 ease-in-out">
+
+- 단순하다.
+- 규칙이 적다.
+- 쉽다.
+
+</div>
+
+간단한 위의 이유만으로 REST는 폭발적으로 사용량이 증가했다.
+그리고 2010년 Salesforce는 REST API를 추가했다.
+
+## NO REST
+
+2008년 CMIS가 발표되었다.
+
+<div className="bg-gray-50 my-4 px-4 py-2 border-l-4 border-green-400 hover:bg-gray-100 hover:border-indigo-400 transition duration-300 ease-in-out">
+
+- CMS를 위한 표준
+- EMC, IBM, Microsoft 등이 함께 작업
+- REST 바인딩을 제공
+
+</div>
+
+이때 로이필딩은 "CMIS에 REST가 없다"라는 말을 했다.
+
+그리고 2016년 Microsoft REST API Guidelines가 발표되었을 때도
+
+로이필딩은 "REST API Guidelines에 REST가 없다"라는 말을 했다.
+
+오히려 "HTTP API Guidelines"라는 이름이 더 적절하다고 했다.
+
+## REST API Guidelines
+
+REST API Guidelines는 Microsoft에서 REST API를 만들 때 참고할 수 있는 가이드라인이다.
+
+<div className="bg-gray-50 my-4 px-4 py-2 border-l-4 border-green-400 hover:bg-gray-100 hover:border-indigo-400 transition duration-300 ease-in-out">
+
+- REST API를 만들 때 참고할 수 있는 가이드라인
+- Microsoft에서 만듦
+- 2016년 11월 14일 발표
+- uri는 https://serviceRoot/collection/id 형식이어야 한다.
+- GET, PUT, DELETE, POST, PATCH, HEAD, OPTIONS 메서드를 지원해야 한다.
+- HTTP 상태 코드를 사용해야 한다.
+- JSON 형식을 사용해야 한다.
+- API 버저닝은 Major.Minor 형식을 사용해야 한다.
+- uri 버전 정보를 포함시킨다.
+
+</div>
+
+## REST?
+
+REST는 아키텍처 스타일인 동시에 아키텍처 스타일의 집합이다.
+
+그렇다면 로이필딩이 말한 스타일은 어떤 것들이 있는지 알아보자.
+
+<div className="bg-gray-50 my-4 px-4 py-2 border-l-4 border-green-400 hover:bg-gray-100 hover:border-indigo-400 transition duration-300 ease-in-out">
+
+1. Client-Server
+- 서버는 API를 제공하고, 클라이언트는 인증이나 컨텍스트를 관리하는 구조로 둘의 역할이 명확이 나뉘어야한다.
+2. Stateless
+- 상태 정보는 별도로 지정해서 저장하고, 관리하는 일은 맡지 않아야한다.
+3. Cache
+- HTTP가 제공하는 캐싱기능을 적용할 수 있어야한다.
+4. Uniform Interface
+- 지정한 리소스에 대한 조작을 통일되고 한정적인 인터페이스로 수행 할수 있어야한다.
+5. Layered System
+- REST 서버는 다중 계층으로 구성될 수 있으며 중간매체를 사용할 수 있어야한다.
+6. Code-On-Demand(Optional)
+- 서버에서 클라이언트로 코드를 보내고 실행 할 수 있어야한다.
+
+</div>
+
+위의 제약 조건 중 문제를 일으키는 구간은 Uniform Interface에 있다.
+
+<div className="bg-gray-50 my-4 px-4 py-2 border-l-4 border-green-400 hover:bg-gray-100 hover:border-indigo-400 transition duration-300 ease-in-out">
+
+- Identification of Resources
+-> 리소스는 URI로 식별되야한다.
+- Manipulation of Resources Through Representations
+-> Representation 전송을 통해서 리소스를 조작해야한다.
+- _**Self-Description Messages**_ 
+-> 메세지는 스스로를 설명할 수 있어야한다.
+- _**HATEOAS(Hyper As The Engine Of Application State)**_
+-> Application의 상태는 HyperLink를 이용해 전이되어야한다.
+
+
+</div>
+
+볼드로 표시한 두 가지 제약 조건을 볼 수 있다.
+
+Uniform Interface에서 Identification of Resources 조건과 Manipulation of Resources Through Representations 조건은 대체로 잘 지켜지지만,
+나머지 두가지는 대부분의 API가 지키지 못하고 있다.
+
+## Self-Description Messages
+
+```
+GET / HTTP/1.1
+```
+위의 코드는 단순히 GET 메소드를 요청하는 API로 보이지만 어떤 URI로 요청을 보내는지에 대한 정보가 빠져 있기 때문에 RESTful하지 못하다.
+
+```
+GET / HTTP/1.1
+Host: velog.io
+```
+위와 같이 목적지가 있다면 RESTful하다고 할 수 있다.
+
+또 다른 예를 살펴보자.
+
+```
+HTTP/1.1 200 OK
+[{"op":"remove","path":"/a/b/c"}]
+```
+위의 코드는 어떤 문법으로 작성된 것인지 알지 못하기 때문에 RESTful하지 못하다.
+또 "op"나 "path"가 어떤 것인지 알 수 없다.
+
+```
+HTTP/1.1 200 OK
+Content-Type: application/json-patch+json
+[{"op":"remove","path":"/a/b/c"}]
+```
+위와 같이 Content-Type으로 json 형식임을 알리고 patch+json으로 어떤 명세를 따르는지 알려줘야 RESTful하다고 말할 수 있다.
+
+## HATEOAS
+웹어플리케이션 상태의 전이를 먼저 살펴보아야한다.
+
+게시판에서 흔히 글을 등록하는 과정 자체도 상태의 전이라고 할 수 있다.
+
+<div className="flex justify-center items-center py-5">
+  <img src="https://velog.velcdn.com/images/thewoowon/post/c0796bf0-ade3-4920-af59-9986f90029f2/image.png" alt="spring"/>
+</div>
+
+<div className="bg-gray-50 my-4 px-4 py-2 border-l-4 border-green-400 hover:bg-gray-100 hover:border-indigo-400 transition duration-300 ease-in-out">
+
+- 글 목록에서 글을 가져오기 위해 "GET / Article"을 사용한다.
+- 새로운 글을 쓰기 위한 Form을 받기 위해 "GET / Article/new"를 사용한다.
+- 새로운 글을 등록하기 위해 "POST / Article"를 사용한다.
+- 글을 수정하기 위해 "GET / Article/id/edit"를 사용한다.
+- 글을 수정하기 위해 "PUT / Article/id"를 사용한다.
+- 글을 삭제하기 위해 "DELETE / Article/id"를 사용한다.
+- 글을 조회하기 위해 "GET / Article/id"를 사용한다.
+
+</div>
+
+
+위의 과정은 모두 a태그 링크를 통해 전이가 된다.
+
+```html
+HTTP/1.1 200 OK
+Content-Type:text/html
+<html>
+<head></head>
+<body><a href="/write">write</a></body>
+</html>
+```
+
+```json
+HTTP/1.1 200 OK
+Content-Type:application/json
+Link: </articles/1>; rel="previous"
+      </articles/3>; rel="next"
+{
+  "id": 2,
+  "title": "RESTful API",
+  "content": "RESTful API",
+  "createdAt": "2021-03-01T00:00:00.000Z",
+  "updatedAt": "2021-03-01T00:00:00.000Z"
+}
+```
+
+위와 같은 HTML은 a 태그를 통해서 다른 상태로의 전이가 일어나기 때문에 HATEOAS하다고 할 수 있다.
+
+## Uniform Interface는 왜 필요할까?
+
+### 독립적인 진화
+
+<div className="bg-gray-50 my-4 px-4 py-2 border-l-4 border-green-400 hover:bg-gray-100 hover:border-indigo-400 transition duration-300 ease-in-out">
+
+- 서버와 클라이언트가 독립적으로 진화할 수 있다.
+- 서버의 기능이 변경되어도 클라이언트를 업데이트할 필요가 없다.
+- REST를 만들게 된 계기 : "How do i improve HTTP without breaking the web?"
+
+</div>
+
+### 사례
+
+웹은 REST가 지켜지고 있는 가장 좋은 사례이다.
+
+<div className="bg-gray-50 my-4 px-4 py-2 border-l-4 border-green-400 hover:bg-gray-100 hover:border-indigo-400 transition duration-300 ease-in-out">
+
+- 웹페이지를 변경했다고 웹 브라우저를 업데이트할 필요는 없다.
+- 웹 브라우저를 업데이트해도 웹페이지를 변경할 필요는 없다.
+- HTTP 명세가 변경되어도 웹 브라우저와 웹페이지를 변경할 필요는 없다.
+- 웹 브라우저와 웹페이지를 변경해도 HTTP 명세를 변경할 필요는 없다.
+- HTML 명세가 변경되어도 웹 브라우저와 웹페이지를 변경할 필요는 없다.
+
+</div>
+
+
+다음 장으로 넘어가자.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
