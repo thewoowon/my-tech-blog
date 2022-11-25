@@ -19,8 +19,6 @@ const VideoWatcher = (): JSX.Element => {
       // autoplay={{delay:6000,
       //   disableOnInteraction:false}}
       pagination={{ clickable: true }}
-      onSlideChange={() => console.log('slide change')}
-      onSwiper={(swiper) => console.log(swiper)}
       className="my-swiper"
       loop={true}
       height={600}

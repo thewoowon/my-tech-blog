@@ -40,7 +40,7 @@ const Home: NextPage<Props> = ({ posts }: Props) => {
       <div className="m-auto flex" style={{ width: '1024px' }}>
         <div className="space-y-12 mt-12 mb-12 w-8/12">
           {posts.map((post, i) => (
-            <div key={post.slug}>
+            <div key={i}>
               <div className="flex pb-6">
                 <div className="w-9/12 pr-4">
                   <div className="flex justify-start items-center mb-2">
@@ -111,7 +111,7 @@ const Home: NextPage<Props> = ({ posts }: Props) => {
               {posts.map((post, i) => {
                 if (i < 5)
                   return (
-                    <li key={post.name}>
+                    <li key={i}>
                       <Link href={`posts/${post.name}`}>
                         <a>{post.title}</a>
                       </Link>
