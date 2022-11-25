@@ -1,5 +1,6 @@
 import type { NextPage, GetStaticProps } from 'next';
 import Layout from '../components/Layout';
+import Slider from '../components/Slider';
 import Thumbnail from '../components/Thumbnail';
 import { IPost } from '../types/post';
 import { getAllPosts } from '../utils/mdxUtils';
@@ -34,7 +35,6 @@ const Home: NextPage<Props> = ({ posts }: Props) => {
     <Layout>
       <div>
         <VideoWatcher></VideoWatcher>
-        {/* <Slider></Slider> */}
       </div>
       <div></div>
       <div className="m-auto flex" style={{ width: '1024px' }}>
@@ -49,7 +49,7 @@ const Home: NextPage<Props> = ({ posts }: Props) => {
                         <button
                           className="tag-button"
                           key={iter}
-                          onClick={() => router.push(`/post/${value}`)}
+                          onClick={() => router.push(`/tech/${value}`)}
                         >
                           {value}
                         </button>
@@ -80,7 +80,7 @@ const Home: NextPage<Props> = ({ posts }: Props) => {
                       className="text-sm"
                       style={{ fontFamily: 'Noto Sans KR' }}
                     >
-                      {post.writer} / {post.prerequisites[2]}
+                      {post.writer} / {post.prerequisites[1]}
                     </div>
                   </div>
                 </div>

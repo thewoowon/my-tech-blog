@@ -54,9 +54,7 @@ const Layout = ({ children, customMeta }: LayoutProps): JSX.Element => {
         </div>
       </header>
       <main style={{ paddingTop: '60px' }}>
-        <div style={{ overflow: 'hidden' }} className="relative">
-          {children}
-        </div>
+        <div className="relative">{children}</div>
       </main>
       <footer
         className="py-8 h-96"
