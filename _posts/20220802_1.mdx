@@ -1,0 +1,118 @@
+---
+title: 한밤의 CS 산책 - REST
+description: 한밤의 CS 산책 - REST에 대해서 알아봅니다.
+thumbnail: /assets/walking.jpeg
+prerequisites: ['우원', '주니어 개발자','성장 중','안녕하세요👏 새로운 영감을 주는 일과 꾸준한 성장을 즐기는 우원입니다.']
+stacks: ['한밤의CS산책']
+writer: 우원
+date: '2022-08-02'
+name: '20220802_1' 
+---
+
+한밤의 CS 산책<br></br>
+오늘의 주제는 REST입니다.
+
+제 블로그의 "그런 REST API로 괜찮은가?"라는 포스팅에서도 REST에 대해서 다루었던 기억이 있습니다.
+
+요즘은 REST API가 GRAPHQL API로 이동하는 추세라고 하지만 현업에서는 여전히 REST가 주축을 이루고 있는 것 같습니다.
+
+## What is Rest?
+
+<div className="flex justify-center items-center py-5">
+  <img src="https://velog.velcdn.com/images/thewoowon/post/79a5855b-7e10-46e2-ab48-98fd4aaef561/image.png" alt="spring"/>
+</div>
+
+<div className="bg-gray-50 my-4 px-4 py-2 border-l-4 border-green-400 hover:bg-gray-100 hover:border-indigo-400 transition duration-300 ease-in-out">
+RE : Representational<br></br>
+S : State<br></br>
+T : Tranfer<br></br>
+</div>
+
+직역하면 "**_표현적인 상태 전달_**" 정도로 해석됩니다.
+
+위키를 한 번 살펴 보겠습니다.
+
+<div className="bg-gray-50 my-4 px-4 py-2 border-l-4 border-green-400 hover:bg-gray-100 hover:border-indigo-400 transition duration-300 ease-in-out">
+REST(Representational State Transfer)는 월드 와이드 웹과 같은 분산 하이퍼미디어 시스템을 위한 소프트웨어 아키텍처의 한 형식이다. 이 용어는 로이 필딩(Roy Fielding)의 2000년 박사학위 논문에서 소개되었다. 필딩은 HTTP의 주요 저자 중 한 사람이다. 이 개념은 네트워킹 문화에 널리 퍼졌다. (출처 : 위키백과)
+</div>
+
+REST는 자원을 이름으로 구분하고 이를 통해 자원을 주고 받는 방법론을 말합니다.
+
+그렇기 때문에 "**_자원의 표현(Representational)에 의한 상태 전달_**"로 REST를 알고 넘어가면 좋을 것 같습니다.
+
+2000년대 들어서 많은 브라우저들이 생겨났고, 
+스마트폰과 태블릿의 보급이 급속도로 늘어나면서 
+서버의 통신이 매우 중요해 졌습니다.
+
+REST는 이러한 멀티 플랫폼에서의 통신에서 매우 중요한 위치에 있습니다.
+
+
+## REST의 구성
+
+<div className="bg-gray-50 my-4 px-4 py-2 border-l-4 border-green-400 hover:bg-gray-100 hover:border-indigo-400 transition duration-300 ease-in-out">
+- 자원(Resource) - URI
+</div>
+
+<div className="bg-gray-50 my-4 px-4 py-2 border-l-4 border-green-400 hover:bg-gray-100 hover:border-indigo-400 transition duration-300 ease-in-out">
+- 행위(Verb) - HTTP Method + CRUD Operation
+-> POST (create)<br></br>
+-> GET (read)<br></br>
+-> PUT (update)<br></br>
+-> DELETE (delete)
+</div>
+
+<div className="bg-gray-50 my-4 px-4 py-2 border-l-4 border-green-400 hover:bg-gray-100 hover:border-indigo-400 transition duration-300 ease-in-out">
+- 표현(Representational)
+-> 라우팅
+</div>
+
+<div className="bg-gray-50 my-4 px-4 py-2 border-l-4 border-green-400 hover:bg-gray-100 hover:border-indigo-400 transition duration-300 ease-in-out">
+- 자원(Resource) - URI
+</div>
+
+## REST의 특징
+<div className="bg-gray-50 my-4 px-4 py-2 border-l-4 border-green-400 hover:bg-gray-100 hover:border-indigo-400 transition duration-300 ease-in-out">
+- Uniform(유니폼 인터페이스)
+-> 특정 언아나 기술에 종속되지 않고 모든 플랫폼에서 사용 가능합니다.
+- Stateless(무상태성)
+-> 작업을 위한 상태 정보를 따로 저장하고 관리하지 않습니다.
+- Cacheable(캐시 가능)
+-> 웹 인프라를 활용 할 수 있습니다.
+- Self-Descriptiveness(자체 표현 구조)
+-> REST API 메세지만으로도 의도를 쉽게 이해 할 수 있다.
+- Client-Server 구조
+-> Clent와 Server의 역할이 확실히 구분되기 때문에 서로간 의존성이 줄어든다.
+- 계층형 구조
+-> 다중 계층으로 구성되어 구조상의 유연성이 있다.
+</div>
+
+
+## REST의 장점
+
+<div className="bg-gray-50 my-4 px-4 py-2 border-l-4 border-green-400 hover:bg-gray-100 hover:border-indigo-400 transition duration-300 ease-in-out">
+- HTTP 프로토콜의 인프라를 그대로 사용하므로 REST API 사용을 위한 별도의 인프라를 구출할 필요가 없다.
+- HTTP 프로토콜의 표준을 최대한 활용하여 여러 추가적인 장점을 함께 가져갈 수 있게 해준다.
+- HTTP 표준 프로토콜에 따르는 모든 플랫폼에서 사용이 가능하다.
+- Hypermedia API의 기본을 충실히 지키면서 범용성을 보장한다.
+- REST API 메시지가 의도하는 바를 명확하게 나타내므로 의도하는 바를 쉽게 파악할 수 있다.
+- 여러 가지 서비스 디자인에서 생길 수 있는 문제를 최소화한다.
+- 서버와 클라이언트의 역할을 명확하게 분리한다.
+<p className="px-4">
+    출처 :
+    <span><a target="_blank" href="http://www.incodom.kr/REST" className="a-custom"> ACODOM</a></span>
+</p>
+</div>
+
+## REST의 단점
+
+<div className="bg-gray-50 my-4 px-4 py-2 border-l-4 border-green-400 hover:bg-gray-100 hover:border-indigo-400 transition duration-300 ease-in-out">
+- 표준이 자체가 존재하지 않아 정의가 필요하다.
+- 사용할 수 있는 메소드가 4가지밖에 없다.
+- HTTP Method 형태가 제한적이다.
+- 브라우저를 통해 테스트할 일이 많은 서비스라면 쉽게 고칠 수 있는 URL보다 Header 정보의 값을 처리해야 하므로 전문성이 요구된다.
+- 구형 브라우저에서 호환이 되지 않아 지원해주지 못하는 동작이 많다.(익스폴로어)
+<p className="px-4">
+    출처 :
+    <span><a target="_blank" href="http://www.incodom.kr/REST" className="a-custom"> ACODOM</a></span>
+</p>
+</div>

@@ -36,23 +36,28 @@ Nest.js + PostgreSQL + TypeORM의 세가지 조합으로
 database 관리의 효율성을 제고해 보자!
 
 ### PostgreSQL 설치하기
-먼저 운영체제가 Windows일 경우에는 
-[여기](https://www.postgresql.org/download/)에 방문해서 Windows 전용 실행 파일을 다운로드하면 된다.
-전용 IDE 외에는 [PgAdmin4](https://www.pgadmin.org/)를 사용하는 것이 최고의 사용자 경험을 선사한다.
+<p>
+    먼저 운영체제가 Windows일 경우에는 
+    <span><a target="_blank" href="https://www.postgresql.org/download/" className="a-custom">여기</a></span>
+    에 방문해서 Windows 전용 실행 파일을 다운로드하면 된다.<br></br>
+    전용 IDE 외에는 
+    <span><a target="_blank" href="https://www.pgadmin.org/" className="a-custom">PgAdmin4</a></span>
+    를 사용하는 것이 최고의 사용자 경험을 선사한다.
+</p>
+<p>
+    그렇지만 MacOS의 경우에는  
+    <span><a target="_blank" href="https://eggerapps.at/postico/" className="a-custom">여기</a></span>
+    에 방문해서 Postico를 다운받아 주면된다!<br></br>
+    (DBeaver, Data Grip 등 Java 전용 gui도 있다)
+</p>
 
-그렇지만 MacOS의 경우에는 
-[여기](https://eggerapps.at/postico/)에 방문해서 Postico를 다운받아 주면된다!
-(DBeaver, Data Grip 등 Java 전용 gui도 있다)
-
-PostgreSQL의 자체적인 GUI도 있지만 
-그 외에도 유명한 툴이 두 가지가 있다.
+PostgreSQL의 자체적인 GUI도 있지만 그 외에도 유명한 툴이 두 가지가 있다. <br></br>
 Postico와 PgAdmin4가 대표적인 툴 중의 하나이다.
 
-윈도우 진영에서는 PgAdmin4가 가장 최고의 툴이라고 정평이 나있다.
+윈도우 진영에서는 PgAdmin4가 가장 최고의 툴이라고 정평이 나있다.<br></br>
 (실제 Slant 커뮤니티에서 조사한 바에 의하면 PgAdmin은 1위, Postico는 10위...)
 
-MacOS에서도 PgAdmin4과 Postico를 함께 사용해 보았지만
-내가 추구하는 깔끔한 인터페이스는 Postico가 더 적합하다고 생각한다.
+MacOS에서도 PgAdmin4과 Postico를 함께 사용해 보았지만 내가 추구하는 깔끔한 인터페이스는 Postico가 더 적합하다고 생각한다.
 
 <div className="flex justify-center items-center py-5">
   <img src="https://velog.velcdn.com/images/thewoowon/post/237261e3-7ac9-40eb-ac25-bdb5922366a9/image.png" alt="spring"/>
@@ -60,8 +65,7 @@ MacOS에서도 PgAdmin4과 Postico를 함께 사용해 보았지만
 
 ### 데이터베이스 추가하기
 
-가장 먼저 postico로 들어가서 하단의 +Database 버튼을 클릭하고
-"challenge" 데이터 베이스를 추가한다.
+가장 먼저 postico로 들어가서 하단의 +Database 버튼을 클릭하고 "challenge" 데이터 베이스를 추가한다.
 
 ### postgresql cli 설치하기 
 

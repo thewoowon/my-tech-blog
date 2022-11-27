@@ -49,7 +49,7 @@ const Home: NextPage<Props> = ({ posts }: Props) => {
                         <button
                           className="tag-button"
                           key={iter}
-                          onClick={() => router.push(`/tech/${value}`)}
+                          onClick={() => router.push(`/post/${value}`)}
                         >
                           {value}
                         </button>
