@@ -1,0 +1,440 @@
+---
+title: API 서버 성능 측정
+description: API 서버 성능 측정을 위한 방법을 알아봅니다.
+thumbnail: /assets/server_image.png
+prerequisites: ['우원', '주니어 개발자','성장 중','안녕하세요👏 새로운 영감을 주는 일과 꾸준한 성장을 즐기는 우원입니다.']
+stacks: ['서버']
+writer: 우원
+date: '2022-11-28'
+name: '20221128_1' 
+---
+
+# API 서버 성능 측정
+
+API 서버의 성능이 좋다는 말은 어떤 의미일까?
+
+"API 서버의 성능이 좋다"라는 말의 의미는 다음과 연쇄적으로 확장할 수 있다.
+
+<div className="bg-gray-50 my-4 px-4 py-2 border-l-4 border-green-400 hover:bg-gray-100 hover:border-indigo-400 transition duration-300 ease-in-out">
+1. 서버는 빠르게 응답한다. -> A
+2. A + 안정적이다. -> B
+3. B + 사용자의 요청을 잘 처리한다. -> C
+4. C + 서버의 자원을 효율적으로 사용한다. -> D
+5. D + 사용하면서도 서버의 부하를 최소화한다. -> E
+6. E + 서버의 가용성을 높인다. -> F
+7. G + 서버의 확장성을 높인다. -> H
+8. H + 서버의 보안성을 높인다. -> I
+9. I + 서버의 유지보수성을 높인다. -> J
+</div>
+
+9단계까지 확장하면서 결과적으로 특성 J가 나오게 되었다.<br></br>
+이러한 특성 J를 가진 API 서버를 만들기 위해서는 어떤 것들을 고려해야 할까?
+
+하지만 나는 위와 같은 특성 J를 가진 서버를 생각하기도 전에 의문이 생겼다.
+
+서버는 빠르게 응답한다. -> A 특성일 때,
+
+<div className="bg-gray-50 my-4 px-4 py-2 border-l-4 border-green-400 hover:bg-gray-100 hover:border-indigo-400 transition duration-300 ease-in-out">
+- 서버는 몇 초 이내에 응답해야 할까? 
+- 몇 초 이내이면 짧은 시간이라고 할 수 있을까?
+</div>
+
+0.500ms ~ 1.000ms 사이면 빠르다고 할 수 있을까?
+아니면 1.000ms ~ 2.000ms 사이면 빠르다고 할 수 있을까?
+
+
+# 모호한 사례 이해하기
+
+### 사례 1
+<div className="bg-gray-50 my-4 px-4 py-2 border-l-4 border-green-400 hover:bg-gray-100 hover:border-indigo-400 transition duration-300 ease-in-out">
+A : 100명이 동시에 호출했을 때, 1초 안에 모두가 응답을 받음<br></br>
+B : 1000명이 동시에 호출했을 때, 10초 안에 모두가 응답을 받음
+</div>
+
+위와 같은 사례가 있을 때, 과연 어떤 서버가 좋은 성능의 서버일까?<br></br>
+정답은 "없다"이다. 서버의 성능은 상황에 따라 다르기 때문이다.
+
+### 사례 2
+<div className="bg-gray-50 my-4 px-4 py-2 border-l-4 border-green-400 hover:bg-gray-100 hover:border-indigo-400 transition duration-300 ease-in-out">
+A : 5명이 동시 호출했지만, 하나의 응답을 0.2초씩 한 개씩만 처리하기 때문에 1초가 걸렸다.<br></br>
+B : 동시 처리가 가능해서 5명의 작업을 동시에 처리 할 수 있지만 각각의 응답은 모두 1초가 걸린다.
+</div>
+
+위와 같은 사례일 때, 서버 응답 속도에만 초점을 맞춰야 할까, 아니면 동시 처리가 가능한지에 초점을 맞춰야 할까?<br></br>
+결과적으로는 서버의 성능을 측정하는 방법에 따라 다르게 나타날 수 있다고 할 수 있다.
+
+
+### 사례 3
+<div className="bg-gray-50 my-4 px-4 py-2 border-l-4 border-green-400 hover:bg-gray-100 hover:border-indigo-400 transition duration-300 ease-in-out">
+A : 5명이 동시 호출 했을 때, 응답 시간이 평균 1초이다. 다만, 각각의 응답 시간은 0.2초 ~ 2초 사이로 편차가 심하다.<br></br>
+B : 5명이 동시 호출 했을 때, 응답 시간이 평균 1초이다. 다만, 각각의 응답 시간은 1초로 편차가 없다.
+</div>
+
+위와 같은 사례일 때는 평균의 오류라고 할 수 있다.<br></br>
+평균은 편차가 심하면 심할수록 오류가 심해지는 경향이 있다.<br></br>
+그렇기 때문에 A 서버가 0.2초의 준수한 지표를 가지고 있다고 해서, B 서버가 1초의 불만족스러운 지표를 가지고 있다고 할 수 없다.
+
+# 성능 지표
+
+서버의 성능 지표는 다양하다.<br></br>
+
+<div className="bg-gray-50 my-4 px-4 py-2 border-l-4 border-green-400 hover:bg-gray-100 hover:border-indigo-400 transition duration-300 ease-in-out">
+
+1. 응답 시간
+2. 처리량
+3. 처리 시간
+4. CPU 사용률
+5. 메모리 사용량
+6. 디스크 사용량
+7. 네트워크 사용량
+....
+
+</div>
+
+# Latency vs Throughput
+
+그렇지만 대표적으로는 Latency와 Throughput의 차이로 많이 해석한다.
+
+Latency는 응답 시간을 의미하고, Throughput은 처리량을 의미한다.<br></br>
+
+### Latency
+<div className="bg-gray-50 my-4 px-4 py-2 border-l-4 border-green-400 hover:bg-gray-100 hover:border-indigo-400 transition duration-300 ease-in-out">
+사용자의 입장에서 완료까지 얼마나 걸리는지를 의미한다.<br></br>
+</div>
+
+### Throughput
+<div className="bg-gray-50 my-4 px-4 py-2 border-l-4 border-green-400 hover:bg-gray-100 hover:border-indigo-400 transition duration-300 ease-in-out">
+작업자의 입장에서 시간 당 얼마나 많은 작업을 처리할 수 있는지를 의미한다.<br></br>
+</div>
+
+### 고속도로 예시
+<div className="bg-gray-50 my-4 px-4 py-2 border-l-4 border-green-400 hover:bg-gray-100 hover:border-indigo-400 transition duration-300 ease-in-out">
+고속도로를 예로 들어보자.<br></br>
+Latency가 낮은 고속도로라면 제한 속도가 높아서 차들이 빠르게 움직일 수 있다고 할 수 있다.<br></br>
+Throughput이 높은 고속도로라면 도로의 폭이 넓어서 차들이 한 번에 많이 지나갈 수 있다고 할 수 있다.<br></br>
+</div>
+
+# Benchmarking Test
+
+### Benchmarking
+<div className="bg-gray-50 my-4 px-4 py-2 border-l-4 border-green-400 hover:bg-gray-100 hover:border-indigo-400 transition duration-300 ease-in-out">
+벤치마킹(benchmarking)이란 측정의 기준이 되는 대상을 설정하고 그 대상과 비교 분석을 통해 장점을 따라배우는 행위를 말한다.
+</div>
+
+### Benchmarking Test
+<div className="bg-gray-50 my-4 px-4 py-2 border-l-4 border-green-400 hover:bg-gray-100 hover:border-indigo-400 transition duration-300 ease-in-out">
+일반적인 성능 테스트와는 달리 실존하는 비교 대상을 두고 하드웨어나 소프트웨어의 성능을 비교 분석하여 평가하는 것을 말한다.<br></br>
+예를 들어 다양한 서버 컴퓨터 기종간의 처리 속도를 테스트하기 위해 실제 서버를 이용하여 성능을 측정하고 테스트 결과를 바탕으로 평가를 내리는 것을 벤치마킹 테스트라고 말한다.
+</div>
+
+### Tool
+여기서는 wrk라는 벤치마킹 툴을 사용해보자.<br></br>
+깃허브 공식문서의 wrk는 아래와 같이 설명되어 있다.
+<div className="bg-gray-50 my-4 px-4 py-2 border-l-4 border-green-400 hover:bg-gray-100 hover:border-indigo-400 transition duration-300 ease-in-out">
+wrk is a modern HTTP benchmarking tool capable of generating significant load when run on a single multi-core CPU. It combines a multithreaded design with scalable event notification systems such as epoll and kqueue.
+</div>
+<div className="bg-gray-50 my-4 px-4 py-2 border-l-4 border-green-400 hover:bg-gray-100 hover:border-indigo-400 transition duration-300 ease-in-out">
+wrk는 단일 멀티 코어 CPU에서 실행할 때 상당한 부하를 생성할 수 있는 최신 HTTP 벤치마킹 도구입니다. epoll 및 kqueue와 같은 확장 가능한 이벤트 알림 시스템과 멀티스레드 디자인을 결합합니다.
+</div>
+
+### 서버 생성
+우선 서버를 생성해보자.<br></br>
+나는 Nest.js를 활용해서 간단하게 서버를 구성했다.<br></br>
+Postgresql에 저장되어 있는 100명의 유저 정보를 랜덤으로 주고 받는 간단한 API이다. 
+
+```typescript
+// app.controller.ts
+import { Controller, Get, Param, Post } from '@nestjs/common';
+import { get } from 'http';
+import { AppService } from './app.service';
+
+@Controller()
+export class AppController {
+  constructor(private readonly appService: AppService) {}
+
+  @Get('user/all')
+    async findAll(): Promise<string> {
+        return await this.appService.findAll();
+    }
+
+  @Get('user/random')
+    async randomUser(): Promise<string> {
+        return await this.appService.randomUser();
+  }
+
+  @Get('user/:id')
+    async findOne(@Param('id') id: number): Promise<string> {
+        return await this.appService.findOne(id);
+  }
+}
+```
+
+```typescript
+// app.service.ts
+import { Injectable } from '@nestjs/common';
+import { Not, Repository } from "typeorm";
+import { InjectRepository } from "@nestjs/typeorm";
+import { User } from './user/entities/user.entity';
+
+@Injectable()
+export class AppService {
+  constructor(
+    @InjectRepository(User)
+    private userRepository: Repository<User>,
+  ) {}
+
+  async findAll(): Promise<string> {
+    const users = await this.userRepository.find();
+    return JSON.stringify(users);
+  }
+
+  async findOne(id: number): Promise<string> {
+    const user = await this.userRepository.findOne({
+      where:{
+        id:id
+      }
+    });
+    return JSON.stringify(user);
+  }
+
+  async randomUser(): Promise<string> {
+    const user = await this.userRepository.findOne({
+      where:{
+        id:Math.floor(Math.random()*100)
+      }
+    });
+    return JSON.stringify(user);
+  }
+}
+
+```
+
+### wrk 설치
+wrk는 다음과 같이 설치할 수 있다.
+
+```bash
+$ brew install wrk
+```
+
+### wrk 사용법
+wrk는 다음과 같이 사용할 수 있다.
+
+```bash
+$ wrk -t12 -c400 -d30s http://localhost:3000/user/random
+``` 
+여기서 "-t12"는 12개의 스레드를 사용하겠다는 의미이고, <br></br>
+"-c400"은 400개의 커넥션을 사용하겠다는 의미이다. <br></br>
+"-d30s"는 30초 동안 테스트를 진행하겠다는 의미이다. <br></br>
+마지막에는 테스트할 서버의 주소를 적어주면 된다.
+
+### 실제 테스트
+```bash
+$ wrk -c 10 -d 5 http://localhost:3000/user/random
+```
+일단 10개 정도의 커넥션으로 5초 동안 테스트를 해보았다. <br></br>
+
+```zsh
+(base) mac@MacBook-Pro-cua-MAC ~ % sudo wrk -c 10 -d 5 http://localhost:4000/user/random
+Running 5s test @ http://localhost:4000/user/random
+  2 threads and 10 connections
+  Thread Stats   Avg      Stdev     Max   +/- Stdev
+    Latency     1.46ms    3.68ms  70.16ms   98.70%
+    Req/Sec     4.55k   826.97     5.22k    92.16%
+  46157 requests in 5.10s, 15.65MB read
+Requests/sec:   9049.88
+Transfer/sec:      3.07MB
+(base) mac@MacBook-Pro-cua-MAC ~ % sudo wrk -c 100 -d 5 http://localhost:4000/user/random
+Running 5s test @ http://localhost:4000/user/random
+  2 threads and 100 connections
+  Thread Stats   Avg      Stdev     Max   +/- Stdev
+    Latency    11.64ms    5.32ms  92.95ms   96.61%
+    Req/Sec     4.46k   698.24     4.92k    92.16%
+  45242 requests in 5.10s, 15.34MB read
+Requests/sec:   8865.10
+Transfer/sec:      3.01MB
+(base) mac@MacBook-Pro-cua-MAC ~ % 
+```
+
+<div className="flex justify-center items-center py-5">
+  <img src="https://imagedelivery.net/6qzLODAqs2g1LZbVYqtuQw/dc768c55-f2da-437a-51c3-fd1c434ea300/public" alt="spring"/>
+</div>
+
+
+벤치마킹의 결과는 위와 같이 출력되었다.
+
+첫 번째 벤치마킹 결과를 살펴보자.
+<div className="bg-gray-50 my-4 px-4 py-2 border-l-4 border-green-400 hover:bg-gray-100 hover:border-indigo-400 transition duration-300 ease-in-out">
+Thread Stats   Avg      Stdev     Max   +/- Stdev<br></br>
+    Latency     1.46ms    3.68ms  70.16ms   98.70%<br></br>
+Requests/sec:   9049.88
+</div>
+
+Latency 평균은 1.46ms로 매우짧은 시간이 걸렸다. <br></br>
+그리고 98.70%의 요청이 70.16ms 이하의 시간이 걸렸다. <br></br>
+그리고 9049.88의 요청이 초당 처리되었다. <br></br>
+
+자 그렇다면 커넥션이 100개로 늘어났을 때는 어떨까? <br></br>
+
+두 번째 벤치마킹 결과를 살펴보자.
+<div className="bg-gray-50 my-4 px-4 py-2 border-l-4 border-green-400 hover:bg-gray-100 hover:border-indigo-400 transition duration-300 ease-in-out">
+Thread Stats   Avg      Stdev     Max   +/- Stdev<br></br>
+    Latency    11.64ms    5.32ms  92.95ms   96.61%<br></br>
+Requests/sec:   8865.10
+</div>
+
+Latency 평균은 11.64ms로 매우짧은 시간이 걸렸다. <br></br>
+하지만 10개의 커넥션이 발생했을 때보다 1.46ms에서 11.64ms로 10배가량 증가했다. <br></br>
+96.61%의 요청이 92.95ms 이하의 시간이 걸렸다. <br></br>
+그리고 150개 가량 줄어든 8865.10의 요청이 초당 처리되었다. <br></br>
+
+### 실제 테스트(자세한 Latency)
+
+좀 더 나아가서 자세한 Latency 내용을 보는 것도 가능하다.
+기존 명령어에 --latency 옵션을 추가해주면 된다.
+```bash
+$ wrk -c 100 -d 5 --latency http://localhost:3000/user/random
+```
+
+결과는 아래와 같이 출력된다.
+
+```zsh
+(base) mac@MacBook-Pro-cua-MAC ~ % sudo wrk -c 100 -d 5 --latency  http://localhost:4000/user/random
+Password:
+Running 5s test @ http://localhost:4000/user/random
+  2 threads and 100 connections
+  Thread Stats   Avg      Stdev     Max   +/- Stdev
+    Latency    12.15ms    5.79ms  96.72ms   95.44%
+    Req/Sec     4.28k   733.00     4.81k    90.20%
+  Latency Distribution
+     50%   11.10ms
+     75%   11.77ms
+     90%   13.68ms
+     99%   36.25ms
+  43431 requests in 5.10s, 14.72MB read
+Requests/sec:   8510.09
+Transfer/sec:      2.88MB
+```
+
+출력된 내용 중에서 중점적으로 보아야 할 부분은 아래와 같다.
+
+```zsh
+  Latency Distribution
+     50%   11.10ms
+     75%   11.77ms
+     90%   13.68ms
+     99%   36.25ms
+```
+
+50%는 50%의 요청이 11.10ms 이하의 시간이 걸렸다는 의미이다. <br></br>
+75%는 75%의 요청이 11.77ms 이하의 시간이 걸렸다는 의미이다. <br></br>
+90%는 90%의 요청이 13.68ms 이하의 시간이 걸렸다는 의미이다. <br></br>
+99%는 99%의 요청이 36.25ms 이하의 시간이 걸렸다는 의미이다. <br></br>
+
+### 결론
+위와 같은 결과를 통해서 우리 서버는 초당 8865.10개의 요청을 처리할 수 있는 능력을 갖추었다는 것을 알 수 있다. <br></br>
+그렇지만 이와 같은 수치는 100개의 커넥션과 5초의 시간 동안 서버가 버틸 수 있는 최대의 수치이다. <br></br>
+지하철을 예로 들어서 볼 수 있는데, 각 칸에 사람들이 빽빽하게 들어 차 있는 지하철을 생각해보자. <br></br>
+개인의 만족도는 매우 떨어지지만 많은 양을 사람을 수송할 수 있다.
+
+즉, 서버의 한계치는 알 수 있으나 동시 접속자의 한계는 알 수 없다. <br></br>
+
+
+# Benchmarking Test - wrk2
+
+### wrk2
+wrk는 단순히 서버의 처리량, Latency느 알 수 있었다.
+하지만 서버를 사용하는 사용자가 얼마나 쾌적한 환경에서 서비스를 이용할 수 있는지는 알 수 없었다.
+
+그렇기 때문에 새로운 옵션을 추가한 wrk2가 나오게 되었다.
+
+### wrk2 설치
+```bash
+brew top jabley/wrk2
+brew install --HEAD wrk2
+```
+
+### wrk2 사용법
+```bash
+wrk2 -c 100 -d 30 -R 1000 --latency http://localhost:4000/user/random
+```
+추가된 옵션은 아래와 같다.
+
+```bash
+-R 1000 : 초당 1000개의 요청을 보낸다. 즉 30초 동안 30000개의 요청을 보내며 인당 초당 10개의 요청을 보낸다.
+```
+
+### wrk2 결과
+Unable to install wrk2 using brew on Apple Silicon (AArch64 /arm64) https://github.com/jabley/homebrew-wrk2/issues/6 <br></br>
+
+### 결론
+서비스별로 유저가 쾌적하게 느끼는 시간을 특정하고 그에 따라 동시접속자 수와 요청 밀도를 조정해서 최적의 한계점을 찾는 것이 중요하다.
+
+
+# API 서버의 성능을 개선하는 방법
+
+nginx + node.js + postgresql 일 때
+
+### 서버의 대수를 늘린다.
+nginx와 postgresql의 경우는 상용 소프트웨어이기 때문에 최적화가 매우 잘 되어 있다.<br></br>
+그렇기 때문에 우리가 직접 작성하는 Node.js 서버와 폭으로서 비교해 보았을 때, 2:1:1.8(nginx:node:postgresql)의 비율로 가정하겠다.<br></br>
+
+비율적으로 보았을 때 Node.js 서버를 한 대 추가한다면 대략 비슷한 비율 2:2:1.8(nginx:node:postgresql)이 되는 것을 알 수 있다.<br></br>
+추가로 서버를 한 대 더 추가 했을 때, postgresql측에서 부하가 발생할 수 있기 때문에, postgresql의 경우는 한 대 더 추가하는 것이 좋다.<br></br>
+ 
+이런식으로 어느 부분이 폭이 좁은가를 확인하고 벤치마킹 툴을 활용해서 서버를 확장하면 된다.
+
+### 서버의 성능을 높인다.(코드를 효율화한다.)
+앞서 언급한 것처럼 nginx와 postgresql의 경우는 상용 소프트웨어이기 때문에 최적화가 잘 되어서 요청 또한 효율적으로 처리한다.<br></br>
+그렇다면 개선해야하는 부분 또한 Node.js 서버쪽이다.<br></br>
+
+소팅이나 효율적인 쿼리 작성, 그리고 알고리즘 개선으로 요청을 효율적으로 처리한다면 성능을 높일 수 있다.<br></br>
+
+### 대수 늘리기 + 코드 효율화
+위의 두 가지 방법을 동시에 사용하면 더욱 효율적으로 서버를 확장할 수 있다.<br></br>
+
+# 정리
+<div className="bg-gray-50 my-4 px-4 py-2 border-l-4 border-green-400 hover:bg-gray-100 hover:border-indigo-400 transition duration-300 ease-in-out">
+1. 서버 성능을 나타내는 지표는 다양하며, 정답이 없다.
+2. 성능 측정 시 "몇 명의 사용자가 어느 정도의 밀도로 API를 요청할 때 서버의 응답속도 분포는~"의 형태가 현실적이다.
+3. 서버의 성능은 상황에 따라 Scale-out, Scale-up, Scale-out + Scale-up이 필요하다.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

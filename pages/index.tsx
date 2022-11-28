@@ -20,6 +20,7 @@ const Home: NextPage<Props> = ({ posts }: Props) => {
   const router = useRouter();
   useEffect(() => {
     const tags = posts.reduce((acc, post) => {
+      posts.reverse();
       post.stacks.forEach((tag) => {
         if (acc[tag]) {
           acc[tag] += 1;
@@ -106,7 +107,7 @@ const Home: NextPage<Props> = ({ posts }: Props) => {
         >
           {/* 최근 글 10가지 */}
           <div className="_sticky pl-2">
-            <p style={{ textAlign: 'start' }}>인기 글</p>
+            <p style={{ textAlign: 'start' }}>최근 글</p>
             <ul className="latest-list">
               {posts.map((post, i) => {
                 if (i < 5)
@@ -126,7 +127,7 @@ const Home: NextPage<Props> = ({ posts }: Props) => {
               {Object.keys(tags).map((tag) => {
                 return (
                   <div key={tag}>
-                    <Link href={'/tech/' + tag}>
+                    <Link href={'/post/' + tag}>
                       <a className="tags-list">
                         - {tag + '(' + tags[tag] + ')'}
                       </a>
