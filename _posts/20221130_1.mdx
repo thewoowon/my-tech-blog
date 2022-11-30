@@ -1,0 +1,552 @@
+---
+title: Divide and Conquer VS Dynamic Programming
+description: 다이내믹 프로그래밍과 분할 정복의 차이점을 알아보고 알고리즘을 구현해봅니다.
+thumbnail: /assets/algorithm.jpeg
+prerequisites: ['우원', '주니어 개발자','성장 중','안녕하세요👏 새로운 영감을 주는 일과 꾸준한 성장을 즐기는 우원입니다.']
+stacks: ['알고리즘']
+writer: 우원
+date: '2022-11-30'
+name: '20221130_1' 
+---
+
+# 🙌 Divide and Conquer VS Dynamic Programming
+동적 프로그래밍과 분할 정복을 비교하기 전 두 알고리즘의 개념을 먼저 알아보는 것이 중요하다고 생각했다.<br></br>
+나 또한 이 두 알고리즘을 처음 접했을 때, 둘의 차이점을 이해하는 것이 어려웠다.<br></br>
+그래서 이번 포스팅에서는 두 알고리즘의 개념과 차이점을 알아보고, 각각의 알고리즘을 구현해보려고 한다.<br></br>
+
+# 💾 참고 자료
+코딩 테스트를 위한 자료구조와 알고리즘 with C++(개인 소장)<br></br>
+저자 : 존 캐리, 세리안 도시, 피아스 라잔 지음
+
+# 🧐 Aligorithm
+자료구조는 다양한 방식의 데이터의 저장 빙식을 의미하며, 그 안에 저장된 데이터에 접근하는데 필요한 비용을 결정한다.
+그러나 데이터를 저장하고 검색하는 방법 외에도 계산 문제를 해결하기 위해 데이터를 변환하는 방법도 프로그램의 결정하는 중요한 요소이다.
+주어진 문제가 있을 때, 데이터에 대한 정확한 정의와 데이터 변환 순서는 일련의 명령에 의해 결정되며, 이를 **알고리즘**이라고 한다.
+
+### 🧩 동작의 효율성
+문제 정의에 대한 필요한 것들을 인자로 받고, 일련의 변환을 수행하여 결과를 출력한다.
+이 때 해당 알고리즘의 좋고 나쁨은 알고리즘 동작의 효율성에 의해 결정된다.
+
+### 🧩 입력 크기에 따른 알고리즘 수행 단계 변화
+<div className="flex justify-center items-center py-5">
+  <img src="https://imagedelivery.net/6qzLODAqs2g1LZbVYqtuQw/078355d0-9a94-4ecf-7bd3-2877fead9900/public" alt="spring"/>
+</div>
+알고리즘 수행에 필요한 단계 수를 입력 크기에 대한 함수 형태로 나타낸 것이다.<br></br>
+복잡한 알고리즘일수록 입력 크기가 증가함에 따라 단계 수가 기하급수적으로 증가한다.<br></br>
+그리고 일정 크기 이상의 입력에 대해서는 최신 컴퓨터로도 실행이 불가능한 경우도 있다.<br></br>
+
+### 🧩 불가능한 예
+초당 100만개의 연산을 수행하는 컴퓨터가 있다고 가정하자.<br></br>
+NlogN의 연산 횟수를 필요로 하는 알고리즘은 입력 크기가 50이면 283 마이크로초가 소요되는데 비해 N^2의 연산 횟수를 필요로 하는 알고리즘은 입력 크기가 50이면 2500 마이크로초가 소요된다.<br></br>
+최악의 경우 N!의 연산횟수를 필요로 하는 알고리즘은 대략 1.3283584e+55세기(Aniversary)가 소요된다.<br></br>
+
+# 🧐 Divide and Conquer
+<div className="bg-gray-50 my-4 px-4 py-2 border-l-4 border-green-400 hover:bg-gray-100 hover:border-indigo-400 transition duration-300 ease-in-out">
+분할 정복은 주어진 문제를 작은 부분 문제로 나누고,
+나눠진 각 부분 문제릐 솔루션을 구하고,
+각 부분 문제 솔루션을 합쳐서 전체 문제에 대한 솔루션을 구하는 방법이다.
+</div>
+
+### 🧩 분할 정복 알고리즘의 예
+현재 널리 알려진 많은 알고리즘이 이 분할 정복 유형에 속한다.
+대표적으로 이진 탐색, 병합 정렬, 퀵 정렬, 힙 정렬, 빠른 정수 곱셈, 고속 푸리에 변환, 스카이 라인 알고리즘 등이 있다.
+
+### 🧩 이진 검색
+일반적인 검색 문제를 생각해보자.<br></br>
+정렬되어 있는 정수 시퀀스가 있고, 정수는 고객의 ID이다. 이때 특정 고객의 ID를 찾아야한다면 우리는 어떤 방법을 활용할 수 있을까?<br></br>
+가장 먼저 생각할 수 있는 방법은 전체 원소를 방문하면서 해당 원소가 우리가 찾는 원소와 같은지 확인하는 것이다.
+코드를 살펴보자
+
+```python
+
+def linear_search(A, x):
+    # 전체를 순회하는 for문
+    # 최선의 경우 O(1), 최악의 경우 O(n)
+    # 시간 복잡도는 최악의 경우를 따른다.
+    for i in range(len(A)):
+        if A[i] == x:
+            return i
+    return -1
+
+if __name__ == '__main__':
+    A = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+    print(linear_search(A, 5))
+
+```
+
+linear_search 함수는 A라는 리스트를 입력으로 받고, x라는 정수를 입력으로 받는다.<br></br>
+그리고 A 리스트의 각 원소를 순회하면서 x와 같은지 확인한다.<br></br>
+만약 x와 같은 원소가 있다면 해당 원소의 인덱스를 반환하고, 없다면 -1을 반환한다.<br></br>
+
+최선의 경우는 x가 A의 첫 번째 원소와 같고, 첫 번째 원소를 확인하고 바로 반환하면 되므로 O(1)의 시간 복잡도를 가진다.<br></br>
+최악의 경우는 x가 A의 마지막 원소와 같고, 마지막 원소까지 확인해야하므로 O(n)의 시간 복잡도를 가진다.<br></br>
+
+이러한 방법을 선형 검색이라고 부르고 O(n)의 시간 복잡도를 가진다.
+
+선형 검색은 입력 시퀀스의 정렬 여부롸 상관없이 항상 잘 동작한다.
+그러나 이 방법은 효율적이지 않고 주어진 배열이 정렬되어 있다는 장점을 전혀 이용하지 못하고 있다.
+
+그렇다면 시퀀스가 정렬되어 있다면 어떻게 검색을 할 수 있을까?<br></br>
+
+```python
+
+def binary_search(A, x):
+    # A는 정렬되어 있다고 가정한다.
+
+    # 시작 인덱스
+    low = 0
+    # 끝 인덱스
+    high = len(A) - 1
+    # low가 high보다 작거나 같을 때까지 반복한다.
+    while low <= high:
+        # 중간 인덱스
+        mid = (low + high) // 2
+        # 중간 인덱스의 원소가 x와 같다면 mid를 반환한다.
+        if A[mid] == x:
+            return mid
+        # 중간 인덱스의 원소가 x보다 크다면
+        elif A[mid] < x:
+            # 중간 인덱스의 다음 인덱스부터 high까지 탐색한다.
+            low = mid + 1
+        else:
+            # 중간 인덱스의 이전 인덱스부터 low까지 탐색한다.
+            high = mid - 1
+    return -1
+
+if __name__ == '__main__':
+    customer_id = [1, 2, 4, 3, 9, 6, 7, 10, 5, 8]
+    customer_id.sort()
+    print(binary_search(customer_id, 3))
+
+```
+
+binary_search 함수는 A라는 리스트를 입력으로 받고, x라는 정수를 입력으로 받는다.<br></br>
+이떼 binary_search로 넘겨주는 A는 정렬되어 있어야 한다.<br></br>
+
+중간값을 활용해 탐색 범위를 반으로 줄여나가는 방법으로 탐색하고 있다.<br></br>
+이러한 방법을 이진 검색이라고 부르고 O(log n)의 시간 복잡도를 가진다.<br></br>
+
+이진 검색의 시간 복잡도는 O(log n)이지만, 이진 검색을 구현하는 방법에 따라서 O(n)의 시간 복잡도를 가질 수도 있다.<br></br>
+
+이제 코드의 시간을 측정하는 코드를 작성해보자.
+
+```python
+import random
+import time
+
+def linear_search(A, x):
+    # 전체를 순회하는 for문
+    # 최선의 경우 O(1), 최악의 경우 O(n)
+    # 시간 복잡도는 최악의 경우를 따른다.
+    for i in range(len(A)):
+        if A[i] == x:
+            return i
+    return -1
+
+def binary_search(A, x):
+    low = 0
+    high = len(A) - 1
+    while low <= high:
+        mid = (low + high) // 2
+        if A[mid] == x:
+            print(f"이진 검색으로 원소를 찾았습니다! : {mid}")
+            return
+        elif A[mid] < x:
+            low = mid + 1
+        else:
+            high = mid - 1
+    print("이진 검색으로 원소를 찾지 못했습니다!")
+    return
+
+def run_small_search_test():
+    customer_id = [1, 2, 4, 3, 9, 6, 7, 10, 5, 8]
+    customer_id.sort()
+
+    if linear_search(customer_id,3) != -1:
+        print(f"선형 검색으로 원소를 찾았습니다!")
+    else:
+        print(f"선형 검색으로 원소를 찾지 못했습니다!")
+
+    if binary_search(customer_id,3) != -1:
+        print(f"이진 검색으로 원소를 찾았습니다!")
+    else:
+        print(f"이진 검색으로 원소를 찾지 못했습니다!")
+
+def run_large_search_test(size, n):
+    sequence = []
+
+    for i in range(size):
+        sequence.append(random.randrange(1,size))
+
+    sequence.sort()
+
+    # 검색 시간 측정 시작
+    start = time.time()
+    binary_search(sequence,n)
+    end = time.time()
+
+    print(f"{end - start:.5f} sec")
+
+if __name__ == '__main__':
+    run_large_search_test(100000,36543)
+    run_large_search_test(1000000, 36543)
+    run_large_search_test(10000000, 36543)
+
+    # 이진 검색으로 원소를 찾았습니다! : 36423
+    # 0.00003 sec
+    # 이진 검색으로 원소를 찾지 못했습니다!
+    # 0.00004 sec
+    # 이진 검색으로 원소를 찾았습니다! : 36598
+    # 0.00006 sec
+```
+(편의상 초단위로 하겠다.)<br></br>
+코드를 살펴보면 입력값이 100000에서 크기가 10배씩 늘어나지만 결과 값은 겨우 0.00001초 정도 차이가 난다.<br></br>
+
+이진 검색이 얼마나 효율적인지 단적으로 보여주고 있다.<br></br>
+
+### 🧩 분할 정복 이해하기
+분할 정복 접근 방법의 핵심 이론은 매우 단순하고 직관적이다.
+주어진 문제가 규모가 커서 한 번에 해결하기 힘들다면 이를 작은 문제로 나누어서 해결하는 방식이다.
+부분 문제로 나누는 작업을 반복하여 그 해답을 찾고, 다시 그 해답을 합쳐서 처음 문제에 대한 해답을 유도하는 것이다.
+
+그리고 주어진 문제를 분할 정복으로 해결하려면 다음과 같은 세 단계가 필요하다.
+
+1. 분할(Divide) : 주어진 문제를 동일한 방식으로 해결할 수 있는 여러 부분 문제로 나눈다.
+2. 정복(Conquer) : 부분 문제를 각각 해결한다.
+3. 합치기(Combine) : 부분 문제의 해답을 합쳐서 원래 문제의 해답을 구한다.
+
+하지만 앞서 보았던 이진 검색은 분할 정복 알고리즘의 특별한 형태이다.
+왜냐하면 이진 검색은 분할 정복 알고리즘의 세 단계 중에서 1단계만 수행하고 2단계와 3단계를 수행하지 않기 때문이다.
+
+작은 시퀀스 내에서 정답을 찾을 수 없다면 전체 시퀀스에서도 찾을 수 없다.
+즉 전체의 일부에서 구한 해답이 전체에서 구한 해답과 같다.
+그렇기 때문에 일반적인 분할 정복 접근 방법에서 필요한 결합 과정이 필요하지 않다.
+
+### 🧩 분할 정복 정렬 알고리즘
+1960년대 초기의 컴퓨터 제조업체는 CPU가 수행하는 작업 중 25%가 정렬에 사용된다는 사실을 알게 되었다.
+그 후로 컴퓨팅 환경은 크게 변했지만 오늘날에도 정렬은 활발히 연구되고 있다.
+
+### 🧩 병합 정렬
+병합 정렬은 가장 잘 알려진 알고리즘으로 1940년대에도 사용되었던 기록이 있다.
+그때 당시에는 컴퓨터가 수백 바이트의 메모리만을 사용했기 때문에 정렬에 사용되는 메모리가 매우 중요했다.
+
+병합 정렬은 간단한 아이디어로 정렬을 수행한다. 
+즉 많은 원소로 구성된 전체 집합을 작은 크기의 부분집합으로 나누어 각각을 정렬하고,
+정렬된 부분집합을 오름차순 또는 내림차순 순서를 유지하면서 합치는 방식이다.
+
+코드를 작성하고 분석해보자.
+
+```python
+def merge_sort(seq):
+    # 리스트의 길이가 2보다 작으면 정렬할 필요가 없다.
+    if len(seq) < 2:
+        return seq
+    # 리스트를 반으로 나눈다.
+    mid = len(seq) // 2
+    # 재귀적으로 정렬한다.
+    left = merge_sort(seq[:mid])
+    right = merge_sort(seq[mid:])
+    # 출력해보기
+    print(f"left : {left}")
+    print(f"right : {right}")
+    return merge(left, right)
+
+def merge(left, right):
+    result = []
+    start_left = 0
+    start_right = 0
+
+    # 왼쪽과 오른쪽 리스트를 비교하면서 작은 값을 결과 리스트에 추가한다.
+    while start_left < len(left) and start_right < len(right):
+        if left[start_left] < right[start_right]:
+            result.append(left[start_left])
+            start_left += 1
+        else:
+            result.append(right[start_right])
+            start_right += 1
+    # 왼쪽 리스트에 남은 원소를 결과 리스트에 추가한다.
+    while start_left < len(left):
+        result.append(left[start_left])
+        start_left += 1
+    # 오른쪽 리스트에 남은 원소를 결과 리스트에 추가한다.
+    while start_right < len(right):
+        result.append(right[start_right])
+        start_right += 1
+    return result
+
+if __name__ == '__main__':
+    print(f"merge_sort : {merge_sort([1, 2, 4, 3, 9, 6, 7, 10, 5, 8])}")
+```
+
+
+```python
+# 결과 확인
+left : [1]
+right : [2]
+result : [1, 2]
+
+left : [3]
+right : [9]
+result : [3, 9]
+
+left : [4]
+right : [3, 9]
+result : [3, 4, 9]
+
+left : [1, 2]
+right : [3, 4, 9]
+result : [1, 2, 3, 4, 9]
+
+left : [6]
+right : [7]
+result : [6, 7]
+
+left : [5]
+right : [8]
+result : [5, 8]
+
+left : [10]
+right : [5, 8]
+result : [5, 8, 10]
+
+left : [6, 7]
+right : [5, 8, 10]
+result : [5, 6, 7, 8, 10]
+
+left : [1, 2, 3, 4, 9]
+right : [5, 6, 7, 8, 10]
+result : [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+merge_sort : [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+```
+
+알고리즘의 동작을 세세하게 설명하기 보다는 배열을 중간값을 통해 반복해서 쪼개어 나가는 것을 머릿속에 그려보도록 하자.
+merge라는 함수의 동작은 단순히 두개의 리스트를 비교하면서 작은 값을 결과 리스트에 추가하는 것이다.
+이 때 **분할**되었던 리스트는 **결합**되어 **정렬된 상태(정복)**로 반환된다.
+
+알고리즘의 결과는 잘게 쪼개어졌을 때의 left, right 입력과 결과를 보여주고 있다.
+재귀이기 때문에 어렵다고 생각할 수 있지만, 이미 반으로 나눈 리스트를 일부 정렬하고 다시 정렬하는 것을 떠올리자.
+
+### 🧩 병합 정렬 실행 시간
+
+<div className="bg-gray-50 my-4 px-4 py-2 border-l-4 border-green-400 hover:bg-gray-100 hover:border-indigo-400 transition duration-300 ease-in-out">
+- 최선의 경우 : O(n log n)
+- 평균 : O(n log n)
+- 최악의 경우 : O(n log n)
+</div>
+
+### 🧩 퀵 정렬
+
+퀵 정렬은 분할 정복 알고리즘의 대표적인 예이다.
+퀵 정렬은 리스트 안에 있는 한 요소를 **기준(pivot)**으로 잡는다.
+그리고 기준보다 작은 요소는 왼쪽, 큰 요소는 오른쪽으로 모은다.
+이렇게 기준을 기준으로 왼쪽과 오른쪽으로 나누는 것을 **분할**이라고 한다.
+분할된 왼쪽과 오른쪽 리스트에 대해 재귀적으로 퀵 정렬을 수행한다.
+이렇게 리스트를 계속 반으로 나누어 정렬하다 보면 리스트의 크기가 0이나 1이 되어 더 이상 정렬할 필요가 없게 된다.
+이 때 리스트는 이미 정렬된 상태이다.
+
+이제 코드를 보면서 이해하도록 하자.
+
+```python
+def quick_sort(array):
+    print(f"array : {array}")
+    if len(array) <= 1:
+        return array
+    pivot = array[0]
+    print(f"pivot : {pivot}")
+    tail = array[1:]
+    left_side = [x for x in tail if x <= pivot]
+    print(f"left_side : {left_side}")
+    right_side = [x for x in tail if x > pivot]
+    print(f"right_side : {right_side}")
+    return quick_sort(left_side) + [pivot] + quick_sort(right_side)
+
+if __name__ == '__main__':
+    print(f"quick_sort : {quick_sort([1, 2, 4, 3, 9, 6, 7, 10, 5, 8])}")
+```
+
+```python
+array : [1, 2, 4, 3, 9, 6, 7, 10, 5, 8]
+pivot : 1
+left_side : []
+right_side : [2, 4, 3, 9, 6, 7, 10, 5, 8]
+
+array : []
+array : [2, 4, 3, 9, 6, 7, 10, 5, 8]
+pivot : 2
+left_side : []
+right_side : [4, 3, 9, 6, 7, 10, 5, 8]
+
+array : []
+array : [4, 3, 9, 6, 7, 10, 5, 8]
+pivot : 4
+left_side : [3]
+right_side : [9, 6, 7, 10, 5, 8]
+
+array : [3]
+array : [9, 6, 7, 10, 5, 8]
+pivot : 9
+left_side : [6, 7, 5, 8]
+right_side : [10]
+
+array : [6, 7, 5, 8]
+pivot : 6
+left_side : [5]
+right_side : [7, 8]
+
+array : [5]
+array : [7, 8]
+pivot : 7
+left_side : []
+right_side : [8]
+
+array : []
+array : [8]
+array : [10]
+quick_sort : [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+```
+
+기존에 C++로 구현하는 코드는 partition이라는 함수를 따로 구현해준다.
+하지만 파이썬으로 구현하면 굉장히 단순해진 퀵 정렬 코드를 볼 수 있다.
+
+짧은 파이썬 코드는 피벗을 중간 인덱스의 값으로 받지 않고 0번째 인덱스를 피벗으로 받는다.
+그리고 해당 피벗이 정해진 후 왼쪽으로 피벗보다 작은 값을 정렬하고, 오른쪽으로는 피벗보다 큰 값을 정렬한다.
+이렇게 정렬된 왼쪽과 오른쪽 리스트에 대해 재귀적으로 퀵 정렬을 수행한다.
+
+결과를 살펴보면 더 쉽게 이해할 수 있다.<br></br>
+
+선택한 피벗을 확인 하고 양쪽으로 정렬 후 다시 피벗과 합치는 과정을 반복한다.
+
+### 🧩 퀵 정렬 실행 시간
+
+<div className="bg-gray-50 my-4 px-4 py-2 border-l-4 border-green-400 hover:bg-gray-100 hover:border-indigo-400 transition duration-300 ease-in-out">
+- 최선의 경우 : O(n log n)
+- 평균 : O(n log n)
+- 최악의 경우 : O(n^2)
+</div>
+
+### 🧩 병합 정렬과 퀵 정렬의 목적
+두 정렬의 기본적인 아이디어는 같다. 즉 원본 입력 배열을 작은 크기의 부분 배열로 나누고,
+각 부분 배열을 정렬한 후, 그 결과를 합쳐서 전체 정렬된 배열을 생성한다.<br></br>
+다만, 여기서 퀵 정렬의 핵심 연산은 병합이 아니라 분할이다.
+
+
+<div className="bg-gray-50 my-4 px-4 py-2 border-l-4 border-green-400 hover:bg-gray-100 hover:border-indigo-400 transition duration-300 ease-in-out">
+- 병합 정렬 : 대용량 데이터를 정렬하는 것.
+- 퀵 정렬 : 평균 실행 시간을 줄이는 것.
+</div>
+
+
+# 🧐 Dynamic Programming
+동적 계획법은 분할 정복 패러다임 개념을 확장한 것으로, 특정 분류 문제에 사용된다.
+동적 계획법은 매우 복잡하고 창의력, 추상적 개념을 시각화 하는 능력을
+요구하는 경우가 많아서 나 또한 어렵게 느껴진 방법이다.
+
+기존의 분할 정복과 그리디 알고리즘은 특정 상황에서는 굉장히 효과적이지만,
+그렇지 않은 경우에는 최적의 결과를 도출하지 못할 수 있다.<br></br>
+동적 계획법은 이러한 문제를 해결하기 위해 사용된다.
+
+### 🧩 동적 계획법이 사용되는 몇 가지 예
+<div className="bg-gray-50 my-4 px-4 py-2 border-l-4 border-green-400 hover:bg-gray-100 hover:border-indigo-400 transition duration-300 ease-in-out">
+- 조합(특정 기준을 만족하는 시퀀스의 조합 또는 순열의 개수 구하기)
+- 문자열과 시퀀스(편집 거리, 최장 공통 부분 시퀀스, 최장 증가 부분 시퀀스)
+- 그래프(최단 경로, 최소 신장 트리)
+- 머신러닝(최적화 문제, 음성 인식, 얼굴 인식)
+</div>
+
+### 🧩 피보나치 수열
+
+```python
+fibonacci = [0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55,...]
+```
+
+피보나치 시퀀스(수열)의 일부이다. 피보나치 수열은 다음과 같은 규칙을 가진다.
+- f(0) = 0, f(1) = 1
+- 세 번째 항부터는 바로 앞의 두 항의 합이다.
+
+위의 규칙을 바탕으로 피보나치 수열이 다음과 같은 재귀적인 관계식을 가진다는 것을 알 수 있다.
+```python
+fibonacci(n) = fibonacci(n-1) + fibonacci(n-2)
+```
+
+피보나치 수열은 다음과 같이 구현할 수 있다.
+```python
+def fibonacci(n):
+    if n <= 1:
+        return n
+    return fibonacci(n-1) + fibonacci(n-2)
+```
+위와 같은 방식을 하향식 해법(Top-Bottom Solution)이라고 부른다.
+하지만 살펴보면 부분 문제를 풀기 위해 중복된 연산이 많이 발생하고 있다.
+
+### 🧩 중복되는 부분 문제
+
+예를 들어 f(2)는 f(4)와 f(3)을 구하는 과정에서 중복되어 나타난다.
+f(4) = f(3) + f(2)이고, f(3) = f(2) + f(1)이기 때문이다.
+
+### 🧩 최적 부분 구조
+
+여러 부분 문제가 서로 완전히 동일하다는 것을 알 수 있다. 예를 들어
+f(2)의 해를 구해야 할 경우, f(3)과 f(4) 중에서 어느 것을 구하기
+위해 필요한지에 상관없이 같은 방식의 연산을 수행하면 된다.
+
+### 🧩 Memoization(암기) : 하향식 해법(Top-Bottom Solution)
+
+동적 계획법의 핵심은 중복되는 부분 문제를 한 번만 풀도록 하는 것이다.
+이를 위해 메모이제이션(Memoization)을 사용한다.
+
+메모이제이션은 한 번 계산한 결과를 메모리 공간에 메모하는 기법이다.
+동일한 계산을 반복해야 할 때 메모이제이션을 이용하면 중복된 계산을
+피할 수 있다.
+
+아래의 코드는 피보나치를 메모이제이션을 활용하여 구현한 것이다.
+
+```python
+d = [0] * 1000
+
+def fibonacci(n):
+    if n <= 1:
+        return n
+    if d[n] != 0:
+        return d[n]
+    d[n] = fibonacci(n-1) + fibonacci(n-2)
+    return d[n]
+```
+d라는 캐시에 계산한 값을 저장해두고, 다음 번에 같은 계산을 수행할 때는
+캐시에 저장된 값을 반환한다.
+
+### 🧩 Tabulation(타뷸레이션) : 상향식 해법(Bottom-Top Solution)
+
+앞서 보았던 메모이제이션이 하향식 접근 방법이라면, 타뷸레이션은 상향식 접근 방법이다.
+동적 계획법은 메모이제이션과 타뷸레이션 모두에게 적용되긴 하지만,
+일반적으로 타뷸레이션을 더 많이 의식해서 사용한다.
+
+아래의 코드는 피보나치를 타뷸레이션을 활용하여 구현한 것이다.
+
+```python
+
+def fibonacci(n):
+    cache = [0 for index in range(n+1)]
+    cache[0] = 0
+    cache[1] = 1
+
+    for index in range(2, n+1):
+        cache[index] = cache[index-1] + cache[index-2]
+
+    return cache[n]
+```
+
+### 🧩 타뷸레이션의 장점
+- 메모리 사용량 관점에서 매우 효율적이다.
+- 가능한 모든 상태를 기록하는 룩업 테이블을 생성 할 수 있다.
+
+### 🧩 메모이제이션 VS 타뷸레이션
+메모이제이션으로 해결할 수 있는 모든 문제는 타뷸레이션으로도 재구성할 수 있다.
+그리고 그 반대도 당연히 가능하다.
+
+
+
+
+
+
+

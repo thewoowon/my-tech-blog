@@ -19,8 +19,8 @@ const Home: NextPage<Props> = ({ posts }: Props) => {
   const [tags, setTags] = useState<Tags>({});
   const router = useRouter();
   useEffect(() => {
+    posts.reverse();
     const tags = posts.reduce((acc, post) => {
-      posts.reverse();
       post.stacks.forEach((tag) => {
         if (acc[tag]) {
           acc[tag] += 1;
