@@ -6,11 +6,10 @@ const Navigation = (): JSX.Element => {
     <nav className="flex justify-end">
       <Link href="/">
         <a
-          className="text-gray-900  dark:text-white pr-6 py-4 hover:text-gray-600"
+          className="text-gray-900 transition duration-300 ease-in-out  dark:text-white pr-6 py-4 hover:text-green-400"
           style={{
             fontSize: '18px',
             fontFamily: 'Noto Sans KR Light',
-            color: '#3B3838',
           }}
         >
           HOME
@@ -18,11 +17,10 @@ const Navigation = (): JSX.Element => {
       </Link>
       <Link href="/post/all">
         <a
-          className="text-gray-900  dark:text-white pr-6 py-4 hover:text-gray-600"
+          className="text-gray-900 transition duration-300 ease-in-out dark:text-white pr-6 py-4 hover:text-green-400"
           style={{
             fontSize: '18px',
             fontFamily: 'Noto Sans KR Light',
-            color: '#3B3838',
           }}
         >
           POST
@@ -31,11 +29,10 @@ const Navigation = (): JSX.Element => {
       <Link href="https://my.surfit.io/w/80781724">
         <a
           target="_blank"
-          className="text-gray-900  dark:text-white pr-6 py-4 hover:text-gray-600"
+          className="text-gray-900 transition duration-300 ease-in-out dark:text-white pr-6 py-4 hover:text-green-400"
           style={{
             fontSize: '18px',
             fontFamily: 'Noto Sans KR Light',
-            color: '#3B3838',
           }}
         >
           PROFILE
@@ -44,11 +41,10 @@ const Navigation = (): JSX.Element => {
       <Link href="https://github.com/thewoowon">
         <a
           target="_blank"
-          className="text-gray-900 dark:text-white pr-6 py-4 hover:text-gray-500"
+          className="text-gray-900 transition duration-300 ease-in-out dark:text-white pr-6 py-4 hover:text-green-400"
           style={{
             fontSize: '18px',
             fontFamily: 'Noto Sans KR Light',
-            color: '#3B3838',
           }}
         >
           GitHub

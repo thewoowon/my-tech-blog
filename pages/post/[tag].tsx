@@ -16,7 +16,6 @@ const Tech: NextPage<Props> = ({ posts }: Props) => {
   const { tag } = router.query;
   const [postsByTag, setPostsByTag] = useState<IPost[]>([]);
   useEffect(() => {
-    posts.reverse();
     if (tag === 'all') setPostsByTag(posts);
     else {
       setPostsByTag([]);

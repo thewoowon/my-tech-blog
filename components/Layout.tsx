@@ -4,6 +4,7 @@ import Head from './Head';
 import Navigation from './Navigation';
 import Link from 'next/link';
 import Image from 'next/image';
+import { replace } from 'lodash';
 
 type LayoutProps = {
   children: React.ReactNode;
@@ -22,7 +23,7 @@ const Layout = ({ children, customMeta }: LayoutProps): JSX.Element => {
       >
         <div className="max-w-5xl px-8 mx-auto flex">
           <div className="w-6/12 flex" style={{ alignItems: 'center' }}>
-            <Link href={'/'}>
+            <Link href={'/'} replace={true}>
               <a
                 style={{
                   fontSize: '24px',
