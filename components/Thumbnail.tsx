@@ -23,7 +23,7 @@ const Thumbnail = ({ title, src, slug }: Props): JSX.Element => {
       alt={`Thumbnail cover image ${title}`}
       layout={'responsive'}
       objectFit={'cover'}
-      className="rounded-md"
+      className="rounded-md hover:opacity-80 transition duration-200 ease-in-out"
     />
   );
 

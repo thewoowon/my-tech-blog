@@ -42,6 +42,9 @@
 }
 .latest-list li a{
     cursor: pointer;
+    transition: all;
+    transition-duration: 0.2s;
+    transition-timing-function: ease-in-out;
 }
 .latest-list li a:hover{
     cursor: pointer;
@@ -49,10 +52,14 @@
 }
 .tags-list{
     font-family: 'Noto Sans KR Light';
+    transition: all;
+    transition-duration: 0.2s;
+    transition-timing-function: ease-in-out;
 }
 .tags-list:hover{
     cursor: pointer;
     color: #00DC6C;
+
 }
 .tag-button{
     height: 35px;
