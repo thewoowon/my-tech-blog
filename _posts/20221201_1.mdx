@@ -1,6 +1,6 @@
 ---
-title: NEXT.js 13.0.0 문서 번역 해보기
-description: NEXT.js 13.0.0부터 새로운 기능들이 추가되었습니다.
+title: NEXT.js 13.0.0 문서 알아보기
+description: NEXT.js 13.0.0부터 달라진 것들을 알아봅니다.
 thumbnail: /assets/next_new_image.jpeg
 prerequisites: ['우원', '주니어 개발자','성장 중','안녕하세요👏 새로운 영감을 주는 일과 꾸준한 성장을 즐기는 우원입니다.']
 stacks: ['NEXTJS']
@@ -8,3 +8,86 @@ writer: 우원
 date: '2022-12-01'
 name: '20221201_1' 
 ---
+
+
+우선 보통의 버전은 세 자리의 숫자와 마침표로 이루어진다<br></br>
+각각의 숫자는 앞에서부터, Major, Minor, Patch로 이루어진다.
+```json
+# package.json
+{
+  "name": "nextjs-blog",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "next": "12.0.2",
+    "react": "17.0.2",
+    "react-dom": "17.0.2"
+  }
+}
+```
+package.json 등에서 쉽게 확인 할 수 있다.
+
+2022년 10월 26일,NEXT.js의 Major가 변경됬다. 
+버전은 어느새 13이라는 Major를 가지게 되었고, 어떤 부분이 바뀌었는지 살펴보기 위해 번역을 해보려고 한다.
+
+# 😀 NEXT.js 13.0.0(Official Document)
+<div className="bg-gray-50 my-4 px-4 py-2 border-l-4 border-green-400 hover:bg-gray-100 hover:border-indigo-400 transition duration-300 ease-in-out">
+As we announced at Next.js Conf, Next.js 13 (stable) lays the foundations to be dynamic without limits:
+
+- app Directory (beta) : Easier, faster, less client JS.
+    - Layouts
+    - React Server Components
+    - Streaming
+- Turbopack (alpha) : Up to 700x faster Rust-based Webpack replacement.
+- New next/image: Faster with native browser lazy loading.
+- New @next/font (beta): Automatic self-hosted fonts with zero layout shift.
+- Improved next/link: Simplified API with automatic \<a\>
+
+</div>
+
+
+우리는 NEXT.js 컨퍼런스에서 NEXT.js 13(안정적인 상태)이 제한들이 없는 역동성의 토대를 마련했다는 것을 발표했습니다.
+- app Directory : 더 쉽게, 더 빠르게, 클라이언트 자바스크립트 코드는 더 적게.
+    - Layouts
+    - React Server Components
+    - Streaming
+- Turbopack(alpha) : 최대 700배 빠른 러스트 기반 웹팩으로 교체.
+- New next/image : 기본 브라우저의 Lazy Loading으로 더 빠르게.
+- New @next/font(beta) : 레이아웃의 이동이 전혀 없는 자동화된 자체 호스팅 글꼴.
+- Improve next/link : 자동화 a 태그와 함께 단순해진 API.
+
+
+### 🧩 New app Directory(Official Document)
+<div className="bg-gray-50 my-4 px-4 py-2 border-l-4 border-green-400 hover:bg-gray-100 hover:border-indigo-400 transition duration-300 ease-in-out">
+Today, we're improving the routing and layouts experience in Next.js and aligning with the future of React with the introduction of the app directory. This is a follow-up to the Layouts RFC previously published for community feedback.
+The app directory is currently in beta and we do not recommend using it in production yet. You can use Next.js 13 with the pages directory with stable features like the improved next/image and next/link components, and opt into the app directory at your own pace. The pages directory will continue to be supported for the foreseeable future.
+
+The app directory includes support for:
+- Layouts: Easily share UI between routes while preserving state and avoiding expensive re-renders.
+- Server Components: Making server-first the default for the most dynamic applications.
+- Streaming: Display instant loading states and stream in units of UI as they are rendered.
+- Support for Data Fetching: async Server Components and extended fetch API enables component-level fetching.
+
+</div>
+
+
+오늘 우리는 NEXT.js에서 라우팅 및 레이아웃 경험을 개선하는 중이며, "app Directory"의 소개와 함께 앞으로의 React를 조정하고 있습니다.
+이는 커뮤니티의 피드백을 위해 이전에 게시된 Layouts RFC의 후속적인 것입니다.
+
+현재 app Directory는 베타 단계이며, 우리는 상용화 단계에서는 아직 사용하지 않기를 추천합니다. 
+여러분은 NEXT.js 13을 향상된 next/image, next/link 컴포넌트와 개인의 개발 흐름에 선택적으로 app
+Directory를 도입하는 것과 같은 안정적인 기능을 pages Directory를 사용할 수 있습니다.
+
+app Directory는 다음과 같은 기능을 지원합니다.
+- Layouts : 상태를 보존하고 비용이 많이 드는 재렌더링을 피하면서 라우트 간에 UI를 쉽게 공유할 수 있습니다.
+- Server Components : 가장 동적인 애플리케이션에 대해 서버 우선이 기본값이 됩니다.
+- Streaming : 렌더링되는 즉시 로드 상태 및 UI 단위 스트림을 표시합니다.
+- Data Fetching : 비동기 Server Components 및 확장된 fetch API는 컴포넌트 수준의 가져오기를 가능하게 합니다.
+
+### 🧩 app Directory
+살펴보면 아직 베타 단계이긴 하지만 기존 pages Directory와는 다르게 app Directory가 생겼다.
+
+
