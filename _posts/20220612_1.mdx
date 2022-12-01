@@ -42,7 +42,7 @@ GraphQL로 서버를 구성하면서 REST API와 어떻게 차별성을 두고 �
     를 클릭해주길 바란다.
 </p>
 
-# WEB
+# 💻 WEB
 
 1991년 WEB의 개념이 나오게 되면서, 해결하려고 했던 문제가 있다.
 
@@ -61,7 +61,7 @@ GraphQL로 서버를 구성하면서 REST API와 어떻게 차별성을 두고 �
 
 </div>
 
-# REST의 시작
+# 🧐 REST의 시작
 
 REST API의 창시자는 당시 대학원생이었던 Roy.T.Fielding이다.
 
@@ -73,7 +73,7 @@ REST API의 창시자는 당시 대학원생이었던 Roy.T.Fielding이다.
 
 여기까지가 REST의 탄생에 관한 이야기이고 후에 최초의 API가 나오고 API에 REST 아키텍쳐를 적용함에 따라 REST API로 구분되어 오늘날 우리가 알고 있는 명칭이 되었다.
 
-## API 
+# 💿 API 
 2000년대에 들어서면서 API가 생겨났다.
 
 이미 Microsoft에서는 1998년 XML-RPC라는 API를 만들었고, 2000년에는 SOAP라는 API가 나왔다.
@@ -115,11 +115,11 @@ Fliker에서 API를 발표했는데, 기존의 SOAP을 활용한 형태와 REST�
 
 위의 SOAP에 비해서 확연히 줄어든 코드와 간결한 구조를 볼 수 있다.
 
-## SOAP VS REST
+# 🧐 SOAP VS REST
 
 간단한 비교를 통해 SOAP과 REST의 차이를 알아보자.
 
-### SOAP
+### 💻 SOAP
 <div className="bg-gray-50 my-4 px-4 py-2 border-l-4 border-green-400 hover:bg-gray-100 hover:border-indigo-400 transition duration-300 ease-in-out">
 
 - 복잡하다.
@@ -128,7 +128,7 @@ Fliker에서 API를 발표했는데, 기존의 SOAP을 활용한 형태와 REST�
 
 </div>
 
-### REST
+### 💻 REST
 <div className="bg-gray-50 my-4 px-4 py-2 border-l-4 border-green-400 hover:bg-gray-100 hover:border-indigo-400 transition duration-300 ease-in-out">
 
 - 단순하다.
@@ -140,7 +140,7 @@ Fliker에서 API를 발표했는데, 기존의 SOAP을 활용한 형태와 REST�
 간단한 위의 이유만으로 REST는 폭발적으로 사용량이 증가했다.
 그리고 2010년 Salesforce는 REST API를 추가했다.
 
-## NO REST
+# 💻 NO REST
 
 2008년 CMIS가 발표되었다.
 
@@ -160,7 +160,7 @@ Fliker에서 API를 발표했는데, 기존의 SOAP을 활용한 형태와 REST�
 
 오히려 "HTTP API Guidelines"라는 이름이 더 적절하다고 했다.
 
-## REST API Guidelines
+# 💻 REST API Guidelines
 
 REST API Guidelines는 Microsoft에서 REST API를 만들 때 참고할 수 있는 가이드라인이다.
 
@@ -178,7 +178,7 @@ REST API Guidelines는 Microsoft에서 REST API를 만들 때 참고할 수 있�
 
 </div>
 
-## REST?
+# 💻 REST?
 
 REST는 아키텍처 스타일인 동시에 아키텍처 스타일의 집합이다.
 
@@ -222,7 +222,7 @@ REST는 아키텍처 스타일인 동시에 아키텍처 스타일의 집합이�
 Uniform Interface에서 Identification of Resources 조건과 Manipulation of Resources Through Representations 조건은 대체로 잘 지켜지지만,
 나머지 두가지는 대부분의 API가 지키지 못하고 있다.
 
-## Self-Description Messages
+# 💻 Self-Description Messages
 
 ```
 GET / HTTP/1.1
@@ -251,7 +251,7 @@ Content-Type: application/json-patch+json
 ```
 위와 같이 Content-Type으로 json 형식임을 알리고 patch+json으로 어떤 명세를 따르는지 알려줘야 RESTful하다고 말할 수 있다.
 
-## HATEOAS
+# 💻 HATEOAS
 웹어플리케이션 상태의 전이를 먼저 살펴보아야한다.
 
 게시판에서 흔히 글을 등록하는 과정 자체도 상태의 전이라고 할 수 있다.
@@ -300,9 +300,9 @@ Link: </articles/1>; rel="previous"
 
 위와 같은 HTML은 a 태그를 통해서 다른 상태로의 전이가 일어나기 때문에 HATEOAS하다고 할 수 있다.
 
-## Uniform Interface는 왜 필요할까?
+# 💻 Uniform Interface는 왜 필요할까?
 
-### 독립적인 진화
+### 🧩 독립적인 진화
 
 <div className="bg-gray-50 my-4 px-4 py-2 border-l-4 border-green-400 hover:bg-gray-100 hover:border-indigo-400 transition duration-300 ease-in-out">
 
@@ -312,7 +312,7 @@ Link: </articles/1>; rel="previous"
 
 </div>
 
-### 사례
+### 🧩 사례
 
 웹은 REST가 지켜지고 있는 가장 좋은 사례이다.
 

@@ -60,7 +60,7 @@ As we announced at Next.js Conf, Next.js 13 (stable) lays the foundations to be 
 - Improve next/link : 자동화 a 태그와 함께 단순해진 API.
 
 
-### 🧩 New app Directory(Official Document)
+# 🧩 New app Directory(Official Document)
 <div className="bg-gray-50 my-4 px-4 py-2 border-l-4 border-green-400 hover:bg-gray-100 hover:border-indigo-400 transition duration-300 ease-in-out">
 Today, we're improving the routing and layouts experience in Next.js and aligning with the future of React with the introduction of the app directory. This is a follow-up to the Layouts RFC previously published for community feedback.
 The app directory is currently in beta and we do not recommend using it in production yet. You can use Next.js 13 with the pages directory with stable features like the improved next/image and next/link components, and opt into the app directory at your own pace. The pages directory will continue to be supported for the foreseeable future.
@@ -87,7 +87,32 @@ app Directory는 다음과 같은 기능을 지원합니다.
 - Streaming : 렌더링되는 즉시 로드 상태 및 UI 단위 스트림을 표시합니다.
 - Data Fetching : 비동기 Server Components 및 확장된 fetch API는 컴포넌트 수준의 가져오기를 가능하게 합니다.
 
-### 🧩 app Directory
-살펴보면 아직 베타 단계이긴 하지만 기존 pages Directory와는 다르게 app Directory가 생겼다.
+# 🧩 app Directory
+살펴보면 아직 베타 단계이긴 하지만 기존 pages Directory와는 다르게 app Directory가 추가되었다.
+app Directory는 레이아웃, 서버 컴포넌트, 스트리밍, 데이터 가져오기를 지원한다.
+
+살펴보자.
+
+### 🧩 Layouts
+app Directory는 레이아웃을 지원한다. 
+레이아웃은 페이지를 렌더링하는 데 사용되는 공통 UI를 정의하는 데 사용된다.
+
+```typescript
+// app/page.js
+// This file maps to the index route (/)
+export default function Page() {
+  return <h1>Hello, Next.js!</h1>;
+}
+```
+
+```typescript
+// app/blog/layout.js
+export default function BlogLayout({ children }) {
+  return <section>{children}</section>;
+}
+```
+
+
+
 
 

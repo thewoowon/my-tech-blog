@@ -35,6 +35,8 @@ import 'prismjs/components/prism-yaml.min';
 import 'prismjs/components/prism-graphql.min';
 import 'prismjs/components/prism-javascript.min';
 import 'prismjs/components/prism-python.min';
+import 'prismjs/components/prism-csharp.min';
+import 'prismjs/components/prism-c.min';
 
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import { faThumbsUp } from '@fortawesome/free-solid-svg-icons';

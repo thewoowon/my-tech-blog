@@ -17,27 +17,27 @@ OCI 7Layer나 TCP/IP 4Layer를 공부하시면
 
 바로 TCP 통신입니다.
 
-## TCP란?
+# 🧐 TCP란?
 
 <div className="bg-gray-50 my-4 px-4 py-2 border-l-4 border-green-400 hover:bg-gray-100 hover:border-indigo-400 transition duration-300 ease-in-out">
 Transmission Control Protocol의 축약어로 직역하면 전송 제어 프로토콜이라고 해석 할 수 있습니다. <br></br>
 인터넷 상에서 데이터를 주고 받기 위해 IP와 함께 사용하는 프로토콜로 정의 할 수 있습니다.
 </div>
 
-## 특징 
-### 연결형 서비스(Connected)
+# 🧐 특징 
+### 🧩 연결형 서비스(Connected)
 
 <div className="bg-gray-50 my-4 px-4 py-2 border-l-4 border-green-400 hover:bg-gray-100 hover:border-indigo-400 transition duration-300 ease-in-out">
 발신지와 수신지를 연결하여 패킷을 전송하기 위한 논리적 경로를 배정하는 가상회선방식을 제공합니다.
 </div>
 
-### HandShaking
+### 🧩 HandShaking
 
 <div className="bg-gray-50 my-4 px-4 py-2 border-l-4 border-green-400 hover:bg-gray-100 hover:border-indigo-400 transition duration-300 ease-in-out">
 연결 시에는 3-way-handshaking 방식을 연결 해제 시에는 4-way-handshaking를 사용합니다.
 </div>
 
-### 흐름 제어(Flow Control)
+### 🧩 흐름 제어(Flow Control)
 
 <div className="bg-gray-50 my-4 px-4 py-2 border-l-4 border-green-400 hover:bg-gray-100 hover:border-indigo-400 transition duration-300 ease-in-out">
 송신측과 수신측의 데이터처리 속도 차이를 제어하는 기법으로 두 가지가 있습니다.
@@ -48,7 +48,7 @@ Transmission Control Protocol의 축약어로 직역하면 전송 제어 프로�
 -> 수신측에서 설정한 윈도우 크기만큼 송신측에서 확인 응답 없이 세그먼트를 전송합니다.
 </div>
 
-### 혼잡제어(Congestion Control)
+### 🧩 혼잡제어(Congestion Control)
 
 <div className="bg-gray-50 my-4 px-4 py-2 border-l-4 border-green-400 hover:bg-gray-100 hover:border-indigo-400 transition duration-300 ease-in-out">
 송신측의 데이터 전달과 네트워크의 처리속도 차이를 해결하기 위한 기법으로 두 가지가 있습니다.
@@ -60,19 +60,19 @@ Transmission Control Protocol의 축약어로 직역하면 전송 제어 프로�
 </div>
 
 
-### 높은 신뢰성
+### 🧩 높은 신뢰성
 
 <div className="bg-gray-50 my-4 px-4 py-2 border-l-4 border-green-400 hover:bg-gray-100 hover:border-indigo-400 transition duration-300 ease-in-out">
 연결형 서비스의 높은 신뢰성 (3-way,4-way)
 </div>
 
-### UDP 보다 낮은 속도
+### 🧩 UDP 보다 낮은 속도
 
 <div className="bg-gray-50 my-4 px-4 py-2 border-l-4 border-green-400 hover:bg-gray-100 hover:border-indigo-400 transition duration-300 ease-in-out">
 handshaking과 흐름 제어 및 혼잡 데어 같은 기능으로 상대적으로 UDP보다 맞은 속도
 </div>
 
-### 전이중(Full-Duplex), 점대점(Point to Point) 방식
+### 🧩 전이중(Full-Duplex), 점대점(Point to Point) 방식
 
 <div className="bg-gray-50 my-4 px-4 py-2 border-l-4 border-green-400 hover:bg-gray-100 hover:border-indigo-400 transition duration-300 ease-in-out">
 - 전이중(Full-Duplex)
@@ -82,13 +82,13 @@ handshaking과 흐름 제어 및 혼잡 데어 같은 기능으로 상대적으�
 -> 네트워크에 있어 물리적으로는 중계 장치를 통과하지 않고 한 지점에서 다은 지점으로 직접 가는 채널을 의미합니다.
 </div>
 
-## UDP, TCP 비교
+# 🧐 UDP, TCP 비교
 
 <div className="flex justify-center items-center py-5">
   <img src="https://velog.velcdn.com/images/thewoowon/post/97adc8fd-1034-4618-ab85-6b6e76426c84/image.png" alt="spring"/>
 </div>
 
-## 3-way, 4-way
+# 🧐 3-way, 4-way
 
 <div className="flex justify-center items-center py-5">
   <img src="https://velog.velcdn.com/images/thewoowon/post/7a6e2490-641d-45d8-be69-bdf523881f9d/image.png" alt="spring"/>
