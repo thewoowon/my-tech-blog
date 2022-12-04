@@ -91,26 +91,246 @@ app Directory는 다음과 같은 기능을 지원합니다.
 살펴보면 아직 베타 단계이긴 하지만 기존 pages Directory와는 다르게 app Directory가 추가되었다.
 app Directory는 레이아웃, 서버 컴포넌트, 스트리밍, 데이터 가져오기를 지원한다.
 
-살펴보자.
+app Directory는 pages Directory와 공존 할 수 없다.
+그렇기 때문에 pages Directory를 사용하고 싶다면 app Directory를 사용하지 않아야 한다.
+
+프로젝트를 생성해서 한번 알아보자.
+
+<div className="bg-gray-50 my-4 px-4 py-2 border-l-4 border-green-400 hover:bg-gray-100 hover:border-indigo-400 transition duration-300 ease-in-out">
+yarn create next-app --typescript "프로젝트 명"
+</div>
+
+이제 app Directory를 사용하기 위해서는 next.config.js 파일을 수정해야 한다.
+
+기본적인 초기 next.config.js는 아래와 같다.
+```tsx
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  reactStrictMode: true,
+  swcMinify: true,
+}
+
+module.exports = nextConfig
+```
+
+이제 app Directory를 사용하기 위해 "experimental: \{ appDir: true \}"를 nextConfig에 추가해준다.
+
+```tsx
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  reactStrictMode: true,
+  swcMinify: true,
+  experimental: { appDir: true },
+}
+
+module.exports = nextConfig
+```
+
+그렇다면 이제 app Directory를 사용할 수 있다.
+
+pages Directory를 삭제하면 app Directory가 생성되고 layout.tsx가 자동 생성된다.
 
 ### 🧩 Layouts
 app Directory는 레이아웃을 지원한다. 
 레이아웃은 페이지를 렌더링하는 데 사용되는 공통 UI를 정의하는 데 사용된다.
 
-```typescript
-// app/page.js
+공식 문서에서 제공하는 예는 아래와 같다.
+
+먼저 app Directory 최상단의 page.tsx는 
+"This file maps to the index route"이라고 되어있다.
+그렇다 index.tsx와 같다.
+
+```tsx
+// app/page.tsx
 // This file maps to the index route (/)
 export default function Page() {
   return <h1>Hello, Next.js!</h1>;
 }
 ```
 
-```typescript
-// app/blog/layout.js
-export default function BlogLayout({ children }) {
+이제 app/blog/layout.tsx를 보자.
+ReactNode를 사용해서 children을 받아오면
+해당 경로만의 layout으로 감싼 children을 반환한다.
+
+```tsx
+// app/blog/layout.tsx
+export default function BlogLayout({ children }: { children: React.ReactNode }) {
   return <section>{children}</section>;
 }
 ```
+
+### 🧩 Layouts Example
+
+폴더 구조는 단순히 아래와 같이 구성했다.
+
+
+```bash
+app
+├── blog
+│   ├── layout.tsx
+│   └── page.tsx
+└── layout.tsx
+└── page.tsx
+
+```
+
+```tsx
+// app/layout.tsx
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html>
+        <head>
+            
+        </head>
+        <body>
+            <div style={{"backgroundColor":"green"}}>
+            {children}
+            </div>
+        </body>
+    </html>
+  );
+}
+```
+
+```tsx
+// app/page.tsx
+
+export default function Page() {
+    return <h1>NEXT.js 13 /app/page.tsx</h1>;
+  }
+```
+
+```tsx
+// app/blog/layout.tsx
+
+export default function BlogLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <div>
+        <div style={{"backgroundColor":"pink","height":"100px","fontSize":"30px"}}>
+        NEXT.js 13 /app/blog/layout.tsx
+        </div>
+        <div>
+            {children}
+         </div>
+    </div>
+  );
+}
+```
+
+```tsx
+// app/blog/page.tsx
+
+export default function Blog() {
+
+    return <h1>NEXT.js 13 /app/blog/page.tsx</h1>;
+  }
+```
+
+이제 실제 라우팅을 해보자.
+
+localhost:3000으로 접속하면 
+/app/layout.tsx에 감싸진 /app/page.tsx의 내용 출력된다.
+
+
+<div className="flex justify-center items-center py-5">
+  <img src="https://imagedelivery.net/6qzLODAqs2g1LZbVYqtuQw/12c6990e-ec39-4c2d-6418-bcaae40eff00/public" alt="spring"/>
+</div>
+
+
+이제 localhost:3000/blog로 접속하면
+/app/blog/layout.tsx에 감싸진 /app/blog/page.tsx의 내용이 출력된다.
+
+이때 /app/layout.tsx에 감싸진 /app/page.tsx의 내용은 출력되지 않는다.
+/app/layout.tsx의 내용은 /app/blog/layout.tsx에 감싸진 /app/blog/page.tsx의 내용과 함께 출력된다.
+
+<div className="flex justify-center items-center py-5">
+  <img src="https://imagedelivery.net/6qzLODAqs2g1LZbVYqtuQw/8bb69e13-8292-4bdb-5fe7-084e26330e00/public" alt="spring"/>
+</div>
+
+
+### 🧩 Server Components
+app Directory는 리액트의 새로운 기능인 서버 컴포넌트를 지원한다.
+
+서버 컴포넌트란 클라이언트에서 렌더링되는 컴포넌트가 아니라
+서버에서 렌더링되는 컴포넌트를 말한다.
+
+서버 컴포넌트는 클라이언트에서 렌더링되는 컴포넌트와 다르게
+서버에서 렌더링되기 때문에 클라이언트에서 렌더링되는 컴포넌트보다
+더 많은 작업을 할 수 있다.
+
+이번 NEXT.js의 발표 취지는 확실히 client에서 처리하는 자바스크립트를 줄이는 것에 목표를 두고 있다.
+
+### 🧩 Client components
+
+useState 또는 useEffect와 같은 클라이언트 훅을 사용하는 경우 Components에 'use client'를 표시한다.
+
+다른 클라이언트 컴포넌트로부터 Import해서 사용되지 않을 때 자동으로 서버 컴포넌트로 렌더링 되어 사용될 수 있도록 
+되도록이면 'use client'문을 직접적으로 사용하지 않는 것이 좋다.
+
+```tsx
+'use client';
+
+import {useState} from 'react';
+
+export default function Counter(){
+  const [count, setCount] = useState(0);
+
+  return (
+    <div>
+      <p>Count: {count}</p>
+      <button onClick={() => setCount(count + 1)}>Increment</button>
+    </div>
+  );
+}
+```
+
+### 🧩 Server Components VS Client Components
+
+1. Fetch Data 
+- 🙌 서버 컴포넌트를 사용하는 것을 추천한다.
+
+2. 백엔드 자원에 직접적으로 접근할 때
+- 🙌 서버 컴포넌트를 사용하는 것을 추천한다.
+
+3. 서버에 민감한 정보를 계속해서 유지해야할 때
+- 🙌 서버 컴포넌트를 사용하는 것을 추천한다.
+
+4. 서버에 많은 의존성이 있을 때
+- 🙌 서버 컴포넌트를 사용하는 것을 추천한다.
+
+5. 상호작용을 추가하거나 이벤트 리스너를 추가할 때(onClick, onChange, onMouseOver 등)
+- 🙌 클라이언트 컴포넌트를 사용하는 것을 추천한다.
+
+6. 스테이트와 생명 주기 훅을 사용할 때(useState, useEffect 등)
+- 🙌 클라이언트 컴포넌트를 사용하는 것을 추천한다.
+
+7. 브라우저 API를 사용할 때
+- 🙌 클라이언트 컴포넌트를 사용하는 것을 추천한다.
+
+8. 스테이트에 의존하는 커스텀 훅, effects, 브라우저 API를 사용할 때
+- 🙌 클라이언트 컴포넌트를 사용하는 것을 추천한다.
+
+9. 리액트 클래스 컴포넌트를 사용할 때
+- 🙌 클라이언트 컴포넌트를 사용하는 것을 추천한다.
+
+
+### 🧩 Streaming
+
+app Directory는 클라이언트의 UI 단위별로 점진적인 렌더링과 증분적인 스트림을 소개한다.
+
+app Directory의 layout 기능을 사용하면 데이터가 필요하지 않은 부분은 즉시 렌더링할 수 있고,
+데이터를 가져오는 부분에 대해서도 로드 상태를 표시할 수 있다. 이러한 접근 방식을 사용하면 사용자는 전체 페이지가
+로드될 때까지 기다릴 필요가 없다.
+
+<div className="flex justify-center items-center py-5">
+  <img src="https://nextjs.org/_next/image?url=%2Fstatic%2Fblog%2Fnext-13%2Fstreaming.png&w=3840&q=75" alt="spring"/>
+</div>
+
+
+왼쪽은 데이터 페칭이 필요한 부분을 제외하고는 바로 렌더링 되었고, 현재 로드 상태를 확인하고 있다.
+오른쪽은 데이터가 로드 되어 이미지와 텍스트가 출력된 상태이다.
+
+
 
 
 
