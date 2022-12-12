@@ -330,6 +330,144 @@ app Directory의 layout 기능을 사용하면 데이터가 필요하지 않은 
 왼쪽은 데이터 페칭이 필요한 부분을 제외하고는 바로 렌더링 되었고, 현재 로드 상태를 확인하고 있다.
 오른쪽은 데이터가 로드 되어 이미지와 텍스트가 출력된 상태이다.
 
+### 🧩 Data Fetching
+리액트는 공식적으로 컴포넌트 내에서 데이터를 가져오고 프로미스를 다루는 강력한 새로운 방법을 소개했다.
+
+```tsx
+// app/page.js
+async function getData() {
+  const res = await fetch('https://api.example.com/...');
+  // 반환되는 데이터는 시리얼라이즈되지 않고 전달된다.
+  // 그리고 데이터는 Date, Map, Set 등의 객체로 반환할 수 있다.
+  return res.json();
+}
+
+// This is an async Server Component
+export default async function Page() {
+  const data = await getData();
+
+  return <main>{/* ... */}</main>;
+}
+```
+이러한 특징은 리액트뿐만아니라 Next.js에서도 사용할 수 있다.
+그리고 데이터 가져오기, 캐시하기, 컴포넌트 레벨에서 데이터를 검증하는 하나의 탄력적인 방식을 제공하고 자동으로 적용된다.
+이러한 방식은 SSG, SSR에 이점이 있고, ISR의 정적인 재생성이 하나의 API에서 유효하다는 것을 말한다.
+
+옵션은 아래와 같다.
+
+```tsx
+// getStaticProps와 비슷한 부분이다.
+fetch(URL, { cache: 'force-cache' });
+// getServerSideProps와 비슷한 부분이다.
+fetch(URL, { cache: 'no-store' });
+// getStaticProps의 revalidate와 비슷한 부분이다.
+fetch(URL, { next: { revalidate: 10 } });
+```
+
+app Directory에서는 레이아웃과 페이지 그리고 컴포넌트에서 서버에서 스트리밍을 활용하여 데이터를 가져올 수 있다.
+향후 릴리스에서는 데이터 변형도 개선하고 단순화할 예정이다.
+
+
+
+# 🧩 Introducing Turbopack (Alpha)
+Next.js 13에는 Webpack의 새로운 Rust 기반 후속 제품인 Turbopack이 포함되어 있다.
+
+Next.js 12버전부터 러스트 기반 도구로 전환을 시작했다. 
+우리는 Babel로부터 마이그레이션하는 것으로 시작해서 17배 더 빠른 트랜스파일을 얻었다.
+그런 다음 Terser를 교체하여 축소가 6배 빨라졌다.
+번들링을 위해 네이티브에 올인할 때이다.
+
+터보팩 사용으로 인한 결과는 아래와 같다.
+
+- 웹팩(Webpack)보다 700배 더 빠르다.
+- 바이트(Vite)보다 10배 더 빠르다.
+- 웹팩보다(Webpack)보다 4배 더 빠른 Cold starts
+
+### 🧩 Cold Start
+아무것도 없는 상태(캐시가 없는 상태)에서 앱을 처음 시작하는 것을 말한다. ->  최초 실행 시간
+
+### 🧩 Benchmark
+<div className="flex justify-center items-center py-5">
+  <img src="https://nextjs.org/_next/image?url=%2Fstatic%2Fblog%2Fnext-13%2Fturbopack.png&w=3840&q=75" alt="spring"/>
+</div>
+
+# NEXT/Image
+강력한 새로운 이미지 컴포넌트를 소개한다. 당신이 성능 향상을 위해 요구되는 레이아웃의 변경 및 최적화 작업 없이 손쉽게 이미지를 표시할 수 있다.
+
+커뮤니티의 조사에 따르면 70%의 응답자가 Next.js 이미지 컴포넌트를 실제 프로덕션에서 사용하고 있고 그 결과로 Core Web Vitals이 개선되었다.
+그리고 Next.js 13 버전에서는 더욱 향상된 이미지 컴포넌트가 나왔다.
+
+### 🧩 새로운 이미지 컴포넌트 특징
+- 클라이언트 사이드로 더 적은 코드를 보냄
+- 쉬운 스타일링과 설정
+- alt 태그가 자동으로 추가되어 더 나아진 접근성
+- 웹 플랫폼과 상응
+- 하이드레이션을 필요로 하지 않는 Lazy Loading으로 더 빨라짐
+
+
+```tsx
+import Image from 'next/image';
+import avatar from './lee.png';
+
+function Home() {
+  // 현재는 alt 속성이 접근성을 위해 필수이다. 
+  return <Image alt="leeerob" src={avatar} placeholder="blur" />;
+}
+```
+
+### 🧩 이전 이미지 컴포넌트
+이전 이미지 컴포넌트는 레거시로 이동했다. next/legacy/image
+
+# 🧩 @next/font
+Next.js는 새로운 폰트 시스템을 소개했다.
+
+특징은 아래와 같다.
+- 커스텀 폰트를 포함해 사용자의 폰트를 자동으로 최적화함
+- 외부의 네트워크를 개인 프라이버시와 성능 개선을 위해 제거
+- 어떤 폰트 파일이더라도 내장된 자동 자체 호스팅이 가능
+- CSS size-adjust 속성을 활용해서 자동으로 제로 레이아웃 변형
+
+새로운 폰트 시스템은 사용자가 구글 폰트를 높은 성능과 개인 프라이버시를 보장하면서 편리하게 사용할 수 있도록 도와준다.
+브라우저에 의해서 구글에 보내는 요청이 전혀 필요없게 되었다.
+
+```tsx
+import { Inter } from '@next/font/google';
+
+const inter = Inter();
+
+<html className={inter.className}>
+```
+
+커스텀 폰트가 지원되고 자동 자체 호스팅 및 캐싱 그리고 폰트파일 미리 로딩이 가능하다.
+
+```tsx
+import localFont from '@next/font/local';
+
+const myFont = localFont({ src: './my-font.woff2' });
+
+<html className={myFont.className}>
+```
+
+
+
+# 🧩 next/link
+next/link에서는 더이상 자식노드로 a 태그가 필요없다.
+
+실험적으로 12.2 버전부터 추가된 기능이지만 현재는 기본적으로 사용 가능하다.
+
+```tsx
+import Link from 'next/link'
+
+// Next.js 12
+<Link href="/about">
+  <a>About</a>
+</Link>
+
+// Next.js 13
+<Link href="/about">
+  About
+</Link>
+```
 
 
 
