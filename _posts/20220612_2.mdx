@@ -15,11 +15,127 @@ name: '20220612_1'
 지난 장에서는 REST API의 간단한 역사와 API의 출현 그리고 SOAP API와 REST API의 차이점을 알아 보았다.<br></br>
 그리고 Uniform Interface의 4 가지 특성을 알아보고 Self-Description Messages와 HATEOAS를 알아보았다.
 
-# 🧐 독립적인 진화를 위한 노력
+# 🧐 독립적인 진화
+웹은 브라우저의 차이가 있어도 동작하는 것을 목표로 하였다. <br></br>
+그렇기 때문에 특정 브라우저가 지원하는 기능의 최소 버전만 충복한다면 스타일링은 다를지언정 웹은 동작한다.<br></br>
+
+### 🧐 어떻게 독립적인 진화가 가능했을까?
+웹의 독립적인 진화는 독립성 보장을 위한 수 많은 사람들의 노력이 있었다.
+- 웹 표준화 기구 W3C
+- 웹 호환성 기구 WHATWG
+- IETF
+- 브라우저 벤더들
+- 웹 개발자 커뮤니티
+- 그 외 수 많은 사람들
+
+###  ✅ 노력의 결과물
+- HTML5 첫 초안에서 권고안이 나오기까지 6년이라는 세월이 걸렸다.
+- HTTP/1.1 명세 개정판을 작업하는데 7년이 걸렸다.
+
+하지만 긴 시간 동안 내용이 바뀐 것은 거의 없고, 문서를 다듬기만한 정도이다.
+이러한 이유는 하위 호환성에 대한 무시무시한 집착으로 인해 발생했다.
+
+### 상호운용성(Interoperability)에 대한 집착
+상호운용성은 서로 다른 시스템이 서로 통신할 수 있도록 하는 것을 의미한다.
+그렇기 때문에 이미 정해진 규약이 변경되면 통신을 할 수 없게된다.
+- Referer 오타가 있지만 수정하지 않는다.
+- charset은 잘 못 지은 이름이지만 수정하지 않는다.
+- HTTP 상태 코드 416을 포기함
+- HTTP/0.9 아직도 지원함(크롬, 파이어폭스)
+
+### 💻 REST가 웹의 독립적 진화에 도움을 주었나?
+- HTTP에 지속적으로 영향을 줌
+- HOST 헤더 추가
+- 길이 제한을 다루는 방법이 명시(414 URI Too Long)
+- URI에서 리소스의 정의가 추상적으로 변경된
+- 기타 HTTP와 URI에 많은 영향을 줌
+- HTTP/1.1 명세 최신판에서 REST에 대한 언급이 들어감
+
+### 📚 REST의 성공
+REST는 웹의 독립적인 진화를 위해서 만들어졌고, 웹은 독립적으로 진화했다.
+그러므로 성공했다.
+
+# 📌 REST API라고 하면 무조건 RESTful한가?
+그렇지 않다. 오늘날의 모든 REST API는 REST API가 아니지만 REST API라고 부른다.
+
+### 📚 그럼 API는 REST API가 되기 어려운가?
+비교를 통해서 접근한다.
+
+#### 흔한 웹페이지의 경우
+- Protocol : HTTP
+- Communication : Human - Machine
+- Media Type : HTML
+
+#### HTTP API의 경우
+- Protocol : HTTP
+- Communication : Machine - Machine
+- Media Type : JSON, XML
+
+### 📚 HTML과 JSON의 비교를
+- HTML은 Hyperlink를 통해 다른 리소스로 이동할 수 있다.(a 태그)
+- JSON은 정의되어 있지 않다.
+- HTML은 Self-descriptive를 위해 HTML명세가 존재한다.
+- JSON은 Self-descriptive가 불완전하다.
+
+### 📚 HTML VS JSON
+
+```html
+GET /todos HTTP/1.1
+Host : example.org
+
+HTTP/1.1 200 OK
+Content-Type : text/html
+<html>
+    <body>
+        <a href="https://todos/1">회사 가기</a>
+        <a href="https://todos/2">집에 가기</a>
+    </body>
+</html>
+```
+
+#### Self-Descriptive의 만족성
+
+1. 응답 메세지의 Content-type을 보고 Media Type이 text/html임을 확인한다.
+2. HTTP 명세에 Media Typedms IANA에 등록되어 있다고 하므로, IANA에서 text/html의 실명을 찾는다.
+3. IANA에 따르면 text/html의 명세는 http://www.w3.org/TR/html 이므로 링크를 찾아가 명세를 해석한다.
+4. 명세에 모든 태그의 해석방법이 구체적으로 나와 있으므로 이를 해석하여 문서 저자가 사용자에게 보여주는 것과 같은 방식으로 해석한다.
+
+✅ Success!
+
+#### HATEOAS의 만족성
+a 태그를 이용해 표현된 링크를 통해 다음 상태로 전이될 수 있으므로 만족한다.
+
+✅ Success!
+
+```json
+GET /todos HTTP/1.1
+Host : example.org
+
+HTTP/1.1 200 OK
+Content-Type : application/json
+[
+    {
+        "id" : 1,
+        "title" : "회사 가기"
+    },
+    {
+        "id" : 2,
+        "title" : "집에 가기"
+    }
+]
+```
+
+#### Self-Descriptive의 만족성
+. 응답 메세지의 Content-type을 보고 Media Type이 application/json임을 확인한다.
+2. HTTP 명세에 Media Typedms IANA에 등록되어 있다고 하므로, IANA에서 application/json의 실명을 찾는다.
+3. IANA에 따르면 application/json의 명세는 draft-ietf-jsonbis-rfc7159bis-04로 링크를 찾아가 명세를 해석한다.
+4. 명세에 json 문서를 파싱하는 방법이 명시되어 있으므로 성공적으로 파싱에 성공한다. 그러나 "id"가 무엇을 의미하고, "title"이 무엇을 의미하는지는 명세에 나와 있지 않다.
+
+🚨 Fail!
 
 
+#### HATEOAS의 만족성
+상태 전이를 위한 링크가 없으므로 만족하지 못한다.
 
-
-
-
+🚨 Fail!
 
