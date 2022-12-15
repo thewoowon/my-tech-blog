@@ -1,0 +1,337 @@
+---
+title: HackerRank - beautifulQuadruples
+description: 아름다운 쿼드러플(4배수) 찾기
+thumbnail: /assets/hackerrak.png
+prerequisites: ['우원', '주니어 개발자','성장 중','안녕하세요👏 새로운 영감을 주는 일과 꾸준한 성장을 즐기는 우원입니다.']
+stacks: ['HACKERRANK']
+writer: 우원
+date: '2022-12-14'
+name: '20221214_1' 
+---
+
+
+해커랭크 챌린지 문제를 풀고 있다. 그러는 도중 beautifulQuadruples을 만났는데, 문제의 정답을 확인하고도 어려움이 느껴져서 기록하려고 한다.
+
+# 🎯 beautifulQuadruples 소개
+
+We call an quadruple of positive integers, (W,X,Y,Z) beautiful if the following condition is true:
+<div className="bg-gray-50 my-4 px-4 py-2 border-l-4 border-green-400 hover:bg-gray-100 hover:border-indigo-400 transition duration-300 ease-in-out">
+W XOR X XOR Y XOR Z != 0
+</div>
+#### 🧩 Note: XOR is the bitwise XOR operation.
+
+given A, B, C, and D, count the number of beautiful quadruples of the form (W,X,Y,Z) where the following constraint hold:
+<div className="bg-gray-50 my-4 px-4 py-2 border-l-4 border-green-400 hover:bg-gray-100 hover:border-indigo-400 transition duration-300 ease-in-out">
+- 1 &#60;&#61; W &#60;&#61; A
+- 1 &#60;&#61; X &#60;&#61; B
+- 1 &#60;&#61; Y &#60;&#61; C
+- 1 &#60;&#61; Z &#60;&#61; D
+</div>
+When you count the number of beautiful quadruples, you should consider two quadruples as same if the following are true:
+<div className="bg-gray-50 my-4 px-4 py-2 border-l-4 border-green-400 hover:bg-gray-100 hover:border-indigo-400 transition duration-300 ease-in-out">
+- They contain same integers.
+- Number of times each integers occur in the quadruple is same.
+</div>
+For example (1,1,1,2) ans (1,1,2,1) should be considered as same.
+
+#### 🧩 Input Format
+
+A Single line with four space-seperated integers describing the respective values of A, B, C, and D.
+
+#### 🧩 Constraints
+<div className="bg-gray-50 my-4 px-4 py-2 border-l-4 border-green-400 hover:bg-gray-100 hover:border-indigo-400 transition duration-300 ease-in-out">
+- 1 &#60;&#61; A,B,C,D &#60;&#61; 3000
+- For 50% of the Maximum score, 1 &#60;&#61; A,B,C,D &#60;&#61; 50
+</div>
+#### 🧩 Output Format
+
+Print the number of beautiful quadruples.
+
+#### 🧩 Sample Input
+<div className="bg-gray-50 my-4 px-4 py-2 border-l-4 border-green-400 hover:bg-gray-100 hover:border-indigo-400 transition duration-300 ease-in-out">
+    1 2 3 4
+</div>
+
+#### 🧩 Sample Output
+<div className="bg-gray-50 my-4 px-4 py-2 border-l-4 border-green-400 hover:bg-gray-100 hover:border-indigo-400 transition duration-300 ease-in-out">
+    11
+</div>
+
+#### 🧩 Explanation
+
+There are 11 beautiful quadruples for this input:
+<div className="bg-gray-50 my-4 px-4 py-2 border-l-4 border-green-400 hover:bg-gray-100 hover:border-indigo-400 transition duration-300 ease-in-out">
+1. (1,1,1,2)
+2. (1,1,1,3)
+3. (1,1,1,4)
+4. (1,1,2,3)
+5. (1,1,2,4)
+6. (1,1,3,4)
+7. (1,2,2,2)
+8. (1,1,2,3)
+9. (1,2,2,4)
+10. (1,2,3,3)
+11. (1,2,3,4)
+</div>
+Thus, ww print 11 as our output.
+
+Note that (1,1,1,2) is same as (1,1,2,1)
+
+# 🎯 beautifulQuadruples 해석
+
+우리는 (W,X,Y,Z)를 양의 정수 네쌍둥이라고 하고,아름다운 아래의 조건을 만족하는 것이 참이다.
+<div className="bg-gray-50 my-4 px-4 py-2 border-l-4 border-green-400 hover:bg-gray-100 hover:border-indigo-400 transition duration-300 ease-in-out">
+W XOR X XOR Y XOR Z != 0
+</div>
+#### 🧩 Note: XOR는 비트 연산 XOR이다. 파이썬에서는  ^ 연산자로 표현한다.
+
+A, B, C, D가 주어졌을 때, 다음 조건을 만족하는 (W,X,Y,Z)의 형태의 beautifulQuadruples의 개수를 구하라.
+<div className="bg-gray-50 my-4 px-4 py-2 border-l-4 border-green-400 hover:bg-gray-100 hover:border-indigo-400 transition duration-300 ease-in-out">
+- 1 &#60;&#61; W &#60;&#61; A
+- 1 &#60;&#61; X &#60;&#61; B
+- 1 &#60;&#61; Y &#60;&#61; C
+- 1 &#60;&#61; Z &#60;&#61; D
+</div>
+beautifulQuadruples의 개수를 구할 때, 다음과 같은 경우는 같은 쿼드러플로 간주한다.
+<div className="bg-gray-50 my-4 px-4 py-2 border-l-4 border-green-400 hover:bg-gray-100 hover:border-indigo-400 transition duration-300 ease-in-out">
+- 같은 정수를 포함한다.
+- 각 정수가 쿼드러플에 몇 번씩 나오는지가 같다.
+</div>
+예를 들어 (1,1,1,2)와 (1,1,2,1)은 같은 쿼드러플이다.
+
+#### 🧩 Input Format
+
+한 개의 입력라인에 A, B, C, D를 공백으로 구분하여 입력한다.
+
+#### 🧩 Constraints
+
+- 1 &#60;&#61; A,B,C,D &#60;&#61; 3000
+- 50%의 최대 점수에서 1 &#60;&#61; A,B,C,D &#60;&#61; 50
+
+#### 🧩 Output Format
+
+beautifulQuadruples의 개수를 출력한다.
+
+#### 🧩 Sample Input
+<div className="bg-gray-50 my-4 px-4 py-2 border-l-4 border-green-400 hover:bg-gray-100 hover:border-indigo-400 transition duration-300 ease-in-out">
+    1 2 3 4
+</div>
+
+#### 🧩 Sample Output
+<div className="bg-gray-50 my-4 px-4 py-2 border-l-4 border-green-400 hover:bg-gray-100 hover:border-indigo-400 transition duration-300 ease-in-out">
+    11
+</div>
+
+#### 🧩 Explanation
+
+입력값에 대한 beautifulQuadruples의 개수는 11개이다.
+<div className="bg-gray-50 my-4 px-4 py-2 border-l-4 border-green-400 hover:bg-gray-100 hover:border-indigo-400 transition duration-300 ease-in-out">
+1. (1,1,1,2)
+2. (1,1,1,3)
+3. (1,1,1,4)
+4. (1,1,2,3)
+5. (1,1,2,4)
+6. (1,1,3,4)
+7. (1,2,2,2)
+8. (1,1,2,3)
+9. (1,2,2,4)
+10. (1,2,3,3)
+11. (1,2,3,4)
+</div>
+
+따라서, 출력값은 11이다.
+
+(1,1,1,2)는 (1,1,2,1)과 같은 쿼드러플이다.
+
+# 🎯 beautifulQuadruples Code
+
+```python
+#!/bin/python3
+
+import os
+import sys
+
+#
+# Complete the beautifulQuadruples function below.
+#
+def beautifulQuadruples(a, b, c, d):
+    a,b,c,d = sorted([a,b,c,d])
+    mem = [0]*3000
+    count = total = 0
+    
+    for i in range(1,c+1):
+        for j in range(i,d+1):
+            mem[i^j] +=1
+            total+=1
+    
+    for i in range(1,b+1):
+        for j in range(1,min(a,i)+1):
+            count += total - mem[i^j]
+        
+        for k in range(i,d+1):
+            mem[i^k] -= 1
+            total -= 1
+            
+    return count
+    
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+
+    abcd = input().split()
+
+    a = int(abcd[0])
+
+    b = int(abcd[1])
+
+    c = int(abcd[2])
+
+    d = int(abcd[3])
+
+    result = beautifulQuadruples(a, b, c, d)
+
+    fptr.write(str(result) + '\n')
+
+    fptr.close()
+```
+
+# 🎯 문제의 의미
+4개의 원소를 가지는 튜플이 있다. 모든 원소를 XOR 연산 했을 때 0이 되지 않는 경우를 찾아야한다.
+
+비트 연산 진리표를 들여다 보자.
+### ☘️ AND
+<div className="bg-gray-50 my-4 px-4 py-2 border-l-4 border-green-400 hover:bg-gray-100 hover:border-indigo-400 transition duration-300 ease-in-out">
+0 & 0 = 0
+
+1 & 0 = 0
+
+0 & 1 = 0
+
+1 & 1 = 1
+</div>
+### ☘️ OR
+<div className="bg-gray-50 my-4 px-4 py-2 border-l-4 border-green-400 hover:bg-gray-100 hover:border-indigo-400 transition duration-300 ease-in-out">
+0 | 0 = 0
+
+1 | 0 = 1
+
+0 | 1 = 1
+
+1 | 1 = 1
+</div>
+### ☘️ XOR
+<div className="bg-gray-50 my-4 px-4 py-2 border-l-4 border-green-400 hover:bg-gray-100 hover:border-indigo-400 transition duration-300 ease-in-out">
+0 ^ 0 = 0
+
+1 ^ 0 = 1
+
+0 ^ 1 = 1
+
+1 ^ 1 = 0
+</div>
+### ☘️ NOT
+<div className="bg-gray-50 my-4 px-4 py-2 border-l-4 border-green-400 hover:bg-gray-100 hover:border-indigo-400 transition duration-300 ease-in-out">
+~ 0 = 1
+
+~ 1 = 0
+</div>
+
+일단 4개 원소의 XOR연산이 0이 아니려면 모든 값이 같은 경우는 제외해야한다. 
+
+
+# 🎯 beautifulQuadruples Code 해석
+
+### 상세 해석 1
+```python
+a,b,c,d = sorted([a,b,c,d])
+```
+a,b,c,d를 오름차순으로 정렬한다.
+좀 더 상세한 이유를 생각해보도록 하자.
+
+첫 번째로 XOR 연산은 값이 다르다면 참이된다. 생각해보면 정수를
+비트로 변환 했을 때, 값이 다른 정수는 반드시 다른 하나 이상의 다른 비트값을 가지게 된다.
+그렇기 때문에 완전히 같은 정수가 아니라면 0은 나올 수가 없다.
+모든 정수가 같은 경우는 제외해야한다.
+
+1. 같은 정수가 아닌 이상 0은 나올 수 없다. 모든 정수가 같은 경우는 제외해야한다.
+
+두 번째로 세가지 정수가 같은 경우를 생각해보자. 먼저 앞의 두 정수에 대해서
+XOR 연산을 하면 같은 값이므로 0이 나오게 된다. 하지만 남은 나머지 정수와 XOR 연산을
+했을 때는 0과는 모든 비트 자리에서 다른 수 이므로 온전히 세번째 정수와 같은 값이 나오게 된다.
+우리는 먼저 모든 정수가 같은 경우를 제외했으므로 세번째 정수와 마지막 값이 같은 경우는 없다.
+결론은 세가지 정수가 같으면 마지막 네번째 정수가 세번째 정수와 무조건 다르기만 한다면 
+0이 나오지 않는다.
+
+2. 세 가지 정수가 같은 경우 네번째 정수는 세번째 정수와 무조건 달라야한다.
+
+이제 두가지 정수가 같은 경우를 생각해보자. 두가지 정수가 같다면 그 결과는 무조건 0이다.
+이 때 남은 두 정수는 1이상의 임의의 값이므로 두 정수의 XOR 연산은 0과는 다른 값이 나온다.
+그렇기 때문에 두 정수가 같은 경우는 0이 나올 수 없다.
+
+3. 두 가지 정수가 같은 경우 0이 나올 수 없다.
+
+모든 정수가 다른 경우를 생각해보자. 모든 값이 다른 정수는 각각 다른 비트값을 가지고 있기 때문에
+XOR 연산을 하면 0과는 다른 값이 나온다. 그렇기 때문에 모든 정수가 다른 경우는 0이 나올 수 없다.
+
+4. 모든 정수가 다른 경우 0이 나올 수 없다.
+
+### 상세 해석 2
+
+빠른 문제 해결을 위해서 이제 0이 되는 경우만을 생각해서 제외시켜보자.
+앞서 0이 아닌 결과가 나오는 경우를 말했지만, 이제는 0이 나오는 결과만을 생각해서
+제외시켜보자.
+
+1. 두 가지 정수가 쌍으로 같은 경우
+2. 네 가지 졍수가 모두 같은 경우
+
+###  코드 해석
+
+```python
+mem = [0]*3000
+count = total = 0
+```
+mem은 0으로 초기화된 3000개의 배열이다. count와 total은 0으로 초기화된다.
+mem이 3000인 이유는 각 정수의 값이 3000보다 작기 때문에다. 두 정수에 대해서 XOR
+연산을 수행했을 때 3000보다 작은 값만 나올 수 있기 때문이다.
+count는 total을 구하고 거기서 경우를 제외시키면서 값으로 반환할 값이고,
+total은 각 정수에 대해서 XOR 연산을 수행했을 때 나올 수 있는 모든 경우의 수를
+구하기 위한 변수이다.
+
+```python
+for i in range(1,c+1):
+    for j in range(i,d+1):
+        mem[i^j] +=1
+        total+=1
+```
+i는 1부터 c까지, j는 i부터 d까지 이중 반복문이다.
+이렇게 이중 반복문을 실행하면 두 가지 정수에 대한 모든 순열에 대해 연산을 수행한 결과가 나온다.
+그렇다면 이제 순열에 대한 XOR 연산을 mem[i^j]에 1을 더하는 것으로 표시하고
+모든 경우의 total에 1을 더한다.
+
+```python
+for i in range(1,b+1):
+    for j in range(1,min(a,i)+1):
+        count += total - mem[i^j]
+    
+    for k in range(i,d+1):
+        mem[i^k] -= 1
+        total -= 1
+```
+
+이제 다시 두번째 정수 b를 대상으로 반복문을 실행한다.
+이 때 a에 대해서는 b의 값이 a보다 크면 a를, 작으면 b를 대입한다.
+이렇게 이중 반복문을 실행하면 두 정수의 XOR 연산이 같은 경우를
+count += total - mem[i^j]를 통해서 제외시킬 수 있다.
+
+이어서 나오는 반복문은 두번째 정수에 대해서 XOR 연산을 수행한 결과가
+첫번째 정수에 대해서 XOR 연산을 수행한 결과와 같은 경우를 제외시키기 위한 것이다.
+
+이렇게 반복문을 실행하면 두 정수에 대해서 XOR 연산을 수행한 결과가
+같은 경우를 제외시킬 수 있다.
+
+```python
+return count
+```
+값을 이제 반환하면 된다.
+
+
