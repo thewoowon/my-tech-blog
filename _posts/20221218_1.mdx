@@ -1,0 +1,737 @@
+---
+title: HackerRank - Equal
+description: HackerRank - Equal
+thumbnail: /assets/hackerrak.png
+prerequisites: ['우원', '주니어 개발자','성장 중','안녕하세요👏 새로운 영감을 주는 일과 꾸준한 성장을 즐기는 우원입니다.']
+stacks: ['HACKERRANK']
+writer: 우원
+date: '2022-12-18'
+name: '20221218_1' 
+---
+
+해커랭크 DP편, Equal 문제를 풀어보았다.
+새로운 시각으로 바라봐야 했던 문제로 더하는 것이 아닌 빼는 것이 중요했던 문제이다.
+
+# 🎯 Equal 소개
+Christy is interning at HackerRank. One day she has to distribute some chocolates to her colleagues.
+She is biased towards her friends and plans to give them more than the others.
+One of the program managers hears of this and tells her to make sure everyone gets the same number.
+
+To make things difficult, she must equalize the number of chocolates in a series of operations.
+For each operation, she can give 1, 2, or 5 chocolates to all but one colleague.
+Everyone who gets chocolate in a round receives the same number of pieces.
+
+Given a starting distribution, calculate the minimum number of operations needed so that every colleague has the same number of pieces.
+
+#### 🧩 Example
+<div className="bg-gray-50 my-4 px-4 py-2 border-l-4 border-green-400 hover:bg-gray-100 hover:border-indigo-400 transition duration-300 ease-in-out">
+    arr = [1,1,5]
+</div>
+arr represents the starting number of pieces of chocolate for each colleague.
+She can give 2 pieces to the first two and the distribution will be [3,3,5].
+On the next round, she gives the same two 2 pieces each, and everyone has the same number: [5,5,5].
+Return the number of roundes, 2.
+
+#### 🧩 Function Description
+Complete the equal function in the editor below.
+equal has the following parameter(s):
+- int arr[n]: the integers to equalize
+
+#### 🧩 Returns
+- int: the minimum number of operations required
+
+#### 🧩 Input Format
+The first line contains an integer t, the number of test cases.
+Each test case has 2 lines.
+- The first line contains an integer n, the number of colleagues and the size of arr.
+- The second line contains n space-separated integers arr[i], the number of pieces of chocolate each colleague has at the start.
+
+#### 🧩 Constraints
+<div className="bg-gray-50 my-4 px-4 py-2 border-l-4 border-green-400 hover:bg-gray-100 hover:border-indigo-400 transition duration-300 ease-in-out">
+- 1 &#60;&#61; t &#60;&#61; 100
+- 1 &#60;&#61; n &#60;&#61; 10000
+</div>
+the number of chocolates each colleague has initially < 1000
+
+#### 🧩 Sample Input
+<div className="bg-gray-50 my-4 px-4 py-2 border-l-4 border-green-400 hover:bg-gray-100 hover:border-indigo-400 transition duration-300 ease-in-out">
+    1
+    4
+    2 2 3 7
+</div>
+
+#### 🧩 Sample Output
+<div className="bg-gray-50 my-4 px-4 py-2 border-l-4 border-green-400 hover:bg-gray-100 hover:border-indigo-400 transition duration-300 ease-in-out">
+    2
+</div>
+
+#### 🧩 Explanation
+
+Start with [2,2,3,7]
+Add 1 to all but the 3rd element: [3,3,3,8]
+Add 5 to all but the 4th element: [8,8,8,8]
+
+Two operations were required.
+
+#### 🧩 Sample Input 1
+<div className="bg-gray-50 my-4 px-4 py-2 border-l-4 border-green-400 hover:bg-gray-100 hover:border-indigo-400 transition duration-300 ease-in-out">
+    1
+    3
+    10 7 12
+</div>
+
+#### 🧩 Sample Output 1
+<div className="bg-gray-50 my-4 px-4 py-2 border-l-4 border-green-400 hover:bg-gray-100 hover:border-indigo-400 transition duration-300 ease-in-out">
+    3
+</div>
+
+#### 🧩 Explanation 1
+
+Start with [10,7,12]
+Add 5 to the first two elements: [15,12,12]
+Add 2 to the last two elements: [15,14,14]
+Add 1 to the last two elementst: [15,15,15]
+
+Three operations were required.
+
+# 🎯 Equal 해석
+
+크리스티는 해커랭크팀에서 인턴쉽을 진행하고 있다. 
+하루는 그녀가 몇 개의 초콜렛들을 그녀의 동료들에게 분배해야 한다.
+그녀는 그녀의 친구들이 다른 이들보다 좀 더 많은 초콜렛을 받는 계획이 무조건 좋다고 생각했다.
+하지만 프로그램 매니저가 이런 이야기를 듣고 그녀에게 모든 이가 똑같은 개수의 초콜렛을 받을 수 있도록 해야한다고 말했다.
+
+좀 더 어렵게 만들기 위해, 그녀는 매 연산마다 배분하는 초콜렛의 양을 반드시 같게해야 했다.
+각각의 연산에서 그녀는 1,2,5개의 초콜렛을 모든 동료들에게 줄 수 있다.
+라운드 내에서 초콜렛을 받는 모든 사람은 같은 개수로 받는다.
+
+#### 🧩 설명
+- arr = [1,1,5] 라고 하자.
+arr는 동료들이 가지고 있는 초콜렛의 시작이 되는 숫자를 나타낸다.
+그녀는 2개를 첫번째 사람과 두번째 사람에세 줄 수 있고 분배 후 값은 [3,3,5]가 된다.
+다음 라운드에는 그녀는 똑같이 2개의 조각을 모든 사람에게 줄 수 있다. 그래서 arr는 [5,5,5]가 된다.
+라운드의 값을 반환한다.
+
+#### 🧩 함수 설명
+equal 함수는 다음과 같이 작성한다.
+equal은 다음과 같은 매개변수를 가진다.
+- arr: 정수 배열
+
+#### 🧩 반환값
+- int: 라운드의 개수
+
+#### 🧩 입력 형식
+첫 번째 줄에는 테스트 케이스의 개수를 나타내는 정수 t가 주어진다.
+각 테스트 케이스는 2개의 줄로 구성된다.
+- 첫 번째 줄에는 동료들의 수를 나타내는 정수 n이 주어진다.
+- 두 번째 줄에는 n개의 공백으로 구분된 정수가 주어진다. 각 정수는 동료들이 가지고 있는 초콜렛의 개수를 나타낸다.
+
+#### 🧩 제약 조건
+<div className="bg-gray-50 my-4 px-4 py-2 border-l-4 border-green-400 hover:bg-gray-100 hover:border-indigo-400 transition duration-300 ease-in-out">
+- 1 &#60;&#61; t &#60;&#61; 100
+- 1 &#60;&#61; n &#60;&#61; 10000
+</div>
+동료들이 처음 가지고 있는 초콜렛의 개수는 1000개 이하이다.
+
+#### 🧩 샘플 입력
+<div className="bg-gray-50 my-4 px-4 py-2 border-l-4 border-green-400 hover:bg-gray-100 hover:border-indigo-400 transition duration-300 ease-in-out">
+    1
+    4
+    2 2 3 7
+</div>
+
+#### 🧩 샘플 출력
+<div className="bg-gray-50 my-4 px-4 py-2 border-l-4 border-green-400 hover:bg-gray-100 hover:border-indigo-400 transition duration-300 ease-in-out">
+    2
+</div>
+
+#### 🧩 샘플 설명
+[2,2,3,7] -> [3,3,3,8] -> [8,8,8,8]
+
+#### 🧩 샘플 입력 1
+<div className="bg-gray-50 my-4 px-4 py-2 border-l-4 border-green-400 hover:bg-gray-100 hover:border-indigo-400 transition duration-300 ease-in-out">
+    1
+    3
+    10 7 12
+</div>
+
+#### 🧩 샘플 출력 1
+<div className="bg-gray-50 my-4 px-4 py-2 border-l-4 border-green-400 hover:bg-gray-100 hover:border-indigo-400 transition duration-300 ease-in-out">
+    3
+</div>
+
+#### 🧩 샘플 설명 1
+[10, 7, 12] -> [15, 12, 12] -> [15, 14, 14] -> [15, 15, 15]
+
+# 🎯 접근 방법 구상하기
+
+앞서 말한 것과 같이 나는 역으로 생각하는 것이 중요하다고 언급했다.
+잘 생각해보자.
+
+먼저 기본 예인 [2,2,3,7] 배열을 기준으로 설명하겠다.
+아래의 그림으로 완벽히 이해해보자.
+
+<div className="flex justify-center items-center py-5">
+  <table>
+    <tbody>
+        <tr className="py-2">
+            <td className="px-4 text-xl"></td>
+            <td className="px-4 text-xl"></td>
+            <td className="px-4 text-xl"></td>
+            <td className="px-4 text-xl">🍫</td>
+        </tr>
+        <tr>
+            <td className="px-4 text-xl"></td>
+            <td className="px-4 text-xl"></td>
+            <td className="px-4 text-xl"></td>
+            <td className="px-4 text-xl">🍫</td>
+        </tr>
+        <tr>
+            <td className="px-4 text-xl"></td>
+            <td className="px-4 text-xl"></td>
+            <td className="px-4 text-xl"></td>
+            <td className="px-4 text-xl">🍫</td>
+        </tr>
+        <tr>
+            <td className="px-4 text-xl"></td>
+            <td className="px-4 text-xl"></td>
+            <td className="px-4 text-xl"></td>
+            <td className="px-4 text-xl">🍫</td>
+        </tr>
+        <tr>
+            <td className="px-4 text-xl"></td>
+            <td className="px-4 text-xl"></td>
+            <td className="px-4 text-xl">🍫</td>
+            <td className="px-4 text-xl">🍫</td>
+        </tr>
+        <tr>
+            <td className="px-4 text-xl">🍫</td>
+            <td className="px-4 text-xl">🍫</td>
+            <td className="px-4 text-xl">🍫</td>
+            <td className="px-4 text-xl">🍫</td>
+        </tr>
+        <tr>
+            <td className="px-4 text-xl">🍫</td>
+            <td className="px-4 text-xl">🍫</td>
+            <td className="px-4 text-xl">🍫</td>
+            <td className="px-4 text-xl">🍫</td>
+        </tr>
+        <tr>
+            <td className="px-4 text-xl">2</td>
+            <td className="px-4 text-xl">2</td>
+            <td className="px-4 text-xl">3</td>
+            <td className="px-4 text-xl">7</td>
+        </tr>
+    </tbody>
+  </table>
+</div>
+
+[2,2,3,7] 샘플의 답은 2이다. 이는 아래의 과정으로 도출된다.
+
+<div className="flex justify-center items-center py-5">
+  <table className="mx-4">
+    <tbody>
+        <tr className="py-2">
+            <td className="px-4 text-xl">X</td>
+            <td className="px-4 text-xl">X</td>
+            <td className="px-4 text-xl">X</td>
+            <td className="px-4 text-xl">X</td>
+        </tr>
+        <tr className="py-2">
+            <td className="px-4 text-xl"></td>
+            <td className="px-4 text-xl"></td>
+            <td className="px-4 text-xl"></td>
+            <td className="px-4 text-xl">🍫</td>
+        </tr>
+        <tr>
+            <td className="px-4 text-xl"></td>
+            <td className="px-4 text-xl"></td>
+            <td className="px-4 text-xl"></td>
+            <td className="px-4 text-xl">🍫</td>
+        </tr>
+        <tr>
+            <td className="px-4 text-xl"></td>
+            <td className="px-4 text-xl"></td>
+            <td className="px-4 text-xl"></td>
+            <td className="px-4 text-xl">🍫</td>
+        </tr>
+        <tr>
+            <td className="px-4 text-xl"></td>
+            <td className="px-4 text-xl"></td>
+            <td className="px-4 text-xl"></td>
+            <td className="px-4 text-xl">🍫</td>
+        </tr>
+        <tr>
+            <td className="px-4 text-xl"></td>
+            <td className="px-4 text-xl"></td>
+            <td className="px-4 text-xl">🍫</td>
+            <td className="px-4 text-xl">🍫</td>
+        </tr>
+        <tr>
+            <td className="px-4 text-xl">🍫</td>
+            <td className="px-4 text-xl">🍫</td>
+            <td className="px-4 text-xl">🍫</td>
+            <td className="px-4 text-xl">🍫</td>
+        </tr>
+        <tr>
+            <td className="px-4 text-xl">🍫</td>
+            <td className="px-4 text-xl">🍫</td>
+            <td className="px-4 text-xl">🍫</td>
+            <td className="px-4 text-xl">🍫</td>
+        </tr>
+        <tr>
+            <td className="px-4 text-xl">2</td>
+            <td className="px-4 text-xl">2</td>
+            <td className="px-4 text-xl">3</td>
+            <td className="px-4 text-xl">7</td>
+        </tr>
+    </tbody>
+  </table>
+  <div className="flex justify-center items-center px-4 text-3xl">
+    ➡
+  </div>
+  <table className="mx-4">
+    <tbody>
+        <tr className="py-2">
+            <td className="px-4 text-xl"></td>
+            <td className="px-4 text-xl"></td>
+            <td className="px-4 text-xl">🍫</td>
+            <td className="px-4 text-xl"></td>
+        </tr>
+        <tr className="py-2">
+            <td className="px-4 text-xl">🍫</td>
+            <td className="px-4 text-xl">🍫</td>
+            <td className="px-4 text-xl">🍫</td>
+            <td className="px-4 text-xl">🍫</td>
+        </tr>
+        <tr>
+            <td className="px-4 text-xl">🍫</td>
+            <td className="px-4 text-xl">🍫</td>
+            <td className="px-4 text-xl">🍫</td>
+            <td className="px-4 text-xl">🍫</td>
+        </tr>
+        <tr>
+            <td className="px-4 text-xl">🍫</td>
+            <td className="px-4 text-xl">🍫</td>
+            <td className="px-4 text-xl">🍫</td>
+            <td className="px-4 text-xl">🍫</td>
+        </tr>
+        <tr>
+            <td className="px-4 text-xl">🍫</td>
+            <td className="px-4 text-xl">🍫</td>
+            <td className="px-4 text-xl">🍫</td>
+            <td className="px-4 text-xl">🍫</td>
+        </tr>
+        <tr>
+            <td className="px-4 text-xl">🍫</td>
+            <td className="px-4 text-xl">🍫</td>
+            <td className="px-4 text-xl">🍫</td>
+            <td className="px-4 text-xl">🍫</td>
+        </tr>
+        <tr>
+            <td className="px-4 text-xl">🍫</td>
+            <td className="px-4 text-xl">🍫</td>
+            <td className="px-4 text-xl">🍫</td>
+            <td className="px-4 text-xl">🍫</td>
+        </tr>
+        <tr>
+            <td className="px-4 text-xl">🍫</td>
+            <td className="px-4 text-xl">🍫</td>
+            <td className="px-4 text-xl">🍫</td>
+            <td className="px-4 text-xl">🍫</td>
+        </tr>
+        <tr>
+            <td className="px-4 text-xl">2</td>
+            <td className="px-4 text-xl">2</td>
+            <td className="px-4 text-xl">3</td>
+            <td className="px-4 text-xl">7</td>
+        </tr>
+    </tbody>
+  </table>
+  <div className="flex justify-center items-center px-4 text-3xl">
+    ➡
+  </div>
+   <table className="mx-4">
+    <tbody>
+        <tr className="py-2">
+            <td className="px-4 text-xl">🍫</td>
+            <td className="px-4 text-xl">🍫</td>
+            <td className="px-4 text-xl">🍫</td>
+            <td className="px-4 text-xl">🍫</td>
+        </tr>
+        <tr className="py-2">
+            <td className="px-4 text-xl">🍫</td>
+            <td className="px-4 text-xl">🍫</td>
+            <td className="px-4 text-xl">🍫</td>
+            <td className="px-4 text-xl">🍫</td>
+        </tr>
+        <tr>
+            <td className="px-4 text-xl">🍫</td>
+            <td className="px-4 text-xl">🍫</td>
+            <td className="px-4 text-xl">🍫</td>
+            <td className="px-4 text-xl">🍫</td>
+        </tr>
+        <tr>
+            <td className="px-4 text-xl">🍫</td>
+            <td className="px-4 text-xl">🍫</td>
+            <td className="px-4 text-xl">🍫</td>
+            <td className="px-4 text-xl">🍫</td>
+        </tr>
+        <tr>
+            <td className="px-4 text-xl">🍫</td>
+            <td className="px-4 text-xl">🍫</td>
+            <td className="px-4 text-xl">🍫</td>
+            <td className="px-4 text-xl">🍫</td>
+        </tr>
+        <tr>
+            <td className="px-4 text-xl">🍫</td>
+            <td className="px-4 text-xl">🍫</td>
+            <td className="px-4 text-xl">🍫</td>
+            <td className="px-4 text-xl">🍫</td>
+        </tr>
+        <tr>
+            <td className="px-4 text-xl">🍫</td>
+            <td className="px-4 text-xl">🍫</td>
+            <td className="px-4 text-xl">🍫</td>
+            <td className="px-4 text-xl">🍫</td>
+        </tr>
+        <tr>
+            <td className="px-4 text-xl">🍫</td>
+            <td className="px-4 text-xl">🍫</td>
+            <td className="px-4 text-xl">🍫</td>
+            <td className="px-4 text-xl">🍫</td>
+        </tr>
+        <tr>
+            <td className="px-4 text-xl">2</td>
+            <td className="px-4 text-xl">2</td>
+            <td className="px-4 text-xl">3</td>
+            <td className="px-4 text-xl">7</td>
+        </tr>
+    </tbody>
+  </table>
+</div>
+
+각 오퍼레이션을 정리해 보면 아래와 같다.
+
+1. 4번을 제외하고 5를 전부 더해준다.
+2. 3번을 제외하고 1을 전부 더해준다.
+
+그럼 우리는 역으로 생각할 수 없을까?
+같은 높이를 맞추기 위해서 오히려 값을 빼오는 것이다.
+잘 생각해보자.
+최소값이 2인 상황에 7이라는 숫자를 2로 만들기 위해서는 5를 빼야한다.
+1. 4번만 포함해서 5를 빼준다.
+다음은 3을 2로 만들어 주기 위해서는 1을 빼준다.
+2. 3번만 포함해서 1을 빼준다.
+
+앞서 말했던 두 가지 조건과 대우관계이다.
+명제라고 보기에는 어렵지만 결국에는 모든 조건의 역과 이를 만족한다.
+
+다시 다른 예를 생각해보자.
+
+<div className="flex justify-center items-center py-5">
+  <table>
+    <tbody>
+        <tr>
+            <td className="px-4 text-xl"></td>
+            <td className="px-4 text-xl">🍫</td>
+            <td className="px-4 text-xl">🍫</td>
+            <td className="px-4 text-xl">🍫</td>
+        </tr>
+        <tr>
+            <td className="px-4 text-xl"></td>
+            <td className="px-4 text-xl">🍫</td>
+            <td className="px-4 text-xl">🍫</td>
+            <td className="px-4 text-xl">🍫</td>
+        </tr>
+        <tr>
+            <td className="px-4 text-xl"></td>
+            <td className="px-4 text-xl">🍫</td>
+            <td className="px-4 text-xl">🍫</td>
+            <td className="px-4 text-xl">🍫</td>
+        </tr>
+        <tr>
+            <td className="px-4 text-xl"></td>
+            <td className="px-4 text-xl">🍫</td>
+            <td className="px-4 text-xl">🍫</td>
+            <td className="px-4 text-xl">🍫</td>
+        </tr>
+        <tr>
+            <td className="px-4 text-xl">🍫</td>
+            <td className="px-4 text-xl">🍫</td>
+            <td className="px-4 text-xl">🍫</td>
+            <td className="px-4 text-xl">🍫</td>
+        </tr>
+        <tr>
+            <td className="px-4 text-xl">🍫</td>
+            <td className="px-4 text-xl">🍫</td>
+            <td className="px-4 text-xl">🍫</td>
+            <td className="px-4 text-xl">🍫</td>
+        </tr>
+        <tr>
+            <td className="px-4 text-xl">2</td>
+            <td className="px-4 text-xl">6</td>
+            <td className="px-4 text-xl">6</td>
+            <td className="px-4 text-xl">6</td>
+        </tr>
+    </tbody>
+  </table>
+</div>
+
+이 때 최소가 될 수 있는 값을 2라고 생각해보자. 결과는 아래와 같다.
+
+<div className="flex justify-center items-center py-5">
+  <table>
+    <tbody>
+        <tr>
+            <td className="px-4 text-xl"></td>
+            <td className="px-4 text-xl">🍫</td>
+            <td className="px-4 text-xl">🍫</td>
+            <td className="px-4 text-xl">🍫</td>
+        </tr>
+        <tr>
+            <td className="px-4 text-xl"></td>
+            <td className="px-4 text-xl">🍫</td>
+            <td className="px-4 text-xl">🍫</td>
+            <td className="px-4 text-xl">🍫</td>
+        </tr>
+        <tr>
+            <td className="px-4 text-xl"></td>
+            <td className="px-4 text-xl">🍫</td>
+            <td className="px-4 text-xl">🍫</td>
+            <td className="px-4 text-xl">🍫</td>
+        </tr>
+        <tr>
+            <td className="px-4 text-xl"></td>
+            <td className="px-4 text-xl">🍫</td>
+            <td className="px-4 text-xl">🍫</td>
+            <td className="px-4 text-xl">🍫</td>
+        </tr>
+        <tr>
+            <td className="px-4 text-xl">🍫</td>
+            <td className="px-4 text-xl">🍫</td>
+            <td className="px-4 text-xl">🍫</td>
+            <td className="px-4 text-xl">🍫</td>
+        </tr>
+        <tr>
+            <td className="px-4 text-xl">🍫</td>
+            <td className="px-4 text-xl">🍫</td>
+            <td className="px-4 text-xl">🍫</td>
+            <td className="px-4 text-xl">🍫</td>
+        </tr>
+        <tr>
+            <td className="px-4 text-xl">2</td>
+            <td className="px-4 text-xl">6</td>
+            <td className="px-4 text-xl">6</td>
+            <td className="px-4 text-xl">6</td>
+        </tr>
+    </tbody>
+  </table>
+  <div className="flex justify-center items-center px-4 text-3xl">
+    ➡
+  </div>
+  <table>
+    <tbody>
+        <tr>
+            <td className="px-4 text-xl"></td>
+            <td className="px-4 text-xl">X</td>
+            <td className="px-4 text-xl">X</td>
+            <td className="px-4 text-xl">X</td>
+        </tr>
+        <tr>
+            <td className="px-4 text-xl"></td>
+            <td className="px-4 text-xl">X</td>
+            <td className="px-4 text-xl">X</td>
+            <td className="px-4 text-xl">X</td>
+        </tr>
+        <tr>
+            <td className="px-4 text-xl"></td>
+            <td className="px-4 text-xl">X</td>
+            <td className="px-4 text-xl">X</td>
+            <td className="px-4 text-xl">X</td>
+        </tr>
+        <tr>
+            <td className="px-4 text-xl"></td>
+            <td className="px-4 text-xl">X</td>
+            <td className="px-4 text-xl">X</td>
+            <td className="px-4 text-xl">X</td>
+        </tr>
+        <tr>
+            <td className="px-4 text-xl">🍫</td>
+            <td className="px-4 text-xl">🍫</td>
+            <td className="px-4 text-xl">🍫</td>
+            <td className="px-4 text-xl">🍫</td>
+        </tr>
+        <tr>
+            <td className="px-4 text-xl">🍫</td>
+            <td className="px-4 text-xl">🍫</td>
+            <td className="px-4 text-xl">🍫</td>
+            <td className="px-4 text-xl">🍫</td>
+        </tr>
+        <tr>
+            <td className="px-4 text-xl">2</td>
+            <td className="px-4 text-xl">6</td>
+            <td className="px-4 text-xl">6</td>
+            <td className="px-4 text-xl">6</td>
+        </tr>
+    </tbody>
+  </table>
+</div>
+
+각 라운드 마다 2개씩 2,3,4번 컬럼에서 값을 빼준다.
+그렇기 때문에 결과값은 2 * 3 = 6 이다.
+
+그런데 만약에 최소값이 1이라면 결과는 어떻게 될까?
+
+<div className="flex justify-center items-center py-5">
+  <table>
+    <tbody>
+        <tr>
+            <td className="px-4 text-xl"></td>
+            <td className="px-4 text-xl">🍫</td>
+            <td className="px-4 text-xl">🍫</td>
+            <td className="px-4 text-xl">🍫</td>
+        </tr>
+        <tr>
+            <td className="px-4 text-xl"></td>
+            <td className="px-4 text-xl">🍫</td>
+            <td className="px-4 text-xl">🍫</td>
+            <td className="px-4 text-xl">🍫</td>
+        </tr>
+        <tr>
+            <td className="px-4 text-xl"></td>
+            <td className="px-4 text-xl">🍫</td>
+            <td className="px-4 text-xl">🍫</td>
+            <td className="px-4 text-xl">🍫</td>
+        </tr>
+        <tr>
+            <td className="px-4 text-xl"></td>
+            <td className="px-4 text-xl">🍫</td>
+            <td className="px-4 text-xl">🍫</td>
+            <td className="px-4 text-xl">🍫</td>
+        </tr>
+        <tr>
+            <td className="px-4 text-xl">🍫</td>
+            <td className="px-4 text-xl">🍫</td>
+            <td className="px-4 text-xl">🍫</td>
+            <td className="px-4 text-xl">🍫</td>
+        </tr>
+        <tr>
+            <td className="px-4 text-xl">🍫</td>
+            <td className="px-4 text-xl">🍫</td>
+            <td className="px-4 text-xl">🍫</td>
+            <td className="px-4 text-xl">🍫</td>
+        </tr>
+        <tr>
+            <td className="px-4 text-xl">2</td>
+            <td className="px-4 text-xl">6</td>
+            <td className="px-4 text-xl">6</td>
+            <td className="px-4 text-xl">6</td>
+        </tr>
+    </tbody>
+  </table>
+  <div className="flex justify-center items-center px-4 text-3xl">
+    ➡
+  </div>
+  <table>
+    <tbody>
+        <tr>
+            <td className="px-4 text-xl"></td>
+            <td className="px-4 text-xl">X</td>
+            <td className="px-4 text-xl">X</td>
+            <td className="px-4 text-xl">X</td>
+        </tr>
+        <tr>
+            <td className="px-4 text-xl"></td>
+            <td className="px-4 text-xl">X</td>
+            <td className="px-4 text-xl">X</td>
+            <td className="px-4 text-xl">X</td>
+        </tr>
+        <tr>
+            <td className="px-4 text-xl"></td>
+            <td className="px-4 text-xl">X</td>
+            <td className="px-4 text-xl">X</td>
+            <td className="px-4 text-xl">X</td>
+        </tr>
+        <tr>
+            <td className="px-4 text-xl"></td>
+            <td className="px-4 text-xl">X</td>
+            <td className="px-4 text-xl">X</td>
+            <td className="px-4 text-xl">X</td>
+        </tr>
+        <tr>
+            <td className="px-4 text-xl">X</td>
+            <td className="px-4 text-xl">X</td>
+            <td className="px-4 text-xl">X</td>
+            <td className="px-4 text-xl">X</td>
+        </tr>
+        <tr>
+            <td className="px-4 text-xl">🍫</td>
+            <td className="px-4 text-xl">🍫</td>
+            <td className="px-4 text-xl">🍫</td>
+            <td className="px-4 text-xl">🍫</td>
+        </tr>
+        <tr>
+            <td className="px-4 text-xl">2</td>
+            <td className="px-4 text-xl">6</td>
+            <td className="px-4 text-xl">6</td>
+            <td className="px-4 text-xl">6</td>
+        </tr>
+    </tbody>
+  </table>
+</div>
+
+첫 라운드에서 1을 1번 컬럼에서 빼주고, 다음 라운드마다 2,3,4번 컬럼에서 5를 빼준다.
+그렇다면 결과 값은 1 + (1 * 3) = 4가 된다.
+
+분명히 최소값을 2에서 1로만 바꾸었을 뿐인데 값은 -2가 된 4가 나왔다.
+
+그러면 최솟값이 될 수 있는 경우는 어디까지 생각해야할까?(단, 최종 최솟값은 0보다 크거나 같은 값이라는 가정)
+
+[6,10,15,7] 이라는 배열이 있다고 가정하자.
+
+minimum이 6이 된다. 그리고 minimum은 6애서 5를 뺀 1이되고
+이런 1이 되기 위해 6은 5를 한번 빼줄 수 있다.
+
+그런데 생각 해보면 1,2 처럼 작은 값을 여러번 실행하기 보다는 5를 한번 실행하는 것이
+라운드별 횟수를 최소화하는데 더 효율적이고 이는 5라는 갭을 하나 더 만들어주는 것과 같다.
+그렇기 때문에 최소값에서 -4까지의 값이 최솟값이 된다.
+
+# 🎯 접근 방법 정리
+1. 한 명을 제외하고 모든 사람에게 나누어 주는 것은 한 명의 사람에게서만 초콜릿을 받는 것과 같다.
+2. 최소가 될 수 있는 가능성이 있는 값은 arr의 최소값 (min)에서 (min-4)까지이다.
+
+# 🎯 코드 구현하기
+
+```python
+def equal(arr):
+    # 가능성이 있는 최소값을 담는 배열
+    min_arr = [0] * 5
+    # 주어진 배열 중 가장 작은 값을 찾는다.
+    minimum = min(arr)
+    # 가능성이 있는 최솟값마다 반복문을 돌린다.
+    for i in range(len(min_arr)):
+        # 배열의 값에 비교를 위한 반복문을 돌린다.
+        for j in arr:
+            # 최소값과 비교하여 차이를 구한다.
+            diff = j - minimum
+            # 차이를 5로 나눈 몫과 나머지를 구한다. 
+            # 그리고 나머지를 2로 나눈 몫과 나머지를 구한다. 
+            # 마지막으로 나머지를 1로 나눈 몫과 나머지를 구한다.
+            stepRequired = diff // 5 + diff % 5 // 2 + diff % 5 % 2
+            # 최소값을 담는 배열에 더해준다.
+            min_arr[i] += stepRequired
+        minimum -= 1
+
+    return min(min_arr)
+```
+
+
+
+
+
+
+
+
+
+
