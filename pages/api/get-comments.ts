@@ -34,12 +34,12 @@ export default async function handler(
 ) {
   const { skip, take, postId } = req.query;
   try {
-    const wishlist = await getComments(
+    const comments = await getComments(
       Number(skip),
       Number(take),
       String(postId)
     );
-    res.status(200).json({ items: wishlist, message: 'Success' });
+    res.status(200).json({ items: comments, message: 'Success' });
   } catch (error) {
     res.status(400).json({ message: 'Failed' });
   }

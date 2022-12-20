@@ -58,11 +58,11 @@ const Home: NextPage<Props> = ({ posts }: Props) => {
                   </div>
                   <div className="flex">
                     <h2
-                      className="text-4xl m-0 text-gray-800"
+                      className="text-4xl m-0 text-black"
                       style={{ fontFamily: 'Noto Sans KR Medium' }}
                     >
                       <Link href={`/posts/${post.slug}`}>
-                        <a className="text-gray-900 transition duration-200 ease-in-out  dark:text-white hover:text-green-400">
+                        <a className="transition duration-200 ease-in-out  dark:text-white hover:text-gray-500">
                           {post.title}
                         </a>
                       </Link>

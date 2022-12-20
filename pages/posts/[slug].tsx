@@ -159,6 +159,9 @@ const PostPage = ({ source, frontMatter }: Props): JSX.Element => {
         });
         //comments.push(data as Comments)
         queryClient.invalidateQueries([
+          `../api/get-comments-count?postId=${frontMatter.name}`,
+        ]);
+        queryClient.invalidateQueries([
           `../api/get-comments?skip=0&take=5&postId=${frontMatter.name}`,
         ]);
       },

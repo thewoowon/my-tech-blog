@@ -1,0 +1,227 @@
+import { useRouter } from 'next/router';
+import React, { useEffect, useState } from 'react';
+import Layout from '../../components/Layout';
+import { distribution } from '../../constants/posts';
+import useScrollFadeIn from '../../hooks/useScrollFadeIn';
+
+export default function Portfolio() {
+  const router = useRouter();
+  const [myDistribution, setMyDistribution] = useState<number>(0);
+  const animateDiv_1 = useScrollFadeIn();
+  const animateDiv_2 = useScrollFadeIn();
+
+  return (
+    <Layout>
+      <div
+        {...animateDiv_1}
+        className="flex justify-center items-center pt-12 text-6xl font-bold"
+      >
+        프로젝트
+      </div>
+      <div
+        {...animateDiv_2}
+        className="flex justify-center items-center py-6 text-2xl"
+      >
+        우원의 프로젝트를 확인해보세요!
+      </div>
+      <div className="flex flex-wrap justify-center items-center py-6 text-md gap-4">
+        {distribution.map((name, iter) => {
+          return (
+            <div
+              onClick={() => {
+                setMyDistribution(iter);
+              }}
+              key={iter}
+              className="font-semibold px-8 py-4 bg-gray-200 rounded-full transition duration-200 hover:bg-green-400 hover:text-white"
+            >
+              {name}
+            </div>
+          );
+        })}
+      </div>
+      <div
+        style={{ maxWidth: '1240px' }}
+        className="flex justify-center items-center mx-auto"
+      >
+        <div className="grid grid-cols-2 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 w-full">
+          <div
+            onClick={() => {
+              router.push('/portfolio/1');
+            }}
+            className="py-4 px-2 cursor-pointer"
+            style={{ maxWidth: '400px', minWidth: '200px' }}
+          >
+            <div className="bg-black h-44 rounded-xl"></div>
+            <div className="text-sm font-semibold pt-5">{'개인'}</div>
+            <div className="text-2xl font-bold py-2">{'WMC'}</div>
+            <div className="text-sm">
+              {'직장인들의 샐러드 생활을 위한 거점 배송 서비스'}
+            </div>
+            <div className="flex text-sm py-2">
+              <div className="px-2 border border-gray-400 mr-1">{'React'}</div>
+              <div className="px-2 border border-gray-400 mr-1">{'Nestjs'}</div>
+              <div className="px-2 border border-gray-400 mr-1">
+                {'GraphQL'}
+              </div>
+            </div>
+          </div>
+          <div
+            onClick={() => {
+              router.push('/portfolio/1');
+            }}
+            className="py-4 px-2 cursor-pointer"
+            style={{ maxWidth: '400px', minWidth: '200px' }}
+          >
+            <div className="bg-black h-44 rounded-xl"></div>
+            <div className="text-sm font-semibold pt-5">{'개인'}</div>
+            <div className="text-2xl font-bold py-2">
+              {'러브콩 스테인드 글라스'}
+            </div>
+            <div className="text-sm">
+              {'직장인들의 샐러드 생활을 위한 거점 배송 서비스'}
+            </div>
+            <div className="flex text-sm py-2">
+              <div className="px-2 border border-gray-400 mr-1">{'React'}</div>
+              <div className="px-2 border border-gray-400 mr-1">{'Nestjs'}</div>
+              <div className="px-2 border border-gray-400 mr-1">
+                {'GraphQL'}
+              </div>
+            </div>
+          </div>
+          <div
+            onClick={() => {
+              router.push('/portfolio/1');
+            }}
+            className="py-4 px-2 cursor-pointer"
+            style={{ maxWidth: '400px', minWidth: '200px' }}
+          >
+            <div className="bg-black h-44 rounded-xl"></div>
+            <div className="text-sm font-semibold pt-5">{'개인'}</div>
+            <div className="text-2xl font-bold py-2">
+              {'하이! 애자일(Hi! Agile)'}
+            </div>
+            <div className="text-sm">
+              {'직장인들의 샐러드 생활을 위한 거점 배송 서비스'}
+            </div>
+            <div className="flex text-sm py-2">
+              <div className="px-2 border border-gray-400 mr-1">{'React'}</div>
+              <div className="px-2 border border-gray-400 mr-1">{'Nestjs'}</div>
+              <div className="px-2 border border-gray-400 mr-1">
+                {'GraphQL'}
+              </div>
+            </div>
+          </div>
+          <div
+            onClick={() => {
+              router.push('/portfolio/1');
+            }}
+            className="py-4 px-2 cursor-pointer"
+            style={{ maxWidth: '400px', minWidth: '200px' }}
+          >
+            <div className="bg-black h-44 rounded-xl"></div>
+            <div className="text-sm font-semibold pt-5">{'개인'}</div>
+            <div className="text-2xl font-bold py-2">
+              {'샐러드피스(Salad Peace)'}
+            </div>
+            <div className="text-sm">
+              {'직장인들의 샐러드 생활을 위한 거점 배송 서비스'}
+            </div>
+            <div className="flex text-sm py-2">
+              <div className="px-2 border border-gray-400 mr-1">{'React'}</div>
+              <div className="px-2 border border-gray-400 mr-1">{'Nestjs'}</div>
+              <div className="px-2 border border-gray-400 mr-1">
+                {'GraphQL'}
+              </div>
+            </div>
+          </div>
+          <div
+            onClick={() => {
+              router.push('/portfolio/1');
+            }}
+            className="py-4 px-2 cursor-pointer"
+            style={{ maxWidth: '400px', minWidth: '200px' }}
+          >
+            <div className="bg-black h-44 rounded-xl"></div>
+            <div className="text-sm font-semibold pt-5">{'개인'}</div>
+            <div className="text-2xl font-bold py-2">
+              {'유비케어 기술블로그'}
+            </div>
+            <div className="text-sm">
+              {'직장인들의 샐러드 생활을 위한 거점 배송 서비스'}
+            </div>
+            <div className="flex text-sm py-2">
+              <div className="px-2 border border-gray-400 mr-1">{'React'}</div>
+              <div className="px-2 border border-gray-400 mr-1">{'Nestjs'}</div>
+              <div className="px-2 border border-gray-400 mr-1">
+                {'GraphQL'}
+              </div>
+            </div>
+          </div>
+          <div
+            onClick={() => {
+              router.push('/portfolio/1');
+            }}
+            className="py-4 px-2 cursor-pointer"
+            style={{ maxWidth: '400px', minWidth: '200px' }}
+          >
+            <div className="bg-black h-44 rounded-xl"></div>
+            <div className="text-sm font-semibold pt-5">{'개인'}</div>
+            <div className="text-2xl font-bold py-2">{'솔바 봇'}</div>
+            <div className="text-sm">
+              {'직장인들의 샐러드 생활을 위한 거점 배송 서비스'}
+            </div>
+            <div className="flex text-sm py-2">
+              <div className="px-2 border border-gray-400 mr-1">{'React'}</div>
+              <div className="px-2 border border-gray-400 mr-1">{'Nestjs'}</div>
+              <div className="px-2 border border-gray-400 mr-1">
+                {'GraphQL'}
+              </div>
+            </div>
+          </div>
+          <div
+            onClick={() => {
+              router.push('/portfolio/1');
+            }}
+            className="py-4 px-2 cursor-pointer"
+            style={{ maxWidth: '400px', minWidth: '200px' }}
+          >
+            <div className="bg-black h-44 rounded-xl"></div>
+            <div className="text-sm font-semibold pt-5">{'개인'}</div>
+            <div className="text-2xl font-bold py-2">{'솔바 봇 매니저'}</div>
+            <div className="text-sm">
+              {'직장인들의 샐러드 생활을 위한 거점 배송 서비스'}
+            </div>
+            <div className="flex text-sm py-2">
+              <div className="px-2 border border-gray-400 mr-1">{'React'}</div>
+              <div className="px-2 border border-gray-400 mr-1">{'Nestjs'}</div>
+              <div className="px-2 border border-gray-400 mr-1">
+                {'GraphQL'}
+              </div>
+            </div>
+          </div>
+          <div
+            onClick={() => {
+              router.push('/portfolio/1');
+            }}
+            className="py-4 px-2 cursor-pointer"
+            style={{ maxWidth: '400px', minWidth: '200px' }}
+          >
+            <div className="bg-black h-44 rounded-xl"></div>
+            <div className="text-sm font-semibold pt-5">{'개인'}</div>
+            <div className="text-2xl font-bold py-2">{'솔바 아고라'}</div>
+            <div className="text-sm">
+              {'직장인들의 샐러드 생활을 위한 거점 배송 서비스'}
+            </div>
+            <div className="flex text-sm py-2">
+              <div className="px-2 border border-gray-400 mr-1">{'React'}</div>
+              <div className="px-2 border border-gray-400 mr-1">{'Nestjs'}</div>
+              <div className="px-2 border border-gray-400 mr-1">
+                {'GraphQL'}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </Layout>
+  );
+}

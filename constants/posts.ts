@@ -4,18 +4,19 @@ export const ADMIN_EMAIL = ['thewoowon@naver.com'];
 
 export const TAKE = 5;
 
-export const FITERS = [
-  { label: '최신순', value: 'latest' },
-  { label: '가격 높은 순', value: 'expensive' },
-  { label: '가격 낮은 순', value: 'cheap' },
-];
-
 export const getOrderBy = (orderBy?: string) => {
   return orderBy
     ? orderBy === 'latest'
       ? { orderBy: { createdAt: 'desc' } }
       : orderBy === 'expensive'
-      ? { orderBy: { price: 'desc' } }
-      : { orderBy: { price: 'asc' } }
     : undefined;
 };
+
+export const distribution = [
+  '전체',
+  '솔바테크놀러지',
+  '유비케어',
+  '개인 프로젝트',
+  '그룹 프로젝트',
+  '기타',
+];

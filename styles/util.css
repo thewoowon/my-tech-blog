@@ -48,7 +48,7 @@
 }
 .latest-list li a:hover{
     cursor: pointer;
-    color: #00DC6C;
+    color: #6b7280;
 }
 .tags-list{
     font-family: 'Noto Sans KR Light';
@@ -58,7 +58,7 @@
 }
 .tags-list:hover{
     cursor: pointer;
-    color: #00DC6C;
+    color: #6b7280;
 
 }
 .tag-button{
