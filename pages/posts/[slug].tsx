@@ -45,6 +45,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import Image from 'next/image';
 import techLogo from '../../images/logo/woowon_bg.png';
+import { useForm } from 'react-hook-form';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { FormError } from '../../components/FormError';
+import { Comments } from '@prisma/client';
+import { TAKE } from '../../constants/posts';
+
+import { Pagination } from '@mantine/core';
+import toast from 'react-hot-toast';
 
 // props type
 type Props = {
@@ -58,12 +66,31 @@ const components = {
   Stacks,
 };
 
+export interface ICreateCommentForm {
+  email: string;
+  contents: string;
+  githubId: string;
+}
+
+const COMMENT_QUERY_KEY = `/api/add-comment`;
+
 const PostPage = ({ source, frontMatter }: Props): JSX.Element => {
   const [name, setName] = useState('');
   const [position, setPosition] = useState('');
   const [division, setDivision] = useState('');
   const [comment, setComment] = useState('');
   const [liked, setLiked] = useState(false);
+  const [postId, setPostId] = useState('');
+  const [activePage, setPage] = useState(1);
+  const {
+    register,
+    getValues,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<ICreateCommentForm>({
+    mode: 'onChange',
+  });
+  const queryClient = useQueryClient();
   useEffect(() => {
     Prism.highlightAll();
   }, []);
@@ -76,6 +103,7 @@ const PostPage = ({ source, frontMatter }: Props): JSX.Element => {
     // set stacks
     setStacks(frontMatter.stacks);
 
+    setPostId(frontMatter.name);
     frontMatter.prerequisites.map((value, iter) => {
       if (iter == 0) setName(value);
       else if (iter == 1) setPosition(value);
@@ -108,6 +136,74 @@ const PostPage = ({ source, frontMatter }: Props): JSX.Element => {
       .classList.add('animate-like');
   };
 
+  const { mutate: addComment } = useMutation<
+    unknown,
+    unknown,
+    Omit<Comments, 'id' | 'updatedAt' | 'createdAt'>,
+    any
+  >(
+    (item) =>
+      fetch(`../api/add-comment`, {
+        method: 'POST',
+        body: JSON.stringify({ item }),
+      })
+        .then((res) => res.json())
+        .then((data) => data.items),
+    {
+      onMutate: () => {
+        queryClient.invalidateQueries([COMMENT_QUERY_KEY]);
+      },
+      onSuccess: (data, variables, context) => {
+        toast.success('댓글 등록 완료', {
+          position: 'bottom-center',
+        });
+        //comments.push(data as Comments)
+        queryClient.invalidateQueries([
+          `../api/get-comments?skip=0&take=5&postId=${frontMatter.name}`,
+        ]);
+      },
+    }
+  );
+
+  const onSubmit = () => {
+    const { email, contents, githubId } = getValues();
+    addComment({
+      email: email,
+      contents: contents,
+      github: githubId,
+      postId: postId,
+    });
+  };
+
+  const { data: total } = useQuery(
+    [`../api/get-comments-count?postId=${frontMatter.name}`],
+    () =>
+      fetch(`../api/get-comments-count?postId=${frontMatter.name}`)
+        .then((res) => res.json())
+        .then((data) => Math.ceil(data.items / TAKE))
+  );
+
+  const { data: comments } = useQuery<
+    { items: Comments[] },
+    unknown,
+    Comments[]
+  >(
+    [
+      `../api/get-comments?skip=${
+        TAKE * (activePage - 1)
+      }&take=${TAKE}&postId=${frontMatter.name}`,
+    ],
+    () =>
+      fetch(
+        `../api/get-comments?skip=${
+          TAKE * (activePage - 1)
+        }&take=${TAKE}&postId=${frontMatter.name}`
+      ).then((res) => res.json()),
+    {
+      select: (data) => data.items,
+    }
+  );
+
   return (
     <React.Fragment>
       <Layout>
@@ -123,7 +219,7 @@ const PostPage = ({ source, frontMatter }: Props): JSX.Element => {
               })}
             </div>
             <h1
-              className="mb-0 mt-0 text-gray-600 dark:text-white"
+              className="mb-0 mt-0 text-black dark:text-white"
               style={{ fontFamily: 'Noto Sans KR', fontSize: '45px' }}
             >
               {frontMatter.title}
@@ -188,6 +284,117 @@ const PostPage = ({ source, frontMatter }: Props): JSX.Element => {
             </div>
           </div>
         </article>
+        <div className="flex flex-col justify-center items-center mx-auto w-full bg-gray-50 py-20">
+          <div
+            className="w-full"
+            style={{ minWidth: '360px', maxWidth: '920px', minHeight: '300px' }}
+          >
+            <form
+              onSubmit={handleSubmit(onSubmit)}
+              className="flex flex-col justify-start items-center w-full"
+            >
+              <div className="w-full flex gap-2 py-2 flex justify-start items-center">
+                <div className="px-4 py-2 bg-green-400 rounded-md text-white h-12 flex justify-center items-center">
+                  Email
+                </div>
+                <input
+                  className="w-full h-12 px-4 focus:outline-none rounded-md"
+                  {...register('email', {
+                    required: '이메일을 입력해주세요',
+                    pattern:
+                      /^[a-zA-Z0-9+-\\_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
+                  })}
+                  type="text"
+                  required={true}
+                  autoComplete="true"
+                  placeholder="이메일을 입력해주세요"
+                ></input>
+                <div className="px-4 py-2 bg-green-400 rounded-md text-white h-12 flex justify-center items-center">
+                  Gihub
+                </div>
+                <input
+                  className="w-full h-12 px-4 focus:outline-none rounded-md"
+                  {...register('githubId', {
+                    required: '깃허브 아이디를 입력해주세요',
+                    pattern: /^[a-z|A-Z]+$/,
+                  })}
+                  type="text"
+                  required={true}
+                  autoComplete="true"
+                  placeholder="깃허브 아이디를 입력해주세요"
+                ></input>
+              </div>
+              <textarea
+                {...register('contents', {
+                  required: '댓글 내용을 입력해주세요',
+                })}
+                cols={30}
+                required={true}
+                className="mb-6 px-4 py-4 bg-white shadow-sm border-2 border-gray-100 rounded-lg w-full h-36 text-md outline-none"
+                autoComplete="true"
+                placeholder="댓글 내용을 입력해주세요"
+              ></textarea>
+              <div className="flex justify-end items-center w-full">
+                <button
+                  type="submit"
+                  className="text-white rounded-md px-4 py-2 bg-green-400 transition duration-200 ease-in-out hover:bg-green-500 "
+                >
+                  댓글 등록
+                </button>
+              </div>
+            </form>
+          </div>
+          <div
+            className="w-full"
+            style={{ minWidth: '360px', maxWidth: '920px', minHeight: '300px' }}
+          >
+            {comments &&
+              comments.map((comment) => {
+                return (
+                  <div
+                    key={comment.id}
+                    className="flex flex-col justify-start items-center w-full"
+                  >
+                    <div className="w-full flex gap-2 py-2 flex justify-start items-center">
+                      <div className="px-4 py-1 bg-gray-300 rounded-md text-white flex justify-center items-center">
+                        Email
+                      </div>
+                      <div className="w-full px-4 focus:outline-none rounded-md">
+                        {comment.email}
+                      </div>
+                      <div className="px-4 py-1 bg-gray-300 rounded-md text-white flex justify-center items-center">
+                        Gihub
+                      </div>
+                      <div className="w-full px-4 focus:outline-none rounded-md">
+                        {comment.github}
+                      </div>
+                    </div>
+                    <div className="px-4 py-4 bg-white shadow-sm rounded-lg w-full text-md">
+                      {comment.contents}
+                    </div>
+                    <div className="mb-4 py-2 text-md w-full flex justify-end items-center">
+                      생성일 : {comment.createdAt.toString().substring(0, 10)}
+                    </div>
+                  </div>
+                );
+              })}
+          </div>
+          <div className="w-full flex mt-20">
+            {total && total !== 0 ? (
+              <Pagination
+                className="m-auto"
+                page={activePage}
+                onChange={setPage}
+                total={total}
+                color="dark"
+              />
+            ) : null}
+          </div>
+        </div>
+
+        {/* {
+          errors.email && <FormError message={"정확한 이메일 부탁해요"}></FormError>
+        } */}
       </Layout>
     </React.Fragment>
   );
