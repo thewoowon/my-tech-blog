@@ -59,12 +59,25 @@ import { TAKE } from '../../constants/posts';
 
 import { Pagination } from '@mantine/core';
 import toast from 'react-hot-toast';
+import { NextRequest } from 'next/server';
+
+// const getServerSideProps = async (context: GetServerSidePropsContext) => {
+//   const forwarded = context.req.headers['x-forwarded-for'];
+
+//   const ip = typeof forwarded === 'string' ? forwarded.split(/, /)[0] : context.req.socket.remoteAddress;
+
+//   console.log(ip);
+
+//   return {
+//     props: { ip },
+//   };
+// };
 
 // props type
 type Props = {
   source: MDXRemoteSerializeResult;
   frontMatter: IPost;
-  context: string;
+  ip: string;
 };
 
 // components to render
@@ -82,7 +95,7 @@ export interface ICreateCommentForm {
 const COMMENT_QUERY_KEY = `../api/add-comment`;
 const LIKE_QUERY_KEY = `../api/add-like`;
 
-const PostPage = ({ source, frontMatter }: Props): JSX.Element => {
+const PostPage = ({ source, frontMatter, ip }: Props): JSX.Element => {
   const [name, setName] = useState('');
   const [position, setPosition] = useState('');
   const [division, setDivision] = useState('');
@@ -298,8 +311,9 @@ const PostPage = ({ source, frontMatter }: Props): JSX.Element => {
                     icon={faHeart}
                     className="pr-2"
                   />
-                  {likesList &&
-                    likesList?.filter((item: Likes) => item.type === 0).length}
+                  {likesList
+                    ? likesList.filter((item: Likes) => item.type === 0).length
+                    : 0}
                 </div>
                 <div className="pr-4">
                   <FontAwesomeIcon
@@ -307,8 +321,9 @@ const PostPage = ({ source, frontMatter }: Props): JSX.Element => {
                     icon={faThumbsUp}
                     className="pr-2"
                   />
-                  {likesList &&
-                    likesList?.filter((item: Likes) => item.type === 1).length}
+                  {likesList
+                    ? likesList.filter((item: Likes) => item.type === 1).length
+                    : 0}
                 </div>
                 <div className="pr-4">
                   <FontAwesomeIcon
@@ -316,8 +331,9 @@ const PostPage = ({ source, frontMatter }: Props): JSX.Element => {
                     icon={faPencil}
                     className="pr-2"
                   />
-                  {likesList &&
-                    likesList?.filter((item: Likes) => item.type === 2).length}
+                  {likesList
+                    ? likesList.filter((item: Likes) => item.type === 2).length
+                    : 0}
                 </div>
               </div>
               <span className="mx-auto"></span>
@@ -526,6 +542,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const { slug } = context.params as Iparams;
   // get the slug
   const { content, data } = getPost(slug);
+
   // serialize the data on the server side
   const mdxSource = await serialize(content, {
     mdxOptions: {

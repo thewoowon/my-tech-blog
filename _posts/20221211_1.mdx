@@ -9,3 +9,294 @@ date: '2022-12-11'
 name: '20221211_1' 
 ---
 
+
+# 🧐 REACT HOOKS 정리 해보기
+
+미뤄왔던 리액트 훅들을 정리해보고 중요도별로 분류해보도록 하자.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/dpw9EHDh2bM" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+먼저 React Conf 2018에서 Sophie Alpert와 Dan Abramov가 Hook을 소개한 영상이다.
+궁금하다면 먼저 영상을 보고 시작하는 것도 좋을 것 같다.
+
+## 📌 useState
+
+useState는 가장 기본적인 훅이다. 이 훅을 사용하면 함수형 컴포넌트에서도 상태를 관리할 수 있다.
+
+```jsx
+import React, { useState } from 'react';
+
+function Example() {
+  // Declare a new state variable, which we'll call "count"
+  const [count, setCount] = useState(0);
+
+  return (
+    <div>
+      <p>You clicked {count} times</p>
+      <button onClick={() => setCount(count + 1)}>
+        Click me
+      </button>
+    </div>
+  );
+}
+```
+
+useState는 배열을 반환한다. 첫 번째 원소는 현재 상태이고, 두 번째 원소는 상태를 바꿀 수 있는 함수이다.
+
+## 📌 useEffect
+
+useEffect는 리액트 컴포넌트가 렌더링 될 때마다 특정 작업을 수행할 수 있도록 하는 훅이다.
+
+```jsx
+
+import React, { useState, useEffect } from 'react';
+
+function Example() {
+  const [count, setCount] = useState(0);
+
+  // Similar to componentDidMount and componentDidUpdate:
+  useEffect(() => {
+    // Update the document title using the browser API
+    document.title = `You clicked ${count} times`;
+  });
+
+  return (
+    <div>
+      <p>You clicked {count} times</p>
+      <button onClick={() => setCount(count + 1)}>
+        Click me
+      </button>
+    </div>
+  );
+}
+```
+
+useEffect는 기본적으로 렌더링 될 때마다 매번 실행된다. 이를 방지하기 위해 useEffect의 두 번째 인자로 빈 배열을 넣어주면 된다.
+
+```jsx
+
+useEffect(() => {
+  document.title = `You clicked ${count} times`;
+}, []);
+```
+
+useEffect는 렌더링 될 때마다 매번 실행되는 것이 아니라, 특정 값이 업데이트 될 때만 실행되도록 할 수 있다.
+
+```jsx
+
+useEffect(() => {
+  document.title = `You clicked ${count} times`;
+}, [count]);
+```
+
+## 📌 useContext
+
+useContext는 Context API를 사용할 때 편리하게 사용할 수 있는 훅이다.
+
+```jsx
+import React, { useContext } from 'react';
+
+const MyContext = React.createContext(defaultValue);
+
+function MyComponent() {
+  const value = useContext(MyContext);
+  /* render something based on the value */
+}
+```
+
+## 📌 useReducer
+
+useReducer는 useState보다 더 다양한 컴포넌트 상황에 따라 다양한 상태를 다른 값으로 업데이트해주고 싶을 때 사용한다.
+
+```jsx
+
+import React, { useReducer } from 'react';
+
+function reducer(state, action) {
+  // action.type에 따라 다른 작업 수행
+  switch (action.type) {
+    case 'INCREMENT':
+      return { value: state.value + 1 };
+    case 'DECREMENT':
+      return { value: state.value - 1 };
+    default:
+      // 아무것도 해당되지 않을 때 기존 상태 반환
+      return state;
+  }
+}
+
+function Counter() {
+  const [state, dispatch] = useReducer(reducer, { value: 0 });
+
+  return (
+    <>
+      <p>
+        현재 카운터 값은 <b>{state.value}</b>입니다.
+      </p>
+      <button onClick={() => dispatch({ type: 'INCREMENT' })}>+1</button>
+      <button onClick={() => dispatch({ type: 'DECREMENT' })}>-1</button>
+    </>
+  );
+}
+```
+
+## 📌 useCallback
+
+useCallback은 렌더링 성능을 최적화해야 하는 상황에서 사용한다. 이 훅을 사용하면 이벤트 핸들러 함수를 필요할 때만 생성할 수 있다.
+
+```jsx
+
+import React, { useState, useCallback } from 'react';
+
+function App() {
+  const [number, setNumber] = useState(1);
+  const [dark, setDark] = useState(false);
+
+  const getItems = useCallback(() => {
+    // 특정 값(number)이 바뀌었을 때만 함수 생성
+    return [number, number + 1, number + 2];
+  }, [number]);
+
+  const theme = {
+    backgroundColor: dark ? '#333' : '#fff',
+    color: dark ? '#fff' : '#333'
+  };
+
+  return (
+    <div style={theme}>
+      <input
+        type="number"
+        value={number}
+        onChange={e => setNumber(parseInt(e.target.value))}
+      />
+      <button onClick={() => setDark(prevDark => !prevDark)}>
+        Toggle theme
+      </button>
+      <List getItems={getItems} />
+    </div>
+  );
+}
+
+function List({ getItems }) {
+  const [items, setItems] = useState([]);
+
+  useEffect(() => {
+    setItems(getItems());
+    console.log('Updating items');
+  }, [getItems]);
+
+  return items.map(item => <div key={item}>{item}</div>);
+}
+
+export default App;
+```
+
+## 📌 useMemo
+
+useMemo는 렌더링 성능을 최적화해야 하는 상황에서 사용한다. 이 훅을 사용하면 연산한 값을 재사용할 수 있다.
+
+```jsx
+
+import React, { useState, useMemo } from 'react';
+
+function complexCompute(num) {
+  console.log('complexCompute');
+  let i = 0;
+  while (i < 1000000000) i++;
+  return num * 2;
+}
+
+function App() {
+  const [number, setNumber] = useState(42);
+  const [colored, setColored] = useState(false);
+
+  const styles = useMemo(() => ({
+    color: colored ? 'darkred' : 'black'
+  }), [colored]);
+
+  const computed = useMemo(() => {
+    return complexCompute(number);
+  }, [number]);
+
+  return (
+    <>
+      <h1 style={styles}>Вычисляемое свойство: {computed}</h1>
+      <button className="btn btn-success" onClick={() => setNumber(prev => prev + 1)}>Добавить</button>
+      <button className="btn btn-danger" onClick={() => setNumber(prev => prev - 1)}>Убрать</button>
+      <button className="btn btn-warning" onClick={() => setColored(prev => !prev)}>Изменить</button>
+    </>
+  );
+}
+
+export default App;
+```
+
+## 📌 useRef
+
+useRef는 함수형 컴포넌트에서 ref를 쉽게 사용할 수 있게 해준다.
+
+```jsx
+
+import React, { useState, useRef } from 'react';
+
+function App() {
+  const [todos, setTodos] = useState([
+    { id: 1, title: 'todo 1' },
+    { id: 2, title: 'todo 2' },
+    { id: 3, title: 'todo 3' }
+  ]);
+  const [todoTitle, setTodoTitle] = useState('');
+  const ref = useRef(null);
+
+  const addTodo = event => {
+    if (event.key === 'Enter') {
+      setTodos([
+        ...todos,
+        {
+          id: Date.now(),
+          title: todoTitle
+        }
+      ]);
+      setTodoTitle('');
+    }
+  };
+
+  return (
+    <div className="container">
+      <h1>Todo App</h1>
+
+      <div className="input-field mt2">
+        <input
+          ref={ref}
+          type="text"
+          id="title"
+          placeholder="Введите название дела"
+          value={todoTitle}
+          onChange={event => setTodoTitle(event.target.value)}
+          onKeyPress={addTodo}
+        />
+        <label htmlFor="title" className="active">
+          Введите название дела
+        </label>
+      </div>
+
+      <ul>
+        {todos.map(todo => {
+          return (
+            <li key={todo.id}>
+              <label>
+                <input type="checkbox" className="filled-in" />
+                <span>{todo.title}</span>
+              </label>
+            </li>
+          );
+        })}
+      </ul>
+    </div>
+  );
+}
+
+export default App;
+```
+
+

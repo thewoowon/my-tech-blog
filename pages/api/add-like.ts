@@ -42,9 +42,49 @@ export default async function handler(
 ) {
   const { item } = JSON.parse(req.body);
   try {
-    const like = await addLike(item.type, item.postId, req.headers.host);
+    const like = await addLike(
+      item.type,
+      item.postId,
+      IP6to4(req.socket.remoteAddress)
+    );
     res.status(200).json({ items: like, message: 'Success' });
   } catch (error) {
     res.status(400).json({ message: 'Failed' });
   }
+}
+
+function IP6to4(ip6: any) {
+  function parseIp6(ip6str: any) {
+    const str = ip6str.toString();
+
+    // Initialize
+    const ar = [];
+    for (let i = 0; i < 8; i++) ar[i] = 0;
+
+    // Check for trivial IPs
+    if (str == '::') return ar;
+
+    // Parse
+    const sar = str.split(':');
+    let slen = sar.length;
+    if (slen > 8) slen = 8;
+    let j = 0;
+    for (let i = 0; i < slen; i++) {
+      // This is a "::", switch to end-run mode
+      if (i && sar[i] == '') {
+        j = 9 - slen + i;
+        continue;
+      }
+      ar[j] = parseInt(`0x0${sar[i]}`);
+      j++;
+    }
+
+    return ar;
+  }
+
+  const ip6parsed = parseIp6(ip6);
+  const ip4 = `${ip6parsed[6] >> 8}.${ip6parsed[6] & 0xff}.${
+    ip6parsed[7] >> 8
+  }.${ip6parsed[7] & 0xff}`;
+  return ip4;
 }
