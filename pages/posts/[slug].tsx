@@ -1,5 +1,11 @@
 import { serialize } from 'next-mdx-remote/serialize';
-import { GetStaticProps, GetStaticPaths } from 'next';
+import {
+  GetStaticProps,
+  GetStaticPaths,
+  NextApiRequest,
+  GetServerSideProps,
+  GetServerSidePropsContext,
+} from 'next';
 import { useEffect, useState } from 'react';
 import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote';
 import { useMdxComponentsContext } from '../../context/mdxContext';
@@ -48,7 +54,7 @@ import techLogo from '../../images/logo/woowon_bg.png';
 import { useForm } from 'react-hook-form';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { FormError } from '../../components/FormError';
-import { Comments } from '@prisma/client';
+import { Comments, Likes } from '@prisma/client';
 import { TAKE } from '../../constants/posts';
 
 import { Pagination } from '@mantine/core';
@@ -58,6 +64,7 @@ import toast from 'react-hot-toast';
 type Props = {
   source: MDXRemoteSerializeResult;
   frontMatter: IPost;
+  context: string;
 };
 
 // components to render
@@ -72,7 +79,8 @@ export interface ICreateCommentForm {
   githubId: string;
 }
 
-const COMMENT_QUERY_KEY = `/api/add-comment`;
+const COMMENT_QUERY_KEY = `../api/add-comment`;
+const LIKE_QUERY_KEY = `../api/add-like`;
 
 const PostPage = ({ source, frontMatter }: Props): JSX.Element => {
   const [name, setName] = useState('');
@@ -121,10 +129,17 @@ const PostPage = ({ source, frontMatter }: Props): JSX.Element => {
     //(e.target as Element).innerHTML = '<FontAwesomeIcon icon={faHeart}/>좋아요';
     (e.target as Element)
       .querySelector('.fa-heart')
+      .classList.remove('animate-like');
+
+    (e.target as Element)
+      .querySelector('.fa-heart')
       .classList.add('animate-like');
   };
   const gentleEffect = (e: React.MouseEvent<HTMLButtonElement>) => {
     //(e.target as Element).innerHTML = '<FontAwesomeIcon icon={faHeart}/>좋아요';
+    (e.target as Element)
+      .querySelector('.fa-thumbs-up')
+      .classList.remove('animate-like');
     (e.target as Element)
       .querySelector('.fa-thumbs-up')
       .classList.add('animate-like');
@@ -133,8 +148,39 @@ const PostPage = ({ source, frontMatter }: Props): JSX.Element => {
     //(e.target as Element).innerHTML = '<FontAwesomeIcon icon={faHeart}/>좋아요';
     (e.target as Element)
       .querySelector('.fa-pencil')
+      .classList.remove('animate-like');
+    (e.target as Element)
+      .querySelector('.fa-pencil')
       .classList.add('animate-like');
   };
+
+  const { mutate: addLike } = useMutation<
+    unknown,
+    unknown,
+    Omit<Likes, 'id' | 'updatedAt' | 'createdAt' | 'host'>,
+    any
+  >(
+    (item) =>
+      fetch(`../api/add-like`, {
+        method: 'POST',
+        body: JSON.stringify({ item }),
+      })
+        .then((res) => res.json())
+        .then((data) => data.items),
+    {
+      onMutate: () => {
+        queryClient.invalidateQueries([LIKE_QUERY_KEY]);
+      },
+      onSuccess: (data, variables, context) => {
+        toast.success('감사합니다!', {
+          position: 'bottom-center',
+        });
+        queryClient.invalidateQueries([
+          `../api/get-likes?postId=${frontMatter.name}`,
+        ]);
+      },
+    }
+  );
 
   const { mutate: addComment } = useMutation<
     unknown,
@@ -186,6 +232,16 @@ const PostPage = ({ source, frontMatter }: Props): JSX.Element => {
         .then((data) => Math.ceil(data.items / TAKE))
   );
 
+  const { data: likesList } = useQuery<{ items: Likes[] }, unknown, Likes[]>(
+    [`../api/get-likes?postId=${frontMatter.name}`],
+    () =>
+      fetch(`../api/get-likes?postId=${frontMatter.name}`).then((res) =>
+        res.json()
+      ),
+    {
+      select: (data) => data.items,
+    }
+  );
   const { data: comments } = useQuery<
     { items: Comments[] },
     unknown,
@@ -234,14 +290,71 @@ const PostPage = ({ source, frontMatter }: Props): JSX.Element => {
               {format(parseISO(frontMatter.date), 'MMMM dd, yyyy')} -{' '}
               {frontMatter.writer}
             </p>
-            <div className="like-content">
-              <button className="btn-good like-review" onClick={goodEffect}>
+            <div className="like-content justify-between">
+              <div className="flex justify-center items-center">
+                <div className="pr-4">
+                  <FontAwesomeIcon
+                    color="#ed2553"
+                    icon={faHeart}
+                    className="pr-2"
+                  />
+                  {likesList &&
+                    likesList?.filter((item: Likes) => item.type === 0).length}
+                </div>
+                <div className="pr-4">
+                  <FontAwesomeIcon
+                    color="rgb(104, 206, 160)"
+                    icon={faThumbsUp}
+                    className="pr-2"
+                  />
+                  {likesList &&
+                    likesList?.filter((item: Likes) => item.type === 1).length}
+                </div>
+                <div className="pr-4">
+                  <FontAwesomeIcon
+                    color="rgb(119, 53, 226)"
+                    icon={faPencil}
+                    className="pr-2"
+                  />
+                  {likesList &&
+                    likesList?.filter((item: Likes) => item.type === 2).length}
+                </div>
+              </div>
+              <span className="mx-auto"></span>
+              <button
+                className="btn-good like-review"
+                onClick={(e) => {
+                  goodEffect(e);
+                  addLike({
+                    postId: postId,
+                    type: 0,
+                  });
+                }}
+              >
                 <FontAwesomeIcon icon={faHeart} /> 좋아요
               </button>
-              <button className="btn-gentle like-review" onClick={gentleEffect}>
+              <button
+                className="btn-gentle like-review"
+                onClick={(e) => {
+                  gentleEffect(e);
+                  addLike({
+                    postId: postId,
+                    type: 1,
+                  });
+                }}
+              >
                 <FontAwesomeIcon icon={faThumbsUp} /> 멋져요
               </button>
-              <button className="btn-learn like-review" onClick={learnEffect}>
+              <button
+                className="btn-learn like-review"
+                onClick={(e) => {
+                  learnEffect(e);
+                  addLike({
+                    postId: postId,
+                    type: 2,
+                  });
+                }}
+              >
                 <FontAwesomeIcon icon={faPencil} /> 배웠어요
               </button>
             </div>

@@ -60,7 +60,9 @@ const Tech: NextPage<Props> = ({ posts }: Props) => {
                       style={{ fontFamily: 'Noto Sans KR' }}
                     >
                       <Link href={`/posts/${post.slug}`}>
-                        <a>{post.title}</a>
+                        <a className="transition duration-200 ease-in-out  dark:text-white hover:text-gray-500">
+                          {post.title}
+                        </a>
                       </Link>
                     </h2>
                   </div>

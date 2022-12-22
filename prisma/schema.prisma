@@ -36,5 +36,13 @@ model Comments {
   postId  String
 }
 
+model Likes {
+  id        Int      @id @default(autoincrement())
+  host   String
+  type   Int
+  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now())
+  postId  String
+}
 
 

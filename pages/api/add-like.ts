@@ -6,20 +6,29 @@ import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
-async function addLike() {
-  //   try {
-  //     const cart = await prisma.carts.create({
-  //       data: {
-  //         userId: userId,
-  //         productId: item.productId,
-  //         quantity: item.quantity,
-  //         amount: item.amount,
-  //       },
-  //     })
-  //     return cart
-  //   } catch (error) {
-  //     console.error(error)
-  //   }
+async function addLike(type: number, postId: string, hostName: string) {
+  try {
+    const like = await prisma.likes.findMany({
+      where: {
+        postId: postId,
+        host: hostName,
+        type: type,
+      },
+    });
+    if (like.length > 0) {
+      return like;
+    }
+    const response = await prisma.likes.create({
+      data: {
+        type: type,
+        postId: postId,
+        host: hostName,
+      },
+    });
+    return response;
+  } catch (error) {
+    console.error(error);
+  }
 }
 
 type Data = {
@@ -31,16 +40,10 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>
 ) {
-  // const session = await getSession({ req });
-  //const session = (await getSession({ req })) as CustomDefaultSession
   const { item } = JSON.parse(req.body);
-  //   if (session == null) {
-  //     res.status(401).json({ items: [], message: 'Unauthorized' })
-  //     return
-  //   }
   try {
-    const wishlist = await addLike();
-    res.status(200).json({ items: wishlist, message: 'Success' });
+    const like = await addLike(item.type, item.postId, req.headers.host);
+    res.status(200).json({ items: like, message: 'Success' });
   } catch (error) {
     res.status(400).json({ message: 'Failed' });
   }
