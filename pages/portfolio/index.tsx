@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import Layout from '../../components/Layout';
 import { distribution } from '../../constants/posts';
 import useScrollFadeIn from '../../hooks/useScrollFadeIn';
+import Image from 'next/image';
 
 export default function Portfolio() {
   const router = useRouter();
@@ -48,10 +49,18 @@ export default function Portfolio() {
             onClick={() => {
               router.push('/portfolio/wmc');
             }}
-            className="py-4 px-2 cursor-pointer"
+            className="py-4 px-2 cursor-pointer hover:shadow-lg rounded-lg transition duration-300 ease-in-out"
             style={{ maxWidth: '400px', minWidth: '200px' }}
           >
-            <div className="bg-black h-44 rounded-xl"></div>
+            <div className="h-48">
+              <Image
+                className="rounded-xl"
+                src={'/assets/wmc_thumb.png'}
+                alt="wmc"
+                width={300}
+                height={200}
+              ></Image>
+            </div>
             <div className="text-sm font-semibold pt-5">{'Personal'}</div>
             <div className="text-2xl font-bold py-2">{'WMC'}</div>
             <div className="text-sm">{'We Make the Code, 개발자들의 공간'}</div>
@@ -65,10 +74,18 @@ export default function Portfolio() {
             onClick={() => {
               router.push('/portfolio/lovekong');
             }}
-            className="py-4 px-2 cursor-pointer"
+            className="py-4 px-2 cursor-pointer hover:shadow-lg rounded-lg transition duration-300 ease-in-out"
             style={{ maxWidth: '400px', minWidth: '200px' }}
           >
-            <div className="bg-black h-44 rounded-xl"></div>
+            <div className="h-48">
+              <Image
+                className="rounded-xl"
+                src={'/assets/lovekong_thumb.png'}
+                alt="lovekong"
+                width={300}
+                height={200}
+              ></Image>
+            </div>
             <div className="text-sm font-semibold pt-5">{'Personal'}</div>
             <div className="text-2xl font-bold py-2">
               {'러브콩 스테인드 글라스'}
@@ -86,10 +103,18 @@ export default function Portfolio() {
             onClick={() => {
               router.push('/portfolio/hiagile');
             }}
-            className="py-4 px-2 cursor-pointer"
+            className="py-4 px-2 cursor-pointer hover:shadow-lg rounded-lg transition duration-300 ease-in-out"
             style={{ maxWidth: '400px', minWidth: '200px' }}
           >
-            <div className="bg-black h-44 rounded-xl"></div>
+            <div className="h-48">
+              <Image
+                className="rounded-xl"
+                src={'/assets/hiagile_thumb.png'}
+                alt="hiagile"
+                width={300}
+                height={200}
+              ></Image>
+            </div>
             <div className="text-sm font-semibold pt-5">{'Organization'}</div>
             <div className="text-2xl font-bold py-2">
               {'하이! 애자일(Hi! Agile)'}
@@ -107,10 +132,18 @@ export default function Portfolio() {
             onClick={() => {
               router.push('/portfolio/saladpeace');
             }}
-            className="py-4 px-2 cursor-pointer"
+            className="py-4 px-2 cursor-pointer hover:shadow-lg rounded-lg transition duration-300 ease-in-out"
             style={{ maxWidth: '400px', minWidth: '200px' }}
           >
-            <div className="bg-black h-44 rounded-xl"></div>
+            <div className="h-48">
+              <Image
+                className="rounded-xl"
+                src={'/assets/saladpeace_thumb.png'}
+                alt="hiagile"
+                width={300}
+                height={200}
+              ></Image>
+            </div>
             <div className="text-sm font-semibold pt-5">{'Personal'}</div>
             <div className="text-2xl font-bold py-2">
               {'샐러드피스(Salad Peace)'}
@@ -130,10 +163,18 @@ export default function Portfolio() {
             onClick={() => {
               router.push('/portfolio/ubtech');
             }}
-            className="py-4 px-2 cursor-pointer"
+            className="py-4 px-2 cursor-pointer hover:shadow-lg rounded-lg transition duration-300 ease-in-out"
             style={{ maxWidth: '400px', minWidth: '200px' }}
           >
-            <div className="bg-black h-44 rounded-xl"></div>
+            <div className="h-48">
+              <Image
+                className="rounded-xl"
+                src={'/assets/ubtech_thumb.png'}
+                alt="hiagile"
+                width={300}
+                height={200}
+              ></Image>
+            </div>
             <div className="text-sm font-semibold pt-5">{'Personal'}</div>
             <div className="text-2xl font-bold py-2">
               {'유비케어 기술블로그'}
@@ -149,10 +190,18 @@ export default function Portfolio() {
             onClick={() => {
               router.push('/portfolio/solvabot');
             }}
-            className="py-4 px-2 cursor-pointer"
+            className="py-4 px-2 cursor-pointer hover:shadow-lg rounded-lg transition duration-300 ease-in-out"
             style={{ maxWidth: '400px', minWidth: '200px' }}
           >
-            <div className="bg-black h-44 rounded-xl"></div>
+            <div className="h-48">
+              <Image
+                className="rounded-xl"
+                src={'/assets/solvabot_thumb.png'}
+                alt="hiagile"
+                width={300}
+                height={200}
+              ></Image>
+            </div>
             <div className="text-sm font-semibold pt-5">{'Personal'}</div>
             <div className="text-2xl font-bold py-2">{'솔바 봇'}</div>
             <div className="text-sm">
@@ -169,10 +218,18 @@ export default function Portfolio() {
             onClick={() => {
               router.push('/portfolio/solvabotmanager');
             }}
-            className="py-4 px-2 cursor-pointer"
+            className="py-4 px-2 cursor-pointer hover:shadow-lg rounded-lg transition duration-300 ease-in-out"
             style={{ maxWidth: '400px', minWidth: '200px' }}
           >
-            <div className="bg-black h-44 rounded-xl"></div>
+            <div className="h-48">
+              <Image
+                className="rounded-xl"
+                src={'/assets/solvabotmanager_thumb.png'}
+                alt="hiagile"
+                width={300}
+                height={200}
+              ></Image>
+            </div>
             <div className="text-sm font-semibold pt-5">{'개인'}</div>
             <div className="text-2xl font-bold py-2">{'솔바 봇 매니저'}</div>
             <div className="text-sm">{'솔바 봇의 관리자 웹앱'}</div>
@@ -185,10 +242,18 @@ export default function Portfolio() {
             onClick={() => {
               router.push('/portfolio/solvaagora');
             }}
-            className="py-4 px-2 cursor-pointer"
+            className="py-4 px-2 cursor-pointer hover:shadow-lg rounded-lg transition duration-300 ease-in-out"
             style={{ maxWidth: '400px', minWidth: '200px' }}
           >
-            <div className="bg-black h-44 rounded-xl"></div>
+            <div className="h-48">
+              <Image
+                className="rounded-xl"
+                src={'/assets/solvaagora_thumb.png'}
+                alt="hiagile"
+                width={300}
+                height={200}
+              ></Image>
+            </div>
             <div className="text-sm font-semibold pt-5">{'개인'}</div>
             <div className="text-2xl font-bold py-2">{'솔바 아고라'}</div>
             <div className="text-sm">{'솔바테크놀러지의 아고라 웹앱'}</div>
