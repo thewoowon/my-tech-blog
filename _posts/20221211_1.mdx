@@ -21,42 +21,111 @@ name: '20221211_1'
 
 ## 📌 useState
 
-useState는 가장 기본적인 훅이다. 이 훅을 사용하면 함수형 컴포넌트에서도 상태를 관리할 수 있다.
+useState는 가장 기본적인 훅이며, 매우 빈번하게 많이 사용되는 훅이다.
+타입스크립트가 아닌 자바스크립드 기반의 환경에서는 굳이 useState에 제네릭을 사용하지 않아도 된다.
+(물론 타입스크립트에서도 사용하지 않아도 된다.)
+하지만 난 타입스크립트 기반으로 진행했던 프로젝트에서 대부분 타입을 지정해줬다.
+그렇기 때문에 가급적이면 타입을 지정해주면 좋을 것 같다.
 
-```jsx
+사용법은 아래와 같다.
+
+```tsx
 import React, { useState } from 'react';
 
 function Example() {
-  // Declare a new state variable, which we'll call "count"
+  // count라는 상태를 선언하고, setCount라는 상태를 바꿀 수 있는 함수를 선언한다.
+  // 0으로 초기화 한다.
   const [count, setCount] = useState(0);
 
   return (
     <div>
       <p>You clicked {count} times</p>
+      {/* 버튼을 클릭할 때마다 count가 1씩 증가한다. */}
+      {/* onClick 이벤트가 발생할 때마다 setCount 함수를 호출하면서 기존의 count에 1을 더해준다. */}
       <button onClick={() => setCount(count + 1)}>
-        Click me
+        Click me!
       </button>
     </div>
   );
 }
 ```
 
-useState는 배열을 반환한다. 첫 번째 원소는 현재 상태이고, 두 번째 원소는 상태를 바꿀 수 있는 함수이다.
+선언부를 보면 useState는 배열을 반환한다. 
+첫 번째 원소는 현재 상태이고, 두 번째 원소는 상태를 바꿀 수 있는 함수이다.
+두 번째 원소는 상태를 변경하는데 메모리상의 주소에 저장되어 있는 변수값을 직접 변경한다.
+이어서 리액트는 상태변경을 감지하고 재렌더링을 한다.
+
+alias를 호출해서 상태변경 함수를 거치지 않고 임의로 변경한다면 
+리액트가 상태변경을 감지하지 못하고 렌더링을 하지 않는다.
+그렇기 때문에 부분적인 재렌더링이 필요하다면 반드시 상태변경 함수를 거쳐야 한다.
+
+제네릭을 한번 추가해보자.
+
+```tsx
+import React, { useState } from 'react';
+
+function Example() {
+  // count라는 상태를 선언하고, setCount라는 상태를 바꿀 수 있는 함수를 선언한다.
+  // 0으로 초기화 한다.
+  const [count, setCount] = useState<number | undefined>();
+
+  return (
+    <div>
+      <p>You clicked {count} times</p>
+      <button onClick={() => setCount(count + 1)}>
+        Click me!
+      </button>
+    </div>
+  );
+}
+```
+
+제네릭으로 타입을 지정해주면 타입을 지정해주지 않은 경우보다 더 정확한 타입을 지정해줄 수 있다.
+number와 undefined를 OR 조건으로 사용해서 타입을 지정해주었다.
+초기화를 하지 않았기 때문에 undefined가 들어가게 된다.
+
+그런데 이때 상태변경이 일어난다면 에러가 발생한다.
+undefined는 number 타입에 속하지 않기 때문이다.
+이런 경우에는 초기화를 해주면 된다.
+아니면 상태를 확인하고 상황에 따라서 undefined는 0으로 초기화한다.
+
+```tsx
+import React, { useState } from 'react';
+
+function Example() {
+  // count라는 상태를 선언하고, setCount라는 상태를 바꿀 수 있는 함수를 선언한다.
+  // 0으로 초기화 한다.
+  const [count, setCount] = useState<number | undefined>(0);
+
+  return (
+    <div>
+      <p>You clicked {count} times</p>
+      <button onClick={() => setCount(count + 1)}>
+        Click me!
+      </button>
+    </div>
+  );
+}
+```
 
 ## 📌 useEffect
 
 useEffect는 리액트 컴포넌트가 렌더링 될 때마다 특정 작업을 수행할 수 있도록 하는 훅이다.
+useState와 함께 가장 많이 사용되는 훅이다.
+특정 변수를 타게팅해서 그 변수가 변경될 때만 특정 작업을 수행하도록 할 수도 있다.
 
-```jsx
+코드를 한번 보자.
+
+```tsx
 
 import React, { useState, useEffect } from 'react';
 
 function Example() {
   const [count, setCount] = useState(0);
 
-  // Similar to componentDidMount and componentDidUpdate:
+  // 클래스 방식의 componentDidMount와 componentDidUpdate가 비슷한 역할을 한다.
   useEffect(() => {
-    // Update the document title using the browser API
+    // 내장 객체 doucment의 title을 변경한다.
     document.title = `You clicked ${count} times`;
   });
 
@@ -71,19 +140,22 @@ function Example() {
 }
 ```
 
-useEffect는 기본적으로 렌더링 될 때마다 매번 실행된다. 이를 방지하기 위해 useEffect의 두 번째 인자로 빈 배열을 넣어주면 된다.
+useEffect는 기본적으로 렌더링 될 때마다 매번 실행된다. 
+이를 방지하기 위해 useEffect의 두 번째 인자로 빈 배열을 넣어주면 된다.
 
-```jsx
-
+```tsx
+// 두 번째 인자로 빈 배열을 넣어주면 componentDidMount와 같은 역할을 한다.
+// 두 번째 인자에 빈 배열이 들어가면 컴포넌트가 처음 렌더링 될 때만 실행된다.
 useEffect(() => {
   document.title = `You clicked ${count} times`;
 }, []);
 ```
 
-useEffect는 렌더링 될 때마다 매번 실행되는 것이 아니라, 특정 값이 업데이트 될 때만 실행되도록 할 수 있다.
+useEffect는 렌더링 될 때마다 매번 실행되는 것이 아니라, 
+특정 값이 업데이트 될 때만 실행되도록 할 수 있다.
 
-```jsx
-
+```tsx
+// count를 추척한다.
 useEffect(() => {
   document.title = `You clicked ${count} times`;
 }, [count]);
@@ -93,16 +165,39 @@ useEffect(() => {
 
 useContext는 Context API를 사용할 때 편리하게 사용할 수 있는 훅이다.
 
-```jsx
-import React, { useContext } from 'react';
+```tsx
+import type { AppProps } from 'next/app';
 
-const MyContext = React.createContext(defaultValue);
+const defaultValue = {
+  name: 'default',
+  age: 0,
+};
+
+export const MyContext = React.createContext(defaultValue);
+
+function MyApp({ Component, pageProps }: AppProps) {
+
+  return (
+    <MyContext.Provider>
+      <Component {...pageProps} />
+    </MyContext.Provider>
+  );
+}
+
+export default MyApp;
+```
+
+```tsx
+import React, { useContext } from 'react';
+import { MyContext } from '../pages/_app';
 
 function MyComponent() {
   const value = useContext(MyContext);
-  /* render something based on the value */
+  return <div>{value.name}</div>;
 }
 ```
+
+Provider로 감싸지면 내부에 렌더링되는 컴포넌트는 모두 MyContext를 사용할 수 있다.
 
 ## 📌 useReducer
 
@@ -220,10 +315,10 @@ function App() {
 
   return (
     <>
-      <h1 style={styles}>Вычисляемое свойство: {computed}</h1>
-      <button className="btn btn-success" onClick={() => setNumber(prev => prev + 1)}>Добавить</button>
-      <button className="btn btn-danger" onClick={() => setNumber(prev => prev - 1)}>Убрать</button>
-      <button className="btn btn-warning" onClick={() => setColored(prev => !prev)}>Изменить</button>
+      <h1 style={styles}>{computed}</h1>
+      <button className="btn btn-success" onClick={() => setNumber(prev => prev + 1)}>증가</button>
+      <button className="btn btn-danger" onClick={() => setNumber(prev => prev - 1)}>감소</button>
+      <button className="btn btn-warning" onClick={() => setColored(prev => !prev)}>색변경</button>
     </>
   );
 }
@@ -270,13 +365,13 @@ function App() {
           ref={ref}
           type="text"
           id="title"
-          placeholder="Введите название дела"
+          placeholder="할일 제목"
           value={todoTitle}
           onChange={event => setTodoTitle(event.target.value)}
           onKeyPress={addTodo}
         />
         <label htmlFor="title" className="active">
-          Введите название дела
+          할일 제목
         </label>
       </div>
 

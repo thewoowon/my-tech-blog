@@ -10,6 +10,7 @@ import '../public/static/fonts/style.css';
 import { MDXProvider } from '@mdx-js/react';
 import { Toaster } from 'react-hot-toast';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { useContext } from 'react';
 
 function MyApp({ Component, pageProps }: AppProps) {
   const queryClient = new QueryClient({
@@ -20,7 +21,6 @@ function MyApp({ Component, pageProps }: AppProps) {
       },
     },
   });
-
   return (
     <QueryClientProvider client={queryClient}>
       <MdxComponentsProvider>
