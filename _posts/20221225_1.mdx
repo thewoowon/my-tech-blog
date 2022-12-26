@@ -1,19 +1,183 @@
 ---
-title: 그리디 알고리즘 시리즈 1
-description: 그리디 알고리즘 시리즈 1
+title: Greedy Algorithm Series (1)
+description: Greedy Algorithm Series (1)
 thumbnail: /assets/greedy.png
 prerequisites: ['우원', '주니어 개발자','성장 중','안녕하세요👏 새로운 영감을 주는 일과 꾸준한 성장을 즐기는 우원입니다.']
-stacks: ['HACKERRANK']
+stacks: ['알고리즘']
 writer: 우원
 date: '2022-12-25'
 name: '20221225_1' 
 ---
 
-# 그리디 알고리즘 시리즈 1
+# 😆 그리디 알고리즘 시리즈 1
 그리디 알고리즘을 조금 깊게 공부해보면 좋을 것 같아서 정리해보았다.
 공부를 하면서 범위가 넓어지면서 시리즈로 나누어서 정리해보았다.
-시리즈 1을 시작하면서 나도 많이 공부하게 되었고, 기본이 많이 부족하다는 것을 느꼈다.
+시리즈 1을 작성하면서 나도 많이 공부하게 되었고, 기본이 많이 부족하다는 것을 느꼈다.
 역시 기본으로 돌아가서 기본이 충실한 사람이 되어야겠다.
 내실을 튼튼히 해야만 흔들리지 않을 것 같다.
 
 시작하겠다.
+
+# 🧐 그리디 알고리즘이란?
+그리디 알고리즘은 '가장 좋아 보이는' 해답을 선택하는 알고리즘이다.
+즉 그리디 방법은 지역적인 최적의 해결 방법으로부터 전역적인 최적의 해결 방법을 구성하는 것이다.
+
+<div className="flex justify-center items-center py-5">
+  <img style={{"maxWidth":"500px","minWidth":"360px"}} src="https://imagedelivery.net/6qzLODAqs2g1LZbVYqtuQw/857cc21f-6412-4b09-585e-2663ee3f8100/public" alt="spring"/>
+</div>
+
+다음의 그림은 서울역에서 영등포역까지 가는 최단 경로를 보여준다.
+여기 경로상에 있는 임의의 두 지점을 선택할 경우, 
+이 두 지점의 최단 이동 거리는 처음에 구한 전체 최단 경로를 따라 이동함으로써 구할 수 있다.
+
+사실 전체 최단 경로는 해당 경로상에 존재하는 다수의
+지점 사이클 최단 거리 경로로 모두 연결한 것으로 볼 수 있다.
+그렇기 때문에 어느 두 지점 사이의 최단 경로를 구하기 위하여
+다음과 같은 방법을 사용할 수 있다.
+즉, 출발 지점에서 아직 방문하지 않은 가장 가까운 지점까지의 경로를 찾고, 
+이를 목적 지점에 다다를 때까지 반복하는 것이다.
+거의 모든 지도 Saas 서비스의 지도에서 사용되는 다익스트라의 기본 개념이다.
+
+하지만 그리디 접근 방식은 너무 단순하다. 
+그렇기 때문에 몇몇 알고리즘 문제에서만 적용할 수 있다.
+그 예로 앞서 살펴 보았던 DP편에서 최소 동전 교환 개수를 구하는 문제에서는
+그리디 방법으로 최적해를 도출하지 못했었다.
+
+그리디 방법이 단순하긴 하지만 이를 통해 문제에 대한 해결 방법을 떠올리는 것은
+매우 중요하고 좋은 초석이 될 수 있다고 확신한다.
+
+# 🎯 최단 작업 우선 스케쥴링
+사람들이 화장실 앞에서 볼 일을 보기 위해 줄을 서는 것을 생각해 보자.
+사람들마다 정량적 사용하는 시간이 정해져 있고 그 값이 각각 상이하다고 한다.
+사람들은 인내심을 발휘해서 볼 일을 조금 더 참더라도 전체 평균 대기시간이
+줄어드는 것을 선택한다고 했을 때, 대기 순서를 어떻게 변경해야 할까?
+
+### 📌 처음 대기열 순서
+<div className="flex justify-center items-center">
+<table className="border border-zinc-800">
+  <thead>
+    <tr>
+      <th className="px-10">이름</th>
+      <th className="px-10">볼일 시간</th>
+      <th className="px-10">누적 대기 시간</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr className="border border-zinc-800">
+      <td className="text-center">A</td>
+      <td className="text-center">8</td>
+      <td className="text-center">0</td>
+    </tr>
+    <tr className="border border-zinc-800">
+      <td className="text-center">B</td>
+      <td className="text-center">1</td>
+      <td className="text-center">8</td>
+    </tr>
+    <tr className="border border-zinc-800">
+      <td className="text-center">C</td>
+      <td className="text-center">2</td>
+      <td className="text-center">9</td>
+    </tr>
+    <tr className="border border-zinc-800">
+      <td className="text-center">D</td>
+      <td className="text-center">4</td>
+      <td className="text-center">11</td>
+    </tr>
+    <tr className="border border-zinc-800">
+      <td className="text-center">E</td>
+      <td className="text-center">9</td>
+      <td className="text-center">15</td>
+    </tr>
+    <tr className="border border-zinc-800">
+      <td className="text-center">F</td>
+      <td className="text-center">2</td>
+      <td className="text-center">24</td>
+    </tr>
+    <tr className="border border-zinc-800">
+      <td className="text-center">G</td>
+      <td className="text-center">3</td>
+      <td className="text-center">26</td>
+    </tr>
+    <tr className="border border-zinc-800">
+      <td className="text-center">H</td>
+      <td className="text-center">5</td>
+      <td className="text-center">29</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+위의 순서로 따져 보았을 때, 평균 대기 시간은 15.25분이다.
+
+가장 작은 평균 대기 시간을 만드는 것은 상식적으로 생각해보면,
+가장 적게 볼 일을 하는 사람부터 볼 일을 보는 것이다.
+그렇기 때문에 볼일 시간이 가장 작은 순서대로 정렬을 하면 된다.
+
+### 📌 최소 대기 시간 대기열 순서
+
+<div className="flex justify-center items-center">
+<table className="border border-zinc-800">
+  <thead>
+    <tr>
+      <th className="px-10">이름</th>
+      <th className="px-10">볼일 시간</th>
+      <th className="px-10">누적 대기 시간</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr className="border border-zinc-800">
+      <td className="text-center">B</td>
+      <td className="text-center">1</td>
+      <td className="text-center">0</td>
+    </tr>
+    <tr className="border border-zinc-800">
+      <td className="text-center">C</td>
+      <td className="text-center">2</td>
+      <td className="text-center">1</td>
+    </tr>
+    <tr className="border border-zinc-800">
+      <td className="text-center">F</td>
+      <td className="text-center">2</td>
+      <td className="text-center">3</td>
+    </tr>
+    <tr className="border border-zinc-800">
+      <td className="text-center">G</td>
+      <td className="text-center">3</td>
+      <td className="text-center">5</td>
+    </tr>
+    <tr className="border border-zinc-800">
+      <td className="text-center">D</td>
+      <td className="text-center">4</td>
+      <td className="text-center">8</td>
+    </tr>
+    <tr className="border border-zinc-800">
+      <td className="text-center">H</td>
+      <td className="text-center">5</td>
+      <td className="text-center">12</td>
+    </tr>
+    <tr className="border border-zinc-800">
+      <td className="text-center">A</td>
+      <td className="text-center">8</td>
+      <td className="text-center">17</td>
+    </tr>
+    <tr className="border border-zinc-800">
+      <td className="text-center">E</td>
+      <td className="text-center">9</td>
+      <td className="text-center">25</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+평균 대기 시간은 8.8분이다.
+퍼포먼스 측면으로 볼 때 두 배 이상의 성능 향상을 보인다.
+
+
+# 🎯 배낭 문제
+
+
+
+
+
+
+
