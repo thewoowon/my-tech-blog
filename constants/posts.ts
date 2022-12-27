@@ -20,3 +20,9 @@ export const distribution = [
   '그룹 프로젝트',
   '기타',
 ];
+
+export const projects = [
+  {
+    id: 1,
+  },
+];

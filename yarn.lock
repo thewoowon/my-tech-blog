@@ -8523,6 +8523,18 @@ rc@1.2.8, rc@^1.0.1, rc@^1.1.6, rc@^1.2.1, rc@^1.2.7, rc@^1.2.8:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
+react-chatbot-kit@^2.1.2:
+  version "2.1.2"
+  resolved "https://registry.yarnpkg.com/react-chatbot-kit/-/react-chatbot-kit-2.1.2.tgz#c7e07760c37cde00d8ab5024472b9c10f4ece43a"
+  integrity sha512-N9bhg7/YnVz3TcNaV19szfBqCLHfVevisdqg38QowOI1hxgebwejrkggGz+T04yJK2j7dhwNqHpx5nWMfugzZw==
+  dependencies:
+    react-conditionally-render "^1.0.2"
+
+react-conditionally-render@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/react-conditionally-render/-/react-conditionally-render-1.0.2.tgz#9ff3c3fb6b76c1cfaae64429285fa99c6d275fb5"
+  integrity sha512-CtjIgaLHVDSgHis3gv/PT/8EnD6GPUL8PrhUjh7DP6S5Y3p56dGu7y2nVg6pYv1kv+fGznRhRmX3assr/vRw3A==
+
 react-dom@18.2.0:
   version "18.2.0"
   resolved "https://registry.npmjs.org/react-dom/-/react-dom-18.2.0.tgz"

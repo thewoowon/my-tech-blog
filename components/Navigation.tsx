@@ -46,7 +46,7 @@ const Navigation = (): JSX.Element => {
             fontFamily: 'Noto Sans KR Light',
           }}
         >
-          포트폴리오
+          프로젝트
         </a>
       </Link>
       <Link href="https://github.com/thewoowon">
