@@ -172,8 +172,251 @@ name: '20221225_1'
 평균 대기 시간은 8.8분이다.
 퍼포먼스 측면으로 볼 때 두 배 이상의 성능 향상을 보인다.
 
-
 # 🎯 배낭 문제
+배낭에 넣은 물건들의 가치의 합이 최대가 되도록 하는 문제이다.
+
+### 📌 NP-Complete 문제
+일반 배낭 문제는 NP-Complete 문제이다.(0-1 배낭 문제) 
+그렇기 때문에 다항 시간 솔루션을 사용할 수 없다.
+
+여기서 NP란 Non-deterministic Polynomial의 약자로,
+다항 시간에 비결정론적으로 해결 가능한 문제들의 집합을 말한다.
+
+### 📌 0-1 배낭 문제
+물건들의 집합 S와 각 물건의 무게 w와 가치 v가 주어졌을 때,
+배낭의 용량이 W를 넘지 않으면서 배낭에 넣을 수 있는 물건들의 가치의 합이 최대가 되도록 하는 문제이다.
+
+조선 시대의 보부상을 떠올려보자. 매출의 일정 비율이 항상 이익으로 떨어지는데, 이익을 극대화 하려면 비싼 물건들을 가지고 다니면서
+팔아야하지만 보부상이 사용할 수 있는 배낭은 오래되어 무게가 10kg이 한계다. 그렇다면 어떤 물건들을 가지고 다니면서 팔아야 이익이 극대화 될까?
+
+### 📌 일반 배낭 문제의 예
+
+<div className="flex justify-center items-center">
+<table className="border border-zinc-800">
+  <thead>
+    <tr>
+      <th className="px-10">물건</th>
+      <th className="px-10">무게</th>
+      <th className="px-10">가격</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr className="border border-zinc-800">
+      <td className="text-center">O1</td>
+      <td className="text-center">1</td>
+      <td className="text-center">10</td>
+    </tr>
+    <tr className="border border-zinc-800">
+      <td className="text-center">O2</td>
+      <td className="text-center">2</td>
+      <td className="text-center">7</td>
+    </tr>
+    <tr className="border border-zinc-800">
+      <td className="text-center">O3</td>
+      <td className="text-center">5</td>
+      <td className="text-center">15</td>
+    </tr>
+    <tr className="border border-zinc-800">
+      <td className="text-center">O4</td>
+      <td className="text-center">9</td>
+      <td className="text-center">10</td>
+    </tr>
+    <tr className="border border-zinc-800">
+      <td className="text-center">O5</td>
+      <td className="text-center">2</td>
+      <td className="text-center">12</td>
+    </tr>
+    <tr className="border border-zinc-800">
+      <td className="text-center">O6</td>
+      <td className="text-center">3</td>
+      <td className="text-center">11</td>
+    </tr>
+    <tr className="border border-zinc-800">
+      <td className="text-center">O7</td>
+      <td className="text-center">4</td>
+      <td className="text-center">5</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+전체 무게 8을 맞추기 위해서 O1, O3, O5을 넣으면 가치의 합이 37이 되는 반면,
+위의 테이블에서 전체 무게 8을 맞추기 위해서 O1, O2, O5, O6을 넣으면 가치의 합이 40이 된다.
+결과적으로 40이 최대가 된다.
+
+### 📌 분할 가능한 배낭 문제
+일반 배낭 문제와는 반대로 물건의 일부만 담을 수 있고,
+물건을 분할하는 것은 무제한으로 할 수 있다고 가정해보자.
+
+실생활에서 예를 들어보면 리터당 파는 기름이나, 무게당 무게를 달아서 파는 고기, 곡식, 파우더 종류의 물건들이 있다.
+배낭속은 엉망이겠지만, 원하는 양만큼 담을 수 있다.
+
+<div className="flex justify-center items-center">
+<table className="border border-zinc-800">
+  <thead>
+    <tr>
+      <th className="px-10">물건</th>
+      <th className="px-10">무게</th>
+      <th className="px-10">가격</th>
+      <th className="px-10">가격/무게</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr className="border border-zinc-800 bg-blue-300">
+      <td className="text-center">O1</td>
+      <td className="text-center">1</td>
+      <td className="text-center">10</td>
+      <td className="text-center">10</td>
+    </tr>
+    <tr className="border border-zinc-800 bg-blue-300">
+      <td className="text-center">O2</td>
+      <td className="text-center">2</td>
+      <td className="text-center">7</td>
+      <td className="text-center">3.5</td>
+    </tr>
+    <tr className="border border-zinc-800">
+      <td className="text-center">O3</td>
+      <td className="text-center">5</td>
+      <td className="text-center">15</td>
+      <td className="text-center">3</td>
+    </tr>
+    <tr className="border border-zinc-800">
+      <td className="text-center">O4</td>
+      <td className="text-center">9</td>
+      <td className="text-center">10</td>
+      <td className="text-center">1.11</td>
+    </tr>
+    <tr className="border border-zinc-800 bg-blue-300">
+      <td className="text-center">O5</td>
+      <td className="text-center">2</td>
+      <td className="text-center">12</td>
+      <td className="text-center">6</td>
+    </tr>
+    <tr className="border border-zinc-800 bg-blue-300">
+      <td className="text-center">O6</td>
+      <td className="text-center">3</td>
+      <td className="text-center">11</td>
+      <td className="text-center">3.67</td>
+    </tr>
+    <tr className="border border-zinc-800">
+      <td className="text-center">O7</td>
+      <td className="text-center">4</td>
+      <td className="text-center">5</td>
+      <td className="text-center">1.25</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+앞서 배낭에 담을 수 있는 무게가 최대가 8일 때, 최대값은 40이었다.
+무게당 가격도 함께 살펴보면 무게당 가격이 높은 순으로 매겨졌던 것을 볼 수 있다.
+
+### 📌 최소 신장 트리 문제
+최소 신장 트리 문제는 그래프에서 모든 정점을 포함하는 트리를 찾는 문제이다.
+트리는 사이클이 없는 그래프이며, 모든 정점을 포함하는 트리는 신장 트리라고 한다.
+에지의 가중치 합 최소가 되는 신장 트리를 찾는 문제이다.
+
+줄인 말로 MST라고도 한다.
+가장 쉬운 예로 상수도관을 설계하는 것을 예로 들 수 있다.
+상수도는 모든 집을 연결해야 하며, 각 집마다 연결하는 비용이 다를 수 있다.
+그렇기 때문에 최소 비용으로 모든 집을 연결하는 이익이다.
+
+아래의 그래프를 살펴보도록 하자.
+
+<div className="flex justify-center items-center w-full" style={{"height":"300px"}}>
+  <div className="relative w-8/12 h-full">
+    <div className="animate-pulse left-0 absolute flex justify-center items-center w-16 h-16 rounded-full bg-blue-300">1</div>
+    <div className="animate-pulse left-0 top-20 absolute flex justify-center items-center w-16 h-16 rounded-full bg-blue-300">2</div>
+    <div className="animate-pulse left-24 top-40 absolute flex justify-center items-center w-16 h-16 rounded-full bg-blue-300">3</div>
+    <div className="animate-pulse left-48 top-20 absolute flex justify-center items-center w-16 h-16 rounded-full bg-blue-300">4</div>
+    <div className="animate-pulse left-60 top-0 absolute flex justify-center items-center w-16 h-16 rounded-full bg-blue-300">5</div>
+    <div className="animate-pulse right-0 top-20 absolute flex justify-center items-center w-16 h-16 rounded-full bg-blue-300">6</div>
+    <div className="animate-pulse right-16 top-36 absolute flex justify-center items-center w-16 h-16 rounded-full bg-blue-300">7</div>
+    <div className="animate-pulse right-0 top-0 absolute flex justify-center items-center w-16 h-16 rounded-full bg-blue-300">8</div>
+  </div>
+</div>
+
+에지와 가중치의 표현은 표로 대신하도록 하겠다.
+(추후에 작업 후 업데이트 예정)
+
+싸이클이 없고 무방향이다.
+<div className="bg-gray-50 my-4 px-4 py-2 border-l-4 border-green-400 hover:bg-gray-100 hover:border-indigo-400 transition duration-300 ease-in-out">
+1 - 2 : 2<br></br>
+1 - 5 : 3<br></br>
+2 - 4 : 1<br></br>
+2 - 5 : 5<br></br>
+3 - 4 : 2<br></br>
+3 - 7 : 3<br></br>
+4 - 5 : 2<br></br>
+4 - 6 : 4<br></br>
+4 - 8 : 5<br></br>
+5 - 8 : 3<br></br>
+6 - 7 : 4<br></br>
+6 - 8 : 1
+</div>
+
+이제 그리디 알고리즘으로 그래프에서 최소 신장 트리를 찾아보도록 하자.
+
+1. 그래프에서 모든 에지를 최소힙에 넣는다.
+2. 최소힙으로부터 에지를 하나씩 꺼낸다. 이때 에지의 가중치가 작은 것부터 꺼내진다.
+3. 최소힙으로 부터 꺼낸 에지의 값이 이미 구성중인 트리에 있을 경우, 이로인해서 싸이클이 발생할 수 있기 때문에 해당 에지는 무시한다. 그리고 다시 2번으로 돌아간다.
+4. 최소힙으로 부터 꺼낸 에지의 값이 이미 구성중인 트리에 없을 경우, 해당 에지를 트리에 추가한다. 그리고 다시 2번으로 돌아간다.
+
+위의 방법을 반복해서 얻어진 에지와 정점은 최소 신장 트리를 구성할 수 있다.
+매번 반복마다 최소 에지 가중치를 선택하기 때문에(최소힙) 그리디한 방식으로 볼 수 있다.
+
+<div className="bg-gray-50 my-4 px-4 py-2 border-l-4 border-green-400 hover:bg-gray-100 hover:border-indigo-400 transition duration-300 ease-in-out">
+<div className='bg-blue-300'>1 - 2 : 2</div>
+<div>1 - 5 : 3</div>
+<div className='bg-blue-300'>2 - 4 : 1</div>
+<div>2 - 5 : 5</div>
+<div className='bg-blue-300'>3 - 4 : 2</div>
+<div className='bg-blue-300'>3 - 7 : 3</div>
+<div className='bg-blue-300'>4 - 5 : 2</div>
+<div>4 - 6 : 4</div>
+<div>4 - 8 : 5</div>
+<div className='bg-blue-300'>5 - 8 : 3</div>
+<div>6 - 7 : 4</div>
+<div className='bg-blue-300'>6 - 8 : 1</div>
+</div>
+
+위 그래프의 최소 신장 트리 가중치의 정답은 가중치의 합이 14가 되는 것이고
+연결된 에지는 위와 같다.
+
+### 📌 디스조인트-셋 자료 구조
+디스조인트-셋 또는 유니온-파인드 자료구조는 트리 형태의 원소로 구성된 자료구조이다.
+각각의 원소는 숫자 ID에 의해 표현되고, 랭크(Rank)와 부모에 대한 포인터를 가진다.
+디스조인트-셋 자료구조가 초기화되면 랭크가 0인 N개의 독립적인 원소가 생성되고,
+각각의 원소는 하나의 트리를 나타내게된다.
+
+디스조인트-셋 자료구조는 다음의 연산을 지원한다.
+- makeSet(x)
+<div className="bg-gray-50 my-4 px-4 py-2 border-l-4 border-green-400 hover:bg-gray-100 hover:border-indigo-400 transition duration-300 ease-in-out">
+  x를 ID로 갖는 원소를 디스조인트-셋 자료 구조에 추가한다. 새로 추가한 원소의 랭크는 0이되고, 원소의 부모 포인터는 자기 자신을 가리키도록 설정한다.
+</div>
+- union(x, y)
+<div className="bg-gray-50 my-4 px-4 py-2 border-l-4 border-green-400 hover:bg-gray-100 hover:border-indigo-400 transition duration-300 ease-in-out">
+  두 개의 원소 x와 y에 대해 union 연산을 수행하면 먼저 x와 y의  루트를 찾는다. 만약 두 루트가 같으면 이는 x와 y가 같은 트리에 속해 있다는 것이고,
+  이 경우에는 아무런 작업을 하지 않게 된다. 만약 두 루트가 다르다면, 두 트리를 하나의 트리로 합치는데, 이때 랭크가 더 높은 트리의 루트가 랭크가 더 낮은 트리의 루트를 가리키도록 한다.
+</div>
+- find(x)
+<div className="bg-gray-50 my-4 px-4 py-2 border-l-4 border-green-400 hover:bg-gray-100 hover:border-indigo-400 transition duration-300 ease-in-out">
+  원소 x에서 시작해서 부모 포인터를 따라 반복적으로 이동하여 트리의 루트를 반환한다.
+  참고로 루트 원소의 부모는 자기 자신을 가리키도록 설정되어 있다.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
