@@ -13,7 +13,11 @@ export default function Portfolio() {
   const animateDiv_2 = useScrollFadeIn();
 
   return (
-    <Layout>
+    <Layout
+      customMeta={{
+        title: '우원 기술 블로그 | PROJECT',
+      }}
+    >
       <div
         {...animateDiv_1}
         className="flex justify-center items-center pt-12 text-6xl font-bold"

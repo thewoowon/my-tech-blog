@@ -278,7 +278,11 @@ const PostPage = ({ source, frontMatter, ip }: Props): JSX.Element => {
 
   return (
     <React.Fragment>
-      <Layout>
+      <Layout
+        customMeta={{
+          title: '우원 기술 블로그 | POST',
+        }}
+      >
         <div style={{ borderBottom: '1px solid rgba(180,180,180,0.5)' }}>
           <div className="max-w-5xl px-8 py-4 mx-auto relative">
             <div className="flex justify-start items-center mt-1 mb-0">

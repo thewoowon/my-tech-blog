@@ -32,7 +32,7 @@ const Tech: NextPage<Props> = ({ posts }: Props) => {
   return (
     <Layout
       customMeta={{
-        title: '우원 기술 블로그 | TECH',
+        title: '우원 기술 블로그 | POST',
       }}
     >
       <div className="m-auto flex" style={{ width: '1024px' }}>
