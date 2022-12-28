@@ -86,14 +86,4 @@ export const projects: ProjectType[] = [
     description: '솔바 봇의 관리자 웹앱',
     stacks: ['.NET', 'Blazor'],
   },
-  {
-    id: 8,
-    router: '/portfolio/solvaagora',
-    image: '/assets/solvaagora_thumb.png',
-    path: 'solvaagora',
-    title: '솔바 아고라',
-    type: 'Personal',
-    description: '솔바테크놀러지의 아고라 웹앱',
-    stacks: ['.NET', 'Blazor'],
-  },
 ];
