@@ -2,7 +2,7 @@ import React from 'react';
 import CommonSliderBody from '../../components/CommonSliderBody';
 import CommonSliderHead from '../../components/CommonSliderHead';
 import Layout from '../../components/Layout';
-import WMCSlider from '../../components/wmcSlider';
+import WMCSlider from '../../components/WMCSlider';
 
 export default function WMC() {
   return (
