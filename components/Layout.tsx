@@ -71,7 +71,7 @@ const Layout = ({ children, customMeta }: LayoutProps): JSX.Element => {
         style={{ borderTop: '0.5px solid rgba(230,230,230,1)' }}
       >
         <div
-          className="flex mx-auto h-full items-center"
+          className="flex flex-wrap mx-auto h-full items-center"
           style={{ maxWidth: '1080px' }}
         >
           <div>
@@ -81,11 +81,14 @@ const Layout = ({ children, customMeta }: LayoutProps): JSX.Element => {
               height={90}
             ></Image>
           </div>
-          <div {...animateDiv_1} className="px-10 text-4xl font-bold">
+          <div
+            {...animateDiv_1}
+            className="px-10 text-2xl lg:text-4xl font-bold"
+          >
             안녕하세요 👏 우원입니다!
           </div>
           <span className="mx-auto"></span>
-          <div className="flex">
+          <div className="flex flex-wrap gap-10">
             <Link href="/">
               <a
                 className="text-black transition duration-200 ease-in-out  dark:text-white pr-6 py-4 hover:text-gray-500"
