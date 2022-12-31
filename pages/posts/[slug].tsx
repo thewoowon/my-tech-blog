@@ -186,6 +186,7 @@ const PostPage = ({ source, frontMatter, ip }: Props): JSX.Element => {
       },
       onSuccess: (data, variables, context) => {
         toast.success('감사합니다!', {
+          icon: '👏',
           position: 'bottom-center',
         });
         queryClient.invalidateQueries([

@@ -1,11 +1,106 @@
 ---
-title: Greedy Algorithm Series (2)
-description: Greedy Algorithm Series (2)
-thumbnail: /assets/greedy.png
+title: Graph Algorithm Series (1)
+description: Greedy Algorithm Series (1)
+thumbnail: /assets/graph_beautiful.png
 prerequisites: ['우원', '주니어 개발자','성장 중','안녕하세요👏 새로운 영감을 주는 일과 꾸준한 성장을 즐기는 우원입니다.']
 stacks: ['알고리즘']
 writer: 우원
 date: '2022-12-29'
 name: '20221229_1' 
 ---
+
+# 🧩 Graph Algorithm Series (1)
+이전 장에서는 Graph Algorithm이란 무엇인지, 어떤 상황에서 사용해야 하는지에 대해 알아보겠다.
+
+# 📊 Graph 자료 구조 공략하기
+
+### 🧐 Graph란?
+그래프는 정점(Vertax)의 집합과 정점들을 서로 잇는 간선(Edge)의 집합으로 이루어진 자료 구조이다. 
+수학적으로 표현하면 그래프 G = [V, E] 형태태로 표현하고,
+여기서 V는 정점의 집합, E는 간선의 집합을 의미한다.
+
+만약에 에지가 특정 정점에서 다른 정점으로 향하는 방향성이 있다면, 방향 그래프(Directed Graph)라고 한다.
+반대로 에지가 양방향으로 향한다면, 무방향 그래프(Undirected Graph)라고 한다.
+추가로 에지에 가중치가 있다면, 가중치 그래프(Weighted Graph)라고 한다.
+반대로 에지에 가중치가 없다면 비가중치 그래프(Unweighted Graph)라고 한다.
+
+### 🧐 Node VS Vertax
+노드와 정점은 같은 의미이다. 그래프에서 정점은 노드와 같은 의미이다.
+
+### 🧐 Graph의 특징
+그래프는 매우 유연한 자료구조이다. 
+트리나 연결리스트와 같은 다른 연결된 자료 구조는 그래프의 특별한 형태라고 볼 수 있다.
+그래프는 객체와 객체 사이의 관계를 표현할 수 있어서 유용하다.
+그래프에서 두 정점 사이에는 여러 개의 에지가 있을 수도 있고, 또한 하나의 에지에 
+여러개의 가중치를 부여할 수도 있다. 특정 정점에서 나온 에지가 자기 자신으로
+연결되는 셀프 에지도 만들 수 있다.
+
+### 🧐 Graph의 범용성
+그래프는 범용성이 높은 자료 구조이다.
+그렇기 때문에 많은 응용 프로그램에서 사용되고 있다.
+Finite State Machine, Social Network, Web Crawling, Network Routing,
+Shortest Path, Minimum Spanning Tree 등 다양한 응용 프로그램에서 사용된다.
+
+# 📊 기본적인 그래프 순회 문제
+
+### 🧐 쉬운 예
+얼마 전에 새로운 도시로 이사를 했다. 새로운 동네에서 새로운 이웃을 만나다 보니
+사람들이 주변에 괜찮은 맛집을 추천해주었다. 어제 추천받은 맛집에 모두 방문해보고 싶어서
+지도 앱을 꺼내 우리 집과 맛집을 지도에 표현했다. 지도에는 이미 사용할 수 있는
+도로가 표시되어 있었고 나는 이를 이용해서 맛집은 정점으로 표현하고, 도로는 에지로 표현했다.
+우리 집에서 시작해서 모든 식당에 방문하려고 한다. 이때, 모든 식당을 방문하는 최단 경로를 찾아보자.
+
+위와 같은 문제가 그래프 순회 문제이다. 그래프 순회 문제는 그래프를 순회하면서
+모든 정점을 방문하는 문제이다.
+
+### 🧐 너비 우선 탐색(BFS)
+
+<div className="flex justify-center items-center py-5">
+  <img src="https://imagedelivery.net/6qzLODAqs2g1LZbVYqtuQw/5289b602-6141-4211-43bd-b831b9cde200/public" alt="spring"/>
+</div>
+
+그래프에서 너비 우선 탐색은 시작 정점을 어떤 경계에 추가하는 것이다.
+경계는 이전에 방문했던 정점들로 구성되고, 현재 경계에 인접한 정점을 반복적으로 탐색한다.
+
+<div className="flex justify-center items-center py-5">
+  <img src="https://imagedelivery.net/6qzLODAqs2g1LZbVYqtuQw/737f4f92-fde7-4117-47ae-c2cbf1133b00/public" alt="spring"/>
+</div>
+
+검은색 경계는 너비 우선 탐색에서 우선적으로 순회해야하는 정점들을 나타낸다.
+시작 정점으로부터 방문하는 정점들의 방문 순서는 임의로 정해도 된다.
+
+<div className="flex justify-center items-center py-5">
+  <img src="https://imagedelivery.net/6qzLODAqs2g1LZbVYqtuQw/96d7fe9c-56c8-447e-9c27-9b5a23902500/public" alt="spring"/>
+</div>
+
+### 🧐 너비 우선 탐색(BFS) 구현하기
+
+```python
+def bfs(graph, start):
+    visited = []
+    queue = [start]
+
+    while queue:
+        n = queue.pop(0)
+        if n not in visited:
+            visited.append(n)
+            queue.extend(graph[n])
+
+    return visited
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
