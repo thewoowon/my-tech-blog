@@ -50,32 +50,48 @@ Shortest Path, Minimum Spanning Tree 등 다양한 응용 프로그램에서 사
 도로가 표시되어 있었고 나는 이를 이용해서 맛집은 정점으로 표현하고, 도로는 에지로 표현했다.
 우리 집에서 시작해서 모든 식당에 방문하려고 한다. 이때, 모든 식당을 방문하는 최단 경로를 찾아보자.
 
+<div className="flex justify-center items-center py-5">
+  <img src="https://imagedelivery.net/6qzLODAqs2g1LZbVYqtuQw/58be8725-f388-4306-6802-ca2fd9605700/public" alt="spring"/>
+</div>
+
 위와 같은 문제가 그래프 순회 문제이다. 그래프 순회 문제는 그래프를 순회하면서
 모든 정점을 방문하는 문제이다.
 
 ### 🧐 너비 우선 탐색(BFS)
 
+앞서 보았던 맛집 문제를 너비 우선 탐색으로 풀어보자.
+
 <div className="flex justify-center items-center py-5">
-  <img src="https://imagedelivery.net/6qzLODAqs2g1LZbVYqtuQw/5289b602-6141-4211-43bd-b831b9cde200/public" alt="spring"/>
+  <img src="https://imagedelivery.net/6qzLODAqs2g1LZbVYqtuQw/56848040-559c-4102-2546-fde0faa84300/public" alt="spring"/>
 </div>
 
 그래프에서 너비 우선 탐색은 시작 정점을 어떤 경계에 추가하는 것이다.
 경계는 이전에 방문했던 정점들로 구성되고, 현재 경계에 인접한 정점을 반복적으로 탐색한다.
 
 <div className="flex justify-center items-center py-5">
-  <img src="https://imagedelivery.net/6qzLODAqs2g1LZbVYqtuQw/737f4f92-fde7-4117-47ae-c2cbf1133b00/public" alt="spring"/>
+  <img src="https://imagedelivery.net/6qzLODAqs2g1LZbVYqtuQw/740772f1-da7f-4964-b6d9-317531a87600/public" alt="spring"/>
 </div>
 
-검은색 경계는 너비 우선 탐색에서 우선적으로 순회해야하는 정점들을 나타낸다.
-시작 정점으로부터 방문하는 정점들의 방문 순서는 임의로 정해도 된다.
+우리집을 시작 정점으로 하고, 경계에 추가한다. 경계에는 우리집만 들어있고,
+현재 경계에 인접한 정점은 우리집과 연결된 정점이다.
 
 <div className="flex justify-center items-center py-5">
-  <img src="https://imagedelivery.net/6qzLODAqs2g1LZbVYqtuQw/96d7fe9c-56c8-447e-9c27-9b5a23902500/public" alt="spring"/>
+  <img src="https://imagedelivery.net/6qzLODAqs2g1LZbVYqtuQw/d378c412-c8bc-4b19-97c7-24148c495e00/public" alt="spring"/>
 </div>
+
+이 중에서 우리집과 연결된 정점 중
+아직 방문하지 않은 정점은 두 개이다. 이 두 정점을 경계에 추가한다.
+
+<div className="flex justify-center items-center py-5">
+  <img src="https://imagedelivery.net/6qzLODAqs2g1LZbVYqtuQw/10598379-7efa-4193-fc07-ad91b86a7400/public" alt="spring"/>
+</div>
+
+다음은 다시 정점과 연결된 R3, R5를 경계에 추가하고, R4, R6도 경계에 추가한다.
 
 ### 🧐 너비 우선 탐색(BFS) 구현하기
 
 ```python
+
 def bfs(graph, start):
     visited = []
     queue = [start]
@@ -88,6 +104,63 @@ def bfs(graph, start):
 
     return visited
 ```
+
+위의 알고리즘으로 우리집에서 시작해 모든 정점을 방문하는 순서는 우리집, R2, R1, R3, R5, R6, R4, R7이다.
+BFS는 일반적으로 queue를 활용해서 구현한다.
+먼저 시작 정점을 queue에 추가하고, queue가 빌 때까지 다음을 반복한다.
+시작점이 되는 정점을 queue에 추가하고 반복문을 돌면서 방문한 여부를 판단한다.
+이 때 중요한 점은 queue의 앞에서 부터 pop을 하고 확장을 한다는 것이다.
+연결된 정점을 queue에 추출 할때면 앞에서부터 조사하기 때문에 차례대로
+넓이 우선으로 연결된 정점을 추가한다.
+
+
+### 🧐 깊이 우선 탐색(DFS)
+이제 위의 우리 집에서 시작해 모든 정점을 깊이 우선으로 방문하는 순서를 알아보자.
+
+<div className="flex justify-center items-center py-5">
+  <img src="https://imagedelivery.net/6qzLODAqs2g1LZbVYqtuQw/1b62baf5-5588-4d54-be02-c9a12537db00/public" alt="spring"/>
+</div>
+
+시작 정점인 우리집을 방문한다.
+
+<div className="flex justify-center items-center py-5">
+  <img src="https://imagedelivery.net/6qzLODAqs2g1LZbVYqtuQw/8a085e0e-1884-414b-7930-d72dc66e8d00/public" alt="spring"/>
+</div>
+
+시작 정점과 연결된 R2를 방문한다. 이때 깊이 우선 탐색은 stack을 활용하거나 재귀함수를 활용하여 구현하기 때문에
+하나의 정점에 연결된 마지막 레벨까지의 노드를 방문하고 다시 돌아오는 방식으로 구현한다.
+
+<div className="flex justify-center items-center py-5">
+  <img src="https://imagedelivery.net/6qzLODAqs2g1LZbVYqtuQw/e8cb60c9-9228-4fa1-f0de-1b236c153500/public" alt="spring"/>
+</div>
+
+R2와 연결된 R3을 방문한다.
+
+<div className="flex justify-center items-center py-5">
+  <img src="https://imagedelivery.net/6qzLODAqs2g1LZbVYqtuQw/9736dfc6-48f1-40ff-c253-aefd5184ba00/public" alt="spring"/>
+</div>
+
+해당 알고리즘으로 모든 정점을 방문하게 되면 위와 같은 순서로 접근하게 된다.
+
+### 🧐 깊이 우선 탐색(DFS) 구현하기
+
+```python
+def dfs(graph, start):
+    visited = []
+    stack = [start]
+
+    while stack:
+        n = stack.pop()
+        if n not in visited:
+            visited.append(n)
+            stack.extend(graph[n])
+
+    return visited
+```
+
+
+# 😆 프림의 최소 신장 트리 알고리즘
+
 
 
 
