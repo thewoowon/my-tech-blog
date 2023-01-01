@@ -6,6 +6,7 @@ import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 import 'swiper/css/autoplay';
 import React from 'react';
+import Image from 'next/image';
 
 const LoveKongSlider = (): JSX.Element => {
   return (
@@ -25,7 +26,12 @@ const LoveKongSlider = (): JSX.Element => {
     >
       <SwiperSlide className="my-wide-swiper-slide">
         <div className="h-full bg-gray-100 flex justify-center items-center">
-          슬라이드 준비중입니다. 조금만 기다려 주세요.
+          <Image
+            alt=""
+            src={'/assets/lovekong_thumb.png'}
+            width="4401"
+            height="2434"
+          ></Image>
         </div>
       </SwiperSlide>
     </Swiper>
