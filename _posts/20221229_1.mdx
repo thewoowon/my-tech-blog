@@ -161,6 +161,75 @@ def dfs(graph, start):
 
 # 😆 프림의 최소 신장 트리 알고리즘
 
+최소 신장 트리는 그래프에서 모든 정점을 포함하면서 사이클이 존재하지 않는 부분 그래프를 말한다.
+그리고 모든 정점을 연결했을 때 가중치의 합 또한 최소가 되는 트리를 말한다.
+앞서 그릳 알고리즘 시리즈에서 크루스칼의 최소 신장 트리 알고리즘을 알아보았다.
+크루스칼은 최소힙을 사용해서 매순간 최소의 가중치를 가지는 정점을 추가하면서 최소 신장 트리를 구현했다.
+그렇다면 프림의 최소 신장 트리 알고리즘은 어떻게 구현할까?
+프림의 최소 신장 트리 알고리즘은 크루스칼의 최소 신장 트리 알고리즘과는 다르게
+시작 정점을 기준으로 연결된 간선들을 우선순위 큐에 넣고
+가장 가중치가 작은 간선을 선택하면서 최소 신장 트리를 구현한다.
+
+프림의 최소 신장 트리 알고리즘은 다음과 같은 순서로 구현한다.
+1. 모든 정점의 거리 값을 무한대로 초기화한다.
+2. 시작 정점의 거리 값을 0으로 초기화한다.(왜냐하면 자기 자신과의 거리는 0이기 때문이다.)
+3. 우선순위 큐에 모든 정점을 넣는다.(우선 순위 큐는 힙)
+4. 꺼낸 정점을 MST에 추가하고 정점과 인접한 모든 정점에 대해서 거리 값이 에지 가중치보다 해당 가중치로 설정한다.
+5. 방문하지 않은 정점이 있다면 2단계로 돌아간다.
+
+
+### 🧐 프림의 최소 신장 트리 알고리즘 파헤치기
+
+앞서 말했던 순서를 따라서 그림으로 살펴보자.
+
+<div className="flex justify-center items-center py-5">
+  <img src="https://imagedelivery.net/6qzLODAqs2g1LZbVYqtuQw/3325308e-9b9a-49bc-fb6f-4ccb2d165000/public" alt="spring"/>
+</div>
+먼저 시작 정점은 1일 때, 거리는 0으로 하고 나머지 정점들 간의 거리는 무한대로 표현한다.
+
+<div className="flex justify-center items-center py-5">
+  <img src="https://imagedelivery.net/6qzLODAqs2g1LZbVYqtuQw/119f8267-f69d-4d80-2e3b-6afc6dfc9400/public" alt="spring"/>
+</div>
+최소힙으로부터 정점을 꺼내서 MST에 추가한다. 
+그리고 모든 인점 정점들 V에 대해서 만약 거리 V의 값이 현재 정점과의 에지 가중치보다 크면 V의 거리값을 에지의 가중치로 치환한다.
+사진에서도 보이듯이 시작 정점 1의 인접한 정점 2와 5의 사이값은 각각 무한대로 에지의 가중치 각각 2와 3보다 크다.
+그러므로 2와 5 정점의 값은 각각 2와 3으로 치환된다.(이 때 해당 정점에 안착한다고 표현한다.)
+
+<div className="flex justify-center items-center py-5">
+  <img src="https://imagedelivery.net/6qzLODAqs2g1LZbVYqtuQw/595ed94b-7762-4f2b-0862-e15838274500/public" alt="spring"/>
+</div>
+
+방문하지 않은 정점이 있다면 2단계로 돌아간다. 방문하지 않은 정점은 거리값이 작은 2번 정점이기 때문에 
+2번 정점을 MST에 추가하고 2번 정점과 인접한 정점들의 거리값을 갱신한다.
+
+<div className="flex justify-center items-center py-5">
+  <img src="https://imagedelivery.net/6qzLODAqs2g1LZbVYqtuQw/5854a0a6-87b0-47ab-b668-1103ece8d800/public" alt="spring"/>
+</div>
+
+모든 정점들에 대해서 안착하면 최종 MST를 구할 수 있다.
+
+```python
+import heapq
+
+def prim(graph, start):
+    mst = []
+    visited = [False] * len(graph)
+    heap = []
+    heapq.heappush(heap, (0, start))
+
+    while heap:
+        weight, node = heapq.heappop(heap)
+        if not visited[node]:
+            visited[node] = True
+            mst.append((weight, node))
+
+            for n, w in graph[node]:
+                if not visited[n]:
+                    heapq.heappush(heap, (w, n))
+
+    return mst
+```
+
 
 
 
