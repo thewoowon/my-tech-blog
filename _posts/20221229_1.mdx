@@ -230,6 +230,93 @@ def prim(graph, start):
     return mst
 ```
 
+# 😆 다익스트라 알고리즘
+
+다익스트라 알고리즘은 구글 지도 또는 자동차 네비게이션 등에서  경로를 탐색할 때 사용된다.
+다익스트라는 이렇게 정의할 수 있다.
+
+<div className="bg-gray-50 my-4 px-4 py-2 border-l-4 border-green-400 hover:bg-gray-100 hover:border-indigo-400 transition duration-300 ease-in-out">
+주어진 그래프 G가 있고 V라는 정점의 집합, E라는 에지의 집합이 있다.
+이 때 에지는 각각 가중치를 가지고 있고 시작 정점과 목적 정점이 주어질 때,
+시작 정점에서 목적 정점까지의 최소 비용 경로를 찾는 알고리즘이다.
+</div>
+
+다익스트라 알고리즘은 음수 가중치가 없는 그래프에서 동작하는 그래프에서
+동작하는 최단 경로 탐색 알고리즘으로 프림의 MST 알고리즘을 약간 변경한 형태이다.
+하지만 다익스트라와 프림의 알고리즘은 두 가지 차이점이 있다.
+
+- 프림 알고리즘은 경계로부터 최소 거리를 정점의 거리 값으로 설정하지만, 다익스트라 알고리즘은 시작 정점으로부터 각 정점까지의 전체 거리를 사용한다.
+- 다익스트라 알고리즘은 목적 정점이 나타나면 죵료하지만, 프림의 알고리즘은 모든 정점을 방문해야 종료한다.
+
+### 🧐 다익스트라 알고리즘 파헤치기
+
+그림과 순서에 따라 다익스트라 알고리즘을 살펴보자.
+
+
+<div className="flex justify-center items-center py-5">
+  <img src="https://imagedelivery.net/6qzLODAqs2g1LZbVYqtuQw/94f7aa17-3364-4fb5-dcc6-9f38f6243e00/public" alt="spring"/>
+</div>
+
+모든 정점의 거리 값은 무한대로 초기화한다. 시작 정점은 자기 자신까지의 거리가 0이므로 0으로 초기화한다.
+그리고 모든 거리 값을 최소 힙에 추가한다.
+최소 힙에서 정점 하나 U를 꺼낸다.(이때 최소힙에 의해 정점의 거리가 최소인 정점이 꺼내진다.)
+꺼낸 정점 U가 만약에 목적 정점이면 최단 경로를 찾은 것이므로 알고리즘을 종료한다.
+
+<div className="flex justify-center items-center py-5">
+  <img src="https://imagedelivery.net/6qzLODAqs2g1LZbVYqtuQw/44a0c5d5-c4b7-4996-74ce-2c0a077a9400/public" alt="spring"/>
+</div>
+
+다시 U와 인접한 모든 정점 V에 대해서 거리값이 (U의 거리값 + U와 V사이의 에지 가중치)보다 크면
+V까지 다다르는 더 짧은 경로를 찾은 것으로 본다. V의 거리값을 (U의 거리값 + U와 V사이의 에지 가중치)로 갱신하면 안착했다고 표현한다.
+
+<div className="flex justify-center items-center py-5">
+  <img src="https://imagedelivery.net/6qzLODAqs2g1LZbVYqtuQw/d2f0bdd6-f80c-4c5b-e929-5435e0a37c00/public" alt="spring"/>
+</div>
+
+위의 그림은 2번 정점까지 안착한 그림이고, 방문하지 않은 정점이 남아 있다면 2단계로 이동한다.
+
+<div className="flex justify-center items-center py-5">
+  <img src="https://imagedelivery.net/6qzLODAqs2g1LZbVYqtuQw/e7fcc950-861f-4aec-ffa9-3e18590a2700/public" alt="spring"/>
+</div>
+
+목적 정점 6에 도착하면 알고리즘을 종료한다.
+
+### 🧐 다익스트라 알고리즘 구현
+
+다익스트라 알고리즘을 구현해보자.
+
+```python
+import heapq
+
+def dijkstra(graph, start):
+    distances = {node: float('inf') for node in graph}
+    distances[start] = 0
+    queue = []
+    heapq.heappush(queue, [distances[start], start])
+
+    while queue:
+        current_distance, current_destination = heapq.heappop(queue)
+        if distances[current_destination] < current_distance:
+            continue
+
+        for new_destination, new_distance in graph[current_destination].items():
+            distance = current_distance + new_distance
+            if distance < distances[new_destination]:
+                distances[new_destination] = distance
+                heapq.heappush(queue, [distance, new_destination])
+
+    return distances
+```
+
+
+
+
+
+
+
+
+
+
 
 
 
