@@ -9,4 +9,258 @@ date: '2023-01-09'
 name: '20230109_1' 
 ---
 
+개발자 인터뷰를 진행 하면서 받은 질문 중에 기억에 남는 질문이 하나 있다.
+커스텀 훅을 만들어서 사용해본 경험이 있는지에 질문을 받았고
+나는 GraphQL 커스텀 훅 그리고 디바운싱 훅을 사용한 경험을 활용해서 대답했다.
+그리고 꼬리 질문으로 스로틀링과 디바운싱의 차이점에 대한 질문이 들어 왔고 
+스로틀링의 개념을 잘 모르고 있던 나로서는 디바운싱에 대해서만 대답할 수 있었다.
+
+# 🧩 스로틀링과 디바운싱
+간단하게 개념부터 훝고 가도록 하자.
+
+스로틀링은 일정 시간 간격으로 함수를 실행시키는 것이고
+디바운싱은 일정 시간 간격이 지난 후에 함수를 실행시키는 것이다.
+조금 더 풀어서 말하면 스로틀링은 마지막 함수가 호출되고 일정 시간이 지나야지만 다음 함수를 호출할 수 있고
+디바운싱은 마지막 함수가 호출된 후 일정 시간이 지나기 전에 다시 호출되지 않는다.
+
+개념만으로는 이해하기 힘들다. 그렇기 때문에 예시를 바탕으로 이해해 보도로하자.
+
+# 📝 내가 사용했던 디바운싱
+먼저 내가 커스텀 훅으로 사용했던 디바운싱을 보자.
+
+```typescript
+import { useEffect, useState } from 'react'
+
+const useDebounce = <T = any>(value: T, delay: number) => {
+  const [debouncedValue, setDebouncedValue] = useState(value)
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedValue(value)
+    }, delay)
+    return () => {
+      clearTimeout(handler)
+    }
+  }, [value, delay])
+  return debouncedValue
+}
+export default useDebounce
+```
+
+코드를 처음 본다면 제네릭으로 인해서 바로 이해하기 힘들 수 가 있다.
+천천히 보면서 이해해 보자.
+
+```typescript
+const useDebounce = <T = any>(value: T, delay: number) => {
+```
+제네릭을 any로 설정해서 훅 선언과 동시에 결정할 수 있게 만들었다.
+그리고 제네릭과 동일한 타입을 받는 value와 정수인 delay를 받는다.
+
+```typescript
+const [debouncedValue, setDebouncedValue] = useState(value)
+```
+다음은 useState를 사용해서 debouncedValue라는 상태를 만들고
+value로 초기화를 해준다.
+
+```typescript
+useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedValue(value)
+    }, delay)
+    return () => {
+      clearTimeout(handler)
+    }
+  }, [value, delay])
+```
+useEffect를 사용해서 value와 delay가 변경될 때마다
+setTimeout을 사용해서 delay만큼 기다린 후에 setDebouncedValue를 실행시킨다.
+여기서 주의해야하는 점은 setDebouncedValue를 활용해서 state를 변경하는 것이다.
+state를 변경하면 컴포넌트가 리렌더링 되기 때문에
+이 훅을 사용하는 컴포넌트가 리렌더링 되는 것이다.
+그렇기 때문에 짧은 시간 간격을 통해서 기다린 다음 해당 짧은 시간안에
+요청이 들어온다면 이전의 setTimeout을 취소하고 다시 setTimeout을 실행시킨다.
+그리고 마지막 변경이 들어와서 결국 state가 변경되면 리렌더링이 되는 것을 의도한 것이다.
+
+```typescript
+    return debouncedValue
+``` 
+
+마지막으로는 debouncedValue를 반환한다.
+
+# 📝 디바운싱 실제 적용
+나는 LoveKong 이라는 사이트에서 검색 기능을 구현하면서 디바운싱을 사용했다.
+작성했던 코드 Fragment를 살펴보자.
+
+```tsx
+...
+import useDebounce from 'hooks/useDebounce'
+...
+import {
+  Input,
+  Loader,
+  Pagination,
+  SegmentedControl,
+  Select,
+} from '@mantine/core'
+
+export default function ProductsHome() {
+    ...
+    const [keyword, setKeyword] = useState<string>('')
+
+    const deboundecKeyword = useDebounce(keyword, 500)
+
+    useEffect(() => {
+      fetch(
+        `url&contains=${deboundecKeyword}`
+      )
+        .then((res) => res.json())
+        .then((data) => setTotal(Math.ceil(data.items / TAKE)))
+    }, [selectedCategory, deboundecKeyword])
+
+    return (
+        <>
+        ...
+        <Input
+              icon={<IconSearch />}
+              placeholder="Search Title"
+              value={keyword}
+              onChange={(e: {
+                currentTarget: { value: React.SetStateAction<string> }
+              }) => setKeyword(e.currentTarget.value)}
+              color="dark"
+              className="w-56 my-2"
+            />
+        ...
+        </>
+    )
+
+```
+
+```tsx
+    const [keyword, setKeyword] = useState<string>('')
+
+    const deboundecKeyword = useDebounce(keyword, 500)
+```
+
+먼저 useState를 사용해서 keyword라는 상태를 만들었고
+다시 useDebounce를 사용해서 deboundecKeyword라는 상태를 만들었다.
+이때 인자는 keyword와 500을 넘겨주었다.
+
+```tsx
+    return (
+            <>
+            ...
+                <Input
+                    icon={<IconSearch />}
+                    placeholder="Search Title"
+                    value={keyword}
+                    onChange={(e: {
+                        currentTarget: { value: React.SetStateAction<string> }
+                    }) => setKeyword(e.currentTarget.value)}
+                    color="dark"
+                    className="w-56 my-2"
+                    />
+            ...
+            </>
+        )
+```
+
+다음으로 Input 컴포넌트를 살펴보면 onChange 이벤트가 발생할 때마다 setKeyword를
+활용해 상태를 저장하고 있다.
+
+```tsx
+    useEffect(() => {
+        fetch(
+            `url&contains=${deboundecKeyword}`
+        )
+            .then((res) => res.json())
+            .then((data) => setTotal(Math.ceil(data.items / TAKE)))
+    }, [selectedCategory, deboundecKeyword])
+```
+
+마지막으로 useEffect를 살펴보면 fetch를 사용해서 데이터를 받아오는데
+input defendency가 deboundecKeyword라는 것을 알 수 있다.
+즉, input이 변경될 때마다 fetch를 실행시키는 것이다.
+
+이제 실제로 어떻게 동작하는지 생각해보자.
+
+먼저 키워트를 0.1초 간격으로 10번 키워드를 입력한다고 가정하자.
+먼저 input의 onChange 이벤트로 인해 setKeyword와 같은 SetStateAction 함수가 실행된다.
+바로 keyword는 변경되고 이는 다시 useDebounce를 통해 인자로 넘어간다.
+하지만 delay로 인해 짧은 시간 간격을 기다리게 되고 이전에 발생했던 setTimeout은 취소된다.
+0.1초라는 짧은 간격 안에 다음 인자가 들어와 useDebounce를 동작시키지만
+여전히 setDebouncedValue가 실행되지 않는다.
+이제 10번째 키워드가 입력되면 마지막으로 setTimeout이 실행되고
+더이상의 입력이 없기 때문에 0.5초 후에 setDebouncedValue가 실행된다.
+그럼 총 걸린 시간을 살펴보면 0.1 * 10 + 0.5 = 1.5초가 걸린다.
+
+# 📝 디바운싱의 효과
+
+useEffect가 deboundecKeyword를 input defenddency로 받고 있기 때문에
+state가 변경되지 않으면 fetch 요청을 보내지 않는다.
+즉, 사용자가 의도하지 않은 키워드를 서버로 요청해서 데이터를 받아오지 않는다.
+이는 서버의 부하를 줄이고 사용자의 경험을 향상시키는데 도움이 된다.
+
+# 🧐 스로틀링
+
+스로틀링 같은 경우는 현재 setTimeout을 기억하고 있는 변수를 만들어서
+동작하고 있지 않다면 setTimeout을 실행시키고 동작하고 있다면 setTimeout을 실행시키지 않는다.
+
+```typescript
+import { useState, useEffect, useRef } from 'react';
+
+const useThrottling = <T = any>(value: T, delay: number) => {
+    const [throttlingValue, setThrottlingValue] = useState(value);
+    const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
+    useEffect(() => {
+        if (!timer.current) {
+            const handler = setTimeout(() => {
+                setThrottlingValue(value)
+            }, delay)   
+            timer.current = handler
+        }
+      }, [value, delay])
+    return throttlingValue
+}
+
+export default useThrottling;
+```
+
+```typescript
+    const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
+```
+
+코드를 살펴보면 useRef를 사용해서 setTimeout을 기억하고 있는 변수를 만들었다.
+
+```typescript
+    useEffect(() => {
+        if (!timer.current) {
+            const handler = setTimeout(() => {
+                setThrottlingValue(value)
+            }, delay)   
+            timer.current = handler
+        }
+      }, [value, delay])
+```
+
+그리고 timer.current에 setTimeout이 실행되어 있는지 확인하고
+실행되어 있지 않다면 setTimeout을 실행시키고
+실행되어 있다면 setTimeout을 실행시키지 않는다.
+
+# 📝 스로틀링의 효과
+
+스크롤 이벤트와 같이 한번의 스크롤에 매우 빈번한 이벤트가 발생할 경우에는
+스로틀링으로 임의 시간 간격으로 state를 변경시키는 것이 성능면에서 유리하다.
+
+
+
+
+
+
+
+
+
+
+
+
+
 
