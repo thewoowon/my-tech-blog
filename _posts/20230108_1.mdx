@@ -18,11 +18,100 @@ name: '20230108_1'
 
 # 🧐 이벤트 루프(Event Loop)
 그렇다면 이벤트 루프란 무엇일까?
-이벤트 루프는 자바스크립트의 비동기 처리를 위해 존재하는 것이다.
-비동기 처리의 주체가 되는 이벤트 루프는 메인 쓰레드 자체로 보아도 무방하다.
-Loop라는 말에서도 알 수 있듯이, 이벤트 루프는 이벤트를 계속해서 반복적으로 처리하는 것이다.
+- 이벤트 루프는 자바스크립트의 비동기 처리를 위해 존재하는 것이다.
+- 이벤트 루프는 자바스크립트 엔진과 태스크 큐(Task Queue)를 연결해주는 역할을 한다.
+- 이벤트 루프는 자바스크립트 엔진이 실행 중인지, 태스크 큐에 대기 중인 이벤트가 있는지를 계속해서 확인한다.
+- 이벤트 루프는 자바스크립트 엔진이 실행 중이지 않고, 태스크 큐에 대기 중인 이벤트가 있다면, 이벤트 루프는 태스크 큐에 대기 중인 이벤트를 자바스크립트 엔진으로 보낸다.
+Loop라는 말에서도 알 수 있듯이, 이벤트 루프는 이벤트를 계속해서 반복적으로 처리한다.
 
 자 그럼 이벤트 루프가 어떻게 동작하는지 알아보자.
+
+먼저 4가지 요소에 대해서 숙지하고 진입해아한다.
+
+### ✅ 이벤트 루프(Event Loop)
+
+앞서 말했듯이 이벤트 루프는 자바스크립트 엔진과 태스크 큐를 연결해주는 역할을 한다.
+
+<div className="flex justify-center items-center py-5">
+  <img width="300px" height="300px" src="https://imagedelivery.net/6qzLODAqs2g1LZbVYqtuQw/7111e262-d183-4a2f-903f-47a2a78c5e00/public" alt="spring"/>
+</div>
+
+### ✅ 자바스크립트 엔진(Javascript Engine)
+
+자바스크립트는 흔히 우리가 사용하는 브라우저에서 동작한다.
+그렇다면 브라우저는 어떻게 자바스크립트를 해석할 수 있을까?
+바로 자바스크립트 엔진이라는 것이 존재한다.
+자바스크립트 엔진은 자바스크립트를 해석하고 실행하는 역할을 한다.
+구글의 V8 엔진, 파이어폭스의 SpiderMonkey 엔진, 오페라의 Carakan 엔진 등이 있다.
+
+<div className="flex justify-center items-center py-5">
+  <img width="300px" height="300px" src="https://imagedelivery.net/6qzLODAqs2g1LZbVYqtuQw/24a8b013-c860-469b-91b1-d85870a69600/public" alt="spring"/>
+</div>
+
+자바스크립트 엔진은 싱글 쓰레드로 동작한다.
+그리고 쓰레드답게 스택과 힙이라는 자료구조를 가지고 있다.
+이것을 각각 콜 스택, 힙이라고 부른다.
+호출된 함수는 콜 스택에 쌓이고, 함수 내부에서 사용되는 변수는 힙에 할당된다.
+그리고 비동기 작업의 경우는 Web APIs에게 위임한다.
+
+### ✅ 태스크 큐(Task Queue)
+
+태스크 큐는 비동기 작업의 콜백 함수들이 대기하는 곳이다.
+이벤트 루프는 콜 스택이 비어있을 때마다 태스크 큐에서 콜백 함수를 꺼내서 콜 스택에 넣는다.
+그리고 콜 스택에 콜백 함수가 쌓이면 순차적으로 실행한다.
+
+<div className="flex justify-center items-center py-5">
+  <img width="300px" height="300px" src="https://imagedelivery.net/6qzLODAqs2g1LZbVYqtuQw/5550dd9b-b926-4c35-9567-a848760f5600/public" alt="spring"/>
+</div>
+
+### ✅ Web APIs
+
+Web APIs는 브라우저에서 제공하는 API들이다.
+이벤트 핸들러, DOM 조작, AJAX 요청, 타이머 등이 있다.
+이벤트 핸들러는 이벤트가 발생하면 콜백 함수를 태스크 큐에 넣는다.
+DOM 조작은 DOM 트리를 변경하고, AJAX 요청은 서버에 요청을 보내고 응답을 받는다.
+타이머는 지정된 시간이 지나면 콜백 함수를 태스크 큐에 넣는다.
+
+<div className="flex justify-center items-center py-5">
+  <img width="300px" height="300px" src="https://imagedelivery.net/6qzLODAqs2g1LZbVYqtuQw/014f5a9e-2401-4d4a-9813-067aa48e7800/public" alt="spring"/>
+</div>
+
+### ✅ ALL 
+
+모든 작업을 한눈에 살펴 보도록하자.
+
+<div className="flex justify-center items-center py-5">
+  <img width="400px" height="400px" src="https://imagedelivery.net/6qzLODAqs2g1LZbVYqtuQw/d6adde0f-80ab-4b2e-d2e4-4c3449a14f00/public" alt="spring"/>
+</div>
+
+### 💻 실제 동작 살펴보기
+
+```js
+
+console.log('1');
+setTimeout(() => console.log('2'), 0);
+console.log('3');
+
+```
+
+위 코드를 실행하면 1, 3, 2가 찍힌다.
+
+<div className="flex justify-center items-center py-5">
+  <img width="400px" height="400px" src="https://imagedelivery.net/6qzLODAqs2g1LZbVYqtuQw/d6adde0f-80ab-4b2e-d2e4-4c3449a14f00/public" alt="spring"/>
+</div>
+
+이유는 콜 스택에 1, 3이 쌓이고, setTimeout의 콜백 함수가 태스크 큐에 들어가기 때문이다.
+그리고 콜 스택이 비어있을 때 태스크 큐에서 콜백 함수를 꺼내서 콜 스택에 넣는다.
+그래서 1, 3이 찍히고, 2가 찍힌다.
+
+### 📌 마무리
+
+
+
+
+
+
+
 
 
 
