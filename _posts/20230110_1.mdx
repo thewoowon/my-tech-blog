@@ -1,0 +1,26 @@
+---
+title: Matter.js로 물리엔진 구현하기
+description: WMC 인덱스 페이지에 Matter.js를 이용해 물리엔진을 구현해보았습니다.
+thumbnail: /assets/matterjs.png
+prerequisites: ['우원', '주니어 개발자','성장 중','안녕하세요👏 침착함과 꾸준함이 매력인 주니어 개발자 우원입니다.']
+stacks: ['REACT']
+writer: 우원
+date: '2023-01-10'
+name: '20230110_1' 
+---
+
+# 🎁 Matter.js로 물리엔진 구현하기
+
+WMC 인덱스 페이지를 구성하면서 Matter.js를 이용해 도형이 스크롤의 interaction을 통해 움직이는 물리엔진을 구현해보았다.
+IntersectionObserver를 활용해 threshold가 0.8일 때 Opacity가 1이 되고 
+도형들이 canvas에 렌더링되어 낙하운동을 하는 것을 구현했다.
+막상 구현을 하기 전에 도형의 움직임을 파악하고 물리엔진을 만드는 것부터가 난관이었다.
+하지만 차근차근히 정보를 모으고 구현을 하니 재밌게 구현할 수 있었다.
+
+# 📌 Matter.js란?
+
+Matter.js는 브라우저에서 물리엔진을 구현할 수 있게 해주는 라이브러리이다.
+물질은 영어로 Matter이고 해당 라이브러리는 이것을 의도한 것 같다.
+강체의 물리적인 특성을 코드로 구현할 수 있다는 것 자체가 경이롭다.
+
+
