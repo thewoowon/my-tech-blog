@@ -23,4 +23,450 @@ Matter.js는 브라우저에서 물리엔진을 구현할 수 있게 해주는 �
 물질은 영어로 Matter이고 해당 라이브러리는 이것을 의도한 것 같다.
 강체의 물리적인 특성을 코드로 구현할 수 있다는 것 자체가 경이롭다.
 
+# 📌 Matter.js & lodash 설치
+먼저 Matter.js와 lodash를 설치해준다.
+lodash는 array, collection, date 등 데이터의 필수적인 구조를 쉽게 다룰 수 있는 라이브러리이다.
+특히 코드를 줄여주고, 빠른 작업에 도움이 되는 라이브러리이므로 인기가 많다. 
+나는 debounce를 사용하기 위해 lodash를 설치했다.
+
+<div className="bg-gray-50 my-4 px-4 py-2 border-l-4 border-green-400 hover:bg-gray-100 hover:border-indigo-400 transition duration-300 ease-in-out">
+yarn add @types/matter-js @types/lodash or yarn add matter-js lodash
+</div>
+
+# 📌 Matter.js 사용
+먼저 나는 MatterComposition라는 Component를 만들어서 Section을 구성했다.
+전체 코드를 먼저 살펴보도록 하자.
+
+```tsx
+import { useCallback, useEffect, useRef } from 'react'
+import { Engine, Render, Bodies, World, Runner } from 'matter-js'
+import { debounce } from 'lodash'
+import { rainbow } from 'constants/constant'
+
+function MatterComposition() {
+  const scene = useRef<HTMLDivElement>(null)
+  const engine = useRef(Engine.create())
+  const isIntersecting = useRef(false)
+
+  const handleScroll = useCallback(([entry]: IntersectionObserverEntry[]) => {
+    const { current } = scene
+    if (entry.isIntersecting && current) {
+      // 원하는 이벤트를 추가 할 것
+      current.style.transitionProperty = 'opacity'
+      current.style.transitionDuration = '1s'
+      current.style.transitionTimingFunction = 'cubic-bezier(0, 0, 0.2, 1)'
+      current.style.transitionDelay = '0s'
+      current.style.opacity = '1'
+
+      if (!isIntersecting.current) {
+        const cw = window.innerWidth
+        // 도형을 계속 추가하는 부분
+        World.add(engine.current.world, [
+          Bodies.circle(Math.random() * cw, 0, 150, {
+            render: { fillStyle: rainbow[0] },
+            frictionAir: 0.05,
+          }),
+        ])
+        isIntersecting.current = true
+      }
+    }
+  }, [])
+
+  useEffect(() => {
+    const cw = window.innerWidth
+    const ch = window.innerHeight
+
+    let render = Render.create({
+      element: scene.current ?? new HTMLDivElement(),
+      engine: engine.current,
+      options: {
+        width: cw,
+        height: ch,
+        wireframes: false,
+        background: 'transparent',
+      },
+    })
+
+    World.add(engine.current.world, [
+      Bodies.rectangle(cw / 2, 0, cw, 20, {
+        isStatic: true,
+        render: { fillStyle: '#000000' },
+      }),
+      Bodies.rectangle(0, ch / 2, 20, ch, {
+        isStatic: true,
+        render: { fillStyle: '#000000' },
+      }),
+      Bodies.rectangle(cw / 2, ch, cw, 20, {
+        isStatic: true,
+        render: { fillStyle: '#000000' },
+      }),
+      Bodies.rectangle(cw, ch / 2, 20, ch, {
+        isStatic: true,
+        render: { fillStyle: '#000000' },
+      }),
+    ])
+    Runner.run(engine.current)
+    Render.run(render)
+
+    const handleResize = debounce(() => {
+      Render.stop(render)
+      World.clear(engine.current.world, false)
+      Engine.clear(engine.current)
+      render.canvas.remove()
+
+      const cw = window.innerWidth
+      const ch = window.innerHeight
+
+      render = Render.create({
+        element: scene.current ?? new HTMLDivElement(),
+        engine: engine.current,
+        options: {
+          width: cw,
+          height: ch,
+          wireframes: false,
+          background: 'transparent',
+        },
+      })
+
+      World.add(engine.current.world, [
+        Bodies.rectangle(cw / 2, 0, cw, 20, {
+          isStatic: true,
+          render: { fillStyle: '#000000' },
+        }),
+        Bodies.rectangle(0, ch / 2, 20, ch, {
+          isStatic: true,
+          render: { fillStyle: '#000000' },
+        }),
+        Bodies.rectangle(cw / 2, ch, cw, 20, {
+          isStatic: true,
+          render: { fillStyle: '#000000' },
+        }),
+        Bodies.rectangle(cw, ch / 2, 20, ch, {
+          isStatic: true,
+          render: { fillStyle: '#000000' },
+        }),
+      ])
+
+      Runner.run(engine.current)
+      Render.run(render)
+
+      isIntersecting.current = false
+    }, 1000)
+
+    window.addEventListener('resize', handleResize)
+
+    return () => {
+      Render.stop(render)
+      World.clear(engine.current.world, false)
+      Engine.clear(engine.current)
+      render.canvas.remove()
+      window.removeEventListener('resize', handleResize)
+      isIntersecting.current = false
+    }
+  }, [])
+
+  useEffect(() => {
+    let observer: IntersectionObserver
+    const { current } = scene
+
+    if (current) {
+      observer = new IntersectionObserver(handleScroll, { threshold: 0.8 })
+      observer.observe(current)
+
+      return () => observer && observer.disconnect()
+    }
+  }, [handleScroll])
+
+  return (
+    <div className="w-full h-full">
+      <div ref={scene} style={{ width: '100vw', height: '100vh' }} />
+    </div>
+  )
+}
+
+export default MatterComposition
+```
+
+
+# 📌 코드 파헤치기
+변수 선언과 리턴 부분을 살펴보자.
+    
+```tsx
+const scene = useRef<HTMLDivElement>(null)
+const engine = useRef(Engine.create())
+const isIntersecting = useRef(false)
+
+...
+
+return (
+    <div className="w-full h-full">
+        <div ref={scene} style={{ width: '100vw', height: '100vh' }} ></div>
+    </div>
+)
+```
+
+Render를 구현하고 스크롤 이벤트를 구현하기 위해 scene을 useRef로 초기화하고,
+div 태그에 ref에 할당했다.
+engine은 Matter Engine을 생성 후 useRef에 담아 초기화했고,
+스크롤 이벤트의 반복을 막기 위한 isIntersecting은 false를 useRef에 담아 초기화했다.
+    
+```tsx
+    useEffect(() => {
+    const cw = window.innerWidth
+    const ch = window.innerHeight
+
+    let render = Render.create({
+      element: scene.current ?? new HTMLDivElement(),
+      engine: engine.current,
+      options: {
+        width: cw,
+        height: ch,
+        wireframes: false,
+        background: 'transparent',
+      },
+    })
+
+    World.add(engine.current.world, [
+      Bodies.rectangle(cw / 2, 0, cw, 20, {
+        isStatic: true,
+        render: { fillStyle: '#000000' },
+      }),
+      Bodies.rectangle(0, ch / 2, 20, ch, {
+        isStatic: true,
+        render: { fillStyle: '#000000' },
+      }),
+      Bodies.rectangle(cw / 2, ch, cw, 20, {
+        isStatic: true,
+        render: { fillStyle: '#000000' },
+      }),
+      Bodies.rectangle(cw, ch / 2, 20, ch, {
+        isStatic: true,
+        render: { fillStyle: '#000000' },
+      }),
+    ])
+    Runner.run(engine.current)
+    Render.run(render)
+
+    const handleResize = debounce(() => {
+      Render.stop(render)
+      World.clear(engine.current.world, false)
+      Engine.clear(engine.current)
+      render.canvas.remove()
+
+      const cw = window.innerWidth
+      const ch = window.innerHeight
+
+      render = Render.create({
+        element: scene.current ?? new HTMLDivElement(),
+        engine: engine.current,
+        options: {
+          width: cw,
+          height: ch,
+          wireframes: false,
+          background: 'transparent',
+        },
+      })
+
+      World.add(engine.current.world, [
+        Bodies.rectangle(cw / 2, 0, cw, 20, {
+          isStatic: true,
+          render: { fillStyle: '#000000' },
+        }),
+        Bodies.rectangle(0, ch / 2, 20, ch, {
+          isStatic: true,
+          render: { fillStyle: '#000000' },
+        }),
+        Bodies.rectangle(cw / 2, ch, cw, 20, {
+          isStatic: true,
+          render: { fillStyle: '#000000' },
+        }),
+        Bodies.rectangle(cw, ch / 2, 20, ch, {
+          isStatic: true,
+          render: { fillStyle: '#000000' },
+        }),
+      ])
+
+      Runner.run(engine.current)
+      Render.run(render)
+
+      isIntersecting.current = false
+    }, 1000)
+
+    window.addEventListener('resize', handleResize)
+
+    return () => {
+      Render.stop(render)
+      World.clear(engine.current.world, false)
+      Engine.clear(engine.current)
+      render.canvas.remove()
+      window.removeEventListener('resize', handleResize)
+      isIntersecting.current = false
+    }
+  }, [])
+```
+다음은 useEffect를 통해 초기화를 진행하는 부분이다.
+
+```tsx
+const cw = window.innerWidth
+const ch = window.innerHeight
+
+let render = Render.create({
+    element: scene.current ?? new HTMLDivElement(),
+    engine: engine.current,
+    options: {
+    width: cw,
+    height: ch,
+    wireframes: false,
+    background: 'transparent',
+    },
+})
+```
+
+window 객체의 innerWidth와 innerHeight를 통해 브라우저의 가로, 세로 길이를 구하고,
+이를 각각 cw와 ch에 할당했다.
+그 후 Render.create를 통해 render를 초기화했다.
+
+여기서 조금 헷갈리는 부분이 있는데, 비로 엔진과 렌더의 차이점이다.
+엔진은 물리엔진이고, 렌더는 엔진을 통해 물리엔진이 계산한 결과를 실제로 보여주는 역할을 한다.
+렌더는 scene 객체를 통해 렌더링할 공간을 지정해주고, engine 객체를 통해 물리엔진을 지정해준다.
+
+```tsx
+    World.add(engine.current.world, [
+      Bodies.rectangle(cw / 2, 0, cw, 20, {
+        isStatic: true,
+        render: { fillStyle: '#000000' },
+      }),
+      Bodies.rectangle(0, ch / 2, 20, ch, {
+        isStatic: true,
+        render: { fillStyle: '#000000' },
+      }),
+      Bodies.rectangle(cw / 2, ch, cw, 20, {
+        isStatic: true,
+        render: { fillStyle: '#000000' },
+      }),
+      Bodies.rectangle(cw, ch / 2, 20, ch, {
+        isStatic: true,
+        render: { fillStyle: '#000000' },
+      }),
+    ])
+    Runner.run(engine.current)
+    Render.run(render)
+```
+
+이제는 World를 통해 물리엔진에 추가할 객체들을 추가해준다.
+World는 엔진에 추가되는 객체들의 집합체이다.
+그리고 Bodies 객체를 통해 물리엔진에 추가할 객체들을 생성해준다.
+Bodies는 물리엔진에 추가할 객체를 생성하는 객체이다.
+마지막으로 Runner를 통해 엔진을 실행시키고, Render를 통해 렌더를 실행시킨다.
+
+```tsx
+const handleResize = debounce(() => {
+    Render.stop(render)
+    World.clear(engine.current.world, false)
+    Engine.clear(engine.current)
+    render.canvas.remove()
+
+    ...
+
+    Runner.run(engine.current)
+    Render.run(render)
+
+    isIntersecting.current = false
+}, 1000)
+```
+
+이제는 브라우저의 크기가 변경될 때마다 렌더를 중지, 엔진 초기화, 렌더를 다시 실행시키는 함수를 만들어준다.
+그리고 handleResize는 1초마다 실행되도록 debounce를 사용했다.
+스크롤 변경 시 1초가 지난 시점에 값을 확인해 성능을 개선하기 위함이다.
+
+```tsx
+window.addEventListener('resize', handleResize)
+
+return () => {
+    Render.stop(render)
+    World.clear(engine.current.world, false)
+    Engine.clear(engine.current)
+    render.canvas.remove()
+    window.removeEventListener('resize', handleResize)
+    isIntersecting.current = false
+}
+```
+
+윈도우 addEventListener를 통해 resize 이벤트가 발생할 때마다 handleResize 함수가 실행되도록 했다.
+그리고 useEffect의 return에는 언마운트 되는 시점에 모든 작업을 정리해주는 코드를 작성했다.
+
+```tsx
+useEffect(() => {
+    let observer: IntersectionObserver
+    const { current } = scene
+
+    if (current) {
+    observer = new IntersectionObserver(handleScroll, { threshold: 0.8 })
+    observer.observe(current)
+
+    return () => observer && observer.disconnect()
+    }
+}, [handleScroll])
+```
+
+다음은 부가적이지만 IntersectionObserver 객체를 활용해
+scene의 threshold 시점을 파악해 이벤트를 발생시키는 코드이다.
+IntersectionObserver 객체에 대해서는 나중에 포스팅으로 다루겠지만,
+이름에서도 알 수 있듯이 교차점을 감지하는 객체이다.
+return값은 언마운트 시점에 observer를 해제해준다.
+
+```tsx
+const handleScroll = useCallback(([entry]: IntersectionObserverEntry[]) => {
+    const { current } = scene
+    if (entry.isIntersecting && current) {
+      // 원하는 이벤트를 추가 할 것
+      current.style.transitionProperty = 'opacity'
+      current.style.transitionDuration = '1s'
+      current.style.transitionTimingFunction = 'cubic-bezier(0, 0, 0.2, 1)'
+      current.style.transitionDelay = '0s'
+      current.style.opacity = '1'
+
+      if (!isIntersecting.current) {
+        const cw = window.innerWidth
+        // 도형을 계속 추가하는 부분
+        World.add(engine.current.world, [
+          Bodies.circle(Math.random() * cw, 0, 150, {
+            render: { fillStyle: rainbow[0] },
+            frictionAir: 0.05,
+          }),
+        ])
+        isIntersecting.current = true
+      }
+    }
+  }, [])
+```
+
+넘겨받은 entry를 통해 isIntersecting이 true일 때 원하는 이벤트를 추가해준다.
+isIntersecting은 threshold가 0.8이기 때문에 임계점이 80%가 되는 시점에 true가 되고,
+그외에는 false가 된다.
+추가로 isIntersecting이 false일 때만 World.add를 통해 도형을 추가해준다.
+이제 entry의 isIntersecting이 true가 되면 도형이 추가되고,
+isIntersecting을 true로 초기화 해주기 때문에 다시 도형이 추가되지 않는다.
+
+# 😆 결과 확인
+
+<div className="flex justify-center items-center py-5">
+  <img src="https://imagedelivery.net/6qzLODAqs2g1LZbVYqtuQw/fa6742a9-f428-4ccb-2581-fb3e630a5a00/public" alt="spring"/>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
