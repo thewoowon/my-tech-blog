@@ -413,9 +413,7 @@ const PostPage = ({ source, frontMatter, ip }: Props): JSX.Element => {
                 >
                   {'안녕하세요👏'}
                   <br />
-                  {'새로운 영감을 주는 일과 꾸준한 성장을 즐기는'}
-                  <br />
-                  {'주니어 개발자 우원입니다.'}
+                  {'침착함과 꾸준함이 매력인 주니어 개발자 우원입니다.'}
                 </div>
               </div>
             </div>

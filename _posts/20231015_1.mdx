@@ -2,7 +2,7 @@
 title: React Native 시작하기
 description: React Native를 시작하기 위한 준비
 thumbnail: /assets/react_native.png
-prerequisites: ['우원', '주니어 개발자','성장 중','안녕하세요👏 침착함과 꾸준함이 매력인 주니어 개발자 우원입니다.']
+prerequisites: ['우원', '주니어 개발자','FE Developer','안녕하세요👏 침착함과 꾸준함이 매력인 주니어 개발자 우원입니다.']
 stacks: ['REACT']
 writer: 우원
 date: '2023-01-15'
@@ -91,6 +91,134 @@ React Native Modules는
 리액트 네이티브의 네이티브 모듈을 포함한다.
 네이티브 모듈은 리액트 네이티브에서 제공하는 네이티브 기능을 사용할 수 있게 해준다.
 
+
+### 📌 리액트 네이티브의 특징
+
+크로스 플랫폼 앱 개발 프레임워크는 크게 2가지로 나뉜다.
+
+1. 하이브리드 앱 개발 프레임워크
+2. 네이티브 앱 개발 프레임워크
+
+하이브리드 앱 개발 프레임워크는
+웹 기술을 사용하여 앱을 개발하는 방식이다.
+웹 기술을 사용하기 때문에 하이브리드 앱 개발 프레임워크는
+웹 기술에 익숙한 개발자가 쉽게 앱을 개발할 수 있다는 장점이 있다.
+
+# 🧩 리액트 네이티브를 시작하기 위한 준비
+
+### 📌 리액트 네이티브 개발 환경 구축(공통)
+
+Node.js는
+리액트 네이티브를 실행하기 위한 환경이다.
+Node.js는 리액트 네이티브를 실행하기 위한 환경이기 때문에
+리액트 네이티브를 사용하지 않더라도 Node.js를 설치해야 한다.
+
+### 📌 리액트 네이티브 개발 환경 구축(Windows)
+
+JDK는
+안드로이드 스튜디오를 실행하기 위한 환경이다.
+안드로이드 스튜디오를 실행하기 위해서는 JDK가 필요하다.
+
+Android Studio는
+안드로이드 앱을 개발하기 위한 통합 개발 환경이다.
+안드로이드 앱을 개발하기 위해서는 Android Studio가 필요하다.
+
+### 📌 리액트 네이티브 개발 환경 구축(에러이슈)
+나도 겪은 오류로 react-native-cli를 전역으로 미리 설치하고
+리액트 네이티브를 어플리케이션을 생성했을 때 에러가 발생했다.
+그렇기 때문에 전역으로 설치한 패키지를 제거한다.
+
+<div className="bg-gray-50 my-4 px-4 py-2 border-l-4 border-green-400 hover:bg-gray-100 hover:border-indigo-400 transition duration-300 ease-in-out">
+npm uninstall -g react-native-cli @react-native-community/cli
+</div>
+
+### 📌 리액트 네이티브 개발 환경 구축(Mac)
+
+Xcode는 iOS 앱을 개발하기 위한 통합 개발 환경이다.
+iOS 앱을 개발하기 위해서는 Xcode가 필요하다.
+그리고 루비는 iOS 종속성 관리와 관련된
+일부 스크립트에서 사용하기 때문에 리액트 네이티브에 맞게 설치해야 한다.
+루비의 패키지 매니저는 gem이다.
+추가로 cocoapods는 iOS 종속성 관리를 위한 도구이고
+cocoapods를 사용하기 위해서는 루비가 필요하다.
+cocoapods이 루비로 만들어졌기 때문에
+gem을 사용하여 cocoapods를 설치해야 한다.
+
+# 🧩 리액트 네이티브 프로젝트 생성
+
+사전 준비가 다 되었다면 리액트 네이티브 프로젝트를 생성해보자.
+<div className="bg-gray-50 my-4 px-4 py-2 border-l-4 border-green-400 hover:bg-gray-100 hover:border-indigo-400 transition duration-300 ease-in-out">
+npx react-native init MyFirstRNApp
+</div>
+
+### 📌 리액트 네이티브 프로젝트 생성(에러이슈)
+리액트 네이티브 프로젝트를 생성하면서 에러가 발생했다.
+```bash
+✔ Downloading template
+✔ Copying template
+✔ Processing template
+✖ Installing Bundler
+error Your Ruby version is 2.6.8, but your Gemfile specified 2.7.6
+
+✖ Installing Bundler
+error Error: Looks like your iOS environment is not properly set. Please go to https://reactnative.dev/docs/next/environment-setup and follow the React Native CLI QuickStart guide for macOS and iOS.
+Error: Error: Looks like your iOS environment is not properly set. Please go to https://reactnative.dev/docs/next/environment-setup and follow the React Native CLI QuickStart guide for macOS and iOS.
+    at createFromTemplate (/Users/mac/.npm/_npx/7930a8670f922cdb/node_modules/@react-native-community/cli/build/commands/init/init.js:129:11)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async Object.initialize [as func] (/Users/mac/.npm/_npx/7930a8670f922cdb/node_modules/@react-native-community/cli/build/commands/init/init.js:181:3)
+    at async Command.handleAction (/Users/mac/.npm/_npx/7930a8670f922cdb/node_modules/@react-native-community/cli/build/index.js:106:9)
+info Run CLI with --verbose flag for more details.
+```
+
+이 에러는 루비 버전이 맞지 않아서 발생한 에러이다.
+루비 버전을 맞춰주면 된다.
+나 또한 이 문제를 해결하기 위해서 스택오버플로우를 참고했다.
+
+먼저 브루를 활용하도록 하겠다.
+
+<div className="bg-gray-50 my-4 px-4 py-2 border-l-4 border-green-400 hover:bg-gray-100 hover:border-indigo-400 transition duration-300 ease-in-out">
+brew update
+brew install ruby-build
+brew install rbenv
+</div>
+
+먼저 brew를 업데이트하고
+ruby-build와 rbenv를 설치한다.
+
+<div className="bg-gray-50 my-4 px-4 py-2 border-l-4 border-green-400 hover:bg-gray-100 hover:border-indigo-400 transition duration-300 ease-in-out">
+rbenv install -l
+</div>
+
+rbenv install -l 명령어를 통해 설치 가능한 루비 버전을 확인한다.
+
+```bash
+(base) mac@MacBook-Pro-cua-MAC dev % rbenv install -l
+2.7.7
+3.0.5
+3.1.3
+3.2.0
+jruby-9.4.0.0
+mruby-3.1.0
+picoruby-3.0.0
+rbx-5.0
+truffleruby-22.3.0
+truffleruby+graalvm-22.3.0
+
+Only latest stable releases for each Ruby implementation are shown.
+Use 'rbenv install --list-all / -L' to show all local versions.
+```
+
+나는 2.7.7을 설치하겠다.
+
+<div className="bg-gray-50 my-4 px-4 py-2 border-l-4 border-green-400 hover:bg-gray-100 hover:border-indigo-400 transition duration-300 ease-in-out">
+rbenv install 2.7.7
+rbenv global 2.7.7
+</div>
+
+2.7.7을 설치하고
+2.7.7을 전역으로 설정한다.
+
+이제 다시 리액트 네이티브 프로젝트를 생성해보자.
 
 
 
