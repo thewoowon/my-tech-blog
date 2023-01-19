@@ -15,7 +15,7 @@
     "jsx": "preserve",
     "incremental": true,
     "strictNullChecks": false,
-    
+    "types": ["@types/gtag.js"]
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "**/*.js"],
   "exclude": ["node_modules", ".next", "out"],

@@ -10,13 +10,16 @@ import '../public/static/fonts/style.css';
 import { MDXProvider } from '@mdx-js/react';
 import { Toaster } from 'react-hot-toast';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import Chatbot from 'react-chatbot-kit';
 import config from '../bot/config';
 import MessageParser from '../bot/MessageParser';
 import ActionProvider from '../bot/ActionProvider';
 import 'react-chatbot-kit/build/main.css';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
+import * as gtag from '../lib/gtag';
+import Script from 'next/script';
 
 function MyApp({ Component, pageProps }: AppProps) {
   const queryClient = new QueryClient({
@@ -27,11 +30,44 @@ function MyApp({ Component, pageProps }: AppProps) {
       },
     },
   });
+
+  const router = useRouter();
+
+  useEffect(() => {
+    const handleRouteChange = (url: URL) => {
+      gtag.pageview(url);
+    };
+    router.events.on('routeChangeComplete', handleRouteChange);
+    router.events.on('hashChangeComplete', handleRouteChange);
+    return () => {
+      router.events.off('routeChangeComplete', handleRouteChange);
+      router.events.off('hashChangeComplete', handleRouteChange);
+    };
+  }, [router.events]);
+
   const [toggle, setToggle] = useState(false);
   return (
     <QueryClientProvider client={queryClient}>
       <MdxComponentsProvider>
         <MDXProvider>
+          <Script
+            strategy="afterInteractive"
+            src={`https://www.googletagmanager.com/gtag/js?id=${gtag.GA_TRACKING_ID}`}
+          />
+          <Script
+            id="gtag-init"
+            strategy="afterInteractive"
+            dangerouslySetInnerHTML={{
+              __html: `
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '${gtag.GA_TRACKING_ID}', {
+              page_path: window.location.pathname,
+            });
+          `,
+            }}
+          />
           <Component {...pageProps} />
           <Toaster></Toaster>
           {toggle ? (
