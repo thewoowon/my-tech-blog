@@ -102,5 +102,219 @@ name: '20230122_1'
 
 -> PDF 페이지에 그림을 그리는 컴포넌트
 
+9. Font - 폰트
+
+-> PDF 문서에 사용할 글꼴을 등록하는 메소드
+
+### 📌 React PDF PDFViewer
+
+PDFViewer는 PDF 문서를 브라우저에서 렌더링하는 데 사용할 수 있는 컴포넌트이다.
+PDFViewer로 Document를 감싸면 렌더링된 PDF 문서를 브라우저에서 볼 수 있다.
+
+```tsx
+...
+import { Document} from '@react-pdf/renderer';
+...
+
+function App() {
+
+  const newDocument: documentType = {
+    title:"React PDF 사용하기",
+    author:"thewoowon",
+    subject:"React PDF 사용하기",
+    creator:"thewoowon",
+    keywords:"react pdf",
+    producer:"thewoowon",
+    language:"ko"
+  }
+
+  return (
+    <Layout>
+      <div className='min-h-screen'>
+        <PDFViewer className='min-h-screen w-full'>
+          <Document {...newDocument}>
+          </Document>
+        </PDFViewer>
+      </div>
+    </Layout>
+      
+  );
+}
+
+export default App;
+```
+
+나는 먼저 Layout을 설정하고 PDFViewer를 사용하여 Document를 감싸서 렌더링하였다.
+
+그러면 아래와 같은 화면이 출력된다.
+
+<div className="flex justify-center items-center py-5">
+  <img width="600px" height="300px" src="https://imagedelivery.net/6qzLODAqs2g1LZbVYqtuQw/b2f291d1-a534-4c36-f7ea-1031cdef6e00/public" alt="spring"/>
+</div>
+
+나는 Document 타입을 정의하고 Document 컴포넌트에 props로 넘겨주었다.
+정확한 출처가 필요하다면 Document 컴포넌트에 props로 넘겨주면 된다.
+
+### 📌 React PDF Document Font & Styling
+
+다음은 폰트를 설정해야한다.
+react-pdf는 한글 폰트를 지원하지 않기 때문에 폰트를 설정해야한다.
+한글 폰트를 지정하지 않으면 한글이 깨져서 나온다.
+
+```tsx
+
+Font.register({ family: 'Noto Sans KR', src: '/static/fonts/NotoSansKR-Regular.otf' });
+Font.register({ family: "Nanum Gothic", src: "https://fonts.gstatic.com/ea/nanumgothic/v5/NanumGothic-ExtraBold.ttf", });
+
+```
+
+노토 산스와 나눔 고딕을 한글 폰트로 설정하였다.
+이제 Text 컴포넌트에 style을 입력하면 한글이 출력된다.
+
+다음은 스타일 설정이다.
+
+```tsx
+const styles = StyleSheet.create({
+  page: {
+    flexDirection: 'column',
+    backgroundColor: 'white',
+    paddingTop: 90,
+    paddingBottom: 90,
+    paddingLeft: 70,
+    paddingRight: 70,
+  },
+  titleSection: {
+    display: 'flex',
+    flexDirection: 'row',
+    paddingBottom: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+
+  },
+  mainTitle: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    fontFamily: 'Noto Sans KR',
+  },
+  link: {
+    fontSize: 10,
+    color: 'blue',
+    textDecoration: 'underline',
+    fontFamily: 'Nanum Gothic',
+    textAlign: 'center',
+  },
+  logo: {
+    width: 50,
+    marginLeft: 20,
+    marginRight: 20,
+  },
+  text: {
+    fontSize: 10,
+    textAlign: 'justify',
+    fontFamily: 'Noto Sans KR'
+  },
+  paragraph1: {
+    display: 'flex',
+    flexDirection: 'row',
+    padding: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+    border: '1px solid black',
+    marginBottom: 20,
+  },
+  simson: {
+    width: 150,
+    height: 200,
+    marginLeft: 10,
+    marginRight: 10,
+  },
+  paragraph1Text: {
+    width: 300,
+  },
+});
+```
+
+스타일을 정의하고 StyleSheet.create를 사용하여 스타일을 생성한다.
+이제 Page, View, Text 등 각각의 컴포넌트에 style을 입력하면 된다.
+
+예를 들어, 아래와 같이 style을 입력하면 된다.
+
+```tsx
+
+<Text style={styles.text}>
+  {`안녕하세요. 저는 ${name}입니다. 저는 ${age}살입니다.`}
+</Text>
+  
+```
+
+className이라는 props를 사용할 수 없기 때문에 style을 사용해야한다.
+위에서 정의한 스타일을 사용하면 된다.
+
+### 📌 React PDF Document Page
+
+이제 간단한 페이지를 만들어서 출력해보자.
+
+```tsx
+
+const MyDocument = ({newDocument}:{newDocument:documentType}) => (
+          <Document {...newDocument}>
+            <Page size="A4" style={styles.page}>
+              <View style={styles.titleSection}>
+                <View>
+                  <Text style={styles.mainTitle}>React PDF 사용하기</Text>
+                  <Link style={styles.link} src="https://react-pdf.org/">https://react-pdf.org/</Link>
+                </View>
+                <View>
+                  <Image style={styles.logo} src={"/react_pdf.png"}></Image>
+                </View>
+              </View>
+              <View style={styles.paragraph1}>
+                <View style={styles.paragraph1Text}>
+                  <Text style={styles.text}> {beginningParagraph}</Text>
+                </View>
+                <View>
+                  <Image style={styles.simson} src={"https://imagedelivery.net/6qzLODAqs2g1LZbVYqtuQw/7e7aa0fb-aa85-4cc0-068e-97c3a04c4800/public"}></Image>
+                </View>
+              </View>
+              <View>
+                <Text style={styles.text}> {endingParagraph}</Text>
+              </View>
+            </Page>
+          </Document>
+);
+```
+
+위와 같은 컴포넌트를 만들고, PDFViewer를 사용하여 출력해보자.
+
+```tsx
+
+return (
+    <Layout>
+      <div className='min-h-screen'>
+        <PDFViewer className='min-h-screen w-full'>
+          <MyDocument newDocument={newDocument}/>
+        </PDFViewer>
+      </div>
+    </Layout>
+      
+  );
+
+```
+
+아래와 같은 결과가 나온다.
+
+<div className="flex justify-center items-center py-5">
+  <img width="800px" height="400px" src="https://imagedelivery.net/6qzLODAqs2g1LZbVYqtuQw/0591e60b-3261-4800-a763-eb67ec758f00/public" alt="spring"/>
+</div>
 
 
+### 📌 React PDF 주의할 점 정리
+
+1. React PDF는 className이라는 props를 지원하지 않는다.
+2. React PDF는 한글 폰트를 지정하지 않으면 한글이 깨진다.
+3. View는 HTML의 div와 같은 역할을 한다.
+4. Text는 HTML의 span과 같은 역할을 한다.
+5. Image는 HTML의 img와 같은 역할을 한다.
+6. Link는 HTML의 a와 같은 역할을 한다.
+
+다음 시간에는 직접 폼을 만들어 보고 입력한 값을 바탕으로 PDF를 생성해보자.
