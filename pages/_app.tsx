@@ -10,7 +10,7 @@ import '../public/static/fonts/style.css';
 import { MDXProvider } from '@mdx-js/react';
 import { Toaster } from 'react-hot-toast';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Chatbot from 'react-chatbot-kit';
 import config from '../bot/config';
 import MessageParser from '../bot/MessageParser';
@@ -20,6 +20,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import * as gtag from '../lib/gtag';
 import Script from 'next/script';
+import { ThemeProvider } from 'next-themes';
 
 function MyApp({ Component, pageProps }: AppProps) {
   const queryClient = new QueryClient({
@@ -47,65 +48,68 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   const [toggle, setToggle] = useState(false);
   return (
-    <QueryClientProvider client={queryClient}>
-      <MdxComponentsProvider>
-        <MDXProvider>
-          <Script
-            strategy="afterInteractive"
-            src={`https://www.googletagmanager.com/gtag/js?id=${gtag.GA_TRACKING_ID}`}
-          />
-          <Script
-            id="gtag-init"
-            strategy="afterInteractive"
-            dangerouslySetInnerHTML={{
-              __html: `
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', '${gtag.GA_TRACKING_ID}', {
-              page_path: window.location.pathname,
-            });
-          `,
-            }}
-          />
-          <Component {...pageProps} />
-          <Toaster></Toaster>
-          {toggle ? (
-            <div className="z-30 sticky bottom-10 mr-10 flex justify-end items-center">
-              <div className="flex flex-col">
-                <Chatbot
-                  config={config}
-                  messageParser={MessageParser}
-                  actionProvider={ActionProvider}
-                />
-                <div className="flex justify-end mt-5">
-                  <Image
-                    onClick={() => setToggle(!toggle)}
-                    src={'/images/tb_logo_rounded.svg'}
-                    className="cursor-pointer hover:opacity-90"
-                    width={80}
-                    height={70}
-                  ></Image>
+    <ThemeProvider attribute="class" defaultTheme={'system'}>
+      <QueryClientProvider client={queryClient}>
+        <MdxComponentsProvider>
+          <MDXProvider>
+            <Script
+              strategy="afterInteractive"
+              src={`https://www.googletagmanager.com/gtag/js?id=${gtag.GA_TRACKING_ID}`}
+            />
+            <Script
+              id="gtag-init"
+              strategy="afterInteractive"
+              dangerouslySetInnerHTML={{
+                __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', '${gtag.GA_TRACKING_ID}', {
+                page_path: window.location.pathname,
+              });
+            `,
+              }}
+            />
+            <Component {...pageProps} />
+            <Toaster></Toaster>
+            {toggle ? (
+              <div className="z-30 sticky bottom-10 mr-10 flex justify-end items-center">
+                <div className="flex flex-col">
+                  <Chatbot
+                    config={config}
+                    messageParser={MessageParser}
+                    actionProvider={ActionProvider}
+                  />
+                  <div className="flex justify-end mt-5">
+                    <Image
+                      onClick={() => setToggle(!toggle)}
+                      src={'/images/tb_logo_rounded.svg'}
+                      className="cursor-pointer hover:opacity-90"
+                      width={80}
+                      height={70}
+                      alt="logo"
+                    ></Image>
+                  </div>
                 </div>
               </div>
-            </div>
-          ) : (
-            <div className="animate-bounce z-30 sticky bottom-10 mr-10 flex justify-end items-center">
-              <div className="bg-white px-4 py-2 rounded-lg shadow-lg">
-                안녕하세요.
+            ) : (
+              <div className="animate-bounce z-30 sticky bottom-10 mr-10 flex justify-end items-center">
+                <div className="bg-white px-4 py-2 rounded-lg shadow-lg">
+                  안녕하세요.
+                </div>
+                <Image
+                  onClick={() => setToggle(!toggle)}
+                  className="cursor-pointer hover:opacity-90"
+                  src={'/images/tb_logo_rounded.svg'}
+                  width={80}
+                  height={70}
+                ></Image>
               </div>
-              <Image
-                onClick={() => setToggle(!toggle)}
-                className="cursor-pointer hover:opacity-90"
-                src={'/images/tb_logo_rounded.svg'}
-                width={80}
-                height={70}
-              ></Image>
-            </div>
-          )}
-        </MDXProvider>
-      </MdxComponentsProvider>
-    </QueryClientProvider>
+            )}
+          </MDXProvider>
+        </MdxComponentsProvider>
+      </QueryClientProvider>
+    </ThemeProvider>
   );
 }
 
