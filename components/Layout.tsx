@@ -27,7 +27,7 @@ const Layout = ({ children, customMeta }: LayoutProps): JSX.Element => {
     <>
       <Head customMeta={customMeta} />
       <header
-        className="fixed top-0 z-50 w-full bg-white"
+        className="fixed top-0 z-50 w-full bg-white dark:bg-black text-gray-900 dark:text-white"
         style={{ borderBottom: '1px solid rgba(200,200,200,0.5)' }}
       >
         <div className="max-w-5xl px-8 mx-auto flex">
@@ -44,12 +44,12 @@ const Layout = ({ children, customMeta }: LayoutProps): JSX.Element => {
               >
                 <span className="tech-blog-title">우원</span>
                 <span
+                  className="text-black dark:text-white"
                   style={{
                     fontSize: '18px',
                     fontWeight: 'bold',
                     lineHeight: '18px',
                     fontFamily: 'Noto_Sans',
-                    color: '#3B3838',
                   }}
                 >
                   {' '}

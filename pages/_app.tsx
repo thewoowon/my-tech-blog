@@ -48,7 +48,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   const [toggle, setToggle] = useState(false);
   return (
-    <ThemeProvider attribute="class" defaultTheme={'system'}>
+    <ThemeProvider attribute="class">
       <QueryClientProvider client={queryClient}>
         <MdxComponentsProvider>
           <MDXProvider>

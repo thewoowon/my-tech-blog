@@ -11,7 +11,7 @@ class MyDocument extends Document {
           ></link>
           <link rel="icon" href="/assets/tb_logo_rounded.png"></link>
         </Head>
-        <body className="bg-white dark:bg-black text-gray-900 dark:text-white">
+        <body className="bg-white dark:bg-black text-black dark:text-white">
           <Main />
           <NextScript />
         </body>
