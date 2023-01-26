@@ -187,7 +187,7 @@ const PostPage = ({ source, frontMatter, ip }: Props): JSX.Element => {
       onSuccess: (data, variables, context) => {
         toast.success('감사합니다!', {
           icon: '👏',
-          position: 'bottom-center',
+          position: 'top-right',
         });
         queryClient.invalidateQueries([
           `../api/get-likes?postId=${frontMatter.name}`,
@@ -215,7 +215,7 @@ const PostPage = ({ source, frontMatter, ip }: Props): JSX.Element => {
       },
       onSuccess: (data, variables, context) => {
         toast.success('댓글 등록 완료', {
-          position: 'bottom-center',
+          position: 'top-right',
         });
         //comments.push(data as Comments)
         queryClient.invalidateQueries([
