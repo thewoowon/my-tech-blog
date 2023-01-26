@@ -7,7 +7,7 @@ import 'swiper/css/scrollbar';
 import 'swiper/css/autoplay';
 import React from 'react';
 
-const VideoWatcher = (): JSX.Element => {
+const VideoWatcher = ({ url }: { url?: string }): JSX.Element => {
   return (
     <Swiper
       id="carousel"
@@ -26,7 +26,7 @@ const VideoWatcher = (): JSX.Element => {
       <SwiperSlide className="my-swiper-slide">
         {/* <Image src={Preview1} alt="Sample1" width={"100%"} height={450} className="carousel-fit" ></Image> */}
         <video autoPlay muted loop style={{ width: '100%', height: 'auto' }}>
-          <source src="/videos/3d_art.mp4" />
+          <source src={url} />
         </video>
       </SwiperSlide>
       {/* <SwiperSlide className="my-swiper-slide">
