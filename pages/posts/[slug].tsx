@@ -44,7 +44,7 @@ import 'prismjs/components/prism-python.min';
 import 'prismjs/components/prism-csharp.min';
 import 'prismjs/components/prism-c.min';
 
-import { faHeart } from '@fortawesome/free-solid-svg-icons';
+import { faHeart, faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { faThumbsUp } from '@fortawesome/free-solid-svg-icons';
 import { faPencil } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -167,7 +167,7 @@ const PostPage = ({ source, frontMatter, ip }: Props): JSX.Element => {
       .classList.add('animate-like');
   };
 
-  const { mutate: addLike } = useMutation<
+  const { mutate: addLike, isLoading } = useMutation<
     unknown,
     unknown,
     Omit<Likes, 'id' | 'updatedAt' | 'createdAt' | 'host'>,
@@ -296,7 +296,7 @@ const PostPage = ({ source, frontMatter, ip }: Props): JSX.Element => {
               })}
             </div>
             <h1
-              className="mb-0 mt-0 text-black dark:text-white"
+              className="mb-0 mt-0 text-black dark:text-white font-bold"
               style={{ fontSize: '45px' }}
             >
               {frontMatter.title}
@@ -349,7 +349,19 @@ const PostPage = ({ source, frontMatter, ip }: Props): JSX.Element => {
                   });
                 }}
               >
-                <FontAwesomeIcon icon={faHeart} /> 좋아요
+                {isLoading ? (
+                  <FontAwesomeIcon
+                    icon={faSpinner}
+                    className="fa-spin "
+                    style={{ marginRight: '5px' }}
+                  />
+                ) : (
+                  <FontAwesomeIcon
+                    icon={faHeart}
+                    style={{ marginRight: '5px' }}
+                  />
+                )}
+                Like
               </button>
               <button
                 className="btn-gentle like-review"
@@ -361,7 +373,19 @@ const PostPage = ({ source, frontMatter, ip }: Props): JSX.Element => {
                   });
                 }}
               >
-                <FontAwesomeIcon icon={faThumbsUp} /> 멋져요
+                {isLoading ? (
+                  <FontAwesomeIcon
+                    icon={faSpinner}
+                    className="fa-spin "
+                    style={{ marginRight: '5px' }}
+                  />
+                ) : (
+                  <FontAwesomeIcon
+                    icon={faThumbsUp}
+                    style={{ marginRight: '5px' }}
+                  />
+                )}
+                Good
               </button>
               <button
                 className="btn-learn like-review"
@@ -373,13 +397,25 @@ const PostPage = ({ source, frontMatter, ip }: Props): JSX.Element => {
                   });
                 }}
               >
-                <FontAwesomeIcon icon={faPencil} /> 배웠어요
+                {isLoading ? (
+                  <FontAwesomeIcon
+                    icon={faSpinner}
+                    className="fa-spin "
+                    style={{ marginRight: '5px' }}
+                  />
+                ) : (
+                  <FontAwesomeIcon
+                    icon={faPencil}
+                    style={{ marginRight: '5px' }}
+                  />
+                )}
+                Learn
               </button>
             </div>
           </div>
         </div>
-        <article className="max-w-5xl px-8 py-4 mx-auto">
-          <div className="prose prose-green">
+        <article className="max-w-5xl px-8 py-16 mx-auto">
+          <div className="prose dark:prose-invert max-w-none mdx-wrapper">
             <MDXRemote components={components} {...source} />
             <div className="user-wrap flex items-center">
               <div className="w-4/12 h-full flex justify-center items-center">
@@ -410,7 +446,7 @@ const PostPage = ({ source, frontMatter, ip }: Props): JSX.Element => {
             </div>
           </div>
         </article>
-        <div className="flex flex-col justify-center items-center mx-auto w-full bg-gray-50 py-20">
+        <div className="dark:bg-black flex flex-col justify-center items-center mx-auto w-full bg-gray-50 py-20">
           <div
             className="w-full"
             style={{ minWidth: '360px', maxWidth: '920px', minHeight: '300px' }}
@@ -424,7 +460,7 @@ const PostPage = ({ source, frontMatter, ip }: Props): JSX.Element => {
                   Email
                 </div>
                 <input
-                  className="w-full h-12 px-4 focus:outline-none rounded-md"
+                  className="bg-white dark:bg-white dark:text-black w-full h-12 px-4 focus:outline-none rounded-md"
                   {...register('email', {
                     required: '이메일을 입력해주세요',
                     pattern:
@@ -439,7 +475,7 @@ const PostPage = ({ source, frontMatter, ip }: Props): JSX.Element => {
                   Gihub
                 </div>
                 <input
-                  className="w-full h-12 px-4 focus:outline-none rounded-md"
+                  className="bg-white dark:bg-white dark:text-black w-full h-12 px-4 focus:outline-none rounded-md"
                   {...register('githubId', {
                     required: '깃허브 아이디를 입력해주세요',
                     pattern: /^[a-z|A-Z]+$/,
@@ -456,7 +492,7 @@ const PostPage = ({ source, frontMatter, ip }: Props): JSX.Element => {
                 })}
                 cols={30}
                 required={true}
-                className="mb-6 px-4 py-4 bg-white shadow-sm border-2 border-gray-100 rounded-lg w-full h-36 text-md outline-none"
+                className="mb-6 px-4 py-4 bg-white dark:text-black shadow-sm border-2 border-gray-100 rounded-lg w-full h-36 text-md outline-none"
                 autoComplete="true"
                 placeholder="댓글 내용을 입력해주세요"
               ></textarea>

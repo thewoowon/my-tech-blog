@@ -11,17 +11,17 @@ name: '20230122_1'
 
 # 🌈 React PDF
 
-### 📌 React PDF 설치
+## 📌 React PDF 설치
 
-<div className="bg-gray-50 my-4 px-4 py-2 border-l-4 border-green-400 hover:bg-gray-100 hover:border-indigo-400 transition duration-300 ease-in-out">
+<div className="bg-gray-50 text-black my-4 px-4 py-2 border-l-4 border-green-400 hover:bg-gray-100 hover:border-indigo-400 transition duration-300 ease-in-out">
     yarn add @react-pdf/renderer
 </div>
 
-<div className="bg-gray-50 my-4 px-4 py-2 border-l-4 border-green-400 hover:bg-gray-100 hover:border-indigo-400 transition duration-300 ease-in-out">
+<div className="bg-gray-50 text-black my-4 px-4 py-2 border-l-4 border-green-400 hover:bg-gray-100 hover:border-indigo-400 transition duration-300 ease-in-out">
     npm install @react-pdf/renderer --save
 </div>
 
-### 📌 React PDF 렌더링 프로세스
+## 📌 React PDF 렌더링 프로세스
 
 <div className="flex justify-center items-center py-5">
   <img src="https://imagedelivery.net/6qzLODAqs2g1LZbVYqtuQw/d3b23ff2-61a5-4d17-9425-18d2eaa7f000/public" alt="spring"/>
@@ -68,7 +68,7 @@ name: '20230122_1'
 이 단계에서는 문서 자체를 생성 하고 이를 위해 PDF Kit을 사용한다.
 
 
-### 📌 React PDF Components
+## 📌 React PDF Components
 
 1. Document - 문서
 
@@ -106,7 +106,7 @@ name: '20230122_1'
 
 -> PDF 문서에 사용할 글꼴을 등록하는 메소드
 
-### 📌 React PDF PDFViewer
+## 📌 React PDF PDFViewer
 
 PDFViewer는 PDF 문서를 브라우저에서 렌더링하는 데 사용할 수 있는 컴포넌트이다.
 PDFViewer로 Document를 감싸면 렌더링된 PDF 문서를 브라우저에서 볼 수 있다.
@@ -155,7 +155,7 @@ export default App;
 나는 Document 타입을 정의하고 Document 컴포넌트에 props로 넘겨주었다.
 정확한 출처가 필요하다면 Document 컴포넌트에 props로 넘겨주면 된다.
 
-### 📌 React PDF Document Font & Styling
+## 📌 React PDF Document Font & Styling
 
 다음은 폰트를 설정해야한다.
 react-pdf는 한글 폰트를 지원하지 않기 때문에 폰트를 설정해야한다.
@@ -250,7 +250,7 @@ const styles = StyleSheet.create({
 className이라는 props를 사용할 수 없기 때문에 style을 사용해야한다.
 위에서 정의한 스타일을 사용하면 된다.
 
-### 📌 React PDF Document Page
+## 📌 React PDF Document Page
 
 이제 간단한 페이지를 만들어서 출력해보자.
 
@@ -308,7 +308,7 @@ return (
 </div>
 
 
-### 📌 React PDF 주의할 점 정리
+## 📌 React PDF 주의할 점 정리
 
 1. React PDF는 className이라는 props를 지원하지 않는다.
 2. React PDF는 한글 폰트를 지정하지 않으면 한글이 깨진다.

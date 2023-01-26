@@ -77,9 +77,7 @@ function MyApp({ Component, pageProps }: AppProps) {
             `,
               }}
             />
-            <RecoilRoot>
-              <Component {...pageProps} />
-            </RecoilRoot>
+            <Component {...pageProps} />
             <Toaster></Toaster>
             {toggle ? (
               <div className="z-30 sticky bottom-10 mr-10 flex justify-end items-center">

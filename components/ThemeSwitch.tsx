@@ -6,7 +6,7 @@ import { modeClassState } from '../states/states';
 const ThemeSwitch = () => {
   const [mounted, setMounted] = useState(false);
   const { theme, setTheme, resolvedTheme } = useTheme();
-  const [modeClass, setmodeClass] = useRecoilState(modeClassState);
+  //const [modeClass, setmodeClass] = useRecoilState(modeClassState);
 
   useEffect(() => setMounted(true), []);
 

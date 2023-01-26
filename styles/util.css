@@ -89,8 +89,8 @@
   }
 
 
-.prose *{
-    font-family: "Noto_Sans";
+.mdx-wrapper li{
+    font-weight: 700;
 }
 
 .culture{
@@ -362,10 +362,6 @@ iframe{
         position: sticky;
         top: 100px;
     }
-}
-
-.prose-green p, li{
-    font-family: 'Noto Sans KR Light';
 }
 
 .like-content{
