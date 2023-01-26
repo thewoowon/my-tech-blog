@@ -39,7 +39,6 @@ const Layout = ({ children, customMeta }: LayoutProps): JSX.Element => {
                   fontWeight: 'bold',
                   color: '#ff7f00',
                   lineHeight: '28px',
-                  fontFamily: 'Noto_Sans',
                 }}
               >
                 <span className="tech-blog-title">우원</span>
@@ -49,7 +48,6 @@ const Layout = ({ children, customMeta }: LayoutProps): JSX.Element => {
                     fontSize: '18px',
                     fontWeight: 'bold',
                     lineHeight: '18px',
-                    fontFamily: 'Noto_Sans',
                   }}
                 >
                   {' '}
@@ -90,24 +88,12 @@ const Layout = ({ children, customMeta }: LayoutProps): JSX.Element => {
           <span className="mx-auto"></span>
           <div className="flex flex-wrap gap-10">
             <Link href="/">
-              <a
-                className="text-black transition duration-200 ease-in-out  dark:text-white pr-6 py-4 hover:text-gray-500"
-                style={{
-                  fontSize: '16px',
-                  fontFamily: 'Noto Sans KR Light',
-                }}
-              >
+              <a className="text-black transition duration-200 ease-in-out  dark:text-white pr-6 py-4 hover:text-gray-500">
                 홈
               </a>
             </Link>
             <Link href="/post/all">
-              <a
-                className="text-black transition duration-200 ease-in-out dark:text-white pr-6 py-4 hover:text-gray-500"
-                style={{
-                  fontSize: '16px',
-                  fontFamily: 'Noto Sans KR Light',
-                }}
-              >
+              <a className="text-black transition duration-200 ease-in-out dark:text-white pr-6 py-4 hover:text-gray-500">
                 게시물
               </a>
             </Link>
@@ -115,22 +101,12 @@ const Layout = ({ children, customMeta }: LayoutProps): JSX.Element => {
               <a
                 target="_blank"
                 className="text-black transition duration-200 ease-in-out dark:text-white pr-6 py-4 hover:text-gray-500"
-                style={{
-                  fontSize: '16px',
-                  fontFamily: 'Noto Sans KR Light',
-                }}
               >
                 프로필
               </a>
             </Link>
             <Link href="/portfolio">
-              <a
-                className="text-black transition duration-200 ease-in-out dark:text-white pr-6 py-4 hover:text-gray-500"
-                style={{
-                  fontSize: '16px',
-                  fontFamily: 'Noto Sans KR Light',
-                }}
-              >
+              <a className="text-black transition duration-200 ease-in-out dark:text-white pr-6 py-4 hover:text-gray-500">
                 프로젝트
               </a>
             </Link>
@@ -138,10 +114,6 @@ const Layout = ({ children, customMeta }: LayoutProps): JSX.Element => {
               <a
                 target="_blank"
                 className="text-black transition duration-200 ease-in-out dark:text-white pr-6 py-4 hover:text-gray-500"
-                style={{
-                  fontSize: '16px',
-                  fontFamily: 'Noto Sans KR Light',
-                }}
               >
                 깃허브
               </a>

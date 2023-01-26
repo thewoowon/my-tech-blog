@@ -37,24 +37,12 @@ const Navigation = (): JSX.Element => {
           {toggle && (
             <div className="flex flex-col justify-center items-center absolute bg-white -left-10 rounded-md ">
               <Link href="/">
-                <a
-                  className="text-black transition duration-200 ease-in-out  dark:text-white px-10 py-4 hover:text-gray-500"
-                  style={{
-                    fontSize: '16px',
-                    fontFamily: 'Noto Sans KR Light',
-                  }}
-                >
+                <a className="text-black transition duration-200 ease-in-out  dark:text-white px-10 py-4 hover:text-gray-500">
                   홈
                 </a>
               </Link>
               <Link href="/post/all">
-                <a
-                  className="text-black transition duration-200 ease-in-out dark:text-white py-4 hover:text-gray-500"
-                  style={{
-                    fontSize: '16px',
-                    fontFamily: 'Noto Sans KR Light',
-                  }}
-                >
+                <a className="text-black transition duration-200 ease-in-out dark:text-white py-4 hover:text-gray-500">
                   게시물
                 </a>
               </Link>
@@ -62,22 +50,12 @@ const Navigation = (): JSX.Element => {
                 <a
                   target="_blank"
                   className="text-black transition duration-200 ease-in-out dark:text-white py-4 hover:text-gray-500"
-                  style={{
-                    fontSize: '16px',
-                    fontFamily: 'Noto Sans KR Light',
-                  }}
                 >
                   프로필
                 </a>
               </Link>
               <Link href="/portfolio">
-                <a
-                  className="text-black transition duration-200 ease-in-out dark:text-white py-4 hover:text-gray-500"
-                  style={{
-                    fontSize: '16px',
-                    fontFamily: 'Noto Sans KR Light',
-                  }}
-                >
+                <a className="text-black transition duration-200 ease-in-out dark:text-white py-4 hover:text-gray-500">
                   프로젝트
                 </a>
               </Link>
@@ -85,10 +63,6 @@ const Navigation = (): JSX.Element => {
                 <a
                   target="_blank"
                   className="text-black transition duration-200 ease-in-out dark:text-white py-4 hover:text-gray-500"
-                  style={{
-                    fontSize: '16px',
-                    fontFamily: 'Noto Sans KR Light',
-                  }}
                 >
                   깃허브
                 </a>
@@ -99,24 +73,12 @@ const Navigation = (): JSX.Element => {
       ) : (
         <>
           <Link href="/">
-            <a
-              className="text-black transition duration-200 ease-in-out  dark:text-white pr-6 py-4 hover:text-gray-500"
-              style={{
-                fontSize: '16px',
-                fontFamily: 'Noto Sans KR Light',
-              }}
-            >
+            <a className="text-black transition duration-200 ease-in-out  dark:text-white pr-6 py-4 hover:text-gray-500">
               홈
             </a>
           </Link>
           <Link href="/post/all">
-            <a
-              className="text-black transition duration-200 ease-in-out dark:text-white pr-6 py-4 hover:text-gray-500"
-              style={{
-                fontSize: '16px',
-                fontFamily: 'Noto Sans KR Light',
-              }}
-            >
+            <a className="text-black transition duration-200 ease-in-out dark:text-white pr-6 py-4 hover:text-gray-500">
               게시물
             </a>
           </Link>
@@ -124,22 +86,12 @@ const Navigation = (): JSX.Element => {
             <a
               target="_blank"
               className="text-black transition duration-200 ease-in-out dark:text-white pr-6 py-4 hover:text-gray-500"
-              style={{
-                fontSize: '16px',
-                fontFamily: 'Noto Sans KR Light',
-              }}
             >
               프로필
             </a>
           </Link>
           <Link href="/portfolio">
-            <a
-              className="text-black transition duration-200 ease-in-out dark:text-white pr-6 py-4 hover:text-gray-500"
-              style={{
-                fontSize: '16px',
-                fontFamily: 'Noto Sans KR Light',
-              }}
-            >
+            <a className="text-black transition duration-200 ease-in-out dark:text-white pr-6 py-4 hover:text-gray-500">
               프로젝트
             </a>
           </Link>
@@ -147,10 +99,6 @@ const Navigation = (): JSX.Element => {
             <a
               target="_blank"
               className="text-black transition duration-200 ease-in-out dark:text-white pr-6 py-4 hover:text-gray-500"
-              style={{
-                fontSize: '16px',
-                fontFamily: 'Noto Sans KR Light',
-              }}
             >
               깃허브
             </a>

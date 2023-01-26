@@ -55,10 +55,7 @@ const Tech: NextPage<Props> = ({ posts }: Props) => {
                     })}
                   </div>
                   <div className="flex">
-                    <h2
-                      className="text-4xl font-bold m-0 text-gray-800"
-                      style={{ fontFamily: 'Noto Sans KR' }}
-                    >
+                    <h2 className="text-4xl font-bold m-0 text-gray-800">
                       <Link href={`/posts/${post.slug}`}>
                         <a className="transition duration-200 ease-in-out  dark:text-white hover:text-gray-500">
                           {post.title}
@@ -66,22 +63,12 @@ const Tech: NextPage<Props> = ({ posts }: Props) => {
                       </Link>
                     </h2>
                   </div>
-                  <div className="flex" style={{ fontFamily: 'Noto Sans KR' }}>
+                  <div className="flex">
                     <p>{post.description}</p>
                   </div>
                   <div className="flex items-center">
-                    <div
-                      className="text-sm mr-2"
-                      style={{ fontFamily: 'Noto Sans KR' }}
-                    >
-                      {post.date}
-                    </div>
-                    <div
-                      className="text-sm"
-                      style={{ fontFamily: 'Noto Sans KR' }}
-                    >
-                      - {post.writer}
-                    </div>
+                    <div className="text-sm mr-2">{post.date}</div>
+                    <div className="text-sm">- {post.writer}</div>
                   </div>
                 </div>
                 <div className="w-3/12 pt-6">

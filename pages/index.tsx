@@ -8,6 +8,9 @@ import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import VideoWatcher from '../components/VideoWatcher';
+import { useTheme } from 'next-themes';
+import DarkVideoWatcher from '../components/DarkVideoWatcher';
+import LightVideoWatcher from '../components/LightVideoWatcher';
 
 type Props = {
   posts: [IPost];
@@ -18,6 +21,7 @@ type Tags = { [key: string]: number };
 const Home: NextPage<Props> = ({ posts }: Props) => {
   const [tags, setTags] = useState<Tags>({});
   const router = useRouter();
+  const { theme, setTheme, resolvedTheme } = useTheme();
   useEffect(() => {
     const tags = posts.reduce((acc, post) => {
       post.stacks.forEach((tag) => {
@@ -33,9 +37,17 @@ const Home: NextPage<Props> = ({ posts }: Props) => {
   }, []);
   return (
     <Layout>
-      <div>
-        <VideoWatcher></VideoWatcher>
-      </div>
+      {theme === 'dark' || resolvedTheme === 'dark' ? (
+        <div>
+          {/* <VideoWatcher url='/videos/3d_infinite.mp4'></VideoWatcher> */}
+          <DarkVideoWatcher></DarkVideoWatcher>
+        </div>
+      ) : (
+        <div>
+          {/* <VideoWatcher url='/videos/3d_art.mp4'></VideoWatcher> */}
+          <LightVideoWatcher></LightVideoWatcher>
+        </div>
+      )}
       <div></div>
       <div className="m-auto flex" style={{ width: '1024px' }}>
         <div className="space-y-12 mt-12 mb-12 w-8/12">
@@ -57,36 +69,25 @@ const Home: NextPage<Props> = ({ posts }: Props) => {
                     })}
                   </div>
                   <div className="flex">
-                    <h2
-                      className="text-4xl m-0 text-black"
-                      style={{ fontFamily: 'Noto Sans KR Medium' }}
-                    >
+                    <h2 className="text-4xl m-0 text-black">
                       <Link href={`/posts/${post.slug}`}>
-                        <a className="transition duration-200 ease-in-out dark:text-white hover:text-gray-500">
+                        <a className="font-sans-kr-bold transition duration-200 ease-in-out dark:text-white hover:text-gray-500">
                           {post.title}
                         </a>
                       </Link>
                     </h2>
                   </div>
-                  <div className="flex" style={{ fontFamily: 'Noto Sans KR' }}>
-                    <p>{post.description}</p>
+                  <div className="flex">
+                    <p className="py-5">{post.description}</p>
                   </div>
                   <div className="flex items-center">
-                    <div
-                      className="text-sm mr-2"
-                      style={{ fontFamily: 'Noto Sans KR' }}
-                    >
-                      {post.date}
-                    </div>
-                    <div
-                      className="text-sm"
-                      style={{ fontFamily: 'Noto Sans KR' }}
-                    >
+                    <div className="text-sm mr-2">{post.date}</div>
+                    <div className="text-sm">
                       {post.writer} / {post.prerequisites[1]}
                     </div>
                   </div>
                 </div>
-                <div className="w-3/12 pt-6">
+                <div className="w-3/12 pt-5">
                   <Thumbnail
                     slug={post.slug}
                     title={post.title}
@@ -123,7 +124,9 @@ const Home: NextPage<Props> = ({ posts }: Props) => {
             </ul>
             {/* 태그 모음 */}
 
-            <p style={{ textAlign: 'start', marginTop: '50px' }}>태그</p>
+            <p style={{ textAlign: 'start', marginTop: '50px' }}>
+              태그({posts.length})
+            </p>
             <div style={{ paddingLeft: '5px' }}>
               {Object.keys(tags).map((tag) => {
                 return (

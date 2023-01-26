@@ -1,8 +1,8 @@
 import type { AppProps } from 'next/app';
 import '../styles/carousel.css';
 import '../styles/util.css';
-import '../styles/globals.css';
-//import '../styles/tailwind.css';
+//import '../styles/globals.css';
+import '../styles/tailwind.css';
 import '../styles/card.css';
 import { MdxComponentsProvider } from '../context/mdxContext';
 import 'prismjs/themes/prism-tomorrow.css';
@@ -21,6 +21,13 @@ import { useRouter } from 'next/router';
 import * as gtag from '../lib/gtag';
 import Script from 'next/script';
 import { ThemeProvider } from 'next-themes';
+import {
+  RecoilRoot,
+  atom,
+  selector,
+  useRecoilState,
+  useRecoilValue,
+} from 'recoil';
 
 function MyApp({ Component, pageProps }: AppProps) {
   const queryClient = new QueryClient({
@@ -70,7 +77,9 @@ function MyApp({ Component, pageProps }: AppProps) {
             `,
               }}
             />
-            <Component {...pageProps} />
+            <RecoilRoot>
+              <Component {...pageProps} />
+            </RecoilRoot>
             <Toaster></Toaster>
             {toggle ? (
               <div className="z-30 sticky bottom-10 mr-10 flex justify-end items-center">

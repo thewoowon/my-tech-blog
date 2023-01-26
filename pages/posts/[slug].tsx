@@ -297,14 +297,11 @@ const PostPage = ({ source, frontMatter, ip }: Props): JSX.Element => {
             </div>
             <h1
               className="mb-0 mt-0 text-black dark:text-white"
-              style={{ fontFamily: 'Noto Sans KR', fontSize: '45px' }}
+              style={{ fontSize: '45px' }}
             >
               {frontMatter.title}
             </h1>
-            <p
-              className="mt-0 text-sm text-gray-800 dark:text-gray-400"
-              style={{ fontFamily: 'Noto Sans KR' }}
-            >
+            <p className="mt-0 text-sm text-gray-800 dark:text-gray-400">
               {format(parseISO(frontMatter.date), 'MMMM dd, yyyy')} -{' '}
               {frontMatter.writer}
             </p>
@@ -395,10 +392,7 @@ const PostPage = ({ source, frontMatter, ip }: Props): JSX.Element => {
                 ></Image>
               </div>
               <div className="w-8/12 h-full">
-                <div
-                  className="flex items-center pl-5 pr-12"
-                  style={{ fontFamily: 'Noto Sans KR', height: '50%' }}
-                >
+                <div className="flex items-center pl-5 pr-12 h-1/2">
                   <div className="pt-5">
                     <h4 style={{ marginBottom: '0' }}>
                       {' '}
@@ -407,10 +401,7 @@ const PostPage = ({ source, frontMatter, ip }: Props): JSX.Element => {
                     <p className="m-0 text-xs">{position}</p>
                   </div>
                 </div>
-                <div
-                  className="flex items-start pl-5 pr-12"
-                  style={{ fontFamily: 'Noto Sans KR', height: '50%' }}
-                >
+                <div className="flex items-start pl-5 pr-12 h-1/2">
                   {'안녕하세요👏'}
                   <br />
                   {'침착함과 꾸준함이 매력인 주니어 개발자 우원입니다.'}
