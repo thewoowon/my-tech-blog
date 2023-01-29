@@ -427,10 +427,13 @@ const PostPage = ({ source, frontMatter, ip }: Props): JSX.Element => {
                   style={{ borderRadius: '10%', objectFit: 'fill' }}
                 ></Image>
               </div>
-              <div className="w-8/12 h-full">
+              <div className="w-8/12 h-full dark:text-black">
                 <div className="flex items-center pl-5 pr-12 h-1/2">
                   <div className="pt-5">
-                    <h4 style={{ marginBottom: '0' }}>
+                    <h4
+                      className="dark:text-black"
+                      style={{ marginBottom: '0' }}
+                    >
                       {' '}
                       {frontMatter.writer} / {division}
                     </h4>

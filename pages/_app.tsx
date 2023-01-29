@@ -101,8 +101,8 @@ function MyApp({ Component, pageProps }: AppProps) {
               </div>
             ) : (
               <div className="animate-bounce z-30 sticky bottom-10 mr-10 flex justify-end items-center">
-                <div className="bg-white px-4 py-2 rounded-lg shadow-lg">
-                  안녕하세요.
+                <div className="bg-white dark:text-black px-4 py-2 mr-2 rounded-lg shadow-lg">
+                  안녕하세요. 우원봇입니다.
                 </div>
                 <Image
                   onClick={() => setToggle(!toggle)}
