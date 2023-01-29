@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 import { getAllPosts } from '../../utils/mdxUtils';
 import { useRouter } from 'next/router';
+import { IconLock } from '@tabler/icons';
 
 type Props = {
   posts: [IPost];
@@ -37,55 +38,82 @@ const Tech: NextPage<Props> = ({ posts }: Props) => {
     >
       <div className="m-auto flex" style={{ width: '1024px' }}>
         <div className="space-y-12 m-auto mt-12 mb-12 w-8/12">
-          {postsByTag.map((post, i) => (
-            <div key={post.slug}>
-              <div className="flex pb-6">
-                <div className="w-9/12 pr-4">
-                  <div className="flex justify-start items-center mb-2">
-                    {post.stacks.map((value, iter) => {
-                      return (
-                        <button
-                          className="tag-button"
-                          key={iter}
-                          onClick={() => router.push(`/post/${value}`)}
-                        >
-                          {value}
-                        </button>
-                      );
-                    })}
+          {postsByTag.map((post, i) => {
+            return (
+              <div key={post.slug}>
+                <div className="flex pb-6">
+                  <div className="w-9/12 pr-4">
+                    <div className="flex justify-start items-center mb-2">
+                      {post.lock === 'true'
+                        ? post.stacks.map((value, iter) => {
+                            return (
+                              <button
+                                className="tag-button cursor-not-allowed"
+                                key={iter}
+                              >
+                                {value}
+                              </button>
+                            );
+                          })
+                        : post.stacks.map((value, iter) => {
+                            return (
+                              <button
+                                className="tag-button"
+                                key={iter}
+                                onClick={() => router.push(`/post/${value}`)}
+                              >
+                                {value}
+                              </button>
+                            );
+                          })}
+                    </div>
+                    <div className="flex">
+                      <h2 className="text-4xl font-bold m-0 text-gray-800">
+                        {post.lock === 'true' ? (
+                          <span className="cursor-not-allowed font-sans-kr-bold transition duration-200 ease-in-out dark:text-white hover:text-gray-500">
+                            {post.title}
+                          </span>
+                        ) : (
+                          <Link href={`/posts/${post.slug}`}>
+                            <a className="font-sans-kr-bold transition duration-200 ease-in-out dark:text-white hover:text-gray-500">
+                              {post.title}
+                            </a>
+                          </Link>
+                        )}
+                      </h2>
+                    </div>
+                    <div className="flex">
+                      <p className="py-5">{post.description}</p>
+                    </div>
+                    <div className="flex items-center">
+                      <div className="text-sm mr-2">{post.date}</div>
+                      <div className="text-sm">- {post.writer}</div>
+                    </div>
                   </div>
-                  <div className="flex">
-                    <h2 className="text-4xl font-bold m-0 text-gray-800">
-                      <Link href={`/posts/${post.slug}`}>
-                        <a className="transition duration-200 ease-in-out  dark:text-white hover:text-gray-500">
-                          {post.title}
-                        </a>
-                      </Link>
-                    </h2>
-                  </div>
-                  <div className="flex">
-                    <p>{post.description}</p>
-                  </div>
-                  <div className="flex items-center">
-                    <div className="text-sm mr-2">{post.date}</div>
-                    <div className="text-sm">- {post.writer}</div>
+                  <div className="w-3/12 pt-6">
+                    {post.lock === 'true' ? (
+                      <div className="flex justify-center items-center">
+                        <div className="lock-icon">
+                          <IconLock size={100}></IconLock>
+                        </div>
+                      </div>
+                    ) : (
+                      <Thumbnail
+                        slug={post.slug}
+                        title={post.title}
+                        src={post.thumbnail}
+                      />
+                    )}
                   </div>
                 </div>
-                <div className="w-3/12 pt-6">
-                  <Thumbnail
-                    slug={post.slug}
-                    title={post.title}
-                    src={post.thumbnail}
-                  />
-                </div>
+                {i < posts.length - 1 ? (
+                  <div className="mt-5">
+                    <hr style={{ width: '100%' }}></hr>
+                  </div>
+                ) : null}
               </div>
-              {i < posts.length - 1 ? (
-                <div className="mt-5">
-                  <hr style={{ width: '100%' }}></hr>
-                </div>
-              ) : null}
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </Layout>
@@ -104,6 +132,7 @@ export const getStaticProps: GetStaticProps = async () => {
     'thumbnail',
     'writer',
     'name',
+    'lock',
   ]);
   // return the posts props
   return { props: { posts } };

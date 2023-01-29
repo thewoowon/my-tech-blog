@@ -36,4 +36,4 @@ const LightVideoWatcher = ({ url }: { url?: string }): JSX.Element => {
   );
 };
 
-export default LightVideoWatcher;
+export default React.memo(LightVideoWatcher);

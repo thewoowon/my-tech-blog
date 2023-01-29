@@ -36,4 +36,4 @@ const DarkVideoWatcher = ({ url }: { url?: string }): JSX.Element => {
   );
 };
 
-export default DarkVideoWatcher;
+export default React.memo(DarkVideoWatcher);

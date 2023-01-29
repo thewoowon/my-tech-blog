@@ -452,3 +452,8 @@ iframe{
     0%   { transform: scale(30); }
     100% { transform: scale(1); }
   }
+
+  .lock-box{
+    z-index: 999;
+    opacity: 0.8;
+  }

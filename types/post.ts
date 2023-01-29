@@ -17,4 +17,5 @@ export interface IPost {
   stacks: string[];
   writer: string;
   name: string;
+  lock: string;
 }
