@@ -1,13 +1,11 @@
 import type { NextPage, GetStaticProps } from 'next';
 import Layout from '../components/Layout';
-import Slider from '../components/Slider';
 import Thumbnail from '../components/Thumbnail';
 import { IPost } from '../types/post';
 import { getAllPosts } from '../utils/mdxUtils';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import VideoWatcher from '../components/VideoWatcher';
 import { useTheme } from 'next-themes';
 import DarkVideoWatcher from '../components/DarkVideoWatcher';
 import LightVideoWatcher from '../components/LightVideoWatcher';
@@ -50,8 +48,8 @@ const Home: NextPage<Props> = ({ posts }: Props) => {
         </div>
       )}
       <div></div>
-      <div className="m-auto flex" style={{ width: '1024px' }}>
-        <div className="space-y-12 mt-12 mb-12 w-8/12">
+      <div className="m-auto flex max-w-5xl lg:flex-row xss:flex-col">
+        <div className="space-y-12 mt-12 mb-12 lg:w-8/12 xss:w-full xss:px-5">
           {posts.map((post, i) => {
             return (
               <div key={i}>
@@ -132,7 +130,7 @@ const Home: NextPage<Props> = ({ posts }: Props) => {
           })}
         </div>
         <div
-          className="mt-12 mb-12 w-4/12 latest-wrap"
+          className="mt-12 mb-12 lg:block xss:hidden latest-wrap"
           style={{ height: 'auto' }}
         >
           {/* 최근 글 10가지 */}

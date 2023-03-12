@@ -21,11 +21,10 @@ const LightVideoWatcher = ({ url }: { url?: string }): JSX.Element => {
       pagination={{ clickable: true }}
       className="my-swiper"
       loop={true}
-      height={600}
     >
       <SwiperSlide className="my-swiper-slide">
         {/* <Image src={Preview1} alt="Sample1" width={"100%"} height={450} className="carousel-fit" ></Image> */}
-        <video autoPlay muted loop style={{ width: '100%', height: 'auto' }}>
+        <video autoPlay muted loop>
           <source src={'/videos/3d_art.mp4'} />
         </video>
       </SwiperSlide>

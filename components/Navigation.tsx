@@ -11,7 +11,7 @@ const Navigation = (): JSX.Element => {
     timer = setTimeout(() => {
       // 현재 window width 값
       setWindowWidth(window.innerWidth);
-    }, 500);
+    }, 200);
   };
   const [toggle, setToggle] = useState(false);
 
