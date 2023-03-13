@@ -37,17 +37,14 @@ const Home: NextPage<Props> = ({ posts }: Props) => {
   return (
     <Layout>
       {theme === 'dark' || resolvedTheme === 'dark' ? (
-        <div>
-          {/* <VideoWatcher url='/videos/3d_infinite.mp4'></VideoWatcher> */}
+        <div className="mx-auto">
           <DarkVideoWatcher></DarkVideoWatcher>
         </div>
       ) : (
-        <div>
-          {/* <VideoWatcher url='/videos/3d_art.mp4'></VideoWatcher> */}
+        <div className="mx-auto">
           <LightVideoWatcher></LightVideoWatcher>
         </div>
       )}
-      <div></div>
       <div className="m-auto flex max-w-5xl lg:flex-row xss:flex-col">
         <div className="space-y-12 mt-12 mb-12 lg:w-8/12 xss:w-full xss:px-5">
           {posts.map((post, i) => {
