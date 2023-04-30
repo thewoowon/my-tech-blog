@@ -90,7 +90,7 @@ function MyApp({ Component, pageProps }: AppProps) {
                   <div className="flex justify-end mt-5">
                     <Image
                       onClick={() => setToggle(!toggle)}
-                      src={'/images/tb_logo_rounded.svg'}
+                      src={'/images/tb_logo_abstract.png'}
                       className="cursor-pointer hover:opacity-90"
                       width={80}
                       height={70}
@@ -107,7 +107,7 @@ function MyApp({ Component, pageProps }: AppProps) {
                 <Image
                   onClick={() => setToggle(!toggle)}
                   className="cursor-pointer hover:opacity-90"
-                  src={'/images/tb_logo_rounded.svg'}
+                  src={'/images/tb_logo_abstract.png'}
                   width={80}
                   height={70}
                 ></Image>

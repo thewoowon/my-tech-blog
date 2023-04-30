@@ -38,7 +38,7 @@
     margin-bottom: 5px;
     border-bottom: 1px solid #efefef;
     font-size: 15px;
-    font-family: 'Noto Sans KR Light';
+    font-family: "Pretendard Variable";
 }
 .latest-list li a{
     cursor: pointer;
@@ -51,7 +51,7 @@
     color: #6b7280;
 }
 .tags-list{
-    font-family: 'Noto Sans KR Light';
+    font-family: "Pretendard Variable";
     transition: all;
     transition-duration: 0.2s;
     transition-timing-function: ease-in-out;
@@ -169,7 +169,7 @@ video{
 }
 
 section p{
-    font-family: "Noto_Sans";
+    font-family: "Pretendard Variable";
 }
 
 .slogan{
@@ -218,9 +218,9 @@ p span{
 }
 
 .tech-blog-title{
-    background: linear-gradient(90deg,#00DC6C,#1EE3DE);
+    /* background: linear-gradient(90deg,#00DC6C,#1EE3DE);
     -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    -webkit-text-fill-color: transparent; */
 }
 
 .orange-box-1{
@@ -342,7 +342,7 @@ iframe{
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    font-family: 'Noto Sans KR', sans-serif;
+    font-family: "Pretendard Variable", sans-serif;
     height: 26px;
     border-radius: 4px;
     padding: 0 10px;

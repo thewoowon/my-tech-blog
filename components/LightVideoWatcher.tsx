@@ -24,8 +24,8 @@ const LightVideoWatcher = ({ url }: { url?: string }): JSX.Element => {
     >
       <SwiperSlide className="my-swiper-slide">
         {/* <Image src={Preview1} alt="Sample1" width={"100%"} height={450} className="carousel-fit" ></Image> */}
-        <video autoPlay muted loop className="mx-auto">
-          <source src={'/videos/3d_art.mp4'} />
+        <video autoPlay muted loop>
+          <source src={'/videos/3d_title.mp4'} />
         </video>
       </SwiperSlide>
       {/* <SwiperSlide className="my-swiper-slide">

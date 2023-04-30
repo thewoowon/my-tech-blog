@@ -38,7 +38,6 @@
     margin-bottom: 5px;
     border-bottom: 1px solid #efefef;
     font-size: 15px;
-    font-family: 'Noto_Sans';
 }
 
 
@@ -74,7 +73,7 @@
 
 
 .prose *{
-    font-family: "Noto_Sans";
+    font-family: "Pretendard Variable";
 }
 
 .culture{
@@ -153,7 +152,7 @@ video{
 }
 
 section p{
-    font-family: "Noto_Sans";
+    font-family: "Pretendard Variable";
 }
 
 .slogan{
@@ -326,7 +325,7 @@ iframe{
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    font-family: 'Noto Sans KR', sans-serif;
+    font-family: "Pretendard Variable", sans-serif;
     height: 26px;
     border-radius: 4px;
     padding: 0 10px;

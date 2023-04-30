@@ -35,24 +35,13 @@ const Layout = ({ children, customMeta }: LayoutProps): JSX.Element => {
             <Link href={'/'} replace={true}>
               <a
                 style={{
-                  fontSize: '24px',
+                  fontSize: '20px',
                   fontWeight: 'bold',
-                  color: '#ff7f00',
-                  lineHeight: '28px',
+                  color: 'black',
+                  lineHeight: '22px',
                 }}
               >
-                <span className="tech-blog-title">우원</span>
-                <span
-                  className="text-black dark:text-white"
-                  style={{
-                    fontSize: '18px',
-                    fontWeight: 'bold',
-                    lineHeight: '18px',
-                  }}
-                >
-                  {' '}
-                  기술 블로그
-                </span>
+                <span className="tech-blog-title">THEWOOWON</span>
               </a>
             </Link>
           </div>
@@ -74,7 +63,7 @@ const Layout = ({ children, customMeta }: LayoutProps): JSX.Element => {
         >
           <div>
             <Image
-              src={'/images/tb_logo_rounded.svg'}
+              src={'/images/tb_logo_abstract.png'}
               width={100}
               height={90}
             ></Image>
@@ -83,7 +72,7 @@ const Layout = ({ children, customMeta }: LayoutProps): JSX.Element => {
             {...animateDiv_1}
             className="px-10 text-2xl lg:text-4xl font-bold"
           >
-            안녕하세요 👏 우원입니다!
+            안녕하세요 👏 우원입니다
           </div>
           <span className="mx-auto"></span>
           <div className="flex flex-wrap gap-10">

@@ -103,7 +103,7 @@ const Navigation = (): JSX.Element => {
               깃허브
             </a>
           </Link>
-          <ThemeSwitch></ThemeSwitch>
+          {/* <ThemeSwitch></ThemeSwitch> */}
         </>
       )}
     </nav>
