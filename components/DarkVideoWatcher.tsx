@@ -24,7 +24,7 @@ const DarkVideoWatcher = ({ url }: { url?: string }): JSX.Element => {
     >
       <SwiperSlide className="my-swiper-slide">
         {/* <Image src={Preview1} alt="Sample1" width={"100%"} height={450} className="carousel-fit" ></Image> */}
-        <video autoPlay muted loop>
+        <video autoPlay muted loop className="mx-auto">
           <source src={'/videos/3d_astronaut.mp4'} />
         </video>
       </SwiperSlide>
