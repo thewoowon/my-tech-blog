@@ -18,6 +18,16 @@ export const distribution = ['All', 'Personal', 'Organization'];
 export const projects: ProjectType[] = [
   {
     id: 1,
+    router: '/portfolio/filmdoms',
+    image: '/assets/filmdoms_thumb.png',
+    path: 'filmdoms',
+    title: `FILMDOM'S`,
+    type: 'Organization',
+    description: '영화인들을 위한 필름덤즈',
+    stacks: ['Next.js', 'TypeScript'],
+  },
+  {
+    id: 2,
     router: '/portfolio/wmc',
     image: '/assets/wmc_thumb.png',
     path: 'wmc',
@@ -27,7 +37,7 @@ export const projects: ProjectType[] = [
     stacks: ['Next.js', 'TypeScript'],
   },
   {
-    id: 2,
+    id: 3,
     router: '/portfolio/lovekong',
     image: '/assets/lovekong_thumb.png',
     path: 'lovekong',
@@ -37,7 +47,7 @@ export const projects: ProjectType[] = [
     stacks: ['Next.js', 'TypeScript'],
   },
   {
-    id: 3,
+    id: 4,
     router: '/portfolio/hiagile',
     image: '/assets/hiagile_thumb.png',
     path: 'hiagile',
@@ -47,7 +57,7 @@ export const projects: ProjectType[] = [
     stacks: ['React', 'TypeScript', 'Nest.js', 'GraphQL'],
   },
   {
-    id: 4,
+    id: 5,
     router: '/portfolio/saladpeace',
     image: '/assets/saladpeace_thumb.png',
     path: 'saladpeace',
@@ -57,7 +67,7 @@ export const projects: ProjectType[] = [
     stacks: ['React', 'TypeScript', 'Nest.js', 'GraphQL'],
   },
   {
-    id: 5,
+    id: 6,
     router: '/portfolio/ubtech',
     image: '/assets/ubtech_thumb.png',
     path: 'ubtech',
@@ -67,7 +77,7 @@ export const projects: ProjectType[] = [
     stacks: ['Next.js', 'TypeScript'],
   },
   {
-    id: 6,
+    id: 7,
     router: '/portfolio/solvabot',
     image: '/assets/solvabot_thumb.png',
     path: 'solvabot',
@@ -77,7 +87,7 @@ export const projects: ProjectType[] = [
     stacks: ['.NET', 'Bot Framework'],
   },
   {
-    id: 7,
+    id: 8,
     router: '/portfolio/solvabotmanager',
     image: '/assets/solvabotmanager_thumb.png',
     path: 'solvabotmanager',

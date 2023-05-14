@@ -5,7 +5,12 @@ const nextConfig = {
   videoOptimization: {
     deviceSizes: [320, 420, 768, 1024, 1200],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
-    domains: ['www.youtube.com', 'imagedelivery.net', 'res.cloudinary.com'],
+    domains: [
+      'www.youtube.com',
+      'imagedelivery.net',
+      'res.cloudinary.com',
+      'imagedelivery.net',
+    ],
     path: '/_next/image',
     loader: 'default',
   },
