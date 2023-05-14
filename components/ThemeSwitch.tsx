@@ -1,12 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useTheme } from 'next-themes';
-import { useRecoilState } from 'recoil';
-import { modeClassState } from '../states/states';
 
 const ThemeSwitch = () => {
   const [mounted, setMounted] = useState(false);
   const { theme, setTheme, resolvedTheme } = useTheme();
-  //const [modeClass, setmodeClass] = useRecoilState(modeClassState);
 
   useEffect(() => setMounted(true), []);
 

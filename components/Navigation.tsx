@@ -1,6 +1,5 @@
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
-import ThemeSwitch from './ThemeSwitch';
 
 const Navigation = (): JSX.Element => {
   const [windowWidth, setWindowWidth] = useState(0);

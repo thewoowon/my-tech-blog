@@ -1,13 +1,11 @@
 import { useRouter } from 'next/router';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Layout from '../../components/Layout';
 import { distribution, projects } from '../../constants/posts';
 import useScrollFadeIn from '../../hooks/useScrollFadeIn';
-import Image from 'next/image';
 import ProjectElement from '../../components/ProjectElement';
 
 export default function Portfolio() {
-  const router = useRouter();
   const [myDistribution, setMyDistribution] = useState<string>('All');
   const animateDiv_1 = useScrollFadeIn();
   const animateDiv_2 = useScrollFadeIn();

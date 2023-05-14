@@ -21,13 +21,6 @@ import { useRouter } from 'next/router';
 import * as gtag from '../lib/gtag';
 import Script from 'next/script';
 import { ThemeProvider } from 'next-themes';
-import {
-  RecoilRoot,
-  atom,
-  selector,
-  useRecoilState,
-  useRecoilValue,
-} from 'recoil';
 
 function MyApp({ Component, pageProps }: AppProps) {
   const queryClient = new QueryClient({
