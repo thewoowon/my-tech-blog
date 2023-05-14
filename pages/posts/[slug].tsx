@@ -1,11 +1,5 @@
 import { serialize } from 'next-mdx-remote/serialize';
-import {
-  GetStaticProps,
-  GetStaticPaths,
-  NextApiRequest,
-  GetServerSideProps,
-  GetServerSidePropsContext,
-} from 'next';
+import { GetStaticProps, GetStaticPaths } from 'next';
 import { useEffect, useState } from 'react';
 import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote';
 import { useMdxComponentsContext } from '../../context/mdxContext';
@@ -53,27 +47,12 @@ import Image from 'next/image';
 import techLogo from '../../images/logo/woowon_bg.png';
 import { useForm } from 'react-hook-form';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { FormError } from '../../components/FormError';
 import { Comments, Likes } from '@prisma/client';
 import { TAKE } from '../../constants/posts';
 
 import { Pagination } from '@mantine/core';
 import toast from 'react-hot-toast';
-import { NextRequest } from 'next/server';
 
-// const getServerSideProps = async (context: GetServerSidePropsContext) => {
-//   const forwarded = context.req.headers['x-forwarded-for'];
-
-//   const ip = typeof forwarded === 'string' ? forwarded.split(/, /)[0] : context.req.socket.remoteAddress;
-
-//   console.log(ip);
-
-//   return {
-//     props: { ip },
-//   };
-// };
-
-// props type
 type Props = {
   source: MDXRemoteSerializeResult;
   frontMatter: IPost;
@@ -100,7 +79,6 @@ const PostPage = ({ source, frontMatter, ip }: Props): JSX.Element => {
   const [position, setPosition] = useState('');
   const [division, setDivision] = useState('');
   const [comment, setComment] = useState('');
-  const [liked, setLiked] = useState(false);
   const [postId, setPostId] = useState('');
   const [activePage, setPage] = useState(1);
   const {

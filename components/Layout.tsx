@@ -4,14 +4,6 @@ import Head from './Head';
 import Navigation from './Navigation';
 import Link from 'next/link';
 import Image from 'next/image';
-import { replace } from 'lodash';
-import {
-  IconBrandGithub,
-  IconBrandInstagram,
-  IconMail,
-  IconRecordMail,
-  IconUser,
-} from '@tabler/icons';
 import useScrollFadeIn from '../hooks/useScrollFadeIn';
 
 type LayoutProps = {

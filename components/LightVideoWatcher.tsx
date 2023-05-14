@@ -7,7 +7,7 @@ import 'swiper/css/scrollbar';
 import 'swiper/css/autoplay';
 import React from 'react';
 
-const LightVideoWatcher = ({ url }: { url?: string }): JSX.Element => {
+const LightVideoWatcher = (): JSX.Element => {
   return (
     <Swiper
       id="carousel"

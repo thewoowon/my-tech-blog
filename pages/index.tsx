@@ -7,7 +7,6 @@ import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { useTheme } from 'next-themes';
-import DarkVideoWatcher from '../components/DarkVideoWatcher';
 import LightVideoWatcher from '../components/LightVideoWatcher';
 import { IconLock } from '@tabler/icons';
 
@@ -20,7 +19,6 @@ type Tags = { [key: string]: number };
 const Home: NextPage<Props> = ({ posts }: Props) => {
   const [tags, setTags] = useState<Tags>({});
   const router = useRouter();
-  const { theme, setTheme, resolvedTheme } = useTheme();
   useEffect(() => {
     const tags = posts.reduce((acc, post) => {
       post.stacks.forEach((tag) => {
