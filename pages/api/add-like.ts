@@ -1,8 +1,5 @@
-//import { authOptions, CustomDefaultSession } from './auth/[...nextauth]'
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { PrismaClient } from '@prisma/client';
-//import { getSession, useSession } from 'next-auth/react'
 
 const prisma = new PrismaClient();
 

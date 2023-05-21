@@ -6,7 +6,6 @@ import { getAllPosts } from '../utils/mdxUtils';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import { useTheme } from 'next-themes';
 import LightVideoWatcher from '../components/LightVideoWatcher';
 import { IconLock } from '@tabler/icons';
 
@@ -81,10 +80,11 @@ const Home: NextPage<Props> = ({ posts }: Props) => {
                             {post.title}
                           </span>
                         ) : (
-                          <Link href={`/posts/${post.slug}`}>
-                            <a className="font-sans-kr-bold transition duration-200 ease-in-out dark:text-white hover:text-gray-500">
-                              {post.title}
-                            </a>
+                          <Link
+                            href={`/posts/${post.slug}`}
+                            className="font-sans-kr-bold transition duration-200 ease-in-out dark:text-white hover:text-gray-500"
+                          >
+                            {post.title}
                           </Link>
                         )}
                       </h2>
@@ -136,9 +136,7 @@ const Home: NextPage<Props> = ({ posts }: Props) => {
                 if (i < 5)
                   return (
                     <li key={i}>
-                      <Link href={`posts/${post.name}`}>
-                        <a>{post.title}</a>
-                      </Link>
+                      <Link href={`posts/${post.name}`}>{post.title}</Link>
                     </li>
                   );
               })}
@@ -152,10 +150,8 @@ const Home: NextPage<Props> = ({ posts }: Props) => {
               {Object.keys(tags).map((tag) => {
                 return (
                   <div key={tag}>
-                    <Link href={'/post/' + tag}>
-                      <a className="tags-list">
-                        - {tag + '(' + tags[tag] + ')'}
-                      </a>
+                    <Link href={'/post/' + tag} className="tags-list">
+                      - {tag + '(' + tags[tag] + ')'}
                     </Link>
                   </div>
                 );

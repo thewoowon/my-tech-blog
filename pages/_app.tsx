@@ -103,6 +103,7 @@ function MyApp({ Component, pageProps }: AppProps) {
                   src={'/images/tb_logo_abstract.png'}
                   width={80}
                   height={70}
+                  alt="logo"
                 ></Image>
               </div>
             )}

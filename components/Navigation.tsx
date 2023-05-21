@@ -35,72 +35,74 @@ const Navigation = (): JSX.Element => {
           </div>
           {toggle && (
             <div className="flex flex-col justify-center items-center absolute bg-white -left-10 rounded-md ">
-              <Link href="/">
-                <a className="text-black transition duration-200 ease-in-out  dark:text-white px-10 py-4 hover:text-gray-500">
-                  홈
-                </a>
+              <Link
+                href="/"
+                className="text-black transition duration-200 ease-in-out  dark:text-white px-10 py-4 hover:text-gray-500"
+              >
+                홈
               </Link>
-              <Link href="/post/all">
-                <a className="text-black transition duration-200 ease-in-out dark:text-white py-4 hover:text-gray-500">
-                  게시물
-                </a>
+              <Link
+                href="/post/all"
+                className="text-black transition duration-200 ease-in-out dark:text-white py-4 hover:text-gray-500"
+              >
+                게시물
               </Link>
-              <Link href="https://my.surfit.io/w/80781724">
-                <a
-                  target="_blank"
-                  className="text-black transition duration-200 ease-in-out dark:text-white py-4 hover:text-gray-500"
-                >
-                  프로필
-                </a>
+              <Link
+                href="https://my.surfit.io/w/80781724"
+                target={'_blank'}
+                className="text-black transition duration-200 ease-in-out dark:text-white py-4 hover:text-gray-500"
+              >
+                프로필
               </Link>
-              <Link href="/portfolio">
-                <a className="text-black transition duration-200 ease-in-out dark:text-white py-4 hover:text-gray-500">
-                  프로젝트
-                </a>
+              <Link
+                href="/portfolio"
+                className="text-black transition duration-200 ease-in-out dark:text-white py-4 hover:text-gray-500"
+              >
+                프로젝트
               </Link>
-              <Link href="https://github.com/thewoowon">
-                <a
-                  target="_blank"
-                  className="text-black transition duration-200 ease-in-out dark:text-white py-4 hover:text-gray-500"
-                >
-                  깃허브
-                </a>
+              <Link
+                href="https://github.com/thewoowon"
+                target={'_blank'}
+                className="text-black transition duration-200 ease-in-out dark:text-white py-4 hover:text-gray-500"
+              >
+                깃허브
               </Link>
             </div>
           )}
         </div>
       ) : (
         <>
-          <Link href="/">
-            <a className="text-black transition duration-200 ease-in-out  dark:text-white pr-6 py-4 hover:text-gray-500">
-              홈
-            </a>
+          <Link
+            href="/"
+            className="text-black transition duration-200 ease-in-out  dark:text-white pr-6 py-4 hover:text-gray-500"
+          >
+            홈
           </Link>
-          <Link href="/post/all">
-            <a className="text-black transition duration-200 ease-in-out dark:text-white pr-6 py-4 hover:text-gray-500">
-              게시물
-            </a>
+          <Link
+            href="/post/all"
+            className="text-black transition duration-200 ease-in-out dark:text-white pr-6 py-4 hover:text-gray-500"
+          >
+            게시물
           </Link>
-          <Link href="https://my.surfit.io/w/80781724">
-            <a
-              target="_blank"
-              className="text-black transition duration-200 ease-in-out dark:text-white pr-6 py-4 hover:text-gray-500"
-            >
-              프로필
-            </a>
+          <Link
+            href="https://my.surfit.io/w/80781724"
+            target={'_blank'}
+            className="text-black transition duration-200 ease-in-out dark:text-white pr-6 py-4 hover:text-gray-500"
+          >
+            프로필
           </Link>
-          <Link href="/portfolio">
-            <a className="text-black transition duration-200 ease-in-out dark:text-white pr-6 py-4 hover:text-gray-500">
-              프로젝트
-            </a>
+          <Link
+            href="/portfolio"
+            className="text-black transition duration-200 ease-in-out dark:text-white pr-6 py-4 hover:text-gray-500"
+          >
+            프로젝트
           </Link>
-          <Link href="https://github.com/thewoowon">
-            <a
-              target="_blank"
-              className="text-black transition duration-200 ease-in-out dark:text-white pr-6 py-4 hover:text-gray-500"
-            >
-              깃허브
-            </a>
+          <Link
+            href="https://github.com/thewoowon"
+            target={'_blank'}
+            className="text-black transition duration-200 ease-in-out dark:text-white pr-6 py-4 hover:text-gray-500"
+          >
+            깃허브
           </Link>
           {/* <ThemeSwitch></ThemeSwitch> */}
         </>

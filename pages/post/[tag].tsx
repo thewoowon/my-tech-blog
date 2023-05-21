@@ -74,10 +74,11 @@ const Tech: NextPage<Props> = ({ posts }: Props) => {
                             {post.title}
                           </span>
                         ) : (
-                          <Link href={`/posts/${post.slug}`}>
-                            <a className="font-sans-kr-bold transition duration-200 ease-in-out dark:text-white hover:text-gray-500">
-                              {post.title}
-                            </a>
+                          <Link
+                            href={`/posts/${post.slug}`}
+                            className="font-sans-kr-bold transition duration-200 ease-in-out dark:text-white hover:text-gray-500"
+                          >
+                            {post.title}
                           </Link>
                         )}
                       </h2>

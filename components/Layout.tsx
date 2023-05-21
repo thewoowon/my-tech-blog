@@ -21,17 +21,17 @@ const Layout = ({ children, customMeta }: LayoutProps): JSX.Element => {
       <header className="border-b-2 border-black fixed top-0 z-50 w-full bg-white dark:bg-black text-gray-900 dark:text-white">
         <div className="max-w-5xl px-8 mx-auto flex">
           <div className="w-6/12 flex" style={{ alignItems: 'center' }}>
-            <Link href={'/'} replace={true}>
-              <a
-                style={{
-                  fontSize: '20px',
-                  fontWeight: 'bold',
-                  color: 'black',
-                  lineHeight: '22px',
-                }}
-              >
-                <span className="tech-blog-title">THEWOOWON</span>
-              </a>
+            <Link
+              href={'/'}
+              replace={true}
+              style={{
+                fontSize: '20px',
+                fontWeight: 'bold',
+                color: 'black',
+                lineHeight: '22px',
+              }}
+            >
+              <span className="tech-blog-title">THEWOOWON</span>
             </Link>
           </div>
           <div className="w-6/12 flex items-center justify-end">
@@ -55,6 +55,7 @@ const Layout = ({ children, customMeta }: LayoutProps): JSX.Element => {
               src={'/images/tb_logo_abstract.png'}
               width={100}
               height={90}
+              alt="logo"
             ></Image>
           </div>
           <div
