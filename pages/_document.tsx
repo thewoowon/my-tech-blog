@@ -8,7 +8,7 @@ class MyDocument extends Document {
           <link
             rel="stylesheet"
             href="https://unpkg.com/dracula-prism/dist/css/dracula-prism.css"
-          ></link>
+          />
         </Head>
         <body className="font-sans-kr bg-white dark:bg-black text-black dark:text-white">
           <Main />

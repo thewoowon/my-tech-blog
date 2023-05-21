@@ -4,6 +4,7 @@ import { NextApiRequest, NextApiResponse } from 'next';
 const prisma = new PrismaClient();
 
 async function getLikes(postId: string, hostName: string) {
+  console.log(hostName);
   const where = postId
     ? {
         postId: postId,

@@ -38,9 +38,8 @@ import 'prismjs/components/prism-python.min';
 import 'prismjs/components/prism-csharp.min';
 import 'prismjs/components/prism-c.min';
 
-import { faHeart, faSpinner } from '@fortawesome/free-solid-svg-icons';
+import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { faThumbsUp } from '@fortawesome/free-solid-svg-icons';
-import { faPencil } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import Image from 'next/image';
@@ -59,7 +58,6 @@ type Props = {
   ip: string;
 };
 
-// components to render
 const components = {
   Prerequisites,
   Stacks,
