@@ -2,7 +2,7 @@
 title: HackerRank - beautifulQuadruples
 description: 아름다운 쿼드러플(4배수) 찾기
 thumbnail: /assets/hackerrak.png
-prerequisites: ['우원', '주니어 개발자','성장 중','안녕하세요👏 침착함과 꾸준함이 매력인 주니어 개발자 우원입니다.']
+prerequisites: ['우원', 'FE Developer','성장 중','안녕하세요. 우원입니다.']
 stacks: ['HACKERRANK']
 writer: 우원
 date: '2022-12-14'
@@ -13,13 +13,13 @@ lock: 'false'
 
 해커랭크 챌린지 문제를 풀고 있다. 그러는 도중 beautifulQuadruples을 만났는데, 문제의 정답을 확인하고도 어려움이 느껴져서 기록하려고 한다.
 
-# 🎯 beautifulQuadruples 소개
+# beautifulQuadruples 소개
 
 We call an quadruple of positive integers, (W,X,Y,Z) beautiful if the following condition is true:
 <div className="bg-gray-50 my-4 px-4 py-2 border-l-4 border-green-400 hover:bg-gray-100 hover:border-indigo-400 transition duration-300 ease-in-out">
 W XOR X XOR Y XOR Z != 0
 </div>
-#### 🧩 Note: XOR is the bitwise XOR operation.
+#### Note: XOR is the bitwise XOR operation.
 
 given A, B, C, and D, count the number of beautiful quadruples of the form (W,X,Y,Z) where the following constraint hold:
 <div className="bg-gray-50 my-4 px-4 py-2 border-l-4 border-green-400 hover:bg-gray-100 hover:border-indigo-400 transition duration-300 ease-in-out">
@@ -35,30 +35,30 @@ When you count the number of beautiful quadruples, you should consider two quadr
 </div>
 For example (1,1,1,2) ans (1,1,2,1) should be considered as same.
 
-#### 🧩 Input Format
+#### Input Format
 
 A Single line with four space-seperated integers describing the respective values of A, B, C, and D.
 
-#### 🧩 Constraints
+#### Constraints
 <div className="bg-gray-50 my-4 px-4 py-2 border-l-4 border-green-400 hover:bg-gray-100 hover:border-indigo-400 transition duration-300 ease-in-out">
 - 1 &#60;&#61; A,B,C,D &#60;&#61; 3000
 - For 50% of the Maximum score, 1 &#60;&#61; A,B,C,D &#60;&#61; 50
 </div>
-#### 🧩 Output Format
+#### Output Format
 
 Print the number of beautiful quadruples.
 
-#### 🧩 Sample Input
+#### Sample Input
 <div className="bg-gray-50 my-4 px-4 py-2 border-l-4 border-green-400 hover:bg-gray-100 hover:border-indigo-400 transition duration-300 ease-in-out">
     1 2 3 4
 </div>
 
-#### 🧩 Sample Output
+#### Sample Output
 <div className="bg-gray-50 my-4 px-4 py-2 border-l-4 border-green-400 hover:bg-gray-100 hover:border-indigo-400 transition duration-300 ease-in-out">
     11
 </div>
 
-#### 🧩 Explanation
+#### Explanation
 
 There are 11 beautiful quadruples for this input:
 <div className="bg-gray-50 my-4 px-4 py-2 border-l-4 border-green-400 hover:bg-gray-100 hover:border-indigo-400 transition duration-300 ease-in-out">
@@ -78,13 +78,13 @@ Thus, ww print 11 as our output.
 
 Note that (1,1,1,2) is same as (1,1,2,1)
 
-# 🎯 beautifulQuadruples 해석
+# beautifulQuadruples 해석
 
 우리는 (W,X,Y,Z)를 양의 정수 네쌍둥이라고 하고,아름다운 아래의 조건을 만족하는 것이 참이다.
 <div className="bg-gray-50 my-4 px-4 py-2 border-l-4 border-green-400 hover:bg-gray-100 hover:border-indigo-400 transition duration-300 ease-in-out">
 W XOR X XOR Y XOR Z != 0
 </div>
-#### 🧩 Note: XOR는 비트 연산 XOR이다. 파이썬에서는  ^ 연산자로 표현한다.
+#### Note: XOR는 비트 연산 XOR이다. 파이썬에서는  ^ 연산자로 표현한다.
 
 A, B, C, D가 주어졌을 때, 다음 조건을 만족하는 (W,X,Y,Z)의 형태의 beautifulQuadruples의 개수를 구하라.
 <div className="bg-gray-50 my-4 px-4 py-2 border-l-4 border-green-400 hover:bg-gray-100 hover:border-indigo-400 transition duration-300 ease-in-out">
@@ -100,30 +100,30 @@ beautifulQuadruples의 개수를 구할 때, 다음과 같은 경우는 같은 �
 </div>
 예를 들어 (1,1,1,2)와 (1,1,2,1)은 같은 쿼드러플이다.
 
-#### 🧩 Input Format
+#### Input Format
 
 한 개의 입력라인에 A, B, C, D를 공백으로 구분하여 입력한다.
 
-#### 🧩 Constraints
+#### Constraints
 
 - 1 &#60;&#61; A,B,C,D &#60;&#61; 3000
 - 50%의 최대 점수에서 1 &#60;&#61; A,B,C,D &#60;&#61; 50
 
-#### 🧩 Output Format
+#### Output Format
 
 beautifulQuadruples의 개수를 출력한다.
 
-#### 🧩 Sample Input
+#### Sample Input
 <div className="bg-gray-50 my-4 px-4 py-2 border-l-4 border-green-400 hover:bg-gray-100 hover:border-indigo-400 transition duration-300 ease-in-out">
     1 2 3 4
 </div>
 
-#### 🧩 Sample Output
+#### Sample Output
 <div className="bg-gray-50 my-4 px-4 py-2 border-l-4 border-green-400 hover:bg-gray-100 hover:border-indigo-400 transition duration-300 ease-in-out">
     11
 </div>
 
-#### 🧩 Explanation
+#### Explanation
 
 입력값에 대한 beautifulQuadruples의 개수는 11개이다.
 <div className="bg-gray-50 my-4 px-4 py-2 border-l-4 border-green-400 hover:bg-gray-100 hover:border-indigo-400 transition duration-300 ease-in-out">
@@ -144,7 +144,7 @@ beautifulQuadruples의 개수를 출력한다.
 
 (1,1,1,2)는 (1,1,2,1)과 같은 쿼드러플이다.
 
-# 🎯 beautifulQuadruples Code
+# beautifulQuadruples Code
 
 ```python
 #!/bin/python3
@@ -196,11 +196,11 @@ if __name__ == '__main__':
     fptr.close()
 ```
 
-# 🎯 문제의 의미
+# 문제의 의미
 4개의 원소를 가지는 튜플이 있다. 모든 원소를 XOR 연산 했을 때 0이 되지 않는 경우를 찾아야한다.
 
 비트 연산 진리표를 들여다 보자.
-### ☘️ AND
+### AND
 <div className="bg-gray-50 my-4 px-4 py-2 border-l-4 border-green-400 hover:bg-gray-100 hover:border-indigo-400 transition duration-300 ease-in-out">
 0 & 0 = 0
 
@@ -210,7 +210,7 @@ if __name__ == '__main__':
 
 1 & 1 = 1
 </div>
-### ☘️ OR
+### OR
 <div className="bg-gray-50 my-4 px-4 py-2 border-l-4 border-green-400 hover:bg-gray-100 hover:border-indigo-400 transition duration-300 ease-in-out">
 0 | 0 = 0
 
@@ -220,7 +220,7 @@ if __name__ == '__main__':
 
 1 | 1 = 1
 </div>
-### ☘️ XOR
+### XOR
 <div className="bg-gray-50 my-4 px-4 py-2 border-l-4 border-green-400 hover:bg-gray-100 hover:border-indigo-400 transition duration-300 ease-in-out">
 0 ^ 0 = 0
 
@@ -230,7 +230,7 @@ if __name__ == '__main__':
 
 1 ^ 1 = 0
 </div>
-### ☘️ NOT
+### NOT
 <div className="bg-gray-50 my-4 px-4 py-2 border-l-4 border-green-400 hover:bg-gray-100 hover:border-indigo-400 transition duration-300 ease-in-out">
 ~ 0 = 1
 
@@ -240,7 +240,7 @@ if __name__ == '__main__':
 일단 4개 원소의 XOR연산이 0이 아니려면 모든 값이 같은 경우는 제외해야한다. 
 
 
-# 🎯 beautifulQuadruples Code 해석
+# beautifulQuadruples Code 해석
 
 ### 상세 해석 1
 ```python

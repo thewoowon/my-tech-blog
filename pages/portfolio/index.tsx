@@ -36,7 +36,7 @@ export default function Portfolio() {
                 setMyDistribution(name);
               }}
               key={iter}
-              className="cursor-pointer font-semibold px-8 py-4 bg-gray-200 rounded-full transition duration-200 hover:bg-green-400 hover:text-white"
+              className="cursor-pointer font-semibold px-8 py-4 transition duration-200 border-2 border-black hover:bg-black hover:text-white"
             >
               {name}
             </div>
@@ -47,7 +47,7 @@ export default function Portfolio() {
         style={{ maxWidth: '1240px' }}
         className="flex justify-center items-center mx-auto"
       >
-        <div className="grid grid-cols-2 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 w-full">
+        <div className="grid grid-cols-2 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 w-full gap-4">
           {projects && myDistribution === 'All'
             ? projects.map((project) => {
                 return (

@@ -1,8 +1,8 @@
 ---
-title: Matter.js로 물리엔진 구현하기
+title: Matter.js & Physics Engine
 description: WMC 인덱스 페이지에 Matter.js를 이용해 물리엔진을 구현해보았습니다.
 thumbnail: /assets/matterjs.png
-prerequisites: ['우원', '주니어 개발자','성장 중','안녕하세요👏 침착함과 꾸준함이 매력인 주니어 개발자 우원입니다.']
+prerequisites: ['우원', 'FE Developer','성장 중','안녕하세요. 우원입니다.']
 stacks: ['NPM']
 writer: 우원
 date: '2023-01-10'
@@ -10,7 +10,7 @@ name: '20230110_1'
 lock: 'false'
 ---
 
-# 🎁 Matter.js로 물리엔진 구현하기
+# Matter.js로 물리엔진 구현하기
 
 WMC 인덱스 페이지를 구성하면서 Matter.js를 이용해 도형이 스크롤의 interaction을 통해 움직이는 물리엔진을 구현해보았다.
 IntersectionObserver를 활용해 threshold가 0.8일 때 Opacity가 1이 되고 
@@ -18,13 +18,13 @@ IntersectionObserver를 활용해 threshold가 0.8일 때 Opacity가 1이 되고
 막상 구현을 하기 전에 도형의 움직임을 파악하고 물리엔진을 만드는 것부터가 난관이었다.
 하지만 차근차근히 정보를 모으고 구현을 하니 재밌게 구현할 수 있었다.
 
-# 📌 Matter.js란?
+# Matter.js란?
 
 Matter.js는 브라우저에서 물리엔진을 구현할 수 있게 해주는 라이브러리이다.
 물질은 영어로 Matter이고 해당 라이브러리는 이것을 의도한 것 같다.
 강체의 물리적인 특성을 코드로 구현할 수 있다는 것 자체가 경이롭다.
 
-# 📌 Matter.js & lodash 설치
+# Matter.js & lodash 설치
 먼저 Matter.js와 lodash를 설치해준다.
 lodash는 array, collection, date 등 데이터의 필수적인 구조를 쉽게 다룰 수 있는 라이브러리이다.
 특히 코드를 줄여주고, 빠른 작업에 도움이 되는 라이브러리이므로 인기가 많다. 
@@ -34,7 +34,7 @@ lodash는 array, collection, date 등 데이터의 필수적인 구조를 쉽게
 yarn add @types/matter-js @types/lodash or yarn add matter-js lodash
 </div>
 
-# 📌 Matter.js 사용
+# Matter.js 사용
 먼저 나는 MatterComposition라는 Component를 만들어서 Section을 구성했다.
 전체 코드를 먼저 살펴보도록 하자.
 
@@ -189,7 +189,7 @@ export default MatterComposition
 ```
 
 
-# 📌 코드 파헤치기
+# 코드 파헤치기
 변수 선언과 리턴 부분을 살펴보자.
     
 ```tsx
@@ -449,7 +449,7 @@ isIntersecting은 threshold가 0.8이기 때문에 임계점이 80%가 되는 �
 이제 entry의 isIntersecting이 true가 되면 도형이 추가되고,
 isIntersecting을 true로 초기화 해주기 때문에 다시 도형이 추가되지 않는다.
 
-# 😆 결과 확인
+# 결과 확인
 
 <div className="flex justify-center items-center py-5">
   <img src="https://imagedelivery.net/6qzLODAqs2g1LZbVYqtuQw/fa6742a9-f428-4ccb-2581-fb3e630a5a00/public" alt="spring"/>
