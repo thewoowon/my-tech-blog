@@ -116,16 +116,6 @@ const PostPage = ({ source, frontMatter, ip }: Props): JSX.Element => {
     frontMatter.stacks,
   ]);
 
-  const goodEffect = (e: React.MouseEvent<HTMLButtonElement>) => {
-    //(e.target as Element).innerHTML = '<FontAwesomeIcon icon={faHeart}/>좋아요';
-    (e.target as Element)
-      .querySelector('.fa-heart')
-      .classList.remove('animate-like');
-
-    (e.target as Element)
-      .querySelector('.fa-heart')
-      .classList.add('animate-like');
-  };
   const gentleEffect = (e: React.MouseEvent<HTMLButtonElement>) => {
     //(e.target as Element).innerHTML = '<FontAwesomeIcon icon={faHeart}/>좋아요';
     (e.target as Element)
@@ -133,15 +123,6 @@ const PostPage = ({ source, frontMatter, ip }: Props): JSX.Element => {
       .classList.remove('animate-like');
     (e.target as Element)
       .querySelector('.fa-thumbs-up')
-      .classList.add('animate-like');
-  };
-  const learnEffect = (e: React.MouseEvent<HTMLButtonElement>) => {
-    //(e.target as Element).innerHTML = '<FontAwesomeIcon icon={faHeart}/>좋아요';
-    (e.target as Element)
-      .querySelector('.fa-pencil')
-      .classList.remove('animate-like');
-    (e.target as Element)
-      .querySelector('.fa-pencil')
       .classList.add('animate-like');
   };
 
@@ -262,7 +243,7 @@ const PostPage = ({ source, frontMatter, ip }: Props): JSX.Element => {
           title: '우원 기술 블로그 | POST',
         }}
       >
-        <div style={{ borderBottom: '1px solid rgba(180,180,180,0.5)' }}>
+        <div className="border-b-2 border-black">
           <div className="max-w-5xl px-8 py-4 mx-auto relative">
             <div className="flex justify-start items-center mt-1 mb-0">
               {frontMatter.stacks.map((value, iter) => {
@@ -286,61 +267,13 @@ const PostPage = ({ source, frontMatter, ip }: Props): JSX.Element => {
             <div className="like-content justify-between">
               <div className="flex justify-center items-center">
                 <div className="pr-4">
-                  <FontAwesomeIcon
-                    color="#ed2553"
-                    icon={faHeart}
-                    className="pr-2"
-                  />
-                  {likesList
-                    ? likesList.filter((item: Likes) => item.type === 0).length
-                    : 0}
-                </div>
-                <div className="pr-4">
-                  <FontAwesomeIcon
-                    color="rgb(104, 206, 160)"
-                    icon={faThumbsUp}
-                    className="pr-2"
-                  />
+                  <FontAwesomeIcon icon={faThumbsUp} className="pr-2" />
                   {likesList
                     ? likesList.filter((item: Likes) => item.type === 1).length
                     : 0}
                 </div>
-                <div className="pr-4">
-                  <FontAwesomeIcon
-                    color="rgb(119, 53, 226)"
-                    icon={faPencil}
-                    className="pr-2"
-                  />
-                  {likesList
-                    ? likesList.filter((item: Likes) => item.type === 2).length
-                    : 0}
-                </div>
               </div>
               <span className="mx-auto"></span>
-              <button
-                className="btn-good like-review"
-                onClick={(e) => {
-                  goodEffect(e);
-                  addLike({
-                    postId: postId,
-                    type: 0,
-                  });
-                }}
-              >
-                {isLoading ? (
-                  <FontAwesomeIcon
-                    icon={faSpinner}
-                    className="fa-spin "
-                    style={{ marginRight: '5px' }}
-                  />
-                ) : (
-                  <FontAwesomeIcon
-                    icon={faHeart}
-                    style={{ marginRight: '5px' }}
-                  />
-                )}
-                Like
-              </button>
               <button
                 className="btn-gentle like-review"
                 onClick={(e) => {
@@ -364,30 +297,6 @@ const PostPage = ({ source, frontMatter, ip }: Props): JSX.Element => {
                   />
                 )}
                 Good
-              </button>
-              <button
-                className="btn-learn like-review"
-                onClick={(e) => {
-                  learnEffect(e);
-                  addLike({
-                    postId: postId,
-                    type: 2,
-                  });
-                }}
-              >
-                {isLoading ? (
-                  <FontAwesomeIcon
-                    icon={faSpinner}
-                    className="fa-spin "
-                    style={{ marginRight: '5px' }}
-                  />
-                ) : (
-                  <FontAwesomeIcon
-                    icon={faPencil}
-                    style={{ marginRight: '5px' }}
-                  />
-                )}
-                Learn
               </button>
             </div>
           </div>
@@ -421,13 +330,13 @@ const PostPage = ({ source, frontMatter, ip }: Props): JSX.Element => {
                 <div className="flex items-start pl-5 pr-12 h-1/2">
                   {'안녕하세요👏'}
                   <br />
-                  {'침착함과 꾸준함이 매력인 주니어 개발자 우원입니다.'}
+                  {'우원입니다.'}
                 </div>
               </div>
             </div>
           </div>
         </article>
-        <div className="dark:bg-black flex flex-col justify-center items-center mx-auto w-full bg-gray-50 py-20">
+        <div className="dark:bg-black flex flex-col justify-center items-center mx-auto w-full border-t-2 border-b-2 border-black py-20">
           <div
             className="w-full"
             style={{ minWidth: '360px', maxWidth: '920px', minHeight: '300px' }}
@@ -437,11 +346,15 @@ const PostPage = ({ source, frontMatter, ip }: Props): JSX.Element => {
               className="flex flex-col justify-start items-center w-full"
             >
               <div className="w-full flex gap-2 py-2 flex justify-start items-center">
-                <div className="px-4 py-2 bg-green-400 rounded-md text-white h-12 flex justify-center items-center">
+                <div
+                  style={{ border: 'solid 2px black' }}
+                  className="px-4 py-2 h-12 flex justify-center items-center"
+                >
                   Email
                 </div>
                 <input
-                  className="bg-white dark:bg-white dark:text-black w-full h-12 px-4 focus:outline-none rounded-md"
+                  style={{ border: 'solid 2px black' }}
+                  className="bg-white dark:bg-white dark:text-black w-full h-12 px-4 focus:outline-none"
                   {...register('email', {
                     required: '이메일을 입력해주세요',
                     pattern:
@@ -452,11 +365,15 @@ const PostPage = ({ source, frontMatter, ip }: Props): JSX.Element => {
                   autoComplete="true"
                   placeholder="이메일을 입력해주세요"
                 ></input>
-                <div className="px-4 py-2 bg-green-400 rounded-md text-white h-12 flex justify-center items-center">
+                <div
+                  style={{ border: 'solid 2px black' }}
+                  className="px-4 py-2 bg-white h-12 flex justify-center items-center"
+                >
                   Gihub
                 </div>
                 <input
-                  className="bg-white dark:bg-white dark:text-black w-full h-12 px-4 focus:outline-none rounded-md"
+                  style={{ border: 'solid 2px black' }}
+                  className="bg-white dark:bg-white dark:text-black w-full h-12 px-4 focus:outline-none"
                   {...register('githubId', {
                     required: '깃허브 아이디를 입력해주세요',
                     pattern: /^[a-z|A-Z]+$/,
@@ -468,19 +385,21 @@ const PostPage = ({ source, frontMatter, ip }: Props): JSX.Element => {
                 ></input>
               </div>
               <textarea
+                style={{ border: 'solid 2px black' }}
                 {...register('contents', {
                   required: '댓글 내용을 입력해주세요',
                 })}
                 cols={30}
                 required={true}
-                className="mb-6 px-4 py-4 bg-white dark:text-black shadow-sm border-2 border-gray-100 rounded-lg w-full h-36 text-md outline-none"
+                className="mb-6 px-4 py-4 bg-white dark:text-black shadow-sm border-2 border-gray-100 w-full h-36 text-md outline-none"
                 autoComplete="true"
                 placeholder="댓글 내용을 입력해주세요"
               ></textarea>
               <div className="flex justify-end items-center w-full">
                 <button
                   type="submit"
-                  className="text-white rounded-md px-4 py-2 bg-green-400 transition duration-200 ease-in-out hover:bg-green-500 "
+                  style={{ border: 'solid 2px black' }}
+                  className="px-4 py-2"
                 >
                   댓글 등록
                 </button>

@@ -15,12 +15,12 @@ const LightVideoWatcher = (): JSX.Element => {
       spaceBetween={20}
       slidesPerView={'auto'}
       centeredSlides={true}
-      navigation
+      // navigation
       // autoplay={{delay:6000,
       //   disableOnInteraction:false}}
-      pagination={{ clickable: true }}
+      // pagination={{ clickable: true }}
       className="my-swiper"
-      loop={true}
+      // loop={true}
     >
       <SwiperSlide className="my-swiper-slide">
         {/* <Image src={Preview1} alt="Sample1" width={"100%"} height={450} className="carousel-fit" ></Image> */}

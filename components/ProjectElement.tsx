@@ -10,12 +10,11 @@ function ProjectElement({ project }: { project: ProjectType }) {
       onClick={() => {
         router.push(project.router);
       }}
-      className="py-4 px-2 cursor-pointer hover:shadow-lg rounded-lg transition duration-300 ease-in-out"
+      className="py-4 px-2 cursor-pointer hover:shadow-lg transition duration-300 ease-in-out border-2 border-black"
       style={{ maxWidth: '400px', minWidth: '200px' }}
     >
       <div className="h-48">
         <Image
-          className="rounded-xl"
           src={project.image}
           alt={project.path}
           width={300}
@@ -29,7 +28,7 @@ function ProjectElement({ project }: { project: ProjectType }) {
         {project &&
           project.stacks.map((element, iter) => {
             return (
-              <div key={iter} className="px-2 border border-gray-400">
+              <div key={iter} className="px-2 border-2 border-black">
                 {element}
               </div>
             );
