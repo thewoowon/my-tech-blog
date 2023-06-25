@@ -50,11 +50,11 @@ const Layout = ({ children, customMeta }: LayoutProps): JSX.Element => {
           className="flex flex-wrap mx-auto h-full items-center"
           style={{ maxWidth: '1080px' }}
         >
-          <div>
+          <div className="rounded-full">
             <Image
               src={'/images/tb_logo_abstract.png'}
               width={100}
-              height={90}
+              height={100}
               alt="logo"
             ></Image>
           </div>
