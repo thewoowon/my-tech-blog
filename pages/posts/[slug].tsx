@@ -303,13 +303,15 @@ const PostPage = ({ source, frontMatter, ip }: Props): JSX.Element => {
           <div className="prose dark:prose-invert max-w-none mdx-wrapper">
             <MDXRemote components={components} {...source} />
             <div className="user-wrap flex items-center">
-              <div className="w-4/12 h-full flex justify-center items-center">
+              <div className="w-4/12 h-full flex justify-center items-center ">
                 <Image
-                  src={techLogo}
+                  src={
+                    'https://imagedelivery.net/6qzLODAqs2g1LZbVYqtuQw/0f1e87ce-400b-40bf-787d-ea3f2fc20900/public'
+                  }
                   alt="logo"
                   width={150}
-                  height={180}
-                  style={{ borderRadius: '10%', objectFit: 'fill' }}
+                  height={150}
+                  style={{ borderRadius: '50%', objectFit: 'fill' }}
                 ></Image>
               </div>
               <div className="w-8/12 h-full dark:text-black">
