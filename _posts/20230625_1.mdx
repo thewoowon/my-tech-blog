@@ -52,6 +52,24 @@ lock: 'false'
 영이 아닌 두 벡터 x, y에 대하여 y = tx인 0이 아닌 실수를
 t가 존재할 때, 두 벡터는 평행하다.
 
+<div className="flex flex-col justify-center items-center py-5">
+  <img
+    src="https://imagedelivery.net/6qzLODAqs2g1LZbVYqtuQw/720f3d55-a967-4e36-0692-1194b8ddcb00/public"
+    alt="spring"
+    width="800px"
+  />
+  <p>벡터 합</p>
+</div>
+
+<div className="flex flex-col justify-center items-center py-5">
+  <img
+    src="https://imagedelivery.net/6qzLODAqs2g1LZbVYqtuQw/b960f5a9-5bd1-4f53-5099-ee4c88b05400/public"
+    alt="spring"
+    width="800px"
+  />
+  <p>스칼라 곱</p>
+</div>
+
 <div className="px-4 py-2 my-4 bg-blue-100 border-l-4 border-blue-500">
   <div className="text-lg font-bold">Properties</div>
   <div>1. 모든 벡터 x, y에 대하여 x + y = y + x이다.</div>
@@ -64,4 +82,26 @@ t가 존재할 때, 두 벡터는 평행하다.
   <div>8. 모든 실수 a, b와 모든 벡터 x에 대하여 (a + b)x = ax + bx이다.</div>
 </div>
 
+공간에서 서로 다른 두 점 A, B를 지나는 직선을 생각해보자.
+이 공간에 공간 좌표를 부여하고 원점을 O라고 표기하자.
+시점이 O이고 종점이 A, B인 두 벡터를 각각  u, v라고 하자.
+시점이 A이고 종점이 B인 벡터를 w라고 하면,
+u + w = v이다. 이항해서 정리하면 w = v - u이다.
+이 때 -u는 (-1)u를 의미하고, 이는 u의 방향을 반대로 하고 크기를
+|u|만큼 확대한 벡터이다. 이를 u의 역벡터라고 한다.
 
+두 점 A, B를 이은 직선 위 임의의 점은 A를 시점으로 하는 벡터의 종점이고,
+적절한 실수 t에 대하여 tw의 형태로 표현할 수 있다.
+반대로 A를 시점으로 하는 벡터 tw의 종점은 두 점 A, B를 이은 직선 위에 있다.
+따라서, 두 점 A, B를 지나는 직선의 방정식은 다음과 같다.
+
+> x = u + tw = u + t(v - u) = (1 - t)u + tv(단, t는 임의의 실수, x는 직선 위의 임의의 점)
+
+<div className="flex flex-col justify-center items-center py-5">
+  <img
+    src="https://imagedelivery.net/6qzLODAqs2g1LZbVYqtuQw/8913551e-af15-4b3b-300e-4ebed4c55a00/public"
+    alt="spring"
+    width="800px"
+  />
+  <p>스칼라 곱</p>
+</div>
