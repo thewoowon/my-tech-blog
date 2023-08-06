@@ -36,6 +36,88 @@ lock: 'false'
 > 다음 8가지 조건을 만족하는 두 연산, 합과 스칼라곱에 대한 닫힌(closed) 집합이다.
 
 <div className="px-4 py-2 my-4 bg-blue-100 border-l-4 border-blue-500">
-  <div className="text-lg font-bold">Tip</div>
-  <div>경계를 모두 포함하는 집합</div>
+  <div className="text-lg font-bold">Definition</div>
+  <div>
+    합(sum)은 V의 두 원소 x, y에 대하여 유일한 원소 x + y ∈ V를 대응하는
+    연산이다. 이때 x + y는 벡터의 합이라고 한다.
+  </div>
+  <div>
+    스칼라곱(scalar multiplication)은 체 F의 원소 a와 V의 원소 x에 대하여 유일한
+    원소 ax ∈ V를 대응하는 연산이다. 이때 ax는 벡터 x의 스칼라곱이라고 한다.
+  </div>
+</div>
+
+## 체 F(Field)
+
+실수 집합은 체(Field)라 불리는 수학적 구조의 대표적인 예이다.
+기본적으로 체는 원소를 0으로 나누는 것을 제외하면 두 원소의 합, 차, 곱, 나눗셈이 가능한 대수적 구조이다.
+
+체의 정확한 정의는 다음과 같다.
+
+체 F는 두 연산, 덧셈과 곱셈이 주어진 집합이다.
+x, y ∈ F의 순서쌍에 대하여 x + y, x · y가 유일하게 존재한다.
+그리고 모든 원소 a, b, c ∈ F에 대하여 다음 조건을 만족한다.
+
+<div className="px-4 py-2 my-4 bg-blue-100 border-l-4 border-blue-500">
+  <div className="text-lg font-bold">Condition</div>
+  <div>(F 1) 덧셈과 곱셈에 대한 교환법칙</div>
+  <div>(F 2) 덧셈에 곱셈에 대한 결합법칙</div>
+  <div>(F 3) 덧셈에 대한 항등원 0과 곱셈에 대한 항등원 1이 존재한다.</div>
+  <div>(F 4) 덧셈에 대한 역원 -a와 곱셈에 대한 역원 a-1이 존재한다.</div>
+  <div>(F 5) 덧셈과 곱셈에 대한 분배법칙</div>
+</div>
+
+## 순서쌍(n-tuple)
+
+순서쌍은 n개의 원소를 순서대로 나열한 것이다.
+
+<div className="px-4 py-2 my-4 bg-blue-100 border-l-4 border-blue-500">
+  <div className="text-lg font-bold">Definition</div>
+  <div>
+    a1, a2, ..., an이 체 F의 원소일 때, (a1, a2, ..., an)을
+    n순서쌍(n-tuple)이라고 한다.
+  </div>
+  <div>
+    순서쌍을 구성하는 원소 a1, a2, ..., an을 n순서쌍의 성분(component)이라고
+    한다.
+  </div>
+  <div>
+    F에서 성분을 가져온 두 n순서쌍 (a1, a2, ..., an)과 (b1, b2, ..., bn)은 a1 =
+    b1, a2 = b2, ..., an = bn이면 같다(equal)고 한다.
+  </div>
+</div>
+
+### 행벡터 & 열벡터
+
+n순서쌍은 행벡터와 열벡터로 나타낼 수 있다.
+
+<div className="px-4 py-2 my-4 bg-blue-100 border-l-4 border-blue-500">
+  <div className="text-lg font-bold">Definition</div>
+  <div>n순서쌍 (a1, a2, ..., an)은 가급적 행벡터 보다는 열벡터로 나타낸다.</div>
+</div>
+
+## Matrix(행렬)
+
+행렬은 순서쌍을 원소로 가지는 집합이다.
+즉 체 F에서 성분을 가져온 m \* n 행렬은 다음과 같은 직사각형 형태의 순서쌍들의 집합이다.
+
+<div>
+  <img
+    alt="matrix"
+    src="https://imagedelivery.net/6qzLODAqs2g1LZbVYqtuQw/4464058a-7054-4a28-32c4-7dbd7bba6b00/public"
+    width="300"
+    height="300"
+  />
+</div>
+
+<div className="px-4 py-2 my-4 bg-blue-100 border-l-4 border-blue-500">
+  <div className="text-lg font-bold">Definition</div>
+  <div>- 든 aij(1 \<\= i \<\= m,1 \<\= j \<\= n)는 F의 원소이다.</div>
+  <div>- i = j인 성분 aij는 이 행렬의 대각성분이다. </div>
+  <div>- i != j인 성분 aij는 이 행렬의 비대각성분이다.</div>
+  <div>- 성분 ai1, ai2, ..., ain을 i행의 성분이라고 한다.</div>
+  <div>- 성분 a1j, a2j, ..., amj을 j열의 성분이라고 한다.</div>
+  <div>- 모든 성분이 0인 행렬을 영행렬(zero matrix)이라고 한다.</div>
+  <div>- 행의 개수와 열의 개수가 같은 행렬을 정사각행렬(square matrix)이라고 한다.</div>
+  <div>- 두 m * n 행렬 A, B에 대응하는 성분이 모두 일치할 때, A = B 혹은 같다라고 한다.</div>
 </div>

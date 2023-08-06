@@ -43,7 +43,6 @@ import { faThumbsUp } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import Image from 'next/image';
-import techLogo from '../../images/logo/woowon_bg.png';
 import { useForm } from 'react-hook-form';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { Comments, Likes } from '@prisma/client';
