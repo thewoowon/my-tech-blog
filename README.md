@@ -6,11 +6,10 @@
   <img alt="lib" src="https://img.shields.io/badge/MDX-12.2.4-orange"/>
 </p>
 
-## Immigration
->  Velog.io에서 이전합니다.
-
 ## Logo
 <img alt="logo" width="200" height="200" src="https://user-images.githubusercontent.com/60413257/203728950-38efbb56-a718-4d87-9697-9aafa26eb700.png"/>
+
+<img alt="logo" width="200" height="200" src="https://github.com/thewoowon/my-tech-blog/assets/60413257/16d6b9f7-caf2-4c36-8e54-ffce65b315b4"/>
 
 ## Getting Started
 > git clone https://github.com/thewoowon/my-tech-blog.git
