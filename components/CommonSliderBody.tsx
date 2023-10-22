@@ -32,7 +32,7 @@ function CommonSliderBody({
         <Participant contents={contents}></Participant>
       </div>
       <div className="py-10 mt-16">프로젝트 더보기</div>
-      <div className="grid grid-cols-2 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 w-full">
+      <div className="grid grid-cols-2 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 w-full gap-2">
         {projects.map((project) => {
           return (
             <ProjectElement project={project} key={project.id}></ProjectElement>

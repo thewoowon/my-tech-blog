@@ -18,6 +18,16 @@ export const distribution = ['All', 'Personal', 'Organization'];
 export const projects: ProjectType[] = [
   {
     id: 1,
+    router: '/portfolio/checky',
+    image: '/assets/checky_thumb.png',
+    path: 'checky',
+    title: `CHECKY`,
+    type: 'Organization',
+    description: 'Checky - 5초로 5분을 절약하세요.',
+    stacks: ['Chrome Extension', 'TypeScript'],
+  },
+  {
+    id: 2,
     router: '/portfolio/filmdoms',
     image: '/assets/filmdoms_thumb.png',
     path: 'filmdoms',
@@ -27,7 +37,7 @@ export const projects: ProjectType[] = [
     stacks: ['Next.js', 'TypeScript'],
   },
   {
-    id: 2,
+    id: 3,
     router: '/portfolio/wmc',
     image: '/assets/wmc_thumb.png',
     path: 'wmc',
@@ -37,7 +47,7 @@ export const projects: ProjectType[] = [
     stacks: ['Next.js', 'TypeScript'],
   },
   {
-    id: 3,
+    id: 4,
     router: '/portfolio/lovekong',
     image: '/assets/lovekong_thumb.png',
     path: 'lovekong',
@@ -47,7 +57,7 @@ export const projects: ProjectType[] = [
     stacks: ['Next.js', 'TypeScript'],
   },
   {
-    id: 4,
+    id: 5,
     router: '/portfolio/hiagile',
     image: '/assets/hiagile_thumb.png',
     path: 'hiagile',
@@ -57,7 +67,7 @@ export const projects: ProjectType[] = [
     stacks: ['React', 'TypeScript', 'Nest.js', 'GraphQL'],
   },
   {
-    id: 5,
+    id: 6,
     router: '/portfolio/saladpeace',
     image: '/assets/saladpeace_thumb.png',
     path: 'saladpeace',
@@ -65,16 +75,6 @@ export const projects: ProjectType[] = [
     type: 'Personal',
     description: '직장인들의 샐러드 생활을 위한 거점 배송 서비스',
     stacks: ['React', 'TypeScript', 'Nest.js', 'GraphQL'],
-  },
-  {
-    id: 6,
-    router: '/portfolio/ubtech',
-    image: '/assets/ubtech_thumb.png',
-    path: 'ubtech',
-    title: '유비케어 기술블로그',
-    type: 'Personal',
-    description: '유비케어를 위한 기술블로그',
-    stacks: ['Next.js', 'TypeScript'],
   },
   {
     id: 7,

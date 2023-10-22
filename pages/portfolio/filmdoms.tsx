@@ -17,7 +17,7 @@ export default function FILMDOMS() {
       <WMCSlider></WMCSlider>
       <CommonSliderBody
         projectName={'FILMDOMS'}
-        url={'https://film-doms.vercel.app/'}
+        url={'https://filmdoms.studio/'}
         contents={contents}
       ></CommonSliderBody>
     </Layout>
