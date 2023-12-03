@@ -1,0 +1,89 @@
+---
+title: Heart Desease Prediction
+description: Kaggle의 Heart Desease Prediction 데이터셋을 활용한 심장병 예측
+thumbnail: https://imagedelivery.net/6qzLODAqs2g1LZbVYqtuQw/9e9cfb2b-4252-4738-3a9c-4882a248a800/public
+prerequisites:
+  ['우원', 'FE Developer', 'FE Developer', '안녕하세요! 우원입니다.']
+stacks: ['KAGGLE']
+writer: 우원
+date: '2023-07-19'
+name: '20230719_1'
+lock: 'false'
+---
+
+# Heart Desease Prediction
+
+## 1. 데이터셋 출처
+
+- 데이터셋 출처 : [Kaggle](https://www.kaggle.com/datasets/rashikrahmanpritom/heart-attack-analysis-prediction-dataset)
+
+## 2. 데이터셋 설명
+
+정말 유명한 데이터셋입니다.
+추천 수가 3000이 넘어가고 제출된 분석 코드 수만 1000개가 넘습니다.
+
+## 3. 데이터셋 분석
+
+시작하기 전에 데이터셋이 준비되어 있어야합니다.
+데이터를 실제로 확인하고 싶으시다면 캐글에서 데이터셋을 다운로드 받으시면 됩니다.
+
+### 1) Variables
+
+| Variable | info                                                                                                     |
+| :------: | -------------------------------------------------------------------------------------------------------- |
+|   age    | Age of the patient(환자의 나이)                                                                          |
+|   sex    | Sex of the patient(환자의 성별)                                                                          |
+|  exang   | exercise induced angina (1 = yes; 0 = no)                                                                |
+|          | (협심증이 운동으로 유발되는지 여부)                                                                      |
+|    ca    | number of major vessels (0-3)(주요 혈관의 수)                                                            |
+|    cp    | Chest Pain type chest pain type(가슴 통증 유형)                                                          |
+|          | Value 1: typical angina(일반적인/전형적인 협심증 유형)                                                   |
+|          | Value 2: atypical angina(예외적인/비전형적인 협심증 유형)                                                |
+|          | Value 3: non-anginal pain(협심증 아닌 통증 유형)                                                         |
+|          | Value 4: asymptomatic(무증상)                                                                            |
+|  trtbps  | resting blood pressure (in mm Hg)                                                                        |
+|          | (안정된 상태의 혈압)(mmHg => 수은주 밀리미터)                                                            |
+|   chol   | cholestoral in mg/dl fetched via BMI sensor                                                              |
+|          | (BMI 센서를 통해 가져온 콜레스테롤 수치)                                                                 |
+|          | (mg/dl => 밀리그램/데시리터)                                                                             |
+|   fbs    | (fasting blood sugar > 120 mg/dl) (1 = true; 0 = false)                                                  |
+|          | (공복 혈당)                                                                                              |
+| rest_ecg | resting electrocardiographic results(안정시 심전도 결과)                                                 |
+|          | Value 0: normal(일반적인 경우)                                                                           |
+|          | Value 1: having ST-T wave abnormality (T wave inversions and/or ST elevation or depression of > 0.05 mV) |
+|          | (ST-T파 이상이 있는 경우)                                                                                |
+|          | Value 2: showing probable or definite left ventricular hypertrophy by Estes' criteria                    |
+| thalach  | maximum heart rate achieved(최대 심박수)                                                                 |
+|  target  | 0= less chance of heart attack                                                                           |
+|          | 1= more chance of heart attack                                                                           |
+
+### 2) Preparation
+
+#### 2.1 Packages
+
+```python
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+```
+
+#### 2.2 Data
+
+```python
+df = pd.read_csv("/Downloads/heart-attack/heart.csv")
+```
+
+#### 2.3 Shape
+
+```python
+print("데이터 (행의 수, 차원의 수) : ", df.shape)
+데이터 (행의 수, 차원의 수) : (303, 14)
+df.head()
+```
+
+|63| 1 |3| 145| 233| 1| 0| 150| 0| 2.3 |0 |0| 1| 1|
+|37| 1 |2| 130| 250| 0| 1| 187| 0| 3.5 |0 |0| 2| 1|
+|41| 0 |1| 130| 204| 0| 0| 172| 0| 1.4 |2 |0| 2| 1|
+|56| 1 |1| 120| 236| 0| 1| 178| 0| 0.8 |2 |0| 2| 1|
+|57| 0 |0| 120| 354| 0| 1| 163| 1| 0.6 |2 |0| 2| 1|
