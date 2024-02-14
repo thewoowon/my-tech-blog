@@ -82,8 +82,69 @@ print("데이터 (행의 수, 차원의 수) : ", df.shape)
 df.head()
 ```
 
-|63| 1 |3| 145| 233| 1| 0| 150| 0| 2.3 |0 |0| 1| 1|
-|37| 1 |2| 130| 250| 0| 1| 187| 0| 3.5 |0 |0| 2| 1|
-|41| 0 |1| 130| 204| 0| 0| 172| 0| 1.4 |2 |0| 2| 1|
-|56| 1 |1| 120| 236| 0| 1| 178| 0| 0.8 |2 |0| 2| 1|
-|57| 0 |0| 120| 354| 0| 1| 163| 1| 0.6 |2 |0| 2| 1|
+|     | age | sex | cp  | trtbps | chol | fbs | restecg | thalachh | exng | oldpeak | slp | caa | thall | output |
+| :-: | :-: | :-: | :-: | :----: | :--: | :-: | :-----: | :------: | :--: | :-----: | :-: | :-: | ----- | ------ |
+|  0  | 63  |  1  |  3  |  145   | 233  |  1  |    0    |   150    |  0   |   2.3   |  0  |  0  | 1     | 1      |
+|  1  | 37  |  1  |  2  |  130   | 250  |  0  |    1    |   187    |  0   |   3.5   |  0  |  0  | 2     | 1      |
+|  2  | 41  |  0  |  1  |  130   | 204  |  0  |    0    |   172    |  0   |   1.4   |  2  |  0  | 2     | 1      |
+|  3  | 56  |  1  |  1  |  120   | 236  |  0  |    1    |   178    |  0   |   0.8   |  2  |  0  | 2     | 1      |
+|  4  | 57  |  0  |  0  |  120   | 354  |  0  |    1    |   163    |  1   |   0.6   |  2  |  0  | 2     | 1      |
+
+추가로 각각의 컬럼별로 고유값의 개수를 체크합니다.
+
+```python
+dict = {}
+for i in list(df.columns):
+  dict[i] = df[i].value_counts().shape[0]
+
+pd.DataFrame(dict, index=["unique count"]).transpose()
+```
+
+|  unique  | count |
+| :------: | ----- |
+|   age    | 41    |
+|   sex    | 2     |
+|    cp    | 4     |
+|  trtbps  | 49    |
+|   chol   | 152   |
+|   fbs    | 2     |
+| restecg  | 3     |
+| thalachh | 91    |
+|   exng   | 2     |
+| oldpeak  | 40    |
+|   slp    | 3     |
+|   caa    | 5     |
+|  thall   | 4     |
+|  output  | 2     |
+
+이제 중요한 작업을 해줘야합니다.
+바로 범주형 변수와 연속형 변수를 구분하는 것입니다.
+
+```python
+# 범주형 변수
+cat_cols = ["sex","exng","caa","cp","fbs","restecg","slp","thall"]
+# 연속형 변수
+con_cols = ["age","trtbps","chol","thalachh","oldpeak"]
+
+target_col = ["output"]
+
+print("범주형: ", cat_cols)
+print("연속형: ", con_cols)
+print("목표변수(종속변수): ", target_col)
+```
+
+The categorial cols are : ['sex', 'exng', 'caa', 'cp', 'fbs', 'restecg', 'slp', 'thall']
+The continuous cols are : ['age', 'trtbps', 'chol', 'thalachh', 'oldpeak']
+The target variable is : ['output']
+
+연속형 변수의 기초통계량 정보를 확인합니다.
+
+df[con_cols].describe().transpose()
+
+|          | count |    mean    |    std    |  min  |  25%  |  50%  |  75%  | max   |
+| :------: | :---: | :--------: | :-------: | :---: | :---: | :---: | :---: | ----- |
+|   age    | 303.0 | 54.366337  | 9.082101  | 29.0  | 47.5  | 55.0  | 61.0  | 77.0  |
+|  trtbps  | 303.0 | 131.623762 | 17.538143 | 94.0  | 120.0 | 130.0 | 140.0 | 200.0 |
+|   chol   | 303.0 | 246.264026 | 51.830751 | 126.0 | 211.0 | 240.0 | 274.5 | 564.0 |
+| thalachh | 303.0 | 149.646865 | 22.905161 | 71.0  | 133.5 | 153.0 | 166.0 | 202.0 |
+| oldpeak  | 303.0 |  1.039604  | 1.161075  |  0.0  |  0.0  |  0.8  |  1.6  | 6.2   |
