@@ -305,13 +305,13 @@ const PostPage = ({ source, frontMatter, ip }: Props): JSX.Element => {
               <div className="w-4/12 h-full flex justify-center items-center ">
                 <Image
                   src={
-                    'https://imagedelivery.net/6qzLODAqs2g1LZbVYqtuQw/0f1e87ce-400b-40bf-787d-ea3f2fc20900/public'
+                    'https://imagedelivery.net/6qzLODAqs2g1LZbVYqtuQw/61bfd7b6-4020-4d1a-5dce-d05d7872fb00/public'
                   }
                   alt="logo"
                   width={150}
                   height={150}
                   style={{ borderRadius: '50%', objectFit: 'fill' }}
-                ></Image>
+                />
               </div>
               <div className="w-8/12 h-full dark:text-black">
                 <div className="flex items-center pl-5 pr-12 h-1/2">
