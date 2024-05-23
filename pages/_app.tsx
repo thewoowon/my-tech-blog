@@ -71,7 +71,7 @@ function MyApp({ Component, pageProps }: AppProps) {
               }}
             />
             <Component {...pageProps} />
-            <Toaster></Toaster>
+            <Toaster />
             {toggle ? (
               <div className="z-30 sticky bottom-10 mr-10 flex justify-end items-center">
                 <div className="flex flex-col">

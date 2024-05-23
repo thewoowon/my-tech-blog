@@ -38,8 +38,22 @@ const Home: NextPage<Props> = ({ posts }: Props) => {
           <DarkVideoWatcher></DarkVideoWatcher>
         </div>
       ) : ( */}
-      <div className="mx-auto">
-        <LightVideoWatcher></LightVideoWatcher>
+      <div
+        className="mx-auto"
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          width: '100%',
+          height: '100px',
+          borderRadius: '10px',
+          overflow: 'hidden',
+          backgroundColor: '#111111',
+          maxWidth: '1024px',
+          marginTop: '20px',
+        }}
+      >
+        <LightVideoWatcher />
       </div>
       {/* )} */}
       <div className="m-auto flex max-w-5xl lg:flex-row xss:flex-col">
