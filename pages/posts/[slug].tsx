@@ -47,7 +47,6 @@ import { useForm } from 'react-hook-form';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { Comments, Likes } from '@prisma/client';
 import { TAKE } from '../../constants/posts';
-
 import { Pagination } from '@mantine/core';
 import toast from 'react-hot-toast';
 
@@ -60,6 +59,7 @@ type Props = {
 const components = {
   Prerequisites,
   Stacks,
+  Image,
 };
 
 export interface ICreateCommentForm {
