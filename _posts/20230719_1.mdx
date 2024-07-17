@@ -82,8 +82,744 @@ print("데이터 (행의 수, 차원의 수) : ", df.shape)
 df.head()
 ```
 
-|63| 1 |3| 145| 233| 1| 0| 150| 0| 2.3 |0 |0| 1| 1|
-|37| 1 |2| 130| 250| 0| 1| 187| 0| 3.5 |0 |0| 2| 1|
-|41| 0 |1| 130| 204| 0| 0| 172| 0| 1.4 |2 |0| 2| 1|
-|56| 1 |1| 120| 236| 0| 1| 178| 0| 0.8 |2 |0| 2| 1|
-|57| 0 |0| 120| 354| 0| 1| 163| 1| 0.6 |2 |0| 2| 1|
+|     | age | sex | cp  | trtbps | chol | fbs | restecg | thalachh | exng | oldpeak | slp | caa | thall | output |
+| :-: | :-: | :-: | :-: | :----: | :--: | :-: | :-----: | :------: | :--: | :-----: | :-: | :-: | ----- | ------ |
+|  0  | 63  |  1  |  3  |  145   | 233  |  1  |    0    |   150    |  0   |   2.3   |  0  |  0  | 1     | 1      |
+|  1  | 37  |  1  |  2  |  130   | 250  |  0  |    1    |   187    |  0   |   3.5   |  0  |  0  | 2     | 1      |
+|  2  | 41  |  0  |  1  |  130   | 204  |  0  |    0    |   172    |  0   |   1.4   |  2  |  0  | 2     | 1      |
+|  3  | 56  |  1  |  1  |  120   | 236  |  0  |    1    |   178    |  0   |   0.8   |  2  |  0  | 2     | 1      |
+|  4  | 57  |  0  |  0  |  120   | 354  |  0  |    1    |   163    |  1   |   0.6   |  2  |  0  | 2     | 1      |
+
+추가로 각각의 컬럼별로 고유값의 개수를 체크합니다.
+
+```python
+dic = {}
+for i in list(df.columns):
+  dic[i] = df[i].value_counts().shape[0]
+
+pd.DataFrame(dic, index=["unique count"]).transpose()
+```
+
+|  unique  | count |
+| :------: | ----- |
+|   age    | 41    |
+|   sex    | 2     |
+|    cp    | 4     |
+|  trtbps  | 49    |
+|   chol   | 152   |
+|   fbs    | 2     |
+| restecg  | 3     |
+| thalachh | 91    |
+|   exng   | 2     |
+| oldpeak  | 40    |
+|   slp    | 3     |
+|   caa    | 5     |
+|  thall   | 4     |
+|  output  | 2     |
+
+이제 중요한 작업을 해줘야합니다.
+바로 범주형 변수와 연속형 변수를 구분하는 것입니다.
+
+```python
+# 범주형 변수
+cat_cols = ["sex","exng","caa","cp","fbs","restecg","slp","thall"]
+# 연속형 변수
+con_cols = ["age","trtbps","chol","thalachh","oldpeak"]
+
+target_col = ["output"]
+
+print("범주형: ", cat_cols)
+print("연속형: ", con_cols)
+print("목표변수(종속변수): ", target_col)
+```
+
+```python
+The categorial cols are : ['sex', 'exng', 'caa', 'cp', 'fbs', 'restecg', 'slp', 'thall']
+The continuous cols are : ['age', 'trtbps', 'chol', 'thalachh', 'oldpeak']
+The target variable is : ['output']
+```
+
+연속형 변수의 기초통계량 정보를 확인합니다.
+
+```python
+df[con_cols].describe().transpose()
+```
+
+|          | count |    mean    |    std    |  min  |  25%  |  50%  |  75%  | max   |
+| :------: | :---: | :--------: | :-------: | :---: | :---: | :---: | :---: | ----- |
+|   age    | 303.0 | 54.366337  | 9.082101  | 29.0  | 47.5  | 55.0  | 61.0  | 77.0  |
+|  trtbps  | 303.0 | 131.623762 | 17.538143 | 94.0  | 120.0 | 130.0 | 140.0 | 200.0 |
+|   chol   | 303.0 | 246.264026 | 51.830751 | 126.0 | 211.0 | 240.0 | 274.5 | 564.0 |
+| thalachh | 303.0 | 149.646865 | 22.905161 | 71.0  | 133.5 | 153.0 | 166.0 | 202.0 |
+| oldpeak  | 303.0 |  1.039604  | 1.161075  |  0.0  |  0.0  |  0.8  |  1.6  | 6.2   |
+
+마지막으로 결측값을 확인합니다.
+
+```python
+df.isnull().sum()
+```
+
+|   variable   | count |
+| :----------: | :---: |
+|     age      |   0   |
+|     sex      |   0   |
+|      cp      |   0   |
+|    trtbps    |   0   |
+|     chol     |   0   |
+|     fbs      |   0   |
+|   restecg    |   0   |
+|   thalachh   |   0   |
+|     exng     |   0   |
+|   oldpeak    |   0   |
+|     slp      |   0   |
+|     caa      |   0   |
+|    thall     |   0   |
+|    output    |   0   |
+| dtype: int64 |   -   |
+
+### 2) EDA(탐색적 데이터 분석)
+
+```python
+fig = plt.figure(figsize=(18,15))
+gs = fig.add_gridspec(3,3)
+gs.update(wspace=0.5, hspace=0.25)
+ax0 = fig.add_subplot(gs[0,0])
+ax1 = fig.add_subplot(gs[0,1])
+ax2 = fig.add_subplot(gs[0,2])
+ax3 = fig.add_subplot(gs[1,0])
+ax4 = fig.add_subplot(gs[1,1])
+ax5 = fig.add_subplot(gs[1,2])
+ax6 = fig.add_subplot(gs[2,0])
+ax7 = fig.add_subplot(gs[2,1])
+ax8 = fig.add_subplot(gs[2,2])
+
+background_color = "#ffffff"
+color_palette = ["#D04848","#F3B95F","#FDE767","#6895D2","#da8829"]
+fig.patch.set_facecolor(background_color) 
+ax0.set_facecolor(background_color) 
+ax1.set_facecolor(background_color) 
+ax2.set_facecolor(background_color) 
+ax3.set_facecolor(background_color) 
+ax4.set_facecolor(background_color) 
+ax5.set_facecolor(background_color) 
+ax6.set_facecolor(background_color) 
+ax7.set_facecolor(background_color) 
+ax8.set_facecolor(background_color) 
+
+# Title of the plot
+ax0.spines["bottom"].set_visible(False)
+ax0.spines["left"].set_visible(False)
+ax0.spines["top"].set_visible(False)
+ax0.spines["right"].set_visible(False)
+ax0.tick_params(left=False, bottom=False)
+ax0.set_xticklabels([])
+ax0.set_yticklabels([])
+ax0.text(0.5,0.5,
+         'Count plot for various\n categorical features\n_________________',
+         horizontalalignment='center',
+         verticalalignment='center',
+         fontsize=18, fontweight='bold',
+         fontfamily='serif',
+         color="#000000")
+
+# Sex count
+ax1.text(0.3, 220, 'Sex', fontsize=14, fontweight='bold', fontfamily='serif', color="#000000")
+ax1.grid(color='#000000', linestyle=':', axis='y', zorder=0,  dashes=(1,5))
+sns.countplot(ax=ax1,data=df,x='sex',palette=color_palette)
+ax1.set_xlabel("")
+ax1.set_ylabel("")
+
+# Exng count
+ax2.text(0.3, 220, 'Exng', fontsize=14, fontweight='bold', fontfamily='serif', color="#000000")
+ax2.grid(color='#000000', linestyle=':', axis='y', zorder=0,  dashes=(1,5))
+sns.countplot(ax=ax2,data=df,x='exng',palette=color_palette)
+ax2.set_xlabel("")
+ax2.set_ylabel("")
+
+# Caa count
+ax3.text(1.5, 200, 'Caa', fontsize=14, fontweight='bold', fontfamily='serif', color="#000000")
+ax3.grid(color='#000000', linestyle=':', axis='y', zorder=0,  dashes=(1,5))
+sns.countplot(ax=ax3,data=df,x='caa',palette=color_palette)
+ax3.set_xlabel("")
+ax3.set_ylabel("")
+
+# Cp count
+ax4.text(1.5, 162, 'Cp', fontsize=14, fontweight='bold', fontfamily='serif', color="#000000")
+ax4.grid(color='#000000', linestyle=':', axis='y', zorder=0,  dashes=(1,5))
+sns.countplot(ax=ax4,data=df,x='cp',palette=color_palette)
+ax4.set_xlabel("")
+ax4.set_ylabel("")
+
+# Fbs count
+ax5.text(0.5, 290, 'Fbs', fontsize=14, fontweight='bold', fontfamily='serif', color="#000000")
+ax5.grid(color='#000000', linestyle=':', axis='y', zorder=0,  dashes=(1,5))
+sns.countplot(ax=ax5,data=df,x='fbs',palette=color_palette)
+ax5.set_xlabel("")
+ax5.set_ylabel("")
+
+# Restecg count
+ax6.text(0.75, 165, 'Restecg', fontsize=14, fontweight='bold', fontfamily='serif', color="#000000")
+ax6.grid(color='#000000', linestyle=':', axis='y', zorder=0,  dashes=(1,5))
+sns.countplot(ax=ax6,data=df,x='restecg',palette=color_palette)
+ax6.set_xlabel("")
+ax6.set_ylabel("")
+
+# Slp count
+ax7.text(0.85, 155, 'Slp', fontsize=14, fontweight='bold', fontfamily='serif', color="#000000")
+ax7.grid(color='#000000', linestyle=':', axis='y', zorder=0,  dashes=(1,5))
+sns.countplot(ax=ax7,data=df,x='slp',palette=color_palette)
+ax7.set_xlabel("")
+ax7.set_ylabel("")
+
+# Thall count
+ax8.text(1.2, 180, 'Thall', fontsize=14, fontweight='bold', fontfamily='serif', color="#000000")
+ax8.grid(color='#000000', linestyle=':', axis='y', zorder=0,  dashes=(1,5))
+sns.countplot(ax=ax8,data=df,x='thall',palette=color_palette)
+ax8.set_xlabel("")
+ax8.set_ylabel("")
+
+for s in ["top","right","left"]:
+    ax1.spines[s].set_visible(False)
+    ax2.spines[s].set_visible(False)
+    ax3.spines[s].set_visible(False)
+    ax4.spines[s].set_visible(False)
+    ax5.spines[s].set_visible(False)
+    ax6.spines[s].set_visible(False)
+    ax7.spines[s].set_visible(False)
+    ax8.spines[s].set_visible(False)
+
+```
+
+
+![범주형 변수 도수 분포표](https://imagedelivery.net/6qzLODAqs2g1LZbVYqtuQw/1b632f97-1f31-4477-48ad-f4e82df78900/public)
+
+```python
+fig = plt.figure(figsize=(18,16))
+gs = fig.add_gridspec(2,3)
+gs.update(wspace=0.3, hspace=0.15)
+ax0 = fig.add_subplot(gs[0,0])
+ax1 = fig.add_subplot(gs[0,1])
+ax2 = fig.add_subplot(gs[0,2])
+ax3 = fig.add_subplot(gs[1,0])
+ax4 = fig.add_subplot(gs[1,1])
+ax5 = fig.add_subplot(gs[1,2])
+
+background_color = "#ffffff"
+color_palette = ["#D04848","#F3B95F","#FDE767","#6895D2","#da8829"]
+fig.patch.set_facecolor(background_color) 
+ax0.set_facecolor(background_color) 
+ax1.set_facecolor(background_color) 
+ax2.set_facecolor(background_color) 
+ax3.set_facecolor(background_color) 
+ax4.set_facecolor(background_color) 
+ax5.set_facecolor(background_color) 
+
+# Title of the plot
+ax0.spines["bottom"].set_visible(False)
+ax0.spines["left"].set_visible(False)
+ax0.spines["top"].set_visible(False)
+ax0.spines["right"].set_visible(False)
+ax0.tick_params(left=False, bottom=False)
+ax0.set_xticklabels([])
+ax0.set_yticklabels([])
+ax0.text(0.5,0.5,
+         'Boxen plot for various\n continuous features\n_________________',
+         horizontalalignment='center',
+         verticalalignment='center',
+         fontsize=18, fontweight='bold',
+         fontfamily='serif',
+         color="#000000")
+
+# Age 
+ax1.text(-0.05, 81, 'Age', fontsize=14, fontweight='bold', fontfamily='serif', color="#000000")
+ax1.grid(color='#000000', linestyle=':', axis='y', zorder=0,  dashes=(1,5))
+sns.boxenplot(ax=ax1,y=df['age'],palette=["#800000"],width=0.6)
+ax1.set_xlabel("")
+ax1.set_ylabel("")
+
+# Trtbps 
+ax2.text(-0.05, 208, 'Trtbps', fontsize=14, fontweight='bold', fontfamily='serif', color="#000000")
+ax2.grid(color='#000000', linestyle=':', axis='y', zorder=0,  dashes=(1,5))
+sns.boxenplot(ax=ax2,y=df['trtbps'],palette=["#8000ff"],width=0.6)
+ax2.set_xlabel("")
+ax2.set_ylabel("")
+
+# Chol 
+ax3.text(-0.05, 600, 'Chol', fontsize=14, fontweight='bold', fontfamily='serif', color="#000000")
+ax3.grid(color='#000000', linestyle=':', axis='y', zorder=0,  dashes=(1,5))
+sns.boxenplot(ax=ax3,y=df['chol'],palette=["#6aac90"],width=0.6)
+ax3.set_xlabel("")
+ax3.set_ylabel("")
+
+# Thalachh 
+ax4.text(-0.09, 210, 'Thalachh', fontsize=14, fontweight='bold', fontfamily='serif', color="#000000")
+ax4.grid(color='#000000', linestyle=':', axis='y', zorder=0,  dashes=(1,5))
+sns.boxenplot(ax=ax4,y=df['thalachh'],palette=["#5833ff"],width=0.6)
+ax4.set_xlabel("")
+ax4.set_ylabel("")
+
+# oldpeak 
+ax5.text(-0.1, 6.6, 'Oldpeak', fontsize=14, fontweight='bold', fontfamily='serif', color="#000000")
+ax5.grid(color='#000000', linestyle=':', axis='y', zorder=0,  dashes=(1,5))
+sns.boxenplot(ax=ax5,y=df['oldpeak'],palette=["#da8829"],width=0.6)
+ax5.set_xlabel("")
+ax5.set_ylabel("")
+
+for s in ["top","right","left"]:
+    ax1.spines[s].set_visible(False)
+    ax2.spines[s].set_visible(False)
+    ax3.spines[s].set_visible(False)
+    ax4.spines[s].set_visible(False)
+    ax5.spines[s].set_visible(False)
+```
+
+![박스플롯분포](https://imagedelivery.net/6qzLODAqs2g1LZbVYqtuQw/cfab134e-84fa-4737-5d81-21980b1b5600/public)
+
+```python
+fig = plt.figure(figsize=(18,7))
+gs = fig.add_gridspec(1,2)
+gs.update(wspace=0.3, hspace=0.15)
+ax0 = fig.add_subplot(gs[0,0])
+ax1 = fig.add_subplot(gs[0,1])
+
+background_color = "#ffffff"
+color_palette = ["#D04848","#F3B95F","#FDE767","#6895D2","#da8829"]
+fig.patch.set_facecolor(background_color) 
+ax0.set_facecolor(background_color) 
+ax1.set_facecolor(background_color) 
+
+# Title of the plot
+ax0.text(0.5,0.5,"Count of the target\n___________",
+        horizontalalignment = 'center',
+        verticalalignment = 'center',
+        fontsize = 18,
+        fontweight='bold',
+        fontfamily='serif',
+        color='#000000')
+
+ax0.set_xticklabels([])
+ax0.set_yticklabels([])
+ax0.tick_params(left=False, bottom=False)
+
+# Target Count
+ax1.text(0.35,177,"Output",fontsize=14, fontweight='bold', fontfamily='serif', color="#000000")
+ax1.grid(color='#000000', linestyle=':', axis='y', zorder=0,  dashes=(1,5))
+sns.countplot(ax=ax1, data=df, x = 'output',palette = color_palette)
+ax1.set_xlabel("")
+ax1.set_ylabel("")
+ax1.set_xticklabels(["Low chances of attack(0)","High chances of attack(1)"])
+
+ax0.spines["top"].set_visible(False)
+ax0.spines["left"].set_visible(False)
+ax0.spines["bottom"].set_visible(False)
+ax0.spines["right"].set_visible(False)
+ax1.spines["top"].set_visible(False)
+ax1.spines["left"].set_visible(False)
+ax1.spines["right"].set_visible(False)
+```
+
+![카운트플롯](https://imagedelivery.net/6qzLODAqs2g1LZbVYqtuQw/55d1374c-149d-4e73-7a38-45d509ffc200/public)
+
+```python
+# 연속형 변수의 상관계수를 구하고 전치 +) cov -> 공분산, corr -> 상관계수
+df_corr = df[con_cols].corr().transpose()
+# 출력
+df_corr
+fig = plt.figure(figsize=(10,10))
+gs = fig.add_gridspec(1,1)
+gs.update(wspace=0.3, hspace=0.15)
+ax0 = fig.add_subplot(gs[0,0])
+
+color_palette = ["#5833ff","#da8829"]
+# 상삼각행렬의 원소만 남길 수 있는 np.triu, ones_like는 그대로 복사하는 메소드
+mask = np.triu(np.ones_like(df_corr))
+ax0.text(1.5,-0.1,"Correlation Matrix",fontsize=22, fontweight='bold', fontfamily='serif', color="#000000")
+# 연속형 변수의 상관계수를 구하고 전치
+df_corr = df[con_cols].corr().transpose()
+// 히트맵: 색상으로 자료의 많고 적음을 나타낼 수 있는 도표
+sns.heatmap(df_corr,mask=mask,fmt=".1f",annot=True,cmap='YlGnBu')
+plt.show()
+```
+
+![히트맵](https://imagedelivery.net/6qzLODAqs2g1LZbVYqtuQw/84ef21cc-8a33-4966-65ee-12ddb22d3c00/public)
+
+```python
+fig = plt.figure(figsize=(12,12))
+# 상관계수의 스택화 후 인덱스 초기화
+corr_mat = df.corr().stack().reset_index(name="correlation")
+# 복잡할 수 있지만, replot을 활용하면 산점도와 선그래프를 동시에 그릴 수 있다.
+g = sns.relplot(
+    data=corr_mat,
+    x="level_0", y="level_1", hue="correlation", size="correlation",
+    palette="YlGnBu", hue_norm=(-1, 1), edgecolor=".7",
+    height=10, sizes=(50, 250), size_norm=(-.2, .8),
+)
+# 플롯 관련 설정들...
+g.set(xlabel="features on X", ylabel="featurs on Y", aspect="equal")
+g.fig.suptitle('Scatterplot heatmap',fontsize=22, fontweight='bold', fontfamily='serif', color="#000000")
+g.despine(left=True, bottom=True)
+g.ax.margins(.02)
+for label in g.ax.get_xticklabels():
+    label.set_rotation(90)
+for artist in g.legend.legendHandles:
+    artist.set_edgecolor(".7")
+plt.show()
+```
+
+![산점도](https://imagedelivery.net/6qzLODAqs2g1LZbVYqtuQw/42618926-8baf-425b-30bf-488f8fd69600/public)
+
+
+```python
+fig = plt.figure(figsize=(18,18))
+gs = fig.add_gridspec(5,2)
+gs.update(wspace=0.5, hspace=0.5)
+ax0 = fig.add_subplot(gs[0,0])
+ax1 = fig.add_subplot(gs[0,1])
+ax2 = fig.add_subplot(gs[1,0])
+ax3 = fig.add_subplot(gs[1,1])
+ax4 = fig.add_subplot(gs[2,0])
+ax5 = fig.add_subplot(gs[2,1])
+ax6 = fig.add_subplot(gs[3,0])
+ax7 = fig.add_subplot(gs[3,1])
+ax8 = fig.add_subplot(gs[4,0])
+ax9 = fig.add_subplot(gs[4,1])
+
+background_color = "#ffffff"
+color_palette = ["#D04848","#F3B95F","#FDE767","#6895D2","#da8829"]
+fig.patch.set_facecolor(background_color) 
+ax0.set_facecolor(background_color) 
+ax1.set_facecolor(background_color) 
+ax2.set_facecolor(background_color)
+ax3.set_facecolor(background_color)
+ax4.set_facecolor(background_color)
+ax5.set_facecolor(background_color) 
+ax6.set_facecolor(background_color) 
+ax7.set_facecolor(background_color)
+ax8.set_facecolor(background_color)
+ax9.set_facecolor(background_color)
+
+# Age title
+ax0.text(0.5,0.5,"Distribution of age\naccording to\n target variable\n___________",
+        horizontalalignment = 'center',
+        verticalalignment = 'center',
+        fontsize = 18,
+        fontweight='bold',
+        fontfamily='serif',
+        color='#000000')
+ax0.spines["bottom"].set_visible(False)
+ax0.set_xticklabels([])
+ax0.set_yticklabels([])
+ax0.tick_params(left=False, bottom=False)
+
+# Age
+ax1.grid(color='#000000', linestyle=':', axis='y', zorder=0,  dashes=(1,5))
+sns.kdeplot(ax=ax1, data=df, x='age',hue="output", fill=True,palette=["#8000ff","#da8829"], alpha=.5, linewidth=0)
+ax1.set_xlabel("")
+ax1.set_ylabel("")
+
+# TrTbps title
+ax2.text(0.5,0.5,"Distribution of trtbps\naccording to\n target variable\n___________",
+        horizontalalignment = 'center',
+        verticalalignment = 'center',
+        fontsize = 18,
+        fontweight='bold',
+        fontfamily='serif',
+        color='#000000')
+ax2.spines["bottom"].set_visible(False)
+ax2.set_xticklabels([])
+ax2.set_yticklabels([])
+ax2.tick_params(left=False, bottom=False)
+
+# TrTbps
+ax3.grid(color='#000000', linestyle=':', axis='y', zorder=0,  dashes=(1,5))
+sns.kdeplot(ax=ax3, data=df, x='trtbps',hue="output", fill=True,palette=["#8000ff","#da8829"], alpha=.5, linewidth=0)
+ax3.set_xlabel("")
+ax3.set_ylabel("")
+
+# Chol title
+ax4.text(0.5,0.5,"Distribution of chol\naccording to\n target variable\n___________",
+        horizontalalignment = 'center',
+        verticalalignment = 'center',
+        fontsize = 18,
+        fontweight='bold',
+        fontfamily='serif',
+        color='#000000')
+ax4.spines["bottom"].set_visible(False)
+ax4.set_xticklabels([])
+ax4.set_yticklabels([])
+ax4.tick_params(left=False, bottom=False)
+
+# Chol
+ax5.grid(color='#000000', linestyle=':', axis='y', zorder=0,  dashes=(1,5))
+sns.kdeplot(ax=ax5, data=df, x='chol',hue="output", fill=True,palette=["#8000ff","#da8829"], alpha=.5, linewidth=0)
+ax5.set_xlabel("")
+ax5.set_ylabel("")
+
+# Thalachh title
+ax6.text(0.5,0.5,"Distribution of thalachh\naccording to\n target variable\n___________",
+        horizontalalignment = 'center',
+        verticalalignment = 'center',
+        fontsize = 18,
+        fontweight='bold',
+        fontfamily='serif',
+        color='#000000')
+ax6.spines["bottom"].set_visible(False)
+ax6.set_xticklabels([])
+ax6.set_yticklabels([])
+ax6.tick_params(left=False, bottom=False)
+
+# Thalachh
+ax7.grid(color='#000000', linestyle=':', axis='y', zorder=0,  dashes=(1,5))
+sns.kdeplot(ax=ax7, data=df, x='thalachh',hue="output", fill=True,palette=["#8000ff","#da8829"], alpha=.5, linewidth=0)
+ax7.set_xlabel("")
+ax7.set_ylabel("")
+
+# Oldpeak title
+ax8.text(0.5,0.5,"Distribution of oldpeak\naccording to\n target variable\n___________",
+        horizontalalignment = 'center',
+        verticalalignment = 'center',
+        fontsize = 18,
+        fontweight='bold',
+        fontfamily='serif',
+        color='#000000')
+ax8.spines["bottom"].set_visible(False)
+ax8.set_xticklabels([])
+ax8.set_yticklabels([])
+ax8.tick_params(left=False, bottom=False)
+
+# Oldpeak
+ax9.grid(color='#000000', linestyle=':', axis='y', zorder=0,  dashes=(1,5))
+sns.kdeplot(ax=ax9, data=df, x='oldpeak',hue="output", fill=True,palette=["#8000ff","#da8829"], alpha=.5, linewidth=0)
+ax9.set_xlabel("")
+ax9.set_ylabel("")
+
+for i in ["top","left","right"]:
+    ax0.spines[i].set_visible(False)
+    ax1.spines[i].set_visible(False)
+    ax2.spines[i].set_visible(False)
+    ax3.spines[i].set_visible(False)
+    ax4.spines[i].set_visible(False)
+    ax5.spines[i].set_visible(False)
+    ax6.spines[i].set_visible(False)
+    ax7.spines[i].set_visible(False)
+    ax8.spines[i].set_visible(False)
+    ax9.spines[i].set_visible(False)
+```
+![범주형](https://imagedelivery.net/6qzLODAqs2g1LZbVYqtuQw/70a3c596-2265-44c9-51e3-06d5147c1700/public)
+
+```python
+fig = plt.figure(figsize=(18,20))
+gs = fig.add_gridspec(6,2)
+gs.update(wspace=0.5, hspace=0.5)
+ax0 = fig.add_subplot(gs[0,0])
+ax1 = fig.add_subplot(gs[0,1])
+ax2 = fig.add_subplot(gs[1,0])
+ax3 = fig.add_subplot(gs[1,1])
+ax4 = fig.add_subplot(gs[2,0])
+ax5 = fig.add_subplot(gs[2,1])
+ax6 = fig.add_subplot(gs[3,0])
+ax7 = fig.add_subplot(gs[3,1])
+ax8 = fig.add_subplot(gs[4,0])
+ax9 = fig.add_subplot(gs[4,1])
+ax10 = fig.add_subplot(gs[5,0])
+ax11 = fig.add_subplot(gs[5,1])
+
+background_color = "#ffffff"
+color_palette = ["#D04848","#F3B95F","#FDE767","#6895D2","#da8829"]
+fig.patch.set_facecolor(background_color) 
+ax0.set_facecolor(background_color) 
+ax1.set_facecolor(background_color) 
+ax2.set_facecolor(background_color)
+ax3.set_facecolor(background_color)
+ax4.set_facecolor(background_color)
+ax5.set_facecolor(background_color) 
+ax6.set_facecolor(background_color) 
+ax7.set_facecolor(background_color)
+ax8.set_facecolor(background_color)
+ax9.set_facecolor(background_color)
+ax10.set_facecolor(background_color)
+ax11.set_facecolor(background_color)
+
+# Cp title
+# 0 = Typical Angina, 1 = Atypical Angina, 2 = Non-anginal Pain, 3 = Asymptomatic
+ax0.text(0.5,0.5,"Chest pain\ndistribution\n__________",
+        horizontalalignment = 'center',
+        verticalalignment = 'center',
+        fontsize = 18,
+        fontweight='bold',
+        fontfamily='serif',
+        color='#000000')
+ax0.spines["bottom"].set_visible(False)
+ax0.set_xticklabels([])
+ax0.set_yticklabels([])
+ax0.tick_params(left=False, bottom=False)
+ax0.text(1,.5,"0 - Typical Angina\n1 - Atypical Angina\n2 - Non-anginal Pain\n3 - Asymptomatic",
+        horizontalalignment = 'center',
+         verticalalignment = 'center',
+        fontsize = 14
+        )
+
+# Cp
+ax1.grid(color='#000000', linestyle=':', axis='y', zorder=0,  dashes=(1,5))
+sns.kdeplot(ax=ax1, data=df, x='cp',hue="output", fill=True,palette=["#8000ff","#da8829"], alpha=.5, linewidth=0)
+ax1.set_xlabel("")
+ax1.set_ylabel("")
+
+# Caa title
+ax2.text(0.5,0.5,"Number of\nmajor vessels\n___________",
+        horizontalalignment = 'center',
+        verticalalignment = 'center',
+        fontsize = 18,
+        fontweight='bold',
+        fontfamily='serif',
+        color='#000000')
+ax2.text(1,.5,"0 vessels\n1 vessel\n2 vessels\n3 vessels\n4vessels",
+        horizontalalignment = 'center',
+         verticalalignment = 'center',
+        fontsize = 14
+        )
+
+ax2.spines["bottom"].set_visible(False)
+ax2.set_xticklabels([])
+ax2.set_yticklabels([])
+ax2.tick_params(left=False, bottom=False)
+
+# Caa
+ax3.grid(color='#000000', linestyle=':', axis='y', zorder=0,  dashes=(1,5))
+sns.kdeplot(ax=ax3, data=df, x='caa',hue="output", fill=True,palette=["#8000ff","#da8829"], alpha=.5, linewidth=0)
+ax3.set_xlabel("")
+ax3.set_ylabel("")
+
+# Sex title
+ax4.text(0.5,0.5,"Heart Attack\naccording to\nsex\n______",
+        horizontalalignment = 'center',
+        verticalalignment = 'center',
+        fontsize = 18,
+        fontweight='bold',
+        fontfamily='serif',
+        color='#000000')
+ax4.text(1,.5,"0 - Female\n1 - Male",
+        horizontalalignment = 'center',
+         verticalalignment = 'center',
+        fontsize = 14
+        )
+ax4.spines["bottom"].set_visible(False)
+ax4.set_xticklabels([])
+ax4.set_yticklabels([])
+ax4.tick_params(left=False, bottom=False)
+
+# Sex
+ax5.grid(color='#000000', linestyle=':', axis='y', zorder=0,  dashes=(1,5))
+sns.countplot(ax=ax5,data=df,x='sex',palette=["#8000ff","#da8829"], hue='output')
+ax5.set_xlabel("")
+ax5.set_ylabel("")
+
+# Thall title
+ax6.text(0.5,0.5,"Distribution of thall\naccording to\n target variable\n___________",
+        horizontalalignment = 'center',
+        verticalalignment = 'center',
+        fontsize = 18,
+        fontweight='bold',
+        fontfamily='serif',
+        color='#000000')
+ax6.text(1,.5,"Thalium Stress\nTest Result\n0, 1, 2, 3",
+        horizontalalignment = 'center',
+         verticalalignment = 'center',
+        fontsize = 14
+        )
+ax6.spines["bottom"].set_visible(False)
+ax6.set_xticklabels([])
+ax6.set_yticklabels([])
+ax6.tick_params(left=False, bottom=False)
+
+# Thall
+ax7.grid(color='#000000', linestyle=':', axis='y', zorder=0,  dashes=(1,5))
+sns.kdeplot(ax=ax7, data=df, x='thall',hue="output", fill=True,palette=["#8000ff","#da8829"], alpha=.5, linewidth=0)
+ax7.set_xlabel("")
+ax7.set_ylabel("")
+
+# Thalachh title
+ax8.text(0.5,0.5,"Boxen plot of\nthalachh wrt\noutcome\n_______",
+        horizontalalignment = 'center',
+        verticalalignment = 'center',
+        fontsize = 18,
+        fontweight='bold',
+        fontfamily='serif',
+        color='#000000')
+ax8.text(1,.5,"Maximum heart\nrate achieved",
+        horizontalalignment = 'center',
+         verticalalignment = 'center',
+        fontsize = 14
+        )
+
+ax8.spines["bottom"].set_visible(False)
+ax8.set_xticklabels([])
+ax8.set_yticklabels([])
+ax8.tick_params(left=False, bottom=False)
+
+# Thalachh
+ax9.grid(color='#000000', linestyle=':', axis='y', zorder=0,  dashes=(1,5))
+sns.boxenplot(ax=ax9, data=df,x='output',y='thalachh',palette=["#8000ff","#da8829"])
+ax9.set_xlabel("")
+ax9.set_ylabel("")
+
+# Exng title
+ax10.text(0.5,0.5,"Strip Plot of\nexng vs age\n______",
+        horizontalalignment = 'center',
+        verticalalignment = 'center',
+        fontsize = 18,
+        fontweight='bold',
+        fontfamily='serif',
+        color='#000000')
+ax10.text(1,.5,"Exercise induced\nangina\n0 - No\n1 - Yes",
+        horizontalalignment = 'center',
+         verticalalignment = 'center',
+        fontsize = 14
+        )
+ax10.spines["bottom"].set_visible(False)
+ax10.set_xticklabels([])
+ax10.set_yticklabels([])
+ax10.tick_params(left=False, bottom=False)
+
+
+# Exng
+ax11.grid(color='#000000', linestyle=':', axis='y', zorder=0,  dashes=(1,5))
+# 범주형 데이터의 분포
+sns.stripplot(ax=ax11, data=df,x='exng',y='age',hue='output',palette=["#8000ff","#da8829"])
+ax9.set_xlabel("")
+ax9.set_ylabel("")
+for i in ["top","left","right"]:
+    ax0.spines[i].set_visible(False)
+    ax1.spines[i].set_visible(False)
+    ax2.spines[i].set_visible(False)
+    ax3.spines[i].set_visible(False)
+    ax4.spines[i].set_visible(False)
+    ax5.spines[i].set_visible(False)
+    ax6.spines[i].set_visible(False)
+    ax7.spines[i].set_visible(False)
+    ax8.spines[i].set_visible(False)
+    ax9.spines[i].set_visible(False)
+    ax10.spines[i].set_visible(False)
+    ax11.spines[i].set_visible(False)
+```
+
+![관계형 범주](https://imagedelivery.net/6qzLODAqs2g1LZbVYqtuQw/8881b565-ec41-40cd-bf9a-405b390b7f00/public)
+
+```python
+sns.pairplot(df,hue='output',palette = ["#8000ff","#da8829"])
+plt.show()
+```
+![관계 플롯](https://imagedelivery.net/6qzLODAqs2g1LZbVYqtuQw/41361448-42d5-4cd8-f1b3-2333e9da2600/public)
+
+### 4. 데이터셋 전처리
+
+#### 4.1 탐색적 데이터 분석 결과
+
+1. 결측값은 없다.
+2. 모든 연속형 변수에는 확실히 이상치가 있다.
+3. sex가 0인 사람보다 sex가 1인 사람의 수가 2배 이상으로 구성되어 있다.
+4. 히트맵에 따르면 연속형 변수의 선형성은 나타나지 않았다.
+5. 산점도, 히트맵 행렬은 output과 cp, thalachh, slp 사이에 아마도 상관관계가 있다는 것을 암시한다.
+6. 직관적으로 나이가 많은 사람들은 심장병을 위험이 높았고, 그에 따라 age, output, wrt
+
+
