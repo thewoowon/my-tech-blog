@@ -1,6 +1,6 @@
 ---
 title: 나 몰랐는데, GPT 좋아하네.
-description: 더 나은 사람이 되기 위한 과정
+description: GPT 너는 어떻게 생겼니?에 대한 그의 대답은...
 thumbnail: https://imagedelivery.net/6qzLODAqs2g1LZbVYqtuQw/680f71e4-ea4d-4e7d-2af0-b6ec8aa40300/public
 prerequisites:
   ['우원', 'FE Developer', 'FE Developer', '안녕하세요! 우원입니다.']
@@ -53,4 +53,231 @@ Function Calling 외에도 약간의 프롬프트 엔지니어링에 대한 내�
 
 구체적인 정의는 다음과 같습니다.
 
-> 함수 호출은 함수를 호출하고, 함수의 결과를 반환하는 기능입니다.
+> GPT API 호출에서 호출 함수에 대한 설명을 제공하면,
+> GPT가 하나 이상의 함수를 호출하기 위한 인수가 포함된 JSON 개체를 출력합니다.
+> Chat Completions API가 직접적으로 함수를 호출하지 않지만,
+> 사용자의 코드에서 함수를 호출하는 데 사용할 수 있는 JSON을 생성합니다.
+
+기존 번역이 조금 어려운 부분이 있어, 조금 쉽게 풀어보았습니다.
+요약하면, GPT가 함수를 호출하기 위한 인수를 포함한 JSON을 출력한다는 것입니다.
+
+정말 간단하죠? 이제 실제로 사용해보기 전에
+연속적 사고를 통해 어떻게 사용할지 생각해보겠습니다.
+
+### Thinking
+
+일단 우리는 GPT가 함수를 호출한다는 사실을 알게 되었습니다.
+그런데 원격의 모델이 어떻게 함수를 호출할 수 있을까요?
+아마도 대부분의 사람들은 "함수 호출"이라는 용어에 집중하고
+모델의 직접적인 호출을 그리고 계실지 모릅니다.
+
+물론 저도 그랬습니다. "아...🧐 함수를 호출해 주겠구나"라고 생각했지만,
+실제로는 "대리자" 혹은 "매개자" 역할을 사용자가 부여 받은 것과 다름없습니다.
+
+더 쉬운 예를 들면 virtual class를 예를 들 수 있습니다.
+다음 코드를 들여다 봅시다.
+
+```cpp
+class Base {
+public:
+    virtual void display() {
+        std::cout << "출력을 의도하고 있습니다." << std::endl;
+    }
+};
+
+class Derived : public Base {
+public:
+    void display() override {
+        std::cout << "나는 XXX를 출력하고 싶습니다." << std::endl;
+    }
+};
+```
+
+위 코드는 Base 클래스와 Derived 클래스를 정의하고 있습니다.
+Derived 클래스는 Base 클래스를 상속받아 display() 함수를 재정의하고 있죠.
+Base 클래스는 이미 display라는 함수를 '출력'의 의도 내재한 함수로 정의하고 있습니다.
+그렇기에 Derived 클래스에서 어떤 출력을 하고 싶다면, display() 함수를 재정의하는 것입니다.
+
+함수 호출도 이와 비슷합니다.
+어떤 함수가 있고, 어떤 기능을 수행하고, 어떤 인자가 들어가는지 의도를 정리해서
+GPT에게 전달하면, GPT는 그 의도를 이해하고 상속 받아 상황에 맞게 함수를 호출합니다.
+저는 이러한 상태를 "함수 동조화 상태(Function Synchronization State)"라고 정의하고 앞으로 사용하겠습니다.
+또한 함수 동조화 상태에서 사용 가능한 함수를 "알고 있는 함수"라고 부르겠습니다.
+
+### 함수 동조화 상태(Function Synchronization State)
+
+함수 동조화 상태가 되었다면 GPT는 평소와 같이 사용자의 질문을 받기 위해 대기 상태로 들어갑니다.
+그리고 사용자가 질문을 하면, GPT는 사용자의 질문을 이해하고,
+알고 있는 함수 중에서 사용자의 의도에 맞는 함수를 호출합니다.
+여기서 호출이라는 말은 JSON의 형태로 알고 있는 함수의 이름을 반환하는 것을 의미합니다.
+
+좀 더 쉬운 그림으로 표현하자면 다음과 같습니다.
+
+### 대리자 || 매개자
+
+대리자로서의 사용자는 이제 역으로 GPT의 요청에 응답해야합니다.
+AIMessage 타입으로 들어온 요청에서 "function_call" 혹은 "tool_calls"이라는 키워드가 있다면
+"function_name"을 확인하고 반드시 FunctionMessage or ToolMessage 타입으로 응답해야 합니다.
+물론 "function_call", "tool_calls" 키워드가 없다면 일반적인 대화이겠지요?
+
+추출한 function_name은 곧바로 key로 사용되어야 합니다.
+그리고 key에 대한 value는 해당 함수의 주소를 가르키는 변수입니다.
+
+간단하게 예를 들어 보겠습니다.
+
+```python
+# 함수 매핑 정보
+function_map_info = {"get_fruit_price": get_fruit_price, "calc_total_price": calc_total_price}
+
+# 만약 GPT가 "get_fruit_price"를 호출한다면
+function_map_info["get_fruit_price"](...args)
+```
+
+이렇게 함수를 호출하면 됩니다.
+인자도 놓치지 말고 전달해야 합니다.
+정상적으로 함수를 호출하고 나면
+곧바로 결과를 string 형태로 넘겨주도록 합니다.
+
+### 최종 응답
+
+GPT는 응답 결과를 대리자에게 받고나서
+마치 직접 함수를 실행한 것처럼 결과 컨텍스트를 활용해
+가장 처음 사용자의 질문에 대한 답변을 생성합니다.
+이것이 바로 함수 호출의 전체적인 흐름입니다.
+
+### 강력한 예시
+
+위의 전체적인 흐름을 관통하는 가장 좋은 예시를 작성해보겠습니다.
+저는 편의를 위해서 langchain을 적극적으로 활용하겠습니다.
+(아뇨... 헤어나오지 못하겠습니다... 😅)
+
+```python
+from langchain_openai import ChatOpenAI
+from langchain_core.tools import tool
+from langchain_core.messages import HumanMessage, ToolMessage, AIMessage
+from typing import List
+import pandas as pd
+
+@tool
+def get_fruit_price() -> str:
+    """Get the price of the fruits. column [name, price]
+
+    Args:
+        None
+
+    Returns:
+        str: The price of the fruits.
+    """
+
+    fruits_csv_path = "fruits.csv"
+    fruits_df = pd.read_csv(fruits_csv_path)
+    return str(fruits_df)
+
+@tool
+def calc_total_price(fruits_list: List[str]) -> str:
+    """calculate the total price of the fruits.
+
+    Args:
+        fruits_list (List[str]): The list of fruits.
+
+    Returns:
+        str: The total price of the fruits.
+    """
+
+    fruits_csv_path = "fruits.csv"
+    fruits_df = pd.read_csv(fruits_csv_path)
+    result = 0
+    for q in query:
+        result += fruits_df[fruits_df["name"] == q]["price"]
+
+    return str(result)
+
+
+def main():
+  # 키 선언
+  API_KEY = 'sk-XXX...'
+
+  # 모델 선언, 저는 gpt-4o를 사용합니다.
+  model = ChatOpenAI(
+      model="gpt-4o",
+      openai_api_key=API_KEY
+  )
+
+  # 컨텍스트 선언
+  context = [HumanMessage(content="바나나, 사과, 딸기 각각의 가격과 총 가격을 알려줘.")]
+
+  # 툴 선언, GPT가 사용할 강력한 도구를 불러옵니다.
+  tools = [get_fruit_price, calc_total_price]
+
+  # 도구를 GPT에게 쥐어줍니다.
+  model_with_tools = model.bind_tools(tools)
+
+  # 대화를 시작합니다.
+  ai_msg = model_with_tools.invoke(context)
+
+  # ai의 응답을 컨텍스트에 추가합니다.
+  context.append(ai_msg)
+
+  # 결과를 출력합니다.
+  print(response)
+  """
+  content=''
+  additional_kwargs={
+    'tool_calls': [
+      {
+        'id': 'call_HU0V8xqccCHDPeDqbHoVYkNv',
+        'function': {
+          'arguments': '{}',
+          'name': 'get_fruit_price'},
+          'type': 'function'
+      },
+      {
+        'id': 'call_ISwN3tv9v3zuBB8My6h4Z3F8',
+        'function': {
+        'arguments': '{
+        "fruits_list": ["바나나", "사과", "딸기"]
+      }',
+      'name': 'calc_total_price'
+    },
+    'type': 'function'
+    }]
+  }
+  """
+
+  tool_calls = ai_msg.additional_kwargs["tool_calls"]
+
+  # 무조건 tool_calls 속성이 온다고 가정하고, 이를 처리합니다.
+  # 빈 딕셔너리를 넣어줍니다. -> 이는 BaseModel이 딕셔너리를 요구하기 때문입니다.
+  get_fruit_price_result = get_fruit_price({})
+
+  # 합을 미리 하드코딩합니다.
+  calc_total_price_result = 450
+
+  # 결과를 컨텍스트에 추가합니다.
+  messages.append(ToolMessage(content=get_fruit_price_result, tool_call_id=tool_calls[0]["id"]))
+  messages.append(ToolMessage(content=calc_total_price_result, tool_call_id=tool_calls[1]["id"]))
+
+  print(messages)
+
+  """
+  [
+    HumanMessage(content='바나나, 사과, 딸기 각각의 가격과 총 가격을 알려줘.'), 
+    AIMessage(content='', additional_kwargs={'tool_calls': [{'id': 'call_xWkPPBz5DpN02bJojRbycId8', 'function': {'arguments': '{}', 'name': 'get_fruit_price'}, 'type': 'function'}, {'id': 'call_JK66YU69cWbwCP0FRhGMyswQ', 'function': {'arguments': '{"fruits_list": ["바나나", "사과", "딸기"]}', 'name': 'calc_total_price'}, 'type': 'function'}]}, response_metadata={'token_usage': {'completion_tokens': 56, 'prompt_tokens': 131, 'total_tokens': 187}, 'model_name': 'gpt-4o-2024-05-13', 'system_fingerprint': 'fp_c4e5b6fa31', 'finish_reason': 'tool_calls', 'logprobs': None}, id='run-e52c3275-22c5-46f6-9556-d4551239553c-0', tool_calls=[{'name': 'get_fruit_price', 'args': {}, 'id': 'call_xWkPPBz5DpN02bJojRbycId8'}, {'name': 'calc_total_price', 'args': {'fruits_list': ['바나나', '사과', '딸기']}, 'id': 'call_JK66YU69cWbwCP0FRhGMyswQ'}], usage_metadata={'input_tokens': 131, 'output_tokens': 56, 'total_tokens': 187}), 
+    ToolMessage(content='  name  price\n0   사과    100\n1  바나나    150\n2   딸기    200', tool_call_id='call_xWkPPBz5DpN02bJojRbycId8'), 
+    ToolMessage(content='450', tool_call_id='call_JK66YU69cWbwCP0FRhGMyswQ')
+  ]
+  """
+  response = model_with_tools.invoke(messages)
+
+  print(response)
+
+  """
+  content='### 과일 가격\n- **바나나**: 150원\n- **사과**: 100원\n- **딸기**: 200원\n\n### 총 가격\n총 가격은 450원입니다.' 
+  response_metadata={'token_usage': {'completion_tokens': 51, 'prompt_tokens': 249, 'total_tokens': 300}, 'model_name': 'gpt-4o-2024-05-13', 'system_fingerprint': 'fp_c4e5b6fa31', 'finish_reason': 'stop', 'logprobs': None} 
+  id='run-155443eb-3ff3-4bf9-815c-7094114e5e9d-0' 
+  usage_metadata={'input_tokens': 249, 'output_tokens': 51, 'total_tokens': 300}
+  """
+
+if __name__ == "__main__":
+    main()
+```
