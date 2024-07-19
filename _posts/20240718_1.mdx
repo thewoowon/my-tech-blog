@@ -1,7 +1,7 @@
 ---
 title: 나 몰랐는데, GPT 좋아하네.
 description: GPT 너는 어떻게 생겼니?에 대한 그의 대답은...
-thumbnail: https://imagedelivery.net/6qzLODAqs2g1LZbVYqtuQw/680f71e4-ea4d-4e7d-2af0-b6ec8aa40300/public
+thumbnail: https://imagedelivery.net/6qzLODAqs2g1LZbVYqtuQw/c86065fe-c48d-499d-3156-fc94b5415400/public
 prerequisites:
   ['우원', 'FE Developer', 'FE Developer', '안녕하세요! 우원입니다.']
 stacks: ['PROMPTON']
@@ -23,7 +23,7 @@ lock: 'false'
     src={
       'https://imagedelivery.net/6qzLODAqs2g1LZbVYqtuQw/ede94a13-df13-445c-342b-4237db437d00/public'
     }
-    width={1440}
+    width={720}
     height={500}
     priority
   />
@@ -47,6 +47,24 @@ Function Calling 외에도 약간의 프롬프트 엔지니어링에 대한 내�
 
 ### Function Calling
 
+<div style={{
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  flexDirection: 'column',
+}}>
+
+  <Image
+    alt={`Thumbnail`}
+    src={
+      'https://imagedelivery.net/6qzLODAqs2g1LZbVYqtuQw/bc37b689-cc7d-4c1a-1525-a7797e025e00/public'
+    }
+    width={720}
+    height={500}
+    priority
+  />
+</div>
+
 이미 들어보셨을지 모르겠지만, 함수 호출은 꽤나 최근에 나온 기능입니다.
 2023년 6월에 발표한 이후로, 많은 개발자들이 이 기능을 활용하고 있습니다.
 저도 기능이 발표되고 나서 문서를 읽어보며, 대략 이런 기능이 있구나 정도로만 알고 있었습니다.
@@ -64,12 +82,30 @@ Function Calling 외에도 약간의 프롬프트 엔지니어링에 대한 내�
 정말 간단하죠? 이제 실제로 사용해보기 전에
 연속적 사고를 통해 어떻게 사용할지 생각해보겠습니다.
 
-### Thinking
+### Chain Of Thought
 
 일단 우리는 GPT가 함수를 호출한다는 사실을 알게 되었습니다.
 그런데 원격의 모델이 어떻게 함수를 호출할 수 있을까요?
 아마도 대부분의 사람들은 "함수 호출"이라는 용어에 집중하고
 모델의 직접적인 호출을 그리고 계실지 모릅니다.
+
+<div style={{
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  flexDirection: 'column',
+}}>
+
+  <Image
+    alt={`Thumbnail`}
+    src={
+      'https://imagedelivery.net/6qzLODAqs2g1LZbVYqtuQw/db63d995-65fa-45ef-18e3-f489a1651000/public'
+    }
+    width={720}
+    height={500}
+    priority
+  />
+</div>
 
 물론 저도 그랬습니다. "아...🧐 함수를 호출해 주겠구나"라고 생각했지만,
 실제로는 "대리자" 혹은 "매개자" 역할을 사용자가 부여 받은 것과 다름없습니다.
@@ -101,17 +137,35 @@ Base 클래스는 이미 display라는 함수를 '출력'의 의도 내재한 �
 함수 호출도 이와 비슷합니다.
 어떤 함수가 있고, 어떤 기능을 수행하고, 어떤 인자가 들어가는지 의도를 정리해서
 GPT에게 전달하면, GPT는 그 의도를 이해하고 상속 받아 상황에 맞게 함수를 호출합니다.
-저는 이러한 상태를 "함수 동조화 상태(Function Synchronization State)"라고 정의하고 앞으로 사용하겠습니다.
-또한 함수 동조화 상태에서 사용 가능한 함수를 "알고 있는 함수"라고 부르겠습니다.
+저는 이러한 상태를 "함수 동기화 상태(Function Synchronization State)"라고 정의하고 앞으로 사용하겠습니다.
+또한 함수 동기화 상태에서 사용 가능한 함수를 "알고 있는 함수"라고 부르겠습니다.
 
-### 함수 동조화 상태(Function Synchronization State)
+### 함수 동기화 상태(Function Synchronization State)
 
-함수 동조화 상태가 되었다면 GPT는 평소와 같이 사용자의 질문을 받기 위해 대기 상태로 들어갑니다.
+함수 동기화 상태가 되었다면 GPT는 평소와 같이 사용자의 질문을 받기 위해 대기 상태로 들어갑니다.
 그리고 사용자가 질문을 하면, GPT는 사용자의 질문을 이해하고,
 알고 있는 함수 중에서 사용자의 의도에 맞는 함수를 호출합니다.
 여기서 호출이라는 말은 JSON의 형태로 알고 있는 함수의 이름을 반환하는 것을 의미합니다.
 
 좀 더 쉬운 그림으로 표현하자면 다음과 같습니다.
+
+<div style={{
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  flexDirection: 'column',
+}}>
+
+  <Image
+    alt={`Thumbnail`}
+    src={
+      'https://imagedelivery.net/6qzLODAqs2g1LZbVYqtuQw/72c341fa-0cee-470c-7805-25622e2a0200/public'
+    }
+    width={720}
+    height={500}
+    priority
+  />
+</div>
 
 ### 대리자 || 매개자
 
@@ -144,6 +198,24 @@ GPT는 응답 결과를 대리자에게 받고나서
 마치 직접 함수를 실행한 것처럼 결과 컨텍스트를 활용해
 가장 처음 사용자의 질문에 대한 답변을 생성합니다.
 이것이 바로 함수 호출의 전체적인 흐름입니다.
+
+<div style={{
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  flexDirection: 'column',
+}}>
+
+  <Image
+    alt={`Thumbnail`}
+    src={
+      'https://imagedelivery.net/6qzLODAqs2g1LZbVYqtuQw/80623187-d082-46c5-9ec7-fe84e39ff800/public'
+    }
+    width={720}
+    height={500}
+    priority
+  />
+</div>
 
 ### 강력한 예시
 
@@ -254,10 +326,10 @@ def main():
   calc_total_price_result = 450
 
   # 결과를 컨텍스트에 추가합니다.
-  messages.append(ToolMessage(content=get_fruit_price_result, tool_call_id=tool_calls[0]["id"]))
-  messages.append(ToolMessage(content=calc_total_price_result, tool_call_id=tool_calls[1]["id"]))
+  context.append(ToolMessage(content=get_fruit_price_result, tool_call_id=tool_calls[0]["id"]))
+  context.append(ToolMessage(content=calc_total_price_result, tool_call_id=tool_calls[1]["id"]))
 
-  print(messages)
+  print(context)
 
   """
   [
@@ -267,7 +339,7 @@ def main():
     ToolMessage(content='450', tool_call_id='call_JK66YU69cWbwCP0FRhGMyswQ')
   ]
   """
-  response = model_with_tools.invoke(messages)
+  response = model_with_tools.invoke(context)
 
   print(response)
 
@@ -281,3 +353,428 @@ def main():
 if __name__ == "__main__":
     main()
 ```
+
+하나씩 천천히 뜯어 보면서 이해해보도록 하죠.
+
+#### 도구 선언부
+
+```python
+from langchain_core.tools import tool
+
+@tool
+def get_fruit_price() -> str:
+
+@tool
+def calc_total_price(fruits_list: List[str]) -> str:
+```
+
+@tool 데코레이터를 활용해서 해당 함수가 도구임을 명시합니다.
+데코레이터 형식으로 사용하는 것 외에도 
+객체 선언 후 name, description, args_schema를 입력하는 것도 가능합니다.
+
+#### 모델 선언
+
+```python
+# 모델 선언, 저는 gpt-4o를 사용합니다.
+model = ChatOpenAI(
+    model="gpt-4o",
+    openai_api_key=API_KEY
+)
+
+# 컨텍스트 선언
+context = [HumanMessage(content="바나나, 사과, 딸기 각각의 가격과 총 가격을 알려줘.")]
+
+# 툴 선언, GPT가 사용할 강력한 도구를 불러옵니다.
+tools = [get_fruit_price, calc_total_price]
+
+# 도구를 GPT에게 쥐어줍니다.
+model_with_tools = model.bind_tools(tools)
+
+# 대화를 시작합니다.
+ai_msg = model_with_tools.invoke(context)
+
+# ai의 응답을 컨텍스트에 추가합니다.
+context.append(ai_msg)
+```
+
+이미 주석을 통해서 흐름 자체는 이해하셨겠지만, 한 가지 중요한 포인트가 있습니다.
+그것은 'context' 배열에 대화를 차곡차곡 쌓아주는 것입니다.
+이것은 function call이 발생했다는 것을 가정했을 때,
+반드시 이렇게 돌려달라는 요청에 의해서 수행하게 되는 것입니다.
+최초 요청에 function call을 요청한 ai의 메세지,
+그리고 어떤 툴을 요청했는지 구별할 수 있는 id와 함께 함수 실행 결과를 포함하면
+완벽한 응답이 완성됩니다. 
+
+좀 더 구체적으로 살펴보도록 하겠습니다.
+
+1. 나의 요청 쌓기
+
+```python
+context = [HumanMessage(content="바나나, 사과, 딸기 각각의 가격과 총 가격을 알려줘.")]
+```
+
+2. GPT 응답 쌓기
+
+```python
+context.append(ai_msg)
+```
+
+3. 함수 실행 결과 쌓기
+
+```python
+messages.append(ToolMessage(content=get_fruit_price_result, tool_call_id=tool_calls[0]["id"]))
+messages.append(ToolMessage(content=calc_total_price_result, tool_call_id=tool_calls[1]["id"]))
+```
+
+4. 최종 형태
+
+```python
+"""
+[
+  HumanMessage(content='바나나, 사과, 딸기 각각의 가격과 총 가격을 알려줘.'), 
+  AIMessage(content='', additional_kwargs={'tool_calls': [{'id': 'call_xWkPPBz5DpN02bJojRbycId8', 'function': {'arguments': '{}', 'name': 'get_fruit_price'}, 'type': 'function'}, {'id': 'call_JK66YU69cWbwCP0FRhGMyswQ', 'function': {'arguments': '{"fruits_list": ["바나나", "사과", "딸기"]}', 'name': 'calc_total_price'}, 'type': 'function'}]}, response_metadata={'token_usage': {'completion_tokens': 56, 'prompt_tokens': 131, 'total_tokens': 187}, 'model_name': 'gpt-4o-2024-05-13', 'system_fingerprint': 'fp_c4e5b6fa31', 'finish_reason': 'tool_calls', 'logprobs': None}, id='run-e52c3275-22c5-46f6-9556-d4551239553c-0', tool_calls=[{'name': 'get_fruit_price', 'args': {}, 'id': 'call_xWkPPBz5DpN02bJojRbycId8'}, {'name': 'calc_total_price', 'args': {'fruits_list': ['바나나', '사과', '딸기']}, 'id': 'call_JK66YU69cWbwCP0FRhGMyswQ'}], usage_metadata={'input_tokens': 131, 'output_tokens': 56, 'total_tokens': 187}), 
+  ToolMessage(content='  name  price\n0   사과    100\n1  바나나    150\n2   딸기    200', tool_call_id='call_xWkPPBz5DpN02bJojRbycId8'), 
+  ToolMessage(content='450', tool_call_id='call_JK66YU69cWbwCP0FRhGMyswQ')
+]
+"""
+```
+
+최종 형태는 tool이 두 개이지만, 상황에 따라서 다를 수 있습니다.
+
+#### function call 결과
+
+이제 최종적으로 모델에 context를 돌려주는 마지막 부분입니다.
+
+```python
+response = model_with_tools.invoke(messages)
+
+print(response)
+
+"""
+content='### 과일 가격\n- **바나나**: 150원\n- **사과**: 100원\n- **딸기**: 200원\n\n### 총 가격\n총 가격은 450원입니다.' 
+response_metadata={'token_usage': {'completion_tokens': 51, 'prompt_tokens': 249, 'total_tokens': 300}, 'model_name': 'gpt-4o-2024-05-13', 'system_fingerprint': 'fp_c4e5b6fa31', 'finish_reason': 'stop', 'logprobs': None} 
+id='run-155443eb-3ff3-4bf9-815c-7094114e5e9d-0' 
+usage_metadata={'input_tokens': 249, 'output_tokens': 51, 'total_tokens': 300}
+"""
+```
+
+markdown이라 조금 알아보기 힘들 수 있지만,
+대략 내용을 정리하면 다음과 같습니다.
+
+>#### 과일 가격\n
+>- **바나나**: 150원\n
+>- **사과**: 100원\n
+>- **딸기**: 200원\n\n
+>#### 총 가격\n
+>총 가격은 450원입니다.
+
+야호! GPT가 사용자와 상호 작용하며 원하는 결과를 돌려주었습니다!
+
+### 그래서...뭐?
+
+> 결국 GPT가 알아서 해주는게 아니네? 이게 과연 쓸모가 있는거야?
+
+네, 맞습니다.
+분명히 위와 같은 의문이 발생할 수 있습니다.
+또한 RAG(Retrieval-Augmented Generation)와 같은 기술과
+약간의 혼동이 발생할 가능성도 충분합니다.
+
+그러나 function call은 분명히 다릅니다.
+언제나 같은 결과를 받거나 정확한 수치 정보를 다룬다면
+function call을 고려해볼 필요가 있습니다.
+또한 사용자가 마치 대리자로서 결과를 제공한다는 것이 가장 큰 차이점입니다.
+
+RAG를 생각해보죠.
+
+1. 사용자의 질문: "마리 퀴리의 주요 업적에 대해 알려줘."
+2. 정보 검색: 마리 퀴리의 업적에 관한 정보를 데이터베이스와 문서에서 검색합니다.
+3. 응답 생성: 검색된 정보 (예: 노벨상 수상, 방사능 연구 등)를 바탕으로 응답을 생성합니다.
+4. 최종 응답: "마리 퀴리는 폴란드 출신의 과학자로, 방사능 연구로 두 번의 노벨상을 수상했습니다. 그녀의 주요 업적에는 폴로늄과 라듐의 발견이 포함됩니다."
+
+중간에 질문을 한 것 외에 사용자가 끼어들지 않았습니다.
+그리고 최종 응답의 결과는 매번 시행마다 다를 것입니다.
+
+반대로 function call입니다.
+
+1. 사용자의 질문: "서울의 날씨는 어때?"
+2. 정보 검색: 시스템은 특정 API를 호출하여 서울의 현재 날씨 정보를 가져옵니다.
+3. 응답 생성: API는 서울의 현재 온도, 습도, 날씨 상태 등을 반환합니다.
+4. 최종 응답: 시스템은 반환된 데이터를 사용자에게 전달합니다.
+
+정보 검색 부분에서 사용자가 대리하지만, 
+API는 항상 정해진 형식으로 데이터가 반환됩니다.
+그렇기 때문에 GPT의 최종 응답을 기대할 수 있습니다.
+수치만 바뀔 것이기 때문이죠.
+
+### Function Call VS RAG
+
+function call과 RAG의 차이점을 한 눈에 보기 위한 매트릭스입니다.
+
+### LENS 응용
+
+앞서 데보션 오픈랩 스터디에 참여했다고 말씀드렸습니다.
+그리고 저는 "토이프로젝트" 주제에 참여해 갓한성님의 리드로 
+LENS라는 서비스를 개발하는 프로젝트를 진행했습니다.
+
+LENS 개발 초기에는 데이터 분석가를 위한 
+데이터 추출 및 EDA 자동화 솔루션을 지향했지만,
+프로젝트 후반에는 SQL로 데이터를 분석하는 프로 일잘러가 되고 싶은
+모든 직장인을 타겟으로 고객층을 확대했습니다.
+그리고 이를 위해 이미 등록된 테이블 스키마 정보, 
+쿼리 실행 여부 확인을 위한 함수 사용이 필요했습니다.
+
+처음에는 프롬프트 엔지니어링 기법을 활용해서 
+매번 스키마 정보를 컨텍스트로 넣어주고 쿼리 실행 여부를
+확인하지는 않지만 DB명과 "실행 가능해야 한다"라는 제약을 걸어
+구현하는 방향으로 가닥을 잡았습니다.
+
+하지만 이런 구현 방식은 사용자의 자유로운 응답에 있어
+유연한 결과를 내어 놓지 못하는 점, 토큰 수의 비대함,
+실행이 불가능한 쿼리를 검증하지 못하는 등의 치명적인
+문제가 발생했습니다.
+
+그래서 저희는 방법을 찾던 중에 갓한성님의 조언과 영웅님의
+인싸력으로 function call로 이 부분을 해결할 수 있는
+실마리를 얻고 곧바로 기능 개발에 착수했습니다.
+
+최종적인 코드는 아래와 같습니다.
+
+```python
+constraints = """
+--- start of constraints ---
+- 현재 데이터베이스는 MariaDB를 사용합니다. 쿼리를 생성하면 반드시 MariaDB에서 실행할 수 있는 쿼리로 생성해야 합니다.
+- run_sql_query 툴을 사용하여 쿼리를 실행한 결과를 받으면, 데이터 조회 여부를 통해 실행 가능한 쿼리인지 확인해야 합니다.
+- 답변에는 데이터 행을 반환하지 않고 쿼리에 대한 설명만 포함합니다.
+- 쿼리에 대한 설명에는 쿼리 생성 전략, 실행 효율에 대한 평가 등을 포함해서 최소 3줄 이상으로 작성하고 절대 쿼리를 포함하지 않습니다.
+- 사용자에게 답변할 때 조회한 데이터를 절대 반환하지 않습니다.
+- 그 외는 자유롭게 질문에 대해 답변을 제공합니다.
+--- end of constraints ---
+
+{user_prompt}
+"""
+
+messages = [HumanMessage(constraints.format(user_prompt=user_prompt))]
+chain = callLLM()
+
+while True:
+    ai_msg = chain.invoke(
+        messages,
+        config={"configurable": {"session_id": session_id}},
+    )
+
+    if ai_msg.tool_calls:
+        new_messages = []
+        for tool_call in ai_msg.tool_calls:
+            selected_tool = {
+                "get_table_info": get_table_info,
+                "run_sql_query": run_sql_query
+            }.get(tool_call["name"].lower())
+
+            if selected_tool:
+                try:
+                    if inspect.iscoroutinefunction(selected_tool.invoke):
+                        tool_output = await selected_tool.invoke(tool_call["args"])
+                    else:
+                        tool_output = selected_tool.invoke(
+                            tool_call["args"])
+                except Exception as e:
+                    tool_output = str(e)
+
+                if tool_call["name"].lower() == "run_sql_query":
+                    sql_array.append(tool_call["args"])
+                new_messages.append(ToolMessage(content=str(
+                    tool_output), tool_call_id=tool_call["id"]))
+            else:
+                new_messages.append(ToolMessage(
+                    content=f"Tool '{tool_call['name']}' not found", tool_call_id=tool_call["id"]))
+
+        messages = new_messages
+    else:
+        ai_message = AIMessage(content=ai_msg.content)
+        session_history = chat_history_store.get(session_id)
+        if session_history:
+            session_history.add_message(ai_message)
+        else:
+            new_history = InMemoryChatMessageHistory(messages=[ai_message])
+            chat_history_store.set(session_id, new_history)
+        return ai_msg.content
+```
+
+
+코드 전체는 분량으로 인해 보여드리지 못하지만,
+코드의 코어 부분을 가져왔습니다.
+
+크게 두 부분으로 해석해 보겠습니다.
+
+#### 선언부
+
+```
+constraints = """
+--- start of constraints ---
+- 현재 데이터베이스는 MariaDB를 사용합니다. 쿼리를 생성하면 반드시 MariaDB에서 실행할 수 있는 쿼리로 생성해야 합니다.
+- run_sql_query 툴을 사용하여 쿼리를 실행한 결과를 받으면, 데이터 조회 여부를 통해 실행 가능한 쿼리인지 확인해야 합니다.
+- 답변에는 데이터 행을 반환하지 않고 쿼리에 대한 설명만 포함합니다.
+- 쿼리에 대한 설명에는 쿼리 생성 전략, 실행 효율에 대한 평가 등을 포함해서 최소 3줄 이상으로 작성하고 절대 쿼리를 포함하지 않습니다.
+- 사용자에게 답변할 때 조회한 데이터를 절대 반환하지 않습니다.
+- 그 외는 자유롭게 질문에 대해 답변을 제공합니다.
+--- end of constraints ---
+
+{user_prompt}
+"""
+
+messages = [HumanMessage(constraints.format(user_prompt=user_prompt))]
+chain = callLLM()
+```
+
+처음 사용자의 원본 prompt는 이미 데이터베이스에 적재한 상태로
+constraints를 추가해도 실제로 뷰에 보이지 않습니다.
+constraints는 DB를 특정하고, 자유로운 대화 위에 데이터 관련 질문에 대한 처리 방식을 제약합니다.
+
+그리고 messages라는 컨텍스트를 준비하고 모델을 선언합니다.
+callLLM시에 모델은 RunnableWithMessageHistory로 ChatOpenAI를 래핑해서 반환합니다.
+RunnableWithMessageHistory을 사용하기 때문에,
+앞서 보여드린 예시처럼 직접 AIMessage를 삽입할 필요가 없습니다.
+
+#### 실행부
+
+```python
+while True:
+    ai_msg = chain.invoke(
+        messages,
+        config={"configurable": {"session_id": session_id}},
+    )
+
+    if ai_msg.tool_calls:
+        new_messages = []
+        for tool_call in ai_msg.tool_calls:
+            selected_tool = {
+                "get_table_info": get_table_info,
+                "run_sql_query": run_sql_query
+            }.get(tool_call["name"].lower())
+
+            if selected_tool:
+                try:
+                    if inspect.iscoroutinefunction(selected_tool.invoke):
+                        tool_output = await selected_tool.invoke(tool_call["args"])
+                    else:
+                        tool_output = selected_tool.invoke(
+                            tool_call["args"])
+                except Exception as e:
+                    tool_output = str(e)
+
+                if tool_call["name"].lower() == "run_sql_query":
+                    sql_array.append(tool_call["args"])
+                new_messages.append(ToolMessage(content=str(
+                    tool_output), tool_call_id=tool_call["id"]))
+            else:
+                new_messages.append(ToolMessage(
+                    content=f"Tool '{tool_call['name']}' not found", tool_call_id=tool_call["id"]))
+
+        messages = new_messages
+    else:
+        ai_message = AIMessage(content=ai_msg.content)
+        session_history = chat_history_store.get(session_id)
+        if session_history:
+            session_history.add_message(ai_message)
+        else:
+            new_history = InMemoryChatMessageHistory(messages=[ai_message])
+            chat_history_store.set(session_id, new_history)
+        return ai_msg.content
+```
+
+실행부는 function call 여부에 따라 처리를 위한 무한 루프입니다.
+function call이 있다면 예시처럼 HumanMessage + AIMessage + ToolMessage 세트를 
+완전하게 만들어 주고 아니면 자연스러운 대화이기 때문에 그대로 반환합니다.
+
+### 실행 결과
+
+LENS는 자연스러운 대화도 가능해야하고,
+데이터베이스에 대한 지식 그리고 실시간 쿼리 작성 기능으로 스위칭 가능해야 했습니다.
+구조를 잡는 것은 힘들었지만, 결과는 그럭저럭 나오게 되었습니다.
+
+1. 일반 채팅 입력
+: 안녕! 나는 우원이고 오늘 미용실에 갈 생각인데, 무슨 머리 하면 좋을까?
+
+<div style={{
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  flexDirection: 'column',
+}}>
+
+  <Image
+    alt={`Thumbnail`}
+    src={
+      'https://imagedelivery.net/6qzLODAqs2g1LZbVYqtuQw/a1c2d839-981e-42ca-9d22-c78b8fc5be00/public'
+    }
+    width={720}
+    height={500}
+    priority
+  />
+</div>
+
+2. 데이터베이스 정보 요청
+: 데이터베이스 관련 작업이 필요해. 현재 테이블 정보를 가르쳐줘.
+
+<div style={{
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  flexDirection: 'column',
+}}>
+
+  <Image
+    alt={`Thumbnail`}
+    src={
+      'https://imagedelivery.net/6qzLODAqs2g1LZbVYqtuQw/60c6567b-9b4e-4e2e-d5ea-0ed03789ff00/public'
+    }
+    width={720}
+    height={500}
+    priority
+  />
+</div>
+
+3. 쿼리 작성 요청
+: 부장님이 지난 달 상품 구매이력이 있는 고객만 리스트업 해오라고 했어. 쿼리를 작성해줘.
+
+<div style={{
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  flexDirection: 'column',
+}}>
+
+  <Image
+    alt={`Thumbnail`}
+    src={
+      'https://imagedelivery.net/6qzLODAqs2g1LZbVYqtuQw/98d95959-7f19-4f38-77f7-7d06fcd4e900/public'
+    }
+    width={720}
+    height={500}
+    priority
+  />
+</div>
+
+4. 일반 채팅 입력
+: 오늘 점심 뭐 먹을까?
+
+<div style={{
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  flexDirection: 'column',
+}}>
+
+  <Image
+    alt={`Thumbnail`}
+    src={
+      'https://imagedelivery.net/6qzLODAqs2g1LZbVYqtuQw/1ae2699c-84da-4b9a-f8e3-48a04b310900/public'
+    }
+    width={720}
+    height={500}
+    priority
+  />
+</div>
+
+야호! 이제 LENS는 사용자의 요구에 따라 탄력적으로 대응할 수 있게 되었습니다.
+긴 글 읽어주셔서 감사합니다. 🙏
