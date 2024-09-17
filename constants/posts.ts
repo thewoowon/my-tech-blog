@@ -18,6 +18,16 @@ export const distribution = ['All', 'Personal', 'Organization'];
 export const projects: ProjectType[] = [
   {
     id: 1,
+    router: '/portfolio/skybridge',
+    image: '/assets/skybridge_thumb.png',
+    path: 'skybridge',
+    title: '꿈을 이루는 힘, 스카이브릿지',
+    type: 'Organization',
+    description: '꿈을 이루는 힘, 스카이브릿지',
+    stacks: ['Next.js', 'TypeScript'],
+  },
+  {
+    id: 2,
     router: '/portfolio/tikitaka',
     image: '/assets/tikitaka_thumb.png',
     path: 'tikitaka',
@@ -27,7 +37,17 @@ export const projects: ProjectType[] = [
     stacks: ['Next.js', 'TypeScript'],
   },
   {
-    id: 2,
+    id: 3,
+    router: '/portfolio/tikitaka',
+    image: '/assets/tikitaka_thumb.png',
+    path: 'tikitaka',
+    title: '면접부터 합격까지. AI 면접 코칭, 티키타카',
+    type: 'Organization',
+    description: '이력서와 채용 공고만 넣으면 준비 끝!',
+    stacks: ['Next.js', 'TypeScript'],
+  },
+  {
+    id: 4,
     router: '/portfolio/kritic',
     image: '/assets/kritic_thumb.png',
     path: 'kritic',
@@ -37,7 +57,7 @@ export const projects: ProjectType[] = [
     stacks: ['Next.js', 'TypeScript'],
   },
   {
-    id: 3,
+    id: 5,
     router: '/portfolio/planzy',
     image: '/assets/planzy_thumb.png',
     path: 'planzy',
@@ -47,7 +67,7 @@ export const projects: ProjectType[] = [
     stacks: ['Next.js', 'TypeScript'],
   },
   {
-    id: 4,
+    id: 6,
     router: '/portfolio/checky',
     image: '/assets/checky_thumb.png',
     path: 'checky',
@@ -57,7 +77,7 @@ export const projects: ProjectType[] = [
     stacks: ['Chrome Extension', 'Next.js', 'TypeScript'],
   },
   {
-    id: 5,
+    id: 7,
     router: '/portfolio/filmdoms',
     image: '/assets/filmdoms_thumb.png',
     path: 'filmdoms',
@@ -67,7 +87,7 @@ export const projects: ProjectType[] = [
     stacks: ['Next.js', 'TypeScript'],
   },
   {
-    id: 6,
+    id: 8,
     router: '/portfolio/lovekong',
     image: '/assets/lovekong_thumb.png',
     path: 'lovekong',
@@ -77,7 +97,7 @@ export const projects: ProjectType[] = [
     stacks: ['Next.js', 'TypeScript'],
   },
   {
-    id: 7,
+    id: 9,
     router: '/portfolio/hiagile',
     image: '/assets/hiagile_thumb.png',
     path: 'hiagile',
@@ -87,7 +107,7 @@ export const projects: ProjectType[] = [
     stacks: ['React', 'TypeScript', 'Nest.js', 'GraphQL'],
   },
   {
-    id: 8,
+    id: 10,
     router: '/portfolio/saladpeace',
     image: '/assets/saladpeace_thumb.png',
     path: 'saladpeace',
