@@ -29,7 +29,207 @@ lock: 'false'
   />
 </div>
 
-안녕하세요, 여러분!
+안녕하세요, 여러분!  
 알아서 잘 딱 깔끔하고 센스있게 개발하는 우원입니다.
 
+오늘은 베른하르트 리만의 1859년 논문을 번역한 내용을 소개해드리려고 합니다.
 
+# On the Number of Prime Numbers less than a Given Quantity.
+# (Ueber die Anzahl der Primzahlen unter einer gegebenen Gr ̈osse.)
+# Bernhard Riemann
+# [Monatsberichte der Berliner Akademie, November 1859.]
+# Translated by David R. Wilkins
+## Preliminary Version: December 1998
+
+# 주어진 양보다 작은 소수의 개수에 대하여
+# (베른하르트 리만)
+# 1859년 11월, 베를린 아카데미 보고서
+# (번역: David R. Wilkins, 1998년)
+
+
+I believe that I can best convey my thanks for the honour 
+which the Academy has to some degree conferred on me, 
+through my admission as one of its correspondents, 
+if I speedily make use of the permission thereby received 
+to communicate an investigation into the accumulation of the prime numbers; 
+a topic which perhaps seems not wholly unworthy of such a communication, 
+given the interest which Gauss and Dirichlet have themselves shown in it over a lengthy period.
+For this investigation my point of departure is provided by the observation of Euler that the product
+
+저는 아카데미가 저에게 어느 정도 부여한 영예에 대한 감사를 가장 잘 전달할 수 있다고 믿습니다.
+저는 아카데미의 통신원 중 한 명으로 인정받았습니다.
+그러므로 저는 받은 허가를 신속하게 활용하여 소수의 누적에 대한 연구를 전달합니다.
+아마도 가우스와 디리클레가 오랜 기간 동안 관심을 보인 주제인 만큼, 이 주제는 전달하기에 전혀 부적합하지 않은 것 같습니다.
+이 연구를 위해 제 출발점은 오일러의 관찰에서 비롯됩니다.
+
+
+
+<div style={{
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  flexDirection: 'column',
+  fontSize: '1.5rem',
+}}>
+<MathJax>{"\\(\\prod \\frac{1}{1 - p^{-s}} = \\sum \\frac{1}{n^s}\\)"}</MathJax>
+</div>
+
+if one substitutes for p all prime numbers, and for n all whole numbers. 
+The function of the complex variable s which is represented by these two expressions, 
+wherever they converge, I denote by ζ(s). 
+Both expressions converge only when the real part of s is greater than 1; 
+at the same time an expression for the function can easily be found which always remains valid. 
+
+On making use of the equation
+
+p를 모든 소수로 대체하고 n을 모든 정수로 대체하면,
+이 두 표현식으로 표현되는 복소수 변수 s의 함수는
+어디에서 수렴하든 ζ(s)로 표시합니다.
+두 표현식 모두 s의 실수 부분이 1보다 클 때만 수렴합니다.
+동시에 함수에 대한 표현식을 쉽게 찾을 수 있으며 항상 유효합니다.
+
+방정식을 사용하면
+
+<div style={{
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  flexDirection: 'column',
+  fontSize: '1.5rem',
+}}>
+<MathJax>{"\\(\\int_{0}^{\\infty} e^{-nx} x^{s-1} dx = \\frac{\\Gamma(s-1)}{n^s}\\)"}</MathJax>
+</div>
+
+one first sees that
+
+먼저 다음이 성립함을 알 수 있다
+
+<div style={{
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  flexDirection: 'column',
+  fontSize: '1.5rem',
+}}>
+<MathJax>{"\\(\\Gamma(s-1) \\zeta(s) = \\int_{0}^{\\infty} \\frac{x^{s-1} dx}{e^x - 1}\\)"}</MathJax>
+</div>
+
+If one now considers the integral
+
+이제 다음 적분을 고려해보면
+
+<div style={{
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  flexDirection: 'column',
+  fontSize: '1.5rem',
+}}>
+<MathJax>{"\\(\\int_{}^{} \\frac{(-x)^{s-1} dx}{e^x - 1}\\)"}</MathJax>
+</div>
+
+from +∞ to +∞ taken in a positive sense around a domain 
+which includes the value 0 but no other point 
+of discontinuity of the integrand in its interior, 
+then this is easily seen to be equal to
+
++∞에서 +∞까지가 0 값을 포함하지만 적분 대상의 불연속점
+내부에 다른 점은 없는 도메인
+주변에서 양의 의미로 취해지면
+이것은 다음과 같다는 것을 쉽게 알 수 있습니다.
+
+<div style={{
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  flexDirection: 'column',
+  fontSize: '1.5rem',
+}}>
+<MathJax>{"\\((e^{-𝝿si} - x^{𝝿si}) \\int_{}^{} \\frac{x^{s-1} dx}{e^x - 1}\\)"}</MathJax>
+</div>
+
+provided that, in the many-valued function 참조식-1(참고), 
+the log- arithm of −x is determined so as to be real when x is negative. 
+
+Hence
+
+단, 다값 함수 참조식-1(참고)에서
+−x의 로그 연산은 x가 음수일 때 실수가 되도록 결정됩니다.
+
+따라서
+
+<div style={{
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  flexDirection: 'column',
+  fontSize: '1.5rem',
+}}>
+<MathJax>{"\\(2 \\sin(\\pi s) \\Gamma(s-1) \\zeta(s) = i \\int_{\\infty}^{\\infty} \\frac{(-x)^{s-1} dx}{e^x - 1}\\)"}</MathJax>
+</div>
+
+1. <MathJax>{"\\((-x)^{s-1} = e^{(s-1) \\log(-x)}\\)"}</MathJax>
+
+where the integral has the meaning just specified.
+This equation now gives the value of the function ζ(s) for all complex
+numbers s and shows that this function is one-valued 
+and finite for all finite values of s with the exception of 1, 
+and also that it is zero if s is equal to a negative even integer.
+If the real part of s is negative, 
+then, instead of being taken in a pos- itive sense around the specified domain, 
+this integral can also be taken in a negative sense around 
+that domain containing all the remaining complex quantities, 
+since the integral taken though values of infinitely large modulus is then infinitely small. 
+However, in the interior of this domain, 
+the inte- grand has discontinuities only where x becomes equal to a whole multiple of ±2πi, 
+and the integral is thus equal to the sum of the integrals taken in a negative sense around these values. 
+But the integral around the value n2πi is = (−n2πi)s−1(−2πi), one obtains from this
+
+여기서 적분은 방금 지정한 의미를 갖습니다.
+이 방정식은 이제 모든 복소수 s에 대한 함수 ζ(s)의 값을 제공하고 이 함수가 1값을 갖고 1을 제외한 모든 유한한 s 값에 대해 유한하며
+또한 s가 음의 짝수 정수와 같으면 0임을 보여줍니다.
+s의 실수 부분이 음수이면
+지정된 도메인 주위에서 양의 의미로 취해지는 대신
+이 적분은 나머지 모든 복소수를 포함하는 도메인 주위에서 음의 의미로 취해질 수도 있습니다.
+무한히 큰 모듈러스 값을 통해 취해진 적분은 무한히 작기 때문입니다.
+그러나 이 도메인의 내부에서
+적분은 x가 ±2πi의 정수배가 되는 곳에서만 불연속성을 가지며
+따라서 적분은 이러한 값 주위에서 음의 의미로 취해진 적분의 합과 같습니다.
+그러나 n2πi 값 주위의 적분은 = (−n2πi)s−1(−2πi)이고, 여기서 다음을 얻습니다.
+
+<div style={{
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  flexDirection: 'column',
+  fontSize: '1.5rem',
+}}>
+<MathJax>{"\\(\\Gamma \\left(\\frac{s}{2} - 1 \\right) \\pi^{- \\frac{s}{2}} \\zeta(s)\\)"}</MathJax>
+</div>
+<div style={{
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  flexDirection: 'column',
+  fontSize: '1.5rem',
+}}>
+<MathJax>{"\\(\\Gamma \\left(\\frac{s}{2} \\right) (s-1) \\pi^{- \\frac{s}{2}} \\zeta(s) = \\xi(t)\\)"}</MathJax>
+</div>
+<div style={{
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  flexDirection: 'column',
+  fontSize: '1.5rem',
+}}>
+<MathJax>{"\\(\\xi(t) = \\frac{1}{2} - \\left(t^2 + \\frac{1}{4}\\right) \\int_{1}^{\\infty} \\psi(x) x^{-\\frac{3}{4}} \\cos\\left(\\frac{1}{2} t \\log x\\right) dx\\)"}</MathJax>
+</div>
+<div style={{
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  flexDirection: 'column',
+  fontSize: '1.5rem',
+}}>
+<MathJax>{"\\(\\xi(t) = 4 \\int_{1}^{\\infty} \\frac{d(x^{\\frac{3}{2}} \\psi'(x))}{dx} x^{-\\frac{1}{4}} \\cos\\left(\\frac{1}{2} t \\log x\\right) dx\\)"}</MathJax>
+</div>

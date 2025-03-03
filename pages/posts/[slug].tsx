@@ -49,6 +49,7 @@ import { Comments, Likes } from '@prisma/client';
 import { TAKE } from '../../constants/posts';
 import { Pagination } from '@mantine/core';
 import toast from 'react-hot-toast';
+import { MathJaxContext, MathJax } from 'better-react-mathjax';
 
 type Props = {
   source: MDXRemoteSerializeResult;
@@ -60,6 +61,7 @@ const components = {
   Prerequisites,
   Stacks,
   Image,
+  MathJax,
 };
 
 export interface ICreateCommentForm {
@@ -300,7 +302,9 @@ const PostPage = ({ source, frontMatter, ip }: Props): JSX.Element => {
         </div>
         <article className="max-w-5xl px-8 py-16 mx-auto">
           <div className="prose dark:prose-invert max-w-none mdx-wrapper">
-            <MDXRemote components={components} {...source} />
+            <MathJaxContext>
+              <MDXRemote components={components} {...source} />
+            </MathJaxContext>
             <div className="user-wrap flex items-center">
               <div className="w-4/12 h-full flex justify-center items-center ">
                 <Image
@@ -471,27 +475,32 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const { slug } = context.params as Iparams;
   // get the slug
   const { content, data } = getPost(slug);
+  try {
+    const mdxSource = await serialize(content, {
+      mdxOptions: {
+        format: 'mdx',
+        remarkPlugins: [
+          require('remark-code-titles'),
+          remarkPrism,
+          remarkGfm,
+          remarkMath,
+          remarkFrontmatter,
+        ],
+        rehypePlugins: [rehypeSlug, rehypeAutolinkHeadings],
+      },
+      scope: data,
+    });
 
-  // serialize the data on the server side
-  const mdxSource = await serialize(content, {
-    mdxOptions: {
-      remarkPlugins: [
-        require('remark-code-titles'),
-        remarkPrism,
-        remarkGfm,
-        remarkMath,
-        remarkFrontmatter,
-      ],
-      rehypePlugins: [rehypeSlug, rehypeAutolinkHeadings],
-    },
-    scope: data,
-  });
-  return {
-    props: {
-      source: mdxSource,
-      frontMatter: data,
-    },
-  };
+    return {
+      props: {
+        source: mdxSource,
+        frontMatter: data,
+      },
+    };
+  } catch (error) {
+    console.error('MDX Serialization Error:', error);
+    throw error;
+  }
 };
 
 export const getStaticPaths: GetStaticPaths = () => {

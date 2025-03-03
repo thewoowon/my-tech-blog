@@ -21,6 +21,7 @@ import { useRouter } from 'next/router';
 import * as gtag from '../lib/gtag';
 import Script from 'next/script';
 import { ThemeProvider } from 'next-themes';
+import 'katex/dist/katex.min.css';
 
 function MyApp({ Component, pageProps }: AppProps) {
   const queryClient = new QueryClient({
