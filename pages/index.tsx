@@ -7,7 +7,7 @@ import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import LightVideoWatcher from '../components/LightVideoWatcher';
-import { IconLock } from '@tabler/icons';
+import { IconLock } from '@tabler/icons-react';
 
 type Props = {
   posts: [IPost];
@@ -45,10 +45,10 @@ const Home: NextPage<Props> = ({ posts }: Props) => {
           justifyContent: 'center',
           alignItems: 'center',
           width: '100%',
-          height: '100px',
+          height: '360px',
           borderRadius: '10px',
           overflow: 'hidden',
-          backgroundColor: '#111111',
+          backgroundColor: '#131313',
           maxWidth: '1024px',
           marginTop: '20px',
         }}

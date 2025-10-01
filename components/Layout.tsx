@@ -18,7 +18,7 @@ const Layout = ({ children, customMeta }: LayoutProps): JSX.Element => {
   return (
     <>
       <Head customMeta={customMeta} />
-      <header className="border-b-2 border-black fixed top-0 z-50 w-full bg-white dark:bg-black text-gray-900 dark:text-white">
+      <header className="border-b-1 border-white fixed top-0 z-50 w-full bg-white dark:bg-black text-gray-900 dark:text-white">
         <div className="max-w-5xl px-8 mx-auto flex">
           <div className="w-6/12 flex" style={{ alignItems: 'center' }}>
             <Link
@@ -27,7 +27,7 @@ const Layout = ({ children, customMeta }: LayoutProps): JSX.Element => {
               style={{
                 fontSize: '20px',
                 fontWeight: 'bold',
-                color: 'black',
+                color: 'white',
                 lineHeight: '22px',
               }}
             >

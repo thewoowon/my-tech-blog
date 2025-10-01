@@ -1,4 +1,4 @@
-import { Navigation, Pagination, A11y, Autoplay } from 'swiper';
+import { Navigation, Pagination, A11y, Autoplay } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -24,7 +24,7 @@ const LightVideoWatcher = (): JSX.Element => {
     >
       <SwiperSlide className="my-swiper-slide">
         {/* <Image src={Preview1} alt="Sample1" width={"100%"} height={450} className="carousel-fit" ></Image> */}
-        <video autoPlay muted loop width={200}>
+        <video autoPlay muted loop width={600}>
           <source src={'/videos/3d_title.mp4'} />
         </video>
       </SwiperSlide>

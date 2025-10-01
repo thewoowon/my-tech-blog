@@ -1,57 +1,58 @@
-.my-wide-swiper{
-    width: 80%;
-    max-height:450px;
+.my-wide-swiper {
+  width: 80%;
+  max-height: 450px;
 }
 
-.my-wide-swiper-slide{
-    width: 100%;
-    height: 100%;
+.my-wide-swiper-slide {
+  width: 100%;
+  height: 100%;
 }
-.my-wide-swiper-slide>span{
-    width: 100% !important;
-    height: 100% !important;
-}
-
-.my-swiper{
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.my-wide-swiper-slide > span {
+  width: 100% !important;
+  height: 100% !important;
 }
 
-.my-swiper-slide{
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-}
-.my-swiper-slide>span{
-    width: 100% !important;
-    height: 100% !important;
-}
-.swiper-button-prev{
-    left:4rem !important;
+.my-swiper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.swiper-button-next{
-    right: 4rem !important;
+.my-swiper-slide {
+  width: 100% !important;
+  height: 100% !important;
+  display: flex !important;
+  justify-content: center;
+}
+.my-swiper-slide > span {
+  width: 100% !important;
+  height: 100% !important;
+}
+.swiper-button-prev {
+  left: 4rem !important;
 }
 
-.carousel-fit{
-    object-fit: cover !important;
+.swiper-button-next {
+  right: 4rem !important;
 }
 
-:root{
-    --swiper-theme-color:white !important;
-    --swiper-pagination-bullet-inactive-color:#ffffff !important;
-    --swiper-pagination-bullet-width:10px !important;
-    --swiper-pagination-bullet-size:10px !important;
-    --swiper-navigation-size:60px !important;
+.carousel-fit {
+  object-fit: cover !important;
 }
 
-.swiper-button-prev{
-    color: white;
+:root {
+  --swiper-theme-color: white !important;
+  --swiper-pagination-bullet-inactive-color: #ffffff !important;
+  --swiper-pagination-bullet-width: 10px !important;
+  --swiper-pagination-bullet-size: 10px !important;
+  --swiper-navigation-size: 60px !important;
 }
-.swiper-button-next{
-    color: white;
+
+.swiper-button-prev {
+  color: white;
+}
+.swiper-button-next {
+  color: white;
 }

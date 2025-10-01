@@ -12,7 +12,7 @@ import Layout from '../../components/Layout';
 import React from 'react';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import rehypeSlug from 'rehype-slug';
-import remarkPrism from 'remark-prism';
+//import remarkPrism from 'remark-prism';
 import remarkGfm from 'remark-gfm';
 import remarkFrontmatter from 'remark-frontmatter';
 import remarkMath from 'remark-math';
@@ -38,17 +38,11 @@ import 'prismjs/components/prism-python.min';
 import 'prismjs/components/prism-csharp.min';
 import 'prismjs/components/prism-c.min';
 
-import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { faThumbsUp } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import Image from 'next/image';
-import { useForm } from 'react-hook-form';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { Comments, Likes } from '@prisma/client';
-import { TAKE } from '../../constants/posts';
-import { Pagination } from '@mantine/core';
-import toast from 'react-hot-toast';
+// import { useForm } from 'react-hook-form';
 import { MathJaxContext, MathJax } from 'better-react-mathjax';
 
 type Props = {
@@ -70,25 +64,15 @@ export interface ICreateCommentForm {
   githubId: string;
 }
 
-const COMMENT_QUERY_KEY = `../api/add-comment`;
-const LIKE_QUERY_KEY = `../api/add-like`;
-
-const PostPage = ({ source, frontMatter, ip }: Props): JSX.Element => {
-  const [name, setName] = useState('');
+const PostPage = ({ source, frontMatter }: Props): JSX.Element => {
+  const [, setName] = useState('');
   const [position, setPosition] = useState('');
   const [division, setDivision] = useState('');
-  const [comment, setComment] = useState('');
-  const [postId, setPostId] = useState('');
-  const [activePage, setPage] = useState(1);
-  const {
-    register,
-    getValues,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<ICreateCommentForm>({
-    mode: 'onChange',
-  });
-  const queryClient = useQueryClient();
+  const [, setComment] = useState('');
+  const [, setPostId] = useState('');
+  // const { getValues } = useForm<ICreateCommentForm>({
+  //   mode: 'onChange',
+  // });
   useEffect(() => {
     Prism.highlightAll();
   }, []);
@@ -125,115 +109,115 @@ const PostPage = ({ source, frontMatter, ip }: Props): JSX.Element => {
       .classList.add('animate-like');
   };
 
-  const { mutate: addLike, isLoading } = useMutation<
-    unknown,
-    unknown,
-    Omit<Likes, 'id' | 'updatedAt' | 'createdAt' | 'host'>,
-    any
-  >(
-    (item) =>
-      fetch(`../api/add-like`, {
-        method: 'POST',
-        body: JSON.stringify({ item }),
-      })
-        .then((res) => res.json())
-        .then((data) => data.items),
-    {
-      onMutate: () => {
-        queryClient.invalidateQueries([LIKE_QUERY_KEY]);
-      },
-      onSuccess: (data, variables, context) => {
-        toast.success('감사합니다!', {
-          icon: '👏',
-          position: 'top-right',
-        });
-        queryClient.invalidateQueries([
-          `../api/get-likes?postId=${frontMatter.name}`,
-        ]);
-      },
-    }
-  );
+  // const { mutate: addLike, isPending } = useMutation<
+  //   unknown,
+  //   unknown,
+  //   Omit<Likes, 'id' | 'updatedAt' | 'createdAt' | 'host'>,
+  //   any
+  // >(
+  //   (item) =>
+  //     fetch(`../api/add-like`, {
+  //       method: 'POST',
+  //       body: JSON.stringify({ item }),
+  //     })
+  //       .then((res) => res.json())
+  //       .then((data) => data.items),
+  //   {
+  //     onMutate: () => {
+  //       queryClient.invalidateQueries([LIKE_QUERY_KEY]);
+  //     },
+  //     onSuccess: (data, variables, context) => {
+  //       toast.success('감사합니다!', {
+  //         icon: '👏',
+  //         position: 'top-right',
+  //       });
+  //       queryClient.invalidateQueries([
+  //         `../api/get-likes?postId=${frontMatter.name}`,
+  //       ]);
+  //     },
+  //   },
+  // );
 
-  const { mutate: addComment } = useMutation<
-    unknown,
-    unknown,
-    Omit<Comments, 'id' | 'updatedAt' | 'createdAt'>,
-    any
-  >(
-    (item) =>
-      fetch(`../api/add-comment`, {
-        method: 'POST',
-        body: JSON.stringify({ item }),
-      })
-        .then((res) => res.json())
-        .then((data) => data.items),
-    {
-      onMutate: () => {
-        queryClient.invalidateQueries([COMMENT_QUERY_KEY]);
-      },
-      onSuccess: (data, variables, context) => {
-        toast.success('댓글 등록 완료', {
-          position: 'top-right',
-        });
-        //comments.push(data as Comments)
-        queryClient.invalidateQueries([
-          `../api/get-comments-count?postId=${frontMatter.name}`,
-        ]);
-        queryClient.invalidateQueries([
-          `../api/get-comments?skip=0&take=5&postId=${frontMatter.name}`,
-        ]);
-      },
-    }
-  );
+  // const { mutate: addComment } = useMutation<
+  //   unknown,
+  //   unknown,
+  //   Omit<Comments, 'id' | 'updatedAt' | 'createdAt'>,
+  //   any
+  // >(
+  //   (item) =>
+  //     fetch(`../api/add-comment`, {
+  //       method: 'POST',
+  //       body: JSON.stringify({ item }),
+  //     })
+  //       .then((res) => res.json())
+  //       .then((data) => data.items),
+  //   {
+  //     onMutate: () => {
+  //       queryClient.invalidateQueries([COMMENT_QUERY_KEY]);
+  //     },
+  //     onSuccess: (data, variables, context) => {
+  //       toast.success('댓글 등록 완료', {
+  //         position: 'top-right',
+  //       });
+  //       //comments.push(data as Comments)
+  //       queryClient.invalidateQueries([
+  //         `../api/get-comments-count?postId=${frontMatter.name}`,
+  //       ]);
+  //       queryClient.invalidateQueries([
+  //         `../api/get-comments?skip=0&take=5&postId=${frontMatter.name}`,
+  //       ]);
+  //     },
+  //   },
+  // );
 
-  const onSubmit = () => {
-    const { email, contents, githubId } = getValues();
-    addComment({
-      email: email,
-      contents: contents,
-      github: githubId,
-      postId: postId,
-    });
-  };
+  // const onSubmit = () => {
+  //   const { email, contents, githubId } = getValues();
+  //   // addComment({
+  //   //   email: email,
+  //   //   contents: contents,
+  //   //   github: githubId,
+  //   //   postId: postId,
+  //   // });
+  // };
 
-  const { data: total } = useQuery(
-    [`../api/get-comments-count?postId=${frontMatter.name}`],
-    () =>
-      fetch(`../api/get-comments-count?postId=${frontMatter.name}`)
-        .then((res) => res.json())
-        .then((data) => Math.ceil(data.items / TAKE))
-  );
+  // const { data: total } = useQuery(
+  //   [`../api/get-comments-count?postId=${frontMatter.name}`],
+  //   () =>
+  //     fetch(`../api/get-comments-count?postId=${frontMatter.name}`)
+  //       .then((res) => res.json())
+  //       .then((data) => Math.ceil(data.items / TAKE)),
+  // );
 
-  const { data: likesList } = useQuery<{ items: Likes[] }, unknown, Likes[]>(
-    [`../api/get-likes?postId=${frontMatter.name}`],
-    () =>
-      fetch(`../api/get-likes?postId=${frontMatter.name}`).then((res) =>
-        res.json()
-      ),
-    {
-      select: (data) => data.items,
-    }
-  );
-  const { data: comments } = useQuery<
-    { items: Comments[] },
-    unknown,
-    Comments[]
-  >(
-    [
-      `../api/get-comments?skip=${
-        TAKE * (activePage - 1)
-      }&take=${TAKE}&postId=${frontMatter.name}`,
-    ],
-    () =>
-      fetch(
-        `../api/get-comments?skip=${
-          TAKE * (activePage - 1)
-        }&take=${TAKE}&postId=${frontMatter.name}`
-      ).then((res) => res.json()),
-    {
-      select: (data) => data.items,
-    }
-  );
+  // const { data: likesList } = useQuery<{ items: Likes[] }, unknown, Likes[]>(
+  //   [`../api/get-likes?postId=${frontMatter.name}`],
+  //   () =>
+  //     fetch(`../api/get-likes?postId=${frontMatter.name}`).then((res) =>
+  //       res.json(),
+  //     ),
+  //   {
+  //     select: (data) => data.items,
+  //   },
+  // );
+  // const { data: comments } = useQuery<
+  //   { items: Comments[] },
+  //   unknown,
+  //   Comments[]
+  // >(
+  //   [
+  //     `../api/get-comments?skip=${
+  //       TAKE * (activePage - 1)
+  //     }&take=${TAKE}&postId=${frontMatter.name}`,
+  //   ],
+  //   () =>
+  //     fetch(
+  //       `../api/get-comments?skip=${
+  //         TAKE * (activePage - 1)
+  //       }&take=${TAKE}&postId=${frontMatter.name}`,
+  //     ).then((res) => res.json()),
+  //   {
+  //     select: (data) => data.items,
+  //   },
+  // );
 
   return (
     <React.Fragment>
@@ -267,9 +251,8 @@ const PostPage = ({ source, frontMatter, ip }: Props): JSX.Element => {
               <div className="flex justify-center items-center">
                 <div className="pr-4">
                   <FontAwesomeIcon icon={faThumbsUp} className="pr-2" />
-                  {likesList
-                    ? likesList.filter((item: Likes) => item.type === 1).length
-                    : 0}
+                  {/* {[] ? [].filter((item: Likes) => item.type === 1).length : 0} */}
+                  0
                 </div>
               </div>
               <span className="mx-auto"></span>
@@ -277,13 +260,13 @@ const PostPage = ({ source, frontMatter, ip }: Props): JSX.Element => {
                 className="btn-gentle like-review"
                 onClick={(e) => {
                   gentleEffect(e);
-                  addLike({
-                    postId: postId,
-                    type: 1,
-                  });
+                  // addLike({
+                  //   postId: postId,
+                  //   type: 1,
+                  // });
                 }}
               >
-                {isLoading ? (
+                {/* {isPending ? (
                   <FontAwesomeIcon
                     icon={faSpinner}
                     className="fa-spin "
@@ -294,7 +277,11 @@ const PostPage = ({ source, frontMatter, ip }: Props): JSX.Element => {
                     icon={faThumbsUp}
                     style={{ marginRight: '5px' }}
                   />
-                )}
+                )} */}
+                <FontAwesomeIcon
+                  icon={faThumbsUp}
+                  style={{ marginRight: '5px' }}
+                />
                 Good
               </button>
             </div>
@@ -305,7 +292,7 @@ const PostPage = ({ source, frontMatter, ip }: Props): JSX.Element => {
             <MathJaxContext>
               <MDXRemote components={components} {...source} />
             </MathJaxContext>
-            <div className="user-wrap flex items-center">
+            <div className="user-wrap flex items-center bg-amber-900">
               <div className="w-4/12 h-full flex justify-center items-center ">
                 <Image
                   src={
@@ -317,11 +304,14 @@ const PostPage = ({ source, frontMatter, ip }: Props): JSX.Element => {
                   style={{ borderRadius: '50%', objectFit: 'fill' }}
                 />
               </div>
-              <div className="w-8/12 h-full dark:text-black">
+              <div
+                className="w-8/12 h-full dark:text-white
+              "
+              >
                 <div className="flex items-center pl-5 pr-12 h-1/2">
                   <div className="pt-5">
                     <h4
-                      className="dark:text-black"
+                      className="dark:text-white"
                       style={{ marginBottom: '0' }}
                     >
                       {' '}
@@ -340,7 +330,7 @@ const PostPage = ({ source, frontMatter, ip }: Props): JSX.Element => {
           </div>
         </article>
         <div className="dark:bg-black flex flex-col justify-center items-center mx-auto w-full border-t-2 border-b-2 border-black py-20">
-          <div
+          {/* <div
             className="w-full"
             style={{ minWidth: '360px', maxWidth: '920px', minHeight: '300px' }}
           >
@@ -408,8 +398,8 @@ const PostPage = ({ source, frontMatter, ip }: Props): JSX.Element => {
                 </button>
               </div>
             </form>
-          </div>
-          <div
+          </div> */}
+          {/* <div
             className="w-full"
             style={{ minWidth: '360px', maxWidth: '920px', minHeight: '300px' }}
           >
@@ -454,7 +444,7 @@ const PostPage = ({ source, frontMatter, ip }: Props): JSX.Element => {
                 color="dark"
               />
             ) : null}
-          </div>
+          </div> */}
         </div>
 
         {/* {
@@ -480,8 +470,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
       mdxOptions: {
         format: 'mdx',
         remarkPlugins: [
-          require('remark-code-titles'),
-          remarkPrism,
+          // require('remark-code-titles'),
           remarkGfm,
           remarkMath,
           remarkFrontmatter,

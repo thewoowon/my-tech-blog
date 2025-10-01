@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 import { getAllPosts } from '../../utils/mdxUtils';
 import { useRouter } from 'next/router';
-import { IconLock } from '@tabler/icons';
+import { IconLock } from '@tabler/icons-react';
 
 type Props = {
   posts: [IPost];
