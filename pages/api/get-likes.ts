@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { PrismaClient } from '@prisma/client';
 import { NextApiRequest, NextApiResponse } from 'next';
 
@@ -16,8 +17,8 @@ async function getLikes(postId: string, hostName: string) {
       where: where,
     });
     return response;
-  } catch (error) {
-    console.error(error);
+  } catch (_error) {
+    console.error(_error);
   }
 }
 
@@ -28,7 +29,7 @@ type Data = {
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<Data>
+  res: NextApiResponse<Data>,
 ) {
   const { postId } = req.query;
   try {

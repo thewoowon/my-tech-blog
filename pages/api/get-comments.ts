@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { PrismaClient } from '@prisma/client';
 import { NextApiRequest, NextApiResponse } from 'next';
 
@@ -18,8 +19,8 @@ async function getComments(skip: number, take: number, postId: string) {
       orderBy: { createdAt: 'desc' },
     });
     return response;
-  } catch (error) {
-    console.error(error);
+  } catch (_error) {
+    console.error(_error);
   }
 }
 
@@ -30,14 +31,14 @@ type Data = {
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<Data>
+  res: NextApiResponse<Data>,
 ) {
   const { skip, take, postId } = req.query;
   try {
     const comments = await getComments(
       Number(skip),
       Number(take),
-      String(postId)
+      String(postId),
     );
     res.status(200).json({ items: comments, message: 'Success' });
   } catch (error) {

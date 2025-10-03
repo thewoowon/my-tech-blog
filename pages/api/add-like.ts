@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { PrismaClient } from '@prisma/client';
 
@@ -23,8 +24,8 @@ async function addLike(type: number, postId: string, hostName: string) {
       },
     });
     return response;
-  } catch (error) {
-    console.error(error);
+  } catch (_error) {
+    console.error(_error);
   }
 }
 
@@ -35,17 +36,17 @@ type Data = {
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<Data>
+  res: NextApiResponse<Data>,
 ) {
   const { item } = JSON.parse(req.body);
   try {
     const like = await addLike(
       item.type,
       item.postId,
-      IP6to4(req.socket.remoteAddress)
+      IP6to4(req.socket.remoteAddress),
     );
     res.status(200).json({ items: like, message: 'Success' });
-  } catch (error) {
+  } catch (_error) {
     res.status(400).json({ message: 'Failed' });
   }
 }

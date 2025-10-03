@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { PrismaClient } from '@prisma/client';
 
@@ -48,13 +49,13 @@ type Data = {
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<Data>
+  res: NextApiResponse<Data>,
 ) {
   const { item } = JSON.parse(req.body);
   try {
     const comment = await addComment(item);
     res.status(200).json({ items: comment, message: 'Success' });
-  } catch (error) {
+  } catch (_error) {
     res.status(400).json({ message: 'Failed' });
   }
 }

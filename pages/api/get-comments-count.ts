@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { PrismaClient } from '@prisma/client';
 
@@ -13,8 +14,8 @@ async function getCommentsCount(postId: string) {
   try {
     const response = await prisma.comments.count({ where: where });
     return response;
-  } catch (error) {
-    console.error(error);
+  } catch (_error) {
+    console.error(_error);
   }
 }
 
