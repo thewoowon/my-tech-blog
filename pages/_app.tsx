@@ -73,7 +73,7 @@ function MyApp({ Component, pageProps }: AppProps) {
             />
             <Component {...pageProps} />
             <Toaster />
-            {toggle ? (
+            {/* {toggle ? (
               <div className="z-30 sticky bottom-10 mr-10 flex justify-end items-center">
                 <div className="flex flex-col">
                   <Chatbot
@@ -107,7 +107,7 @@ function MyApp({ Component, pageProps }: AppProps) {
                   alt="logo"
                 ></Image>
               </div>
-            )}
+            )} */}
           </MDXProvider>
         </MdxComponentsProvider>
       </QueryClientProvider>

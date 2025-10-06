@@ -12,24 +12,28 @@ const config = {
   botName: '우원',
   customStyles: {
     botMessageBox: {
-      backgroundColor: '#5BC0F8',
+      color: '#000000',
+      backgroundColor: '#000000',
     },
     chatButton: {
-      backgroundColor: '#FFC93C',
+      color: '#000000',
+      backgroundColor: '#000000',
     },
     chatInput: {
-      backgroundColor: '#FFC93C',
+      color: '#000000',
+      backgroundColor: '#000000',
     },
     userMessageBox: {
-      backgroundColor: '#FFC93C',
+      color: '#000000',
+      backgroundColor: '#000000',
     },
     userMessageText: {
-      color: '#5BC0F8',
+      color: '#000000',
     },
   },
   customComponents: {
     header: () => (
-      <div className="flex justify-center items-center py-5 bg-gray-100">
+      <div className="flex justify-center items-center py-5 bg-gray-900">
         저와 함께 대화해요
       </div>
     ),
